@@ -14,9 +14,9 @@ export type MainTabParamList = {
 };
 
 export type RootStackParamList = {
-  MainTabs: undefined;
-  RoadmapDetail: { roadmapId: string; enrollmentId?: number };
-  StepContent: {
+  [NAVIGATION_ROUTES.root.mainTabs]: undefined;
+  [NAVIGATION_ROUTES.root.roadmapDetail]: { roadmapId: string; enrollmentId?: number };
+  [NAVIGATION_ROUTES.root.stepContent]: {
     enrollmentId: number;
     stepId: string;
     stepTitle: string;
