@@ -1,37 +1,49 @@
 # Error Handling
 
-## Purpose
+## Error envelope
 
-This document defines a consistent error handling strategy for the Skillar Mobile application.
+The backend returns the standard error response defined in [API Contract](./API_CONTRACT.md):
 
-## Principles
+```json
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "The request contains invalid fields.",
+    "details": []
+  },
+  "meta": {
+    "requestId": "request-id"
+  }
+}
+```
 
-- Handle errors close to their source.
-- Present user-friendly messages.
-- Avoid exposing internal implementation details.
-- Log unexpected failures for diagnostics.
+## Client behavior
 
-## Error Flow
+| Condition | Client behavior |
+|---|---|
+| Network unavailable | Show a connection message and retry action |
+| Request timeout | Allow retry |
+| Request cancelled | Do not show as a server failure |
+| 400 / 422 | Show safe validation message or field details |
+| 401 | Attempt one token refresh for protected calls |
+| 403 | Show access denied; clear session only when refresh itself is rejected |
+| 404 | Show resource unavailable |
+| 409 | Explain that the requested operation conflicts with current state |
+| 429 | Respect `Retry-After` when supplied |
+| 5xx | Show service unavailable and allow retry |
 
-Service → Repository → Hook → Screen
+## Rules
 
-Each layer should translate errors into a format appropriate for the next layer.
+- Do not parse server message text to determine behavior. Use HTTP status and stable error codes.
+- Do not expose stack traces or internal backend messages.
+- Do not retry mutations automatically unless the operation is idempotent.
+- Use idempotency keys for enrollment creation and assessment submission.
+- Keep diagnostic request IDs available for support, but never log passwords or tokens.
+- Treat response JSON as `unknown` until it passes a runtime parser.
+- Use the shared `ApiError` type for transport and backend failures.
 
-## Error Categories
+## Implementation
 
-- Network errors
-- Authentication errors
-- Validation errors
-- Server errors
-- Unknown errors
-
-## Guidelines
-
-- Do not swallow exceptions silently.
-- Retry transient failures where appropriate.
-- Display actionable feedback to users.
-- Record diagnostic information without exposing sensitive data.
-
-## Future Enhancements
-
-This guide will be expanded with error codes, retry policies, logging integrations, and monitoring recommendations.
+- `src/core/api/api-client.ts`: transport and response parsing.
+- `src/core/api/api-error.ts`: normalized API error.
+- `src/core/constants/app.constants.ts`: stable error codes and user-facing messages.
