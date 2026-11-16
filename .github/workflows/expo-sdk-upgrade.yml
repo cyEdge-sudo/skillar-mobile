@@ -38,6 +38,9 @@ jobs:
       - name: Install required icon font dependency
         run: npx expo install expo-font
 
+      - name: Install splash screen dependency
+        run: npx expo install expo-splash-screen
+
       - name: Run Expo Doctor
         run: npx expo-doctor
 
