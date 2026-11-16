@@ -126,7 +126,7 @@ API routes in the mobile constants file describe the agreed target contract. The
 
 ## Branching
 
-Use feature branches and pull requests. Keep `main` as the protected integration branch. Do not push feature work directly to `main`.
+Use feature branches and pull requests. Keep `main` as the integration branch and do not push feature work directly to it. Configure branch protection using [the repository policy](docs/engineering/governance/BRANCH_PROTECTION.md).
 
 Use Conventional Commits, for example:
 
