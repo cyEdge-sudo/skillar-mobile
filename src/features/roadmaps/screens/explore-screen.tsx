@@ -13,14 +13,15 @@ import { AppButton, AppCard, AppChip, AppText, Screen } from "../../../shared/co
 import { useTheme } from "../../../shared/theme";
 import { useEnrollRoadmap, useRoadmaps } from "../use-roadmaps";
 import { useLearningEnrollments } from "../../learning/use-learning";
+import { NAVIGATION_ROUTES, UI_COPY } from "../../../core/constants/app.constants";
 import type { RoadmapLevel, RoadmapSummary } from "../types";
 import type { RootStackParamList } from "../../../app/navigation/navigation-types";
 
 const LEVEL_FILTERS: Array<{ label: string; value: RoadmapLevel | null }> = [
-  { label: "All levels", value: null },
-  { label: "Beginner", value: "beginner" },
-  { label: "Intermediate", value: "intermediate" },
-  { label: "Advanced", value: "advanced" },
+  { label: UI_COPY.roadmaps.levelFilters.all, value: null },
+  { label: UI_COPY.roadmaps.levelFilters.beginner, value: "beginner" },
+  { label: UI_COPY.roadmaps.levelFilters.intermediate, value: "intermediate" },
+  { label: UI_COPY.roadmaps.levelFilters.advanced, value: "advanced" },
 ];
 
 export function ExploreScreen() {
@@ -97,11 +98,11 @@ export function ExploreScreen() {
 
         <View style={styles.metadata}>
           <AppText variant="labelMedium" color="textSecondary">
-            {item.totalHours} hours
+            {item.totalHours} {UI_COPY.roadmaps.hoursSuffix}
           </AppText>
           {item.estimatedWeeks !== null ? (
             <AppText variant="labelMedium" color="textSecondary">
-              {item.estimatedWeeks} weeks
+              {item.estimatedWeeks} {UI_COPY.roadmaps.weeksSuffix}
             </AppText>
           ) : null}
         </View>
@@ -118,13 +119,13 @@ export function ExploreScreen() {
           variant="outline"
           onPress={() => {
             const enrollment = enrollments.find((entry) => entry.roadmapId === item.id);
-            navigation.navigate("RoadmapDetail", {
+            navigation.navigate(NAVIGATION_ROUTES.root.roadmapDetail, {
               roadmapId: item.id,
               ...(enrollment ? { enrollmentId: enrollment.enrollmentId } : {}),
             });
           }}
         >
-          View details
+          {UI_COPY.roadmaps.viewDetails}
         </AppButton>
         <AppButton
           onPress={() => {
@@ -137,7 +138,7 @@ export function ExploreScreen() {
             isEnrolled ? item.title + " enrolled" : "Enroll in " + item.title
           }
         >
-          {isEnrolled ? "Enrolled" : "Enroll"}
+          {isEnrolled ? UI_COPY.roadmaps.enrolled : UI_COPY.roadmaps.enroll}
         </AppButton>
       </AppCard>
     );
@@ -147,9 +148,9 @@ export function ExploreScreen() {
     <Screen>
       <View style={styles.content}>
         <View style={styles.heading}>
-          <AppText variant="headlineSmall">Explore roadmaps</AppText>
+          <AppText variant="headlineSmall">{UI_COPY.roadmaps.exploreTitle}</AppText>
           <AppText color="textSecondary">
-            Find a learning path that matches your goals.
+            {UI_COPY.roadmaps.exploreDescription}
           </AppText>
         </View>
 
@@ -157,7 +158,7 @@ export function ExploreScreen() {
           value={searchInput}
           onChangeText={setSearchInput}
           onSubmitEditing={() => setSearchQuery(searchInput.trim())}
-          placeholder="Search roadmaps"
+          placeholder={UI_COPY.roadmaps.searchPlaceholder}
           placeholderTextColor={colors.textSecondary}
           returnKeyType="search"
           accessibilityLabel="Search roadmaps"
@@ -180,11 +181,11 @@ export function ExploreScreen() {
         {roadmapsQuery.isLoading ? (
           <View style={styles.message}>
             <ActivityIndicator size="large" color={colors.primary} />
-            <AppText color="textSecondary">Loading roadmaps…</AppText>
+            <AppText color="textSecondary">{UI_COPY.roadmaps.loading}</AppText>
           </View>
         ) : roadmapsQuery.isError ? (
           <View style={styles.error}>
-            <AppText variant="titleMedium">Roadmaps are unavailable</AppText>
+            <AppText variant="titleMedium">{UI_COPY.roadmaps.unavailable}</AppText>
             <AppText color="textSecondary">
               {roadmapsQuery.error instanceof Error
                 ? roadmapsQuery.error.message
@@ -210,7 +211,7 @@ export function ExploreScreen() {
             onRefresh={() => void roadmapsQuery.refetch()}
             ListEmptyComponent={
               <AppText color="textSecondary" style={styles.message}>
-                No roadmaps match your search.
+                {UI_COPY.roadmaps.noMatches}
               </AppText>
             }
             ListFooterComponent={
