@@ -245,7 +245,7 @@ export async function apiRequest<TData>(
   const response = await fetchWithTimeout(
     getApiUrl(path),
     {
-      method: options.method ?? "GET",
+      method: options.method ?? HTTP_METHODS.GET,
       headers,
       body:
         options.body === undefined ? undefined : JSON.stringify(options.body),
