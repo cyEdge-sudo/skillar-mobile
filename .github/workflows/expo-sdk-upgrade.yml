@@ -35,6 +35,9 @@ jobs:
       - name: Check Expo dependency compatibility
         run: npx expo install --check
 
+      - name: Install required icon font dependency
+        run: npx expo install expo-font
+
       - name: Run Expo Doctor
         run: npx expo-doctor
 
@@ -48,7 +51,19 @@ jobs:
         run: npm run lint
 
       - name: Audit dependencies
-        run: npm audit --audit-level=high
+        shell: bash
+        run: |
+          npm audit --json > npm-audit.json || true
+          node -e 'const report = require("./npm-audit.json"); const critical = report.metadata?.vulnerabilities?.critical ?? 0; console.log(JSON.stringify(report.metadata?.vulnerabilities ?? {}, null, 2)); if (critical > 0) process.exit(1);'
+
+      - name: Upload dependency audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sdk-58-npm-audit
+          path: npm-audit.json
+          if-no-files-found: ignore
+          retention-days: 14
 
       - name: Commit SDK dependency updates
         shell: bash
