@@ -15,9 +15,9 @@ export type MainTabParamList = {
 
 export type RootStackParamList = {
   [NAVIGATION_ROUTES.root.mainTabs]: undefined;
-  [NAVIGATION_ROUTES.root.roadmapDetail]: { roadmapId: string; enrollmentId?: number };
+  [NAVIGATION_ROUTES.root.roadmapDetail]: { roadmapId: string; enrollmentId?: string };
   [NAVIGATION_ROUTES.root.stepContent]: {
-    enrollmentId: number;
+    enrollmentId: string;
     stepId: string;
     stepTitle: string;
     progressStatus: "not_started" | "in_progress" | "completed";

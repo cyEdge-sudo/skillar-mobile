@@ -1,7 +1,9 @@
+import type { StepContentBlock } from "./content-types";
+
 export type StepProgressStatus = "not_started" | "in_progress" | "completed";
 
 export interface LearningEnrollment {
-  enrollmentId: number;
+  enrollmentId: string;
   roadmapId: string;
   title: string;
   status: string;
@@ -42,7 +44,7 @@ export interface EnrolledRoadmapMilestone {
 }
 
 export interface EnrollmentDetail {
-  enrollmentId: number;
+  enrollmentId: string;
   roadmapId: string;
   status: string;
   startedAt: string | null;
@@ -68,6 +70,7 @@ export interface StepContent {
   title: string;
   contentMarkdown: string | null;
   video: StepVideo | null;
+  contentBlocks: StepContentBlock[];
 }
 
 export interface AssessmentOption {

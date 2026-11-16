@@ -58,7 +58,7 @@ export interface RoadmapListFilters {
 }
 
 export interface RoadmapEnrollment {
-  enrollmentId: number;
+  enrollmentId: string;
   roadmapId: string;
   status: string;
   enrolledAt: string;
