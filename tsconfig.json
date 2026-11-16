@@ -3,10 +3,10 @@
   "compilerOptions": {
     "paths": {
       "@/*": [
-        "src/*"
+        "./src/*"
       ],
       "@assets/*": [
-        "assets/*"
+        "./assets/*"
       ]
     },
     "strict": true,
@@ -23,7 +23,6 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "baseUrl": "."
+    "skipLibCheck": true
   }
 }
