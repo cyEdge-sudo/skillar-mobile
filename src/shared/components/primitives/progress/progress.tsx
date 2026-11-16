@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ViewProps, StyleSheet } from 'react-native';
+import { View, ViewProps, StyleSheet, type ViewInstance } from 'react-native';
 
 export interface ProgressProps extends ViewProps {
     progress: number; // 0–1
@@ -8,7 +8,7 @@ export interface ProgressProps extends ViewProps {
     trackColor?: string;
 }
 
-export const Progress = React.forwardRef<View, ProgressProps>(
+export const Progress = React.forwardRef<ViewInstance, ProgressProps>(
     ({
         progress,
         height = 8,
