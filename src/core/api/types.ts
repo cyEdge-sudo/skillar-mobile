@@ -8,9 +8,9 @@ export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
 export interface ApiRequestOptions {
   method?: HttpMethod;
-  body?: unknown;
+  body?: JsonValue;
   authenticated?: boolean;
-  headers?: Record<string, string>;
+  headers?: Readonly<Record<string, string>>;
   idempotencyKey?: string;
   signal?: AbortSignal;
   retryAuth?: boolean;
