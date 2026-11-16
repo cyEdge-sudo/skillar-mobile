@@ -1,4 +1,9 @@
 /** Central registry for reusable app strings and fixed values. */
+export const FEATURE_FLAGS = {
+  // Enable only after backend PR #684 is merged, deployed, and smoke-tested.
+  journeys: false,
+} as const;
+
 export const APP_CONSTANTS = {
   NAME: "Skillar",
   API_VERSION_PREFIX: "/api/v1",
