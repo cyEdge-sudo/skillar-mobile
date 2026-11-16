@@ -12,7 +12,7 @@ The client uses the authenticated API v1 routes implemented by the backend mobil
 
 The mobile service validates the response envelope at the API boundary. It does not perform client-side security-tag filtering. The backend remains responsible for learner ownership, organization scope, and stage-unlock authorization.
 
-These routes are currently defined in the backend branch `feature/mobile-journeys-api` (PR #684). The mobile feature must not be treated as fully integrated in a deployed environment until that backend change is merged and deployed.
+These routes are currently defined in the backend branch `feature/mobile-journeys-api` (PR #684). The navigation and detail route are disabled by default through `FEATURE_FLAGS.journeys`. Enable the flag only after that backend change is merged, deployed, and smoke-tested against the configured API environment.
 
 ## Supported activity behavior
 
