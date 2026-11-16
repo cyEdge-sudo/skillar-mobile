@@ -397,7 +397,53 @@ Assessment submission request:
 
 Submission uses an `Idempotency-Key`. The backend owns scoring and must return the attempt result and feedback allowed for the learner.
 
-## 6. Error codes
+## 6. Journeys
+
+Journeys are learner assignments. The backend owns audience filtering, stage gating, completion rules and progress calculation. The mobile app must not infer access from hidden UI.
+
+### List assigned journeys
+
+`GET /me/journeys?limit=20&cursor=[CURSOR]`
+
+Returns the authenticated learner's journey enrollments for the token's organization. Uses the standard cursor pagination envelope.
+
+Each item contains:
+- Enrollment: `enrollmentId`, `status`, `enrolledAt`, `dueAt`, `completedAt`, `currentStagePosition`
+- Journey: `id`, `title`, `description`, `type`, `durationDays`
+- Progress: `percent`, `totalStages`, `completedStages`, `totalActivities`, `completedActivities`
+- `nextActivity`: the next activity in an unlocked stage, or `null`
+
+### Journey enrollment details
+
+`GET /journeys/enrollments/:enrollmentId`
+
+Returns the learner's journey, ordered stages, ordered activities, stage progress, activity progress and assessment attempt summaries.
+
+Activity metadata is filtered by the backend:
+- `TASK`: task instructions and duration
+- `VIDEO`: content URL and duration
+- `DOCUMENT`: file display name and availability flag. Storage keys are never returned.
+- `ROADMAP`: linked roadmap ID
+- `ASSESSMENT`: question text and options only. Correct answers and scoring keys are never returned.
+- `ACKNOWLEDGEMENT`: acknowledgement text
+
+### Complete an activity
+
+`POST /journeys/enrollments/:enrollmentId/activities/:activityId/complete`
+
+No request body is required. The backend verifies enrollment ownership, organization scope, stage unlock state and activity type. It then persists completion and advances the stage or journey when the required activities are complete.
+
+This endpoint does not complete `ASSESSMENT` or `ROADMAP` activities:
+- Assessment activities remain read-only until a dedicated attempt/submission API is implemented.
+- Roadmap activities are completed by completing the linked roadmap.
+
+### Current mobile limitations
+
+- Document activities do not yet have a signed-URL endpoint. The app must show an unsupported-content message and must not use an S3 key as a public URL.
+- Assessment activities can be reviewed but cannot be submitted from mobile yet.
+- SCORM is not supported in the mobile app.
+
+## 7. Error codes
 
 Initial standard codes:
 
@@ -414,7 +460,7 @@ Initial standard codes:
 
 The backend should use standard HTTP status codes and stable error codes. Mobile behavior must use the code/status, not parse message text.
 
-## 7. Security and operational requirements
+## 8. Security and operational requirements
 
 - All production traffic uses HTTPS.
 - Refresh tokens are revocable and rotated.
@@ -425,7 +471,7 @@ The backend should use standard HTTP status codes and stable error codes. Mobile
 - Create/submit operations support idempotency where specified.
 - Error details never include private learner data or server internals.
 
-## 8. Contract governance
+## 9. Contract governance
 
 1. This document is the mobile/backend agreement until an OpenAPI specification is published.
 2. The backend should publish an OpenAPI 3 specification from NestJS.
