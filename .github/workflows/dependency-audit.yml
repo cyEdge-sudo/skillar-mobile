@@ -1,0 +1,90 @@
+name: Dependency Security Audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "security/**"
+  pull_request:
+    branches:
+      - main
+      - "feature/**"
+      - "security/**"
+  schedule:
+    - cron: "17 5 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: npm dependency audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Run npm audit
+        run: npm audit --json > npm-audit.json
+        continue-on-error: true
+
+      - name: Summarize audit result
+        if: always()
+        run: |
+          if [ ! -s npm-audit.json ]; then
+            echo "npm audit did not produce a report." >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+          node -e '
+            const fs = require("node:fs");
+            const report = JSON.parse(fs.readFileSync("npm-audit.json", "utf8"));
+            const counts = report.metadata?.vulnerabilities;
+            if (!counts) {
+              console.error("Audit report has no vulnerability metadata.");
+              process.exit(1);
+            }
+            const lines = [
+              "## npm audit",
+              "",
+              "| Severity | Count |",
+              "| --- | ---: |",
+              ...Object.entries(counts).filter(([key]) => key !== "total").map(([key, value]) => "| " + key + " | " + value + " |"),
+              "| **Total** | **" + counts.total + "** |"
+            ];
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join("\n") + "\n");
+            console.log(lines.join("\n"));
+          '
+
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-audit-report
+          path: npm-audit.json
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Fail on npm audit findings
+        if: always()
+        run: |
+          if [ ! -s npm-audit.json ]; then
+            exit 1
+          fi
+          node -e '
+            const fs = require("node:fs");
+            const report = JSON.parse(fs.readFileSync("npm-audit.json", "utf8"));
+            const total = report.metadata?.vulnerabilities?.total;
+            if (typeof total !== "number") process.exit(1);
+            process.exit(total > 0 ? 1 : 0);
+          '
