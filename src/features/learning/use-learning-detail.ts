@@ -3,6 +3,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 import { QUERY_KEYS } from "../../core/constants/app.constants";
 import { learningDetailService } from "./learning-detail-service";
@@ -32,15 +33,30 @@ export function useEnrollmentDetail(enrollmentId: string | undefined) {
 
 export function useStepContent(stepId: string) {
   return useQuery({
-    queryKey: ["skillar", "steps", stepId, "content"],
+    queryKey: QUERY_KEYS.stepContent(stepId),
     queryFn: () => learningDetailService.getStepContent(stepId),
     enabled: stepId.length > 0,
   });
 }
 
+export function usePrefetchStepContent(stepId: string | undefined) {
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    if (!stepId) {
+      return;
+    }
+
+    void queryClient.prefetchQuery({
+      queryKey: QUERY_KEYS.stepContent(stepId),
+      queryFn: () => learningDetailService.getStepContent(stepId),
+    });
+  }, [queryClient, stepId]);
+}
+
 export function useStepAssessment(stepId: string, enabled: boolean) {
   return useQuery({
-    queryKey: ["skillar", "steps", stepId, "assessment"],
+    queryKey: QUERY_KEYS.stepAssessment(stepId),
     queryFn: () => learningDetailService.getAssessment(stepId),
     enabled: enabled && stepId.length > 0,
     retry: false,
