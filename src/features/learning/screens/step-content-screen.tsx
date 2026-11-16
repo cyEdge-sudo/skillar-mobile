@@ -12,7 +12,7 @@ import {
 
 import { NAVIGATION_ROUTES, UI_COPY } from "../../../core/constants/app.constants";
 import type { RootStackParamList } from "../../../app/navigation/navigation-types";
-import { AppButton, AppCard, AppText, Screen } from "../../../shared/components";
+import { AppButton, AppCard, AppProgress, AppText, Screen } from "../../../shared/components";
 import { useTheme } from "../../../shared/theme";
 import {
   useStepAssessment,
