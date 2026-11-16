@@ -1,93 +1,80 @@
 # Skillar Mobile Architecture
 
-> Living architecture document.
+## Scope
 
-## Vision
-A production-grade Expo SDK 54 application using React 19, React Native 0.81, Expo Router, TypeScript, Clean Architecture, and feature-first modularization.
+The mobile app is the consumer-facing learner application. It does not contain admin or organization-management screens.
 
-## Guiding Principles
-- Clean Architecture
-- SOLID
-- Feature-first organization
-- API-first design
-- Offline-capable
-- Secure-by-default
-- Testability
-- Accessibility
-- Reusable design system
+## Technology
 
-## Layers
-1. Presentation
-2. Application (hooks/use-cases)
-3. Domain (entities/interfaces)
-4. Data (repositories/services)
-5. Infrastructure (HTTP, storage, auth)
+- Expo SDK 54
+- React Native 0.81
+- React 19
+- TypeScript with strict compiler options
+- React Navigation 7 for typed native-stack and bottom-tab navigation
+- TanStack Query for server state and request caching
+- React Context for the small authentication session state
+- Expo SecureStore for access and refresh tokens
+- Shared design tokens and theme provider
 
-Dependencies flow inward only.
+We use React Navigation because it is already installed and used by the app. Expo Router is not part of the current routing implementation.
 
-## Folder Structure
+## Architecture rules
+
+- Feature-first modules own their screens and feature-specific code.
+- Shared code is feature-agnostic.
+- Screens call feature services or hooks. They do not issue HTTP requests directly.
+- The shared API client owns transport concerns.
+- Runtime parsers validate API payloads before the app treats them as typed data.
+- TanStack Query owns API/server state.
+- Auth Context owns only session status and current learner identity.
+- SecureStore owns sensitive session tokens.
+- Constants are centralized in `src/core/constants/app.constants.ts`.
+- Dependencies must not flow from shared/core modules into feature modules.
+
+## Runtime request flow
+
+```text
+Screen
+  -> Feature service / query hook
+  -> Shared API client
+  -> /api/v1 NestJS API in skiller-backend
+  -> Backend services
+  -> PostgreSQL
 ```
-app/
+
+Responses pass through a runtime parser before being exposed to the feature.
+
+## Main source structure
+
+```text
 src/
+  app/
+    navigation/
+    providers/
+  core/
+    api/
+    auth/
+    config/
+    constants/
   features/
-  components/
-  services/
-  repositories/
-  domain/
-  hooks/
-  store/
-  theme/
-  navigation/
-  utils/
-  types/
-  constants/
-  assets/
+    auth/
+    dashboard/
+    learning/
+    profile/
+    roadmaps/
+  shared/
+    components/
+    theme/
 ```
 
-## State Management
-- Local state by default
-- Context for app-wide concerns
-- Repository pattern for server communication
-- Server state abstraction to be finalized during implementation
+## Offline approach
 
-## Networking
-- Central API client
-- Request/response interceptors
-- Token refresh
-- Retry policy
-- Typed DTOs
+The initial foundation does not implement offline content downloads or a progress-sync queue. Those features require explicit conflict and retry contracts in the backend. Do not imply that offline learning is supported until that work is implemented and tested.
 
-## Authentication
-- SecureStore for credentials
-- Refresh token flow
-- Protected routes
-- Session restoration
+## Quality controls
 
-## Offline Strategy
-- Download manager
-- Local persistence
-- Sync queue
-- Conflict handling
-
-## Design System
-- Tokens
-- Atomic reusable components
-- Theme provider
-- Dark mode ready
-
-## Quality
-- Strict TypeScript
-- ESLint
-- Prettier
-- Unit tests
-- Integration tests
-
-## Future Documents
-- API Architecture
-- State Management
-- Navigation
-- Design System
-- Security
-- Offline Sync
-- Testing Strategy
-- CI/CD
+- Strict TypeScript; no explicit `any`.
+- Use `unknown` at external boundaries and parse it.
+- Use shared constants for reusable text, endpoint paths, storage keys and query keys.
+- Keep secrets out of the app bundle.
+- Run typecheck, lint and formatting checks before merging.
