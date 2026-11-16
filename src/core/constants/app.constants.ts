@@ -125,6 +125,10 @@ export const QUERY_KEYS = {
   enrollment: (enrollmentId: string) =>
     ["skillar", "enrollments", enrollmentId] as const,
   progress: ["skillar", "progress"] as const,
+  stepContent: (stepId: string) =>
+    ["skillar", "steps", stepId, "content"] as const,
+  stepAssessment: (stepId: string) =>
+    ["skillar", "steps", stepId, "assessment"] as const,
 } as const;
 
 export const NAVIGATION_ROUTES = {
@@ -259,17 +263,6 @@ export const UI_COPY = {
     noSteps: "No learning steps are available yet.",
     backToRoadmap: "Back to roadmap",
     stepLearningContent: "Step learning content",
-    back: "Back",
-    stepNumberSeparator: ". ",
-    minutesSuffix: "min",
-    statusReady: "Ready",
-    statusPending: "Pending",
-    statusCompleted: "Completed",
-    enrollFailed: "Enrollment failed.",
-    videoLesson: "Video lesson",
-    hideQuestions: "Hide questions",
-    viewQuestions: "View questions",
-    questionNumberSeparator: ". ",
     stepContentSubtitle: "Step learning content",
     loadingStep: "Loading step content…",
     stepUnavailable: "Step content unavailable",
@@ -286,6 +279,18 @@ export const UI_COPY = {
     openStep: "Open step",
     reviewStep: "Review step",
     stepNumberSeparator: ". ",
+    questionNumberSeparator: ". ",
+    optionNumberSeparator: ". ",
+    progressAccessibilitySuffix: "progress",
+    minutesSuffix: "min",
+    statusReady: "Ready",
+    statusPending: "Pending",
+    statusCompleted: "Completed",
+    enrollFailed: "Enrollment failed.",
+    previousStep: "Previous step",
+    nextStep: "Next step",
+    stepPositionPrefix: "Step",
+    stepPositionSeparator: "of",
   },
   dashboard: {
     greeting: "Your learning, in one place",
