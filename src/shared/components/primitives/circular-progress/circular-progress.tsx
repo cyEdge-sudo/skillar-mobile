@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
+
 import { useTheme } from '@/shared/theme';
 
 export interface CircularProgressProps {
@@ -10,7 +11,7 @@ export interface CircularProgressProps {
     color?: string;
     backgroundColor?: string;
     children?: React.ReactNode;
-    style?: any;
+    style?: StyleProp<ViewStyle>;
 }
 
 export const CircularProgress: React.FC<CircularProgressProps> = ({
