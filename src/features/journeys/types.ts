@@ -41,15 +41,15 @@ export interface JourneyAssessmentQuestion {
 }
 
 export interface JourneyActivityMetadata {
-  taskBody?: string;
+  taskBody?: string | undefined;
   contentUrl?: string | null;
   duration?: number | null;
   fileName?: string | null;
   available?: boolean;
   roadmapId?: string | null;
-  acknowledgementText?: string;
-  questions?: JourneyAssessmentQuestion[];
-  totalQuestions?: number;
+  acknowledgementText?: string | undefined;
+  questions?: JourneyAssessmentQuestion[] | undefined;
+  totalQuestions?: number | undefined;
   passingScore?: number | null;
 }
 
