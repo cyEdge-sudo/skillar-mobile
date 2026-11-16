@@ -1,92 +1,57 @@
 # Coding Standards
 
-## Purpose
+These standards apply to all production code in Skillar Mobile.
 
-This document defines the coding standards for the Skillar Mobile application. These standards are mandatory for all contributors and AI-assisted code generation.
-
-## Engineering Principles
+## Engineering principles
 
 - Readability over cleverness.
 - Maintainability over brevity.
-- Reuse before creating new abstractions.
+- Reuse existing modules before creating abstractions.
 - Composition over inheritance.
-- Explicit over implicit behavior.
-- Follow Clean Architecture boundaries.
-
-## General Rules
-
-- One responsibility per function.
-- One responsibility per component.
-- Keep business logic outside UI.
-- Prefer immutable data structures.
-- Avoid duplicated logic.
-- Prefer descriptive names.
-
-## File Size Guidelines
-
-| Artifact | Target | Hard Limit |
-|----------|--------|------------|
-| Component | <200 LOC | 300 LOC |
-| Hook | <150 LOC | 250 LOC |
-| Screen | <250 LOC | 350 LOC |
-| Service | <200 LOC | 300 LOC |
-| Repository | <200 LOC | 300 LOC |
+- Explicit behavior over implicit behavior.
+- Keep feature and infrastructure boundaries clear.
 
 ## TypeScript
 
 - Strict mode is required.
-- Do not use `any`.
-- Do not use `@ts-ignore`.
-- Prefer interfaces for contracts.
-- Prefer discriminated unions where appropriate.
+- Explicit `any` is prohibited and fails ESLint.
+- Use concrete types for app-owned data.
+- Use `unknown` only at external or untrusted boundaries.
+- Validate untrusted values with runtime parsers before using them as domain types.
+- Avoid unsafe type assertions and `@ts-ignore`.
+- Use type-only imports when importing only a type.
+- Do not suppress type errors to make a build pass.
 
-## React Guidelines
+## Constants and strings
 
-- Functional components only.
-- Use hooks.
-- Avoid unnecessary memoization.
+- Centralize API paths in `API_ROUTES`.
+- Centralize user-facing copy in `UI_COPY` or `APP_MESSAGES`.
+- Centralize storage keys, request headers, query keys, navigation names, HTTP methods and stable error codes.
+- Keep design values in the theme token system.
+- Avoid repeating hard-coded strings across screens and services.
+
+## Architecture
+
+- Screens must not call `fetch`.
+- API requests must go through feature services and the shared API client.
+- TanStack Query owns server state.
+- Auth Context owns session state only.
+- SecureStore owns sensitive session tokens.
+- Shared modules must not import feature internals.
+
+## React Native
+
+- Use functional components and hooks.
 - Handle loading, error and empty states.
+- Provide accessibility labels and states.
+- Avoid unnecessary global state and memoization.
 
-## Imports
+## Quality
 
-- Prefer absolute imports.
-- Group imports consistently.
-- Do not create circular dependencies.
-
-## Error Handling
-
-- Never swallow exceptions.
-- Display user-friendly errors.
-- Log unexpected failures.
-
-## Accessibility
-
-- Provide accessibility labels.
-- Respect touch target guidelines.
-- Support screen readers where applicable.
-
-## Security
-
-- Never hardcode secrets.
-- Validate all external input.
-- Use secure storage for sensitive data.
-
-## AI Development Rules
-
-- Reuse existing modules before creating new ones.
-- Return complete files when modifying code.
-- Preserve project architecture.
-- Do not invent APIs or folder structures.
-
-## Pull Request Checklist
-
+Before a change is merged:
 - TypeScript passes.
 - ESLint passes.
-- Documentation updated.
-- Tests updated where applicable.
-- Accessibility reviewed.
-- Architecture respected.
-
-## Future Enhancements
-
-This document will continue to evolve with detailed examples, anti-patterns, architectural fitness rules, code review standards, and engineering governance.
+- Formatting passes.
+- Documentation is updated.
+- Relevant tests are added or updated.
+- No secrets or private credentials are committed.
