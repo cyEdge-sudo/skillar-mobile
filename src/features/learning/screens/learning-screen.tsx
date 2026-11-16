@@ -8,6 +8,7 @@ import {
 } from "react-native";
 
 import type { RootStackParamList } from "../../../app/navigation/navigation-types";
+import { NAVIGATION_ROUTES, UI_COPY } from "../../../core/constants/app.constants";
 import {
   AppButton,
   AppCard,
@@ -20,28 +21,16 @@ import { useLearningEnrollments } from "../use-learning";
 import type { LearningEnrollment } from "../types";
 
 function formatDate(value: string | null): string {
-  if (!value) return "Not started";
+  if (!value) return UI_COPY.learning.notStarted;
   const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "Date unavailable";
+  if (Number.isNaN(date.getTime())) return UI_COPY.learning.dateUnavailable;
   return date.toLocaleDateString();
 }
 
 function statusLabel(status: string): string {
-  switch (status.toLowerCase()) {
-    case "active":
-    case "enrolled":
-      return "In progress";
-    case "assigned":
-      return "Assigned";
-    case "completed":
-      return "Completed";
-    case "paused":
-      return "Paused";
-    case "dropped":
-      return "Dropped";
-    default:
-      return "Unknown status";
-  }
+  const normalizedStatus = status.toLowerCase();
+  const labels = UI_COPY.learning.statusLabels;
+  return labels[normalizedStatus as keyof typeof labels] ?? labels.unknown;
 }
 
 export function LearningScreen() {
@@ -80,18 +69,18 @@ export function LearningScreen() {
         accessibilityValue={{ min: 0, max: 100, now: item.progressPercent }}
       />
       <AppText color="textSecondary" variant="labelSmall">
-        Last activity: {formatDate(item.lastActivityAt)}
+        {UI_COPY.learning.lastActivityPrefix} {formatDate(item.lastActivityAt)}
       </AppText>
       <AppButton
         variant="outline"
         onPress={() =>
-          navigation.navigate("RoadmapDetail", {
+          navigation.navigate(NAVIGATION_ROUTES.root.roadmapDetail, {
             roadmapId: item.roadmapId,
             enrollmentId: item.enrollmentId,
           })
         }
       >
-        Open roadmap
+        {UI_COPY.learning.openRoadmap}
       </AppButton>
     </AppCard>
   );
@@ -100,30 +89,34 @@ export function LearningScreen() {
     <Screen>
       <View style={styles.content}>
         <View style={styles.heading}>
-          <AppText variant="headlineSmall">My learning</AppText>
+          <AppText variant="headlineSmall">{UI_COPY.learning.myLearningTitle}</AppText>
           <AppText color="textSecondary">
-            Track your enrolled roadmaps and learning progress.
+            {UI_COPY.learning.myLearningDescription}
           </AppText>
         </View>
 
         {enrollmentsQuery.isLoading ? (
           <View style={styles.message}>
             <ActivityIndicator size="large" color={colors.primary} />
-            <AppText color="textSecondary">Loading your learning…</AppText>
+            <AppText color="textSecondary">
+              {UI_COPY.learning.loadingEnrollments}
+            </AppText>
           </View>
         ) : enrollmentsQuery.isError ? (
           <View style={styles.error}>
-            <AppText variant="titleMedium">Learning data is unavailable</AppText>
+            <AppText variant="titleMedium">
+              {UI_COPY.learning.dataUnavailable}
+            </AppText>
             <AppText color="textSecondary">
               {enrollmentsQuery.error instanceof Error
                 ? enrollmentsQuery.error.message
-                : "Try again in a moment."}
+                : UI_COPY.learning.dataUnavailable}
             </AppText>
             <AppButton
               variant="outline"
               onPress={() => void enrollmentsQuery.refetch()}
             >
-              Retry
+              {UI_COPY.common.retry}
             </AppButton>
           </View>
         ) : (
@@ -138,7 +131,7 @@ export function LearningScreen() {
             onRefresh={() => void enrollmentsQuery.refetch()}
             ListEmptyComponent={
               <AppText color="textSecondary" style={styles.message}>
-                You have not enrolled in any roadmaps yet. Explore roadmaps to get started.
+                {UI_COPY.learning.emptyEnrollments}
               </AppText>
             }
             ListFooterComponent={
@@ -150,7 +143,9 @@ export function LearningScreen() {
                     disabled={enrollmentsQuery.isFetchingNextPage}
                     onPress={() => void enrollmentsQuery.fetchNextPage()}
                   >
-                    Load more
+                    {enrollmentsQuery.isFetchingNextPage
+                      ? UI_COPY.common.loading
+                      : "Load more"}
                   </AppButton>
                 </View>
               ) : null
