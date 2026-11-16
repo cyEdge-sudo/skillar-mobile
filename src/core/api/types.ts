@@ -4,7 +4,9 @@ export type JsonValue =
   | JsonValue[]
   | { [key: string]: JsonValue };
 
-export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+import { HTTP_METHODS } from "../constants/app.constants";
+
+export type HttpMethod = (typeof HTTP_METHODS)[keyof typeof HTTP_METHODS];
 
 export interface ApiRequestOptions {
   method?: HttpMethod;
