@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, ViewProps } from 'react-native';
+import { View, StyleSheet, ViewProps, type ViewInstance } from 'react-native';
 
 export interface DividerProps extends ViewProps {
     orientation?: 'horizontal' | 'vertical';
     thickness?: number;
 }
 
-export const Divider = React.forwardRef<View, DividerProps>(
+export const Divider = React.forwardRef<ViewInstance, DividerProps>(
     ({ orientation = 'horizontal', thickness = 1, style, ...rest }, ref) => (
         <View
             ref={ref}
