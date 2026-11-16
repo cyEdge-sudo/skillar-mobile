@@ -72,7 +72,6 @@ export const REQUEST_HEADERS = {
   IDEMPOTENCY_KEY: "Idempotency-Key",
   JSON: "application/json",
   BEARER_PREFIX: "Bearer ",
-
 } as const;
 
 export const HTTP_METHODS = {
@@ -81,6 +80,11 @@ export const HTTP_METHODS = {
   PUT: "PUT",
   PATCH: "PATCH",
   DELETE: "DELETE",
+} as const;
+
+export const AUTH_NEXT_STEPS = {
+  VERIFY_EMAIL: "verify_email",
+  LOGIN: "login",
 } as const;
 
 export const API_FIELDS = {
@@ -237,4 +241,5 @@ export const APP_MESSAGES = {
     "Your saved session could not be checked. Check your connection and try again.",
   invalidPasswordResetResponse: "The server returned an invalid password reset response.",
   invalidLogoutResponse: "The server returned an invalid logout response.",
+  authProviderMissing: "useAuth must be used within AuthProvider.",
 } as const;
