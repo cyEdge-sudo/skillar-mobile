@@ -3,8 +3,9 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
+import { useEffect } from "react";
 
-import { QUERY_KEYS } from "../../core/constants/app.constants";
+import { APP_CONSTANTS, QUERY_KEYS } from "../../core/constants/app.constants";
 import { learningDetailService } from "./learning-detail-service";
 import { roadmapDetailService } from "../roadmaps/roadmap-detail-service";
 import type { StepProgressStatus } from "./types";
@@ -17,30 +18,47 @@ export function useRoadmapDetail(roadmapId: string, enabled = true) {
   });
 }
 
-export function useEnrollmentDetail(enrollmentId: number | undefined) {
+export function useEnrollmentDetail(enrollmentId: string | undefined) {
   return useQuery({
-    queryKey: QUERY_KEYS.enrollment(String(enrollmentId ?? "")),
+    queryKey: QUERY_KEYS.enrollment(enrollmentId ?? ""),
     queryFn: () => {
-      if (typeof enrollmentId !== "number") {
+      if (!enrollmentId) {
         throw new Error("A valid enrollment ID is required.");
       }
       return learningDetailService.getEnrollment(enrollmentId);
     },
-    enabled: typeof enrollmentId === "number" && Number.isInteger(enrollmentId),
+    enabled: typeof enrollmentId === "string" && enrollmentId.length > 0,
   });
 }
 
 export function useStepContent(stepId: string) {
   return useQuery({
-    queryKey: ["skillar", "steps", stepId, "content"],
+    queryKey: QUERY_KEYS.stepContent(stepId),
     queryFn: () => learningDetailService.getStepContent(stepId),
     enabled: stepId.length > 0,
+    staleTime: APP_CONSTANTS.CONTENT_QUERY_STALE_TIME_MS,
   });
+}
+
+export function usePrefetchStepContent(stepId: string | undefined) {
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    if (!stepId) {
+      return;
+    }
+
+    void queryClient.prefetchQuery({
+      queryKey: QUERY_KEYS.stepContent(stepId),
+      queryFn: () => learningDetailService.getStepContent(stepId),
+      staleTime: APP_CONSTANTS.CONTENT_QUERY_STALE_TIME_MS,
+    });
+  }, [queryClient, stepId]);
 }
 
 export function useStepAssessment(stepId: string, enabled: boolean) {
   return useQuery({
-    queryKey: ["skillar", "steps", stepId, "assessment"],
+    queryKey: QUERY_KEYS.stepAssessment(stepId),
     queryFn: () => learningDetailService.getAssessment(stepId),
     enabled: enabled && stepId.length > 0,
     retry: false,
@@ -52,7 +70,7 @@ export function useUpdateStepProgress() {
 
   return useMutation({
     mutationFn: (input: {
-      enrollmentId: number;
+      enrollmentId: string;
       stepId: string;
       status: StepProgressStatus;
       progressPercent: number;
@@ -66,7 +84,7 @@ export function useUpdateStepProgress() {
     onSuccess: async (_result, input) => {
       await Promise.all([
         queryClient.invalidateQueries({
-          queryKey: QUERY_KEYS.enrollment(String(input.enrollmentId)),
+          queryKey: QUERY_KEYS.enrollment(input.enrollmentId),
         }),
         queryClient.invalidateQueries({ queryKey: QUERY_KEYS.enrollments }),
         queryClient.invalidateQueries({ queryKey: QUERY_KEYS.progress }),
