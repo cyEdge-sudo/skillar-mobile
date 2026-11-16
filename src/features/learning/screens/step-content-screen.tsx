@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigation, useRoute, type RouteProp } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import Markdown from "react-native-markdown-display";
+import Markdown, { type MarkdownProps } from "react-native-markdown-display";
 import {
   ActivityIndicator,
   Linking,
@@ -33,22 +33,23 @@ export function StepContentScreen() {
   const assessmentQuery = useStepAssessment(stepId, showAssessment);
   const progressMutation = useUpdateStepProgress();
 
+  const markdownStyles: NonNullable<MarkdownProps["style"]> = {
+    body: { color: colors.text, fontSize: typography.bodyMedium.fontSize, lineHeight: typography.bodyMedium.lineHeight },
+    heading1: { color: colors.text, fontSize: typography.headlineSmall.fontSize },
+    heading2: { color: colors.text, fontSize: typography.titleLarge.fontSize },
+    heading3: { color: colors.text, fontSize: typography.titleMedium.fontSize },
+    paragraph: { marginTop: 0, marginBottom: spacing[12] },
+    code_inline: { backgroundColor: colors.surfaceVariant, color: colors.text },
+    code_block: { backgroundColor: colors.surfaceVariant, color: colors.text, padding: spacing[12] },
+    blockquote: { backgroundColor: colors.surfaceVariant, borderLeftColor: colors.primary },
+    link: { color: colors.primary },
+  };
+
   const styles = StyleSheet.create({
     content: { flex: 1, padding: spacing[24], gap: spacing[16] },
     header: { gap: spacing[8] },
     section: { gap: spacing[12] },
     message: { alignItems: "center", justifyContent: "center", gap: spacing[12], paddingVertical: spacing[24] },
-    markdown: {
-      body: { color: colors.text, fontSize: typography.bodyMedium.fontSize, lineHeight: typography.bodyMedium.lineHeight },
-      heading1: { color: colors.text, fontSize: typography.headlineSmall.fontSize },
-      heading2: { color: colors.text, fontSize: typography.titleLarge.fontSize },
-      heading3: { color: colors.text, fontSize: typography.titleMedium.fontSize },
-      paragraph: { marginTop: 0, marginBottom: spacing[12] },
-      code_inline: { backgroundColor: colors.surfaceVariant, color: colors.text },
-      code_block: { backgroundColor: colors.surfaceVariant, color: colors.text, padding: spacing[12] },
-      blockquote: { backgroundColor: colors.surfaceVariant, borderLeftColor: colors.primary },
-      link: { color: colors.primary },
-    },
     question: { gap: spacing[8], padding: spacing[12], backgroundColor: colors.surfaceVariant, borderRadius: 8 },
   });
 
@@ -114,7 +115,7 @@ export function StepContentScreen() {
 
             {contentQuery.data?.contentMarkdown ? (
               <AppCard variant="outlined">
-                <Markdown style={styles.markdown}>
+                <Markdown style={markdownStyles}>
                   {contentQuery.data.contentMarkdown}
                 </Markdown>
               </AppCard>
