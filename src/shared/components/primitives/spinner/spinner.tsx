@@ -3,8 +3,6 @@ import { ActivityIndicator, ActivityIndicatorProps } from 'react-native';
 
 export type SpinnerProps = ActivityIndicatorProps;
 
-export const Spinner = React.forwardRef<ActivityIndicator, SpinnerProps>((props, ref) => (
-    <ActivityIndicator ref={ref} {...props} />
-));
+export const Spinner = (props: SpinnerProps) => <ActivityIndicator {...props} />;
 
 Spinner.displayName = 'Spinner';
