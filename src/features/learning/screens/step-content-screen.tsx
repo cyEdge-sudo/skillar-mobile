@@ -23,6 +23,8 @@ import {
 type Navigation = NativeStackNavigationProp<RootStackParamList>;
 type StepRoute = RouteProp<RootStackParamList, "StepContent">;
 
+const YOUTUBE_URL_PATTERN = /^https:\/\/(?:(?:www|m)\\.)?youtube\\.com\\/|^https:\/\/youtu\\.be\\//i;
+
 export function StepContentScreen() {
   const navigation = useNavigation<Navigation>();
   const route = useRoute<StepRoute>();
@@ -55,7 +57,7 @@ export function StepContentScreen() {
 
   const openVideo = async (url: string) => {
     try {
-      if (!/^https:\/\//i.test(url)) return;
+      if (!YOUTUBE_URL_PATTERN.test(url)) return;
       await Linking.openURL(url);
     } catch {
       // Invalid or unsupported URLs are not opened.
