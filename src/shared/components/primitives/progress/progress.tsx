@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ViewProps, StyleSheet, type ViewInstance, type ViewInstance } from 'react-native';
+import { View, ViewProps, StyleSheet, type ViewInstance } from 'react-native';
 
 export interface ProgressProps extends ViewProps {
     progress: number; // 0–1
