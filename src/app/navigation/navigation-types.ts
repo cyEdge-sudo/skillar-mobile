@@ -10,12 +10,14 @@ export type MainTabParamList = {
   [NAVIGATION_ROUTES.tabs.dashboard]: undefined;
   [NAVIGATION_ROUTES.tabs.explore]: undefined;
   [NAVIGATION_ROUTES.tabs.learning]: undefined;
+  [NAVIGATION_ROUTES.tabs.journeys]: undefined;
   [NAVIGATION_ROUTES.tabs.profile]: undefined;
 };
 
 export type RootStackParamList = {
   [NAVIGATION_ROUTES.root.mainTabs]: undefined;
   [NAVIGATION_ROUTES.root.roadmapDetail]: { roadmapId: string; enrollmentId?: number };
+  [NAVIGATION_ROUTES.root.journeyDetail]: { enrollmentId: number };
   [NAVIGATION_ROUTES.root.stepContent]: {
     enrollmentId: number;
     stepId: string;
