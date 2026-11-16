@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, View, StyleSheet, ModalProps, ViewStyle, type ViewInstance } from 'react-native';
+import { Modal, View, StyleSheet, ModalProps, ViewStyle, type ViewInstance, type ViewInstance } from 'react-native';
 
 export interface PortalProps extends ModalProps {
     visible: boolean;
