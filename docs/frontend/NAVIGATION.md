@@ -1,33 +1,39 @@
 # Navigation
 
-## Purpose
+## Navigation library
 
-This document defines navigation standards for the Skillar Mobile application using Expo Router.
+The app uses React Navigation 7. It does not use Expo Router.
 
-## Principles
+## Root navigation
 
-- Use file-based routing with Expo Router.
-- Keep navigation configuration declarative.
-- Separate navigation from business logic.
-- Protect authenticated routes.
+The root navigator selects one of the following states based on the authentication provider:
 
-## Route Organization
+- Restoring session
+- Authentication stack
+- Learner tab navigation
 
-- Group routes by feature where appropriate.
-- Use layouts to share navigation structure.
-- Keep route names predictable and consistent.
+## Authentication stack
 
-## Navigation Rules
+- Login
+- Sign up
+- Forgot password
 
-- Pass only required route parameters.
-- Avoid deeply nested navigation.
-- Prefer typed navigation parameters.
-- Handle unknown routes gracefully.
+## Learner tabs
 
-## Deep Linking
+- Dashboard
+- Explore
+- My Learning
+- Profile
 
-Design routes to support future deep linking and app links without major structural changes.
+## Rules
 
-## Future Enhancements
+- Define parameter lists in `src/app/navigation/navigation-types.ts`.
+- Use typed navigation props.
+- Keep route names in `NAVIGATION_ROUTES` in the shared constants file.
+- Pass only IDs and small presentation parameters between screens. Fetch resource data through feature services.
+- Do not add admin, tenant-management or organization-management routes to the mobile app.
+- Keep deep-linking support in mind when choosing route names and parameters.
 
-This guide will be expanded with route diagrams, authentication flows, navigation guards, and deep-linking examples.
+## Session protection
+
+The root navigator renders learner tabs only when the auth provider reports an authenticated session. The backend must still authorize every protected API request.
