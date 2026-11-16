@@ -17,16 +17,16 @@ export function useRoadmapDetail(roadmapId: string, enabled = true) {
   });
 }
 
-export function useEnrollmentDetail(enrollmentId: number | undefined) {
+export function useEnrollmentDetail(enrollmentId: string | undefined) {
   return useQuery({
-    queryKey: QUERY_KEYS.enrollment(String(enrollmentId ?? "")),
+    queryKey: QUERY_KEYS.enrollment(enrollmentId ?? ""),
     queryFn: () => {
-      if (typeof enrollmentId !== "number") {
+      if (!enrollmentId) {
         throw new Error("A valid enrollment ID is required.");
       }
       return learningDetailService.getEnrollment(enrollmentId);
     },
-    enabled: typeof enrollmentId === "number" && Number.isInteger(enrollmentId),
+    enabled: typeof enrollmentId === "string" && enrollmentId.length > 0,
   });
 }
 
@@ -52,7 +52,7 @@ export function useUpdateStepProgress() {
 
   return useMutation({
     mutationFn: (input: {
-      enrollmentId: number;
+      enrollmentId: string;
       stepId: string;
       status: StepProgressStatus;
       progressPercent: number;
@@ -66,7 +66,7 @@ export function useUpdateStepProgress() {
     onSuccess: async (_result, input) => {
       await Promise.all([
         queryClient.invalidateQueries({
-          queryKey: QUERY_KEYS.enrollment(String(input.enrollmentId)),
+          queryKey: QUERY_KEYS.enrollment(input.enrollmentId),
         }),
         queryClient.invalidateQueries({ queryKey: QUERY_KEYS.enrollments }),
         queryClient.invalidateQueries({ queryKey: QUERY_KEYS.progress }),
