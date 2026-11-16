@@ -58,6 +58,7 @@ export interface RoadmapListFilters {
 }
 
 export interface RoadmapEnrollment {
+  /** Opaque enrollment identifier supplied by the backend. */
   enrollmentId: string;
   roadmapId: string;
   status: string;
