@@ -10,15 +10,21 @@ import {
 
 import { setAuthenticationExpiredHandler } from "../api/api-client";
 import { ApiError } from "../api/api-error";
+import {
+  APP_MESSAGES,
+  AUTH_STATUS,
+} from "../constants/app.constants";
 import { authService } from "./auth-service";
-import type { AuthUser, LoginInput, SignupInput, SignupResponse } from "./types";
+import type {
+  AuthUser,
+  LoginInput,
+  SignupInput,
+  SignupResponse,
+} from "./types";
 import { tokenStorage } from "./token-storage";
 
 export type AuthStatus =
-  | "restoring"
-  | "authenticated"
-  | "unauthenticated"
-  | "error";
+  (typeof AUTH_STATUS)[keyof typeof AUTH_STATUS];
 
 interface AuthContextValue {
   status: AuthStatus;
@@ -33,48 +39,48 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 export function AuthProvider({ children }: PropsWithChildren) {
-  const [status, setStatus] = useState<AuthStatus>("restoring");
+  const [status, setStatus] = useState<AuthStatus>(AUTH_STATUS.RESTORING);
   const [user, setUser] = useState<AuthUser | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const handleSessionExpired = useCallback(() => {
     setUser(null);
-    setStatus("unauthenticated");
+    setStatus(AUTH_STATUS.UNAUTHENTICATED);
     setError(null);
   }, []);
 
   const restoreSession = useCallback(async () => {
-    setStatus("restoring");
+    setStatus(AUTH_STATUS.RESTORING);
     setError(null);
 
     try {
       const tokens = await tokenStorage.get();
       if (!tokens) {
         setUser(null);
-        setStatus("unauthenticated");
+        setStatus(AUTH_STATUS.UNAUTHENTICATED);
         return;
       }
 
       const currentUser = await authService.getCurrentUser();
       setUser(currentUser);
-      setStatus("authenticated");
-    } catch (restoreError) {
+      setStatus(AUTH_STATUS.AUTHENTICATED);
+    } catch (restoreError: unknown) {
       if (
         restoreError instanceof ApiError &&
-        [401, 403].includes(restoreError.status)
+        restoreError.status === 401
       ) {
         await tokenStorage.clear();
         setUser(null);
-        setStatus("unauthenticated");
+        setStatus(AUTH_STATUS.UNAUTHENTICATED);
         return;
       }
 
       setError(
         restoreError instanceof Error
           ? restoreError.message
-          : "Unable to restore your session.",
+          : APP_MESSAGES.restoreSessionFailed,
       );
-      setStatus("error");
+      setStatus(AUTH_STATUS.ERROR);
     }
   }, []);
 
@@ -89,11 +95,11 @@ export function AuthProvider({ children }: PropsWithChildren) {
     setError(null);
     const response = await authService.login(input);
     setUser(response.user);
-    setStatus("authenticated");
+    setStatus(AUTH_STATUS.AUTHENTICATED);
   }, []);
 
   const signUp = useCallback(
-    async (input: SignupInput) => authService.signup(input),
+    (input: SignupInput) => authService.signup(input),
     [],
   );
 
@@ -102,7 +108,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
       await authService.logout();
     } finally {
       setUser(null);
-      setStatus("unauthenticated");
+      setStatus(AUTH_STATUS.UNAUTHENTICATED);
       setError(null);
     }
   }, []);
