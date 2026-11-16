@@ -13,7 +13,7 @@ This repository follows a documentation-first and architecture-driven process.
 
 ## Branch names
 
-- `main` – Protected integration branch.
+- `main` – Integration branch. GitHub protection should be configured using [BRANCH_PROTECTION.md](engineering/governance/BRANCH_PROTECTION.md).
 - `feature/<feature-name>` – New features.
 - `bugfix/<issue-name>` – Bug fixes.
 - `hotfix/<issue-name>` – Production fixes.
