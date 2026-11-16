@@ -1,4 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 import { useAuth } from "../../core/auth/auth-context";
@@ -7,10 +8,15 @@ import {
   AUTH_STATUS,
   UI_COPY,
 } from "../../core/constants/app.constants";
+import { StepContentScreen } from "../../features/learning/screens/step-content-screen";
+import { RoadmapDetailScreen } from "../../features/roadmaps/screens/roadmap-detail-screen";
 import { AppText, AppButton } from "../../shared/components/themed";
 import { useTheme } from "../../shared/theme";
 import { AuthStack } from "./auth-stack";
 import { MainTabs } from "./main-tabs";
+import type { RootStackParamList } from "./navigation-types";
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function SessionRestoreScreen() {
   const { error, retrySessionRestore } = useAuth();
@@ -74,7 +80,11 @@ export function RootNavigator() {
       {status === AUTH_STATUS.RESTORING || status === AUTH_STATUS.ERROR ? (
         <SessionRestoreScreen />
       ) : status === AUTH_STATUS.AUTHENTICATED ? (
-        <MainTabs />
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="MainTabs" component={MainTabs} />
+          <Stack.Screen name="RoadmapDetail" component={RoadmapDetailScreen} />
+          <Stack.Screen name="StepContent" component={StepContentScreen} />
+        </Stack.Navigator>
       ) : (
         <AuthStack />
       )}
