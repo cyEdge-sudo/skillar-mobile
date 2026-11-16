@@ -48,5 +48,14 @@
     "typescript": "~5.9.2",
     "typescript-eslint": "^8.62.1"
   },
-  "private": true
+  "private": true,
+  "overrides": {
+    "deepmerge": "^4.3.2",
+    "glob": "^14.0.2",
+    "image-size": "^2.0.3",
+    "linkify-it": "^5.0.2",
+    "markdown-it": "^14.3.3",
+    "minimatch": "^11.0.1",
+    "postcss": "^8.5.23"
+  }
 }
