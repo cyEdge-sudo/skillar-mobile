@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "skillar-mobile",
+    "name": "Skillar",
     "slug": "skillar-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -25,6 +25,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "scheme": "skillar"
   }
 }
