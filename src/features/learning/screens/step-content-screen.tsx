@@ -28,8 +28,8 @@ import {
   useStepContent,
   useUpdateStepProgress,
 } from "../use-learning-detail";
-import type { EnrolledRoadmapStep } from "../types";
 import { StepContentRenderer } from "../components/step-content-renderer";
+import type { EnrolledRoadmapStep } from "../types";
 
 type Navigation = NativeStackNavigationProp<RootStackParamList>;
 type StepRoute = RouteProp<
