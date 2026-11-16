@@ -20,11 +20,6 @@ export interface RoadmapStepSummary {
   description: string | null;
   estimatedMinutes: number;
   contentStatus: "ready" | "pending" | "unknown";
-  progress?: {
-    status: "not_started" | "in_progress" | "completed";
-    progressPercent: number;
-    updatedAt?: string;
-  } | null;
 }
 
 export interface RoadmapMilestone {
@@ -58,7 +53,7 @@ export interface RoadmapListFilters {
 }
 
 export interface RoadmapEnrollment {
-  enrollmentId: number;
+  enrollmentId: string;
   roadmapId: string;
   status: string;
   enrolledAt: string;
