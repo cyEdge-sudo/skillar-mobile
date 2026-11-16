@@ -5,6 +5,10 @@ import {
   APP_MESSAGES,
   REQUEST_HEADERS,
 } from "../constants/app.constants";
+import { tokenStorage } from "../auth/token-storage";
+import { parseAuthResponse } from "../auth/validators";
+import type { AuthTokens } from "../auth/types";
+import { getApiUrl } from "../config/env";
 import { ApiError } from "./api-error";
 import type {
   ApiEnvelope,
@@ -12,10 +16,6 @@ import type {
   DataParser,
   ResponseMeta,
 } from "./types";
-import { getApiUrl } from "../config/env";
-import { tokenStorage } from "../auth/token-storage";
-import { parseAuthResponse, parseAuthTokens } from "../auth/validators";
-import type { AuthTokens } from "../auth/types";
 
 let refreshInFlight: Promise<AuthTokens> | null = null;
 let onAuthenticationExpired: (() => void) | null = null;
@@ -36,42 +36,44 @@ function createRequestId(): string {
   );
 }
 
-function parseResponseMeta(value: unknown, fallbackRequestId: string): ResponseMeta {
-  if (typeof value !== "object" || value === null || Array.isArray(value)) {
-    return { requestId: fallbackRequestId };
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function parseResponseMeta(
+  value: unknown,
+  fallbackRequestId: string,
+): ResponseMeta {
+  if (!isRecord(value)) {
+    throw ApiError.invalidResponse(fallbackRequestId);
   }
 
-  const meta = value as Record<string, unknown>;
   const requestId =
-    typeof meta.requestId === "string" ? meta.requestId : fallbackRequestId;
+    typeof value.requestId === "string"
+      ? value.requestId
+      : fallbackRequestId;
 
-  if (meta.pagination === undefined) {
+  if (value.pagination === undefined) {
     return { requestId };
   }
 
-  if (
-    typeof meta.pagination !== "object" ||
-    meta.pagination === null ||
-    Array.isArray(meta.pagination)
-  ) {
+  if (!isRecord(value.pagination)) {
     throw ApiError.invalidResponse(requestId);
   }
 
-  const pagination = meta.pagination as Record<string, unknown>;
+  const nextCursor = value.pagination.nextCursor;
+  const hasMore = value.pagination.hasMore;
+
   if (
-    (pagination.nextCursor !== null &&
-      typeof pagination.nextCursor !== "string") ||
-    typeof pagination.hasMore !== "boolean"
+    (nextCursor !== null && typeof nextCursor !== "string") ||
+    typeof hasMore !== "boolean"
   ) {
     throw ApiError.invalidResponse(requestId);
   }
 
   return {
     requestId,
-    pagination: {
-      nextCursor: pagination.nextCursor as string | null,
-      hasMore: pagination.hasMore,
-    },
+    pagination: { nextCursor, hasMore },
   };
 }
 
@@ -80,19 +82,13 @@ function parseEnvelope<TData>(
   parseData: DataParser<TData>,
   requestId: string,
 ): ApiEnvelope<TData> {
-  if (
-    typeof payload !== "object" ||
-    payload === null ||
-    Array.isArray(payload) ||
-    !("data" in payload)
-  ) {
+  if (!isRecord(payload) || !("data" in payload)) {
     throw ApiError.invalidResponse(requestId);
   }
 
-  const record = payload as Record<string, unknown>;
   return {
-    data: parseData(record.data),
-    meta: parseResponseMeta(record.meta, requestId),
+    data: parseData(payload.data),
+    meta: parseResponseMeta(payload.meta, requestId),
   };
 }
 
@@ -103,13 +99,14 @@ async function readJson(response: Response): Promise<unknown> {
 
   const contentType =
     response.headers.get(REQUEST_HEADERS.CONTENT_TYPE) ?? "";
+
   if (!contentType.includes(REQUEST_HEADERS.JSON)) {
     return undefined;
   }
 
   try {
-    const value: unknown = await response.json();
-    return value;
+    const payload: unknown = await response.json();
+    return payload;
   } catch {
     return undefined;
   }
@@ -132,13 +129,14 @@ async function fetchWithTimeout(
   try {
     return await fetch(url, { ...init, signal: controller.signal });
   } catch {
+    const wasCancelled = externalSignal?.aborted === true;
+
     if (controller.signal.aborted) {
-      const cancelled = externalSignal?.aborted === true;
       throw ApiError.network(
-        cancelled
+        wasCancelled
           ? API_ERROR_CODES.REQUEST_CANCELLED
           : API_ERROR_CODES.REQUEST_TIMEOUT,
-        cancelled
+        wasCancelled
           ? APP_MESSAGES.requestCancelled
           : APP_MESSAGES.requestTimedOut,
       );
@@ -185,35 +183,28 @@ async function performTokenRefresh(): Promise<AuthTokens> {
     throw ApiError.fromResponse(response.status, payload);
   }
 
-  const envelope = parseEnvelope(
-    payload,
-    parseAuthResponse,
-    requestId,
-  );
+  const envelope = parseEnvelope(payload, parseAuthResponse, requestId);
+  await tokenStorage.save(envelope.data.tokens);
 
-  // Parse the tokens once more at the storage boundary.
-  const tokens = parseAuthTokens(envelope.data.tokens);
-  await tokenStorage.save(tokens);
-  return tokens;
+  return envelope.data.tokens;
 }
 
 async function refreshTokens(): Promise<AuthTokens> {
-  if (refreshInFlight) {
-    return refreshInFlight;
-  }
+  if (!refreshInFlight) {
+    refreshInFlight = performTokenRefresh()
+      .catch(async (error: unknown) => {
+        // Preserve the session when refresh fails because of a network outage.
+        if (error instanceof ApiError && error.status === 401) {
+          await tokenStorage.clear();
+          onAuthenticationExpired?.();
+        }
 
-  refreshInFlight = performTokenRefresh()
-    .catch(async (error: unknown) => {
-      // Keep tokens on network/server outages. Clear only a rejected session.
-      if (error instanceof ApiError && [401, 403].includes(error.status)) {
-        await tokenStorage.clear();
-        onAuthenticationExpired?.();
-      }
-      throw error;
-    })
-    .finally(() => {
-      refreshInFlight = null;
-    });
+        throw error;
+      })
+      .finally(() => {
+        refreshInFlight = null;
+      });
+  }
 
   return refreshInFlight;
 }
@@ -260,8 +251,13 @@ export async function apiRequest<TData>(
 
   const payload = await readJson(response);
 
-  if (response.status === 401 && authenticated && options.retryAuth !== false) {
+  if (
+    response.status === 401 &&
+    authenticated &&
+    options.retryAuth !== false
+  ) {
     const tokens = await refreshTokens();
+
     return apiRequest(path, parseData, {
       ...options,
       retryAuth: false,
