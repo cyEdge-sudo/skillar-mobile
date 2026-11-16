@@ -10,6 +10,7 @@ import {
 import { AppButton, AppCard, AppChip, AppText, Screen } from "../../../shared/components";
 import { useTheme } from "../../../shared/theme";
 import { useEnrollRoadmap, useRoadmaps } from "../use-roadmaps";
+import { useLearningEnrollments } from "../../learning/use-learning";
 import type { RoadmapLevel, RoadmapSummary } from "../types";
 
 const LEVEL_FILTERS: Array<{ label: string; value: RoadmapLevel | null }> = [
@@ -24,7 +25,10 @@ export function ExploreScreen() {
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLevel, setSelectedLevel] = useState<RoadmapLevel | null>(null);
-  const [enrolledRoadmapIds, setEnrolledRoadmapIds] = useState<string[]>([]);
+  const learningQuery = useLearningEnrollments();
+  const enrolledRoadmapIds = new Set(
+    learningQuery.data?.pages.flatMap((page) => page.items.map((item) => item.roadmapId)) ?? [],
+  );
   const roadmapsQuery = useRoadmaps({
     query: searchQuery,
     level: selectedLevel,
@@ -64,7 +68,7 @@ export function ExploreScreen() {
   });
 
   const renderRoadmap = ({ item }: { item: RoadmapSummary }) => {
-    const isEnrolled = enrolledRoadmapIds.includes(item.id);
+    const isEnrolled = enrolledRoadmapIds.has(item.id);
     const isEnrolling =
       enrollMutation.isPending && enrollMutation.variables === item.id;
 
@@ -109,13 +113,7 @@ export function ExploreScreen() {
 
         <AppButton
           onPress={() => {
-            enrollMutation.mutate(item.id, {
-              onSuccess: () => {
-                setEnrolledRoadmapIds((current) =>
-                  current.includes(item.id) ? current : [...current, item.id],
-                );
-              },
-            });
+            enrollMutation.mutate(item.id);
           }}
           disabled={isEnrolled || enrollMutation.isPending}
           loading={isEnrolling}
