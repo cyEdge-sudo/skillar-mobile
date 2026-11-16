@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View, type StyleProp, type TextStyle, type ViewStyle } from 'react-native';
+
 import { useTheme } from '@/shared/theme';
 import { AppText } from '../../themed/app-text';
 
@@ -7,8 +8,8 @@ export interface SectionHeaderProps {
     title: string;
     subtitle?: string;
     action?: React.ReactNode;
-    titleStyle?: any;
-    containerStyle?: any;
+    titleStyle?: StyleProp<TextStyle>;
+    containerStyle?: StyleProp<ViewStyle>;
 }
 
 export const SectionHeader: React.FC<SectionHeaderProps> = ({

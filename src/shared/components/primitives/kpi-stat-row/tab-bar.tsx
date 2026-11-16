@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, ScrollView, Pressable, StyleSheet } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
+
 import { useTheme } from '@/shared/theme';
 import { AppText } from '../../themed/app-text';
 
@@ -14,7 +15,7 @@ export interface TabBarProps {
     tabs: Tab[];
     activeTab: string;
     onTabChange: (key: string) => void;
-    style?: any;
+    style?: StyleProp<ViewStyle>;
 }
 
 export const TabBar: React.FC<TabBarProps> = ({

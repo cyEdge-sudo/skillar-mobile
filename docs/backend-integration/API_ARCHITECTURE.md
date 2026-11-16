@@ -2,25 +2,35 @@
 
 ## Purpose
 
-This document defines the backend integration architecture for the Skillar Mobile application.
+This document defines how the learner app integrates with `skiller-backend`.
 
 ## Principles
 
-- UI components must never call APIs directly.
-- All backend communication flows through the service and repository layers.
-- DTOs should be mapped to domain models.
-- Network concerns remain isolated from business logic.
+- Mobile calls only the NestJS backend API.
+- All routes use the `/api/v1` prefix.
+- UI components never call `fetch` or know endpoint paths.
+- Endpoint paths, headers and query keys are defined in `src/core/constants/app.constants.ts`.
+- Feature services own request/response mapping.
+- The shared API client handles headers, request IDs, timeouts, cancellation, errors and token refresh.
+- API responses are `unknown` until a runtime parser validates them.
+- Do not use explicit `any`.
 
-## Request Flow
+## Request flow
 
-Screen → Hook → Repository → Service → REST API
+Screen → Feature service/hook → API client → NestJS API → backend service → database.
 
-Responses follow the reverse path after validation and mapping.
+## Response contract
 
-## Error Handling
+Success responses use `{ data, meta }`. Errors use `{ error, meta }`. See [API Contract](./API_CONTRACT.md) for endpoint and schema details.
 
-Repositories should normalize API errors before exposing them to the presentation layer.
+## Server state
 
-## Future Enhancements
+Use TanStack Query for API data, cache invalidation and loading/error state. Do not mirror API responses into auth context or unrelated global state.
 
-This guide will be expanded with endpoint conventions, versioning strategy, retry policies, and integration examples.
+## Mutations
+
+Use idempotency keys for operations that create enrollments or submit assessments. Invalidate the relevant query keys after a successful mutation.
+
+## Contract governance
+
+The backend will publish an OpenAPI specification. Keep the mobile contract, runtime parsers and backend DTOs aligned.

@@ -31,3 +31,4 @@ const styles = StyleSheet.create({
     heading: { fontSize: 24, fontWeight: '700', lineHeight: 32 },
     caption: { fontSize: 12, lineHeight: 16 },
 });
+Text.displayName = 'Text';

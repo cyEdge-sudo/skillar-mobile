@@ -10,7 +10,7 @@ import { typography } from './typography';
 
 export const darkTheme: DesignSystem = {
     colors: {
-        primary: palette.blue[400],
+        primary: palette.skillar.primary,
         secondary: palette.indigo[400],
         background: palette.slate[950],
         surface: palette.slate[900],

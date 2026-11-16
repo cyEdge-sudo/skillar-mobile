@@ -1,103 +1,76 @@
 # Skillar Mobile Roadmap
 
 ## Vision
-Build a production-ready, scalable Learning Management System (LMS) mobile application using Expo SDK 54, React Native 0.81, React 19, Expo Router, and TypeScript. The application will be documentation-driven, secure-by-default, offline-capable, and aligned with Clean Architecture principles.
 
----
+Build a secure, maintainable learner application for Skillar using Expo, React Native and TypeScript.
 
-# Phase 0 – Foundation
+## Phase 0 – Foundation
 
-## Objectives
-- Finalize architecture documentation.
-- Define engineering standards.
-- Establish project governance.
-- Create reusable design system specifications.
+- Confirm mobile/backend API contract.
+- Standardize app constants and typing rules.
+- Establish feature-first source structure.
+- Configure providers, navigation and theme.
+- Establish API client and secure token storage.
+- Add repository documentation and CI checks.
 
-### Deliverables
-- Documentation handbook
-- ADR framework
-- RFC framework
-- Coding standards
-- Project roadmap
+Exit criteria:
+- App starts on Android and iOS.
+- Strict TypeScript and lint checks pass.
+- No feature screen calls the backend directly.
 
-Exit Criteria:
-- Architecture v1.0 approved.
+## Phase 1 – Account and learner shell
 
----
+- Login
+- Signup and verification
+- Password reset
+- Session restoration and logout
+- Learner dashboard shell
+- Profile shell
 
-# Phase 1 – Core Platform
+Exit criteria:
+- Authentication follows the agreed backend contract.
+- Tokens are stored only in SecureStore.
+- Expired sessions are refreshed or cleared safely.
 
-## Objectives
-- Bootstrap Expo project.
-- Configure TypeScript, ESLint, Prettier.
-- Implement project folder structure.
-- Theme provider.
-- API client.
-- Secure storage.
-- Authentication shell.
+## Phase 2 – Roadmap learning
 
-Exit Criteria:
-- Application launches successfully.
-- Authentication flow scaffolded.
+- Browse/search roadmaps
+- Roadmap details
+- Enrollments
+- Milestone and step navigation
+- Lesson content
+- Quiz and assessment attempts
+- Progress tracking
 
----
+Exit criteria:
+- Learners can complete a roadmap flow.
+- Progress persists through backend APIs.
+- Loading, empty, error and retry states are handled.
 
-# Phase 2 – Learning Experience
+## Phase 3 – Journeys and supporting capabilities
 
-Deliver:
-- Dashboard
-- My Learning
-- Journeys
-- Courses
-- Lesson Player
-- Progress Tracking
+Journeys are a separate product concept from roadmaps. Add them only after their mobile/API contracts are defined.
 
-Exit Criteria:
-- End-to-end learning journey functional.
-
----
-
-# Phase 3 – Advanced Features
-
-Deliver:
-- Offline downloads
+Potential learner capabilities:
+- Skill development journeys
+- Compliance journeys
+- Governance journeys
+- Onboarding journeys
 - Notifications
-- Search
-- Profile
-- Analytics
-- Settings
+- Offline downloads, if sync rules are defined
 
-Exit Criteria:
-- Feature-complete MVP.
+## Phase 4 – Production readiness
 
----
-
-# Phase 4 – Production Readiness
-
-Deliver:
-- Performance optimization
+- Automated unit and integration tests
+- End-to-end testing on Android and iOS
 - Accessibility review
-- Test coverage
-- Security hardening
-- Release automation
+- Performance profiling
+- Security review
+- EAS build and release workflow
 
-Exit Criteria:
-- Production release candidate.
+## Scope rules
 
----
-
-# Success Metrics
-
-- High code quality and maintainability.
-- Comprehensive documentation.
-- Strong test coverage.
-- Consistent UI using the design system.
-- Fast startup and responsive performance.
-- Robust offline experience.
-- Secure handling of user data.
-
----
-
-# Living Document
-
-This roadmap will evolve as new requirements, ADRs, and RFCs are approved. Major scope changes should be reflected here to keep implementation aligned with the project's long-term vision.
+- No admin or organization-management screens in this app.
+- Do not build mock API responses into production services.
+- Do not implement offline features without an explicit sync design.
+- Backend APIs remain the source of truth for learner state.
