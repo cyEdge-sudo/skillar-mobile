@@ -227,7 +227,7 @@ function parseProgressUpdate(value: unknown): StepProgressUpdate {
 }
 
 export const learningDetailService = {
-  async getEnrollment(enrollmentId: number): Promise<EnrollmentDetail> {
+  async getEnrollment(enrollmentId: string): Promise<EnrollmentDetail> {
     const response = await apiRequest(
       API_ROUTES.enrollments.detail(enrollmentId),
       parseEnrollmentDetail,
