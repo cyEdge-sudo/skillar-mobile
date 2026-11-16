@@ -4,6 +4,7 @@ export const APP_CONSTANTS = {
   API_VERSION_PREFIX: "/api/v1",
   API_TIMEOUT_MS: 20_000,
   QUERY_STALE_TIME_MS: 60_000,
+  CONTENT_QUERY_STALE_TIME_MS: 24 * 60 * 60 * 1_000,
   QUERY_GC_TIME_MS: 5 * 60_000,
   QUERY_RETRY_COUNT: 1,
   REQUEST_ID_PREFIX: "mobile",
@@ -125,6 +126,10 @@ export const QUERY_KEYS = {
   enrollment: (enrollmentId: string) =>
     ["skillar", "enrollments", enrollmentId] as const,
   progress: ["skillar", "progress"] as const,
+  stepContent: (stepId: string) =>
+    ["skillar", "steps", stepId, "content"] as const,
+  stepAssessment: (stepId: string) =>
+    ["skillar", "steps", stepId, "assessment"] as const,
 } as const;
 
 export const NAVIGATION_ROUTES = {
@@ -279,6 +284,10 @@ export const UI_COPY = {
     back: "Back",
     openStep: "Open step",
     reviewStep: "Review step",
+    previousStep: "Previous step",
+    nextStep: "Next step",
+    stepPositionPrefix: "Step",
+    stepPositionSeparator: "of",
     stepNumberSeparator: ". ",
     questionNumberSeparator: ". ",
     optionNumberSeparator: ". ",
