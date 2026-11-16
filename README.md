@@ -29,7 +29,12 @@ The learning screens are intentionally not connected to invented or mock API res
 
 ```bash
 npm ci
+
+# macOS / Linux
 cp .env.example .env
+
+# Windows PowerShell
+Copy-Item .env.example .env
 ```
 
 Set `EXPO_PUBLIC_API_BASE_URL` in `.env` to the backend origin. Do not add the `/api/v1` suffix; the API client adds the version prefix.
