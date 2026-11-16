@@ -1,6 +1,6 @@
 import {
+  useInfiniteQuery,
   useMutation,
-  useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
 
@@ -9,14 +9,18 @@ import { roadmapService } from "./roadmap-service";
 import type { RoadmapListFilters } from "./types";
 
 export function useRoadmaps(filters: RoadmapListFilters = {}) {
-  return useQuery({
+  return useInfiniteQuery({
     queryKey: [
       ...QUERY_KEYS.roadmaps,
       "catalog",
       filters.query?.trim() ?? "",
       filters.level ?? "all",
     ],
-    queryFn: () => roadmapService.list(filters),
+    initialPageParam: null as string | null,
+    queryFn: ({ pageParam }) =>
+      roadmapService.list({ ...filters, cursor: pageParam }),
+    getNextPageParam: (lastPage) =>
+      lastPage.hasMore ? lastPage.nextCursor : undefined,
   });
 }
 
