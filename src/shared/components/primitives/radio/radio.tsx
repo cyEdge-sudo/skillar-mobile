@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, View, StyleSheet, PressableProps, ViewStyle, type PressableInstance, type PressableInstance } from 'react-native';
+import { Pressable, View, StyleSheet, PressableProps, ViewStyle, type PressableInstance } from 'react-native';
 
 export interface RadioProps extends Omit<PressableProps, 'children'> {
     selected: boolean;
