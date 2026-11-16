@@ -1,3 +1,9 @@
+export type JsonPrimitive = string | number | boolean | null;
+export type JsonValue =
+  | JsonPrimitive
+  | JsonValue[]
+  | { [key: string]: JsonValue };
+
 export interface ResponseMeta {
   requestId: string;
   pagination?: PaginationMeta;
@@ -8,8 +14,8 @@ export interface PaginationMeta {
   hasMore: boolean;
 }
 
-export interface ApiEnvelope<T> {
-  data: T;
+export interface ApiEnvelope<TData> {
+  data: TData;
   meta: ResponseMeta;
 }
 
@@ -30,7 +36,9 @@ export interface ApiErrorPayload {
   };
 }
 
-export interface CursorPage<T> {
-  items: T[];
+export interface CursorPage<TItem> {
+  items: TItem[];
   pagination: PaginationMeta;
 }
+
+export type DataParser<TData> = (value: unknown) => TData;
