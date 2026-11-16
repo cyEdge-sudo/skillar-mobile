@@ -1,15 +1,6 @@
-import {
-  API_ROUTES,
-} from "../constants/app.constants";
+import { API_ROUTES } from "../constants/app.constants";
 import { apiRequest } from "../api/api-client";
-import type { ApiEnvelope } from "../api/types";
-import type {
-  AuthResponse,
-  AuthUser,
-  LoginInput,
-  SignupInput,
-  SignupResponse,
-} from "./types";
+import type { AuthResponse, AuthUser, LoginInput, SignupInput, SignupResponse } from "./types";
 import {
   parseAuthResponse,
   parseCurrentUser,
@@ -17,21 +8,7 @@ import {
 } from "./validators";
 import { tokenStorage } from "./token-storage";
 
-const parseLogoutResponse = (value: unknown): { loggedOut: boolean } => {
-  if (
-    typeof value !== "object" ||
-    value === null ||
-    Array.isArray(value) ||
-    !("loggedOut" in value) ||
-    typeof value.loggedOut !== "boolean"
-  ) {
-    throw new Error("Invalid logout response.");
-  }
-
-  return { loggedOut: value.loggedOut };
-};
-
-const parseResetResponse = (value: unknown): { accepted: boolean } => {
+function parseResetRequestResponse(value: unknown): { accepted: boolean } {
   if (
     typeof value !== "object" ||
     value === null ||
@@ -43,7 +20,7 @@ const parseResetResponse = (value: unknown): { accepted: boolean } => {
   }
 
   return { accepted: value.accepted };
-};
+}
 
 export const authService = {
   async login(input: LoginInput): Promise<AuthResponse> {
@@ -56,6 +33,7 @@ export const authService = {
         authenticated: false,
       },
     );
+
     await tokenStorage.save(response.data.tokens);
     return response.data;
   },
@@ -70,6 +48,7 @@ export const authService = {
         authenticated: false,
       },
     );
+
     return response.data;
   },
 
@@ -78,13 +57,14 @@ export const authService = {
       API_ROUTES.user.me,
       parseCurrentUser,
     );
+
     return response.data;
   },
 
   async requestPasswordReset(email: string): Promise<void> {
     await apiRequest(
       API_ROUTES.auth.forgotPassword,
-      parseResetResponse,
+      parseResetRequestResponse,
       {
         method: "POST",
         body: { email },
@@ -95,11 +75,12 @@ export const authService = {
 
   async logout(): Promise<void> {
     const tokens = await tokenStorage.get();
+
     try {
       if (tokens?.refreshToken) {
         await apiRequest(
           API_ROUTES.auth.logout,
-          parseLogoutResponse,
+          () => undefined,
           {
             method: "POST",
             body: { refreshToken: tokens.refreshToken },
