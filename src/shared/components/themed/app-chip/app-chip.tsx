@@ -54,7 +54,7 @@ export const AppChip = React.forwardRef<React.ComponentRef<typeof Chip>, AppChip
                 borderColor: colors.primary,
             },
             style,
-        ]);
+        ]) ?? undefined;
 
         const resolvedLabelStyle = StyleSheet.flatten([
             {
@@ -65,7 +65,7 @@ export const AppChip = React.forwardRef<React.ComponentRef<typeof Chip>, AppChip
                 color: colors.white,
             },
             labelStyle,
-        ]);
+        ]) ?? undefined;
 
         return (
             <Chip
