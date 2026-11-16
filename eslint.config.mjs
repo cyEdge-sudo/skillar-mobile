@@ -1,7 +1,6 @@
 import js from '@eslint/js';
 import expoConfig from 'eslint-config-expo/flat.js';
 import tseslint from 'typescript-eslint';
-import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import unusedImports from 'eslint-plugin-unused-imports';
 import prettier from 'eslint-config-prettier';
 
@@ -14,7 +13,6 @@ export default [
     files: ['**/*.{ts,tsx}'],
 
     plugins: {
-      'simple-import-sort': simpleImportSort,
       'unused-imports': unusedImports,
     },
 
@@ -22,8 +20,6 @@ export default [
       /**
        * Imports
        */
-      'simple-import-sort/imports': 'error',
-      'simple-import-sort/exports': 'error',
 
       /**
        * Unused imports
