@@ -1,5 +1,4 @@
-/** Shared application constants. Keep reusable strings and routes here. */
-
+/** Central registry for reusable app strings and fixed values. */
 export const APP_CONSTANTS = {
   NAME: "Skillar",
   API_VERSION_PREFIX: "/api/v1",
@@ -7,6 +6,7 @@ export const APP_CONSTANTS = {
   QUERY_STALE_TIME_MS: 60_000,
   QUERY_GC_TIME_MS: 5 * 60_000,
   QUERY_RETRY_COUNT: 1,
+  REQUEST_ID_PREFIX: "mobile",
 } as const;
 
 export const API_ROUTES = {
@@ -29,23 +29,33 @@ export const API_ROUTES = {
   },
   roadmaps: {
     collection: "/roadmaps",
-    detail: (roadmapId: string): string => "/roadmaps/" + encodeURIComponent(roadmapId),
-    enroll: (roadmapId: string): string => "/roadmaps/" + encodeURIComponent(roadmapId) + "/enrollments",
+    detail: (roadmapId: string): string =>
+      "/roadmaps/" + encodeURIComponent(roadmapId),
+    enroll: (roadmapId: string): string =>
+      "/roadmaps/" + encodeURIComponent(roadmapId) + "/enrollments",
   },
   enrollments: {
-    detail: (enrollmentId: string): string => "/enrollments/" + encodeURIComponent(enrollmentId),
-    progress: (enrollmentId: string): string => "/enrollments/" + encodeURIComponent(enrollmentId) + "/progress",
+    detail: (enrollmentId: string): string =>
+      "/enrollments/" + encodeURIComponent(enrollmentId),
+    progress: (enrollmentId: string): string =>
+      "/enrollments/" + encodeURIComponent(enrollmentId) + "/progress",
     stepProgress: (enrollmentId: string, stepId: string): string =>
-      "/enrollments/" + encodeURIComponent(enrollmentId) + "/steps/" + encodeURIComponent(stepId) + "/progress",
+      "/enrollments/" + encodeURIComponent(enrollmentId) + "/steps/" +
+      encodeURIComponent(stepId) + "/progress",
   },
   steps: {
-    detail: (stepId: string): string => "/steps/" + encodeURIComponent(stepId) + "/content",
-    assessment: (stepId: string): string => "/steps/" + encodeURIComponent(stepId) + "/assessment",
+    detail: (stepId: string): string =>
+      "/steps/" + encodeURIComponent(stepId) + "/content",
+    assessment: (stepId: string): string =>
+      "/steps/" + encodeURIComponent(stepId) + "/assessment",
   },
   assessments: {
-    attempts: (assessmentId: string): string => "/assessments/" + encodeURIComponent(assessmentId) + "/attempts",
-    attempt: (attemptId: string): string => "/assessment-attempts/" + encodeURIComponent(attemptId),
-    submitAttempt: (attemptId: string): string => "/assessment-attempts/" + encodeURIComponent(attemptId) + "/submit",
+    attempts: (assessmentId: string): string =>
+      "/assessments/" + encodeURIComponent(assessmentId) + "/attempts",
+    attempt: (attemptId: string): string =>
+      "/assessment-attempts/" + encodeURIComponent(attemptId),
+    submitAttempt: (attemptId: string): string =>
+      "/assessment-attempts/" + encodeURIComponent(attemptId) + "/submit",
   },
 } as const;
 
@@ -60,12 +70,12 @@ export const REQUEST_HEADERS = {
   AUTHORIZATION: "Authorization",
   REQUEST_ID: "X-Request-Id",
   IDEMPOTENCY_KEY: "Idempotency-Key",
-  RETRY_AFTER: "Retry-After",
   JSON: "application/json",
   BEARER_PREFIX: "Bearer ",
 } as const;
 
 export const API_ERROR_CODES = {
+  CONFIGURATION_ERROR: "CONFIGURATION_ERROR",
   NETWORK_ERROR: "NETWORK_ERROR",
   REQUEST_TIMEOUT: "REQUEST_TIMEOUT",
   REQUEST_CANCELLED: "REQUEST_CANCELLED",
@@ -75,26 +85,22 @@ export const API_ERROR_CODES = {
   INVALID_TOKEN_RESPONSE: "INVALID_TOKEN_RESPONSE",
 } as const;
 
-export const APP_MESSAGES = {
-  networkUnavailable: "Unable to connect. Check your internet connection and try again.",
-  requestTimedOut: "The request timed out. Please try again.",
-  requestCancelled: "The request was cancelled.",
-  serviceUnavailable: "The service is temporarily unavailable. Please try again.",
-  requestFailed: "The request could not be completed.",
-  invalidServerResponse: "The server returned an invalid response.",
-  sessionExpired: "Your session has expired. Please sign in again.",
-  invalidTokenResponse: "The server returned an invalid token response.",
-  unknownError: "Something went wrong. Please try again.",
-  restoreSessionFailed: "Your saved session could not be checked. Check your connection and try again.",
+export const AUTH_STATUS = {
+  RESTORING: "restoring",
+  AUTHENTICATED: "authenticated",
+  UNAUTHENTICATED: "unauthenticated",
+  ERROR: "error",
 } as const;
 
 export const QUERY_KEYS = {
   all: ["skillar"] as const,
   currentUser: ["skillar", "current-user"] as const,
-  roadmapList: ["skillar", "roadmaps"] as const,
-  roadmap: (roadmapId: string) => ["skillar", "roadmaps", roadmapId] as const,
+  roadmaps: ["skillar", "roadmaps"] as const,
+  roadmap: (roadmapId: string) =>
+    ["skillar", "roadmaps", roadmapId] as const,
   enrollments: ["skillar", "enrollments"] as const,
-  enrollment: (enrollmentId: string) => ["skillar", "enrollments", enrollmentId] as const,
+  enrollment: (enrollmentId: string) =>
+    ["skillar", "enrollments", enrollmentId] as const,
   progress: ["skillar", "progress"] as const,
 } as const;
 
@@ -118,6 +124,8 @@ export const UI_COPY = {
     loading: "Loading Skillar…",
     continue: "Continue",
     cancel: "Cancel",
+    back: "Back",
+    save: "Save",
   },
   auth: {
     loginTitle: "Welcome back",
@@ -133,15 +141,22 @@ export const UI_COPY = {
     signupTitle: "Create your account",
     signupSubtitle: "Set up your learner account.",
     nameLabel: "Full name",
+    namePlaceholder: "Enter your name",
     dateOfBirthLabel: "Date of birth (YYYY-MM-DD)",
+    dateOfBirthPlaceholder: "YYYY-MM-DD",
     createAccountAction: "Create account",
     haveAccount: "Already have an account?",
     resetTitle: "Reset your password",
-    resetSubtitle: "Enter your email. We will send reset instructions if an account exists.",
+    resetSubtitle:
+      "Enter your email. We will send reset instructions if an account exists.",
     sendResetAction: "Send reset instructions",
-    resetRequestSent: "If the email is registered, reset instructions will be sent.",
+    resetRequestSent:
+      "If the email is registered, reset instructions will be sent.",
     requiredFields: "Complete all required fields.",
     invalidEmail: "Enter a valid email address.",
+    invalidDateOfBirth: "Enter your date of birth in YYYY-MM-DD format.",
+    signupSuccess:
+      "Your account request was received. Follow the next step sent to your email.",
   },
   dashboard: {
     greeting: "Your learning, in one place",
@@ -150,7 +165,40 @@ export const UI_COPY = {
     discoverRoadmaps: "Explore roadmaps",
     profile: "Profile",
     comingSoonTitle: "Your learning dashboard",
-    comingSoonDescription: "Your learning activity will appear here when the learner APIs are available.",
+    comingSoonDescription:
+      "Your learning activity will appear here when the learner APIs are available.",
     apiNotConnected: "Backend integration is not available yet.",
   },
+  profile: {
+    title: "Your profile",
+    signOut: "Sign out",
+    signOutDescription: "End this session on this device.",
+  },
+  placeholders: {
+    exploreTitle: "Explore roadmaps",
+    exploreDescription:
+      "Browse and search learning roadmaps when the roadmap API is ready.",
+    learningTitle: "My learning",
+    learningDescription:
+      "Your enrolled roadmaps and learning progress will appear here.",
+  },
+} as const;
+
+export const APP_MESSAGES = {
+  apiNotConfigured:
+    "API is not configured. Set EXPO_PUBLIC_API_BASE_URL in your environment.",
+  networkUnavailable:
+    "Unable to connect. Check your internet connection and try again.",
+  requestTimedOut: "The request timed out. Please try again.",
+  requestCancelled: "The request was cancelled.",
+  serviceUnavailable:
+    "The service is temporarily unavailable. Please try again.",
+  requestFailed: "The request could not be completed.",
+  invalidServerResponse: "The server returned an invalid response.",
+  sessionExpired: "Your session has expired. Please sign in again.",
+  invalidTokenResponse:
+    "The server returned an invalid token response.",
+  unknownError: "Something went wrong. Please try again.",
+  restoreSessionFailed:
+    "Your saved session could not be checked. Check your connection and try again.",
 } as const;
