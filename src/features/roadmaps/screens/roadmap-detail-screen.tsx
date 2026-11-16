@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 
-import { UI_COPY } from "../../../core/constants/app.constants";
+import { NAVIGATION_ROUTES, UI_COPY } from "../../../core/constants/app.constants";
 import type { RootStackParamList } from "../../../app/navigation/navigation-types";
 import { AppButton, AppCard, AppChip, AppText, Screen } from "../../../shared/components";
 import { useTheme } from "../../../shared/theme";
@@ -20,7 +20,7 @@ import type { EnrolledRoadmapStep } from "../../learning/types";
 import type { RoadmapStepSummary } from "../types";
 
 type Navigation = NativeStackNavigationProp<RootStackParamList>;
-type DetailRoute = RouteProp<RootStackParamList, "RoadmapDetail">;
+type DetailRoute = RouteProp<RootStackParamList, typeof NAVIGATION_ROUTES.root.roadmapDetail>;
 
 export function RoadmapDetailScreen() {
   const navigation = useNavigation<Navigation>();
@@ -62,7 +62,7 @@ export function RoadmapDetailScreen() {
   const openStep = (step: EnrolledRoadmapStep | RoadmapStepSummary) => {
     if (enrollmentId === undefined) return;
     const progress = "progress" in step ? step.progress : null;
-    navigation.navigate("StepContent", {
+    navigation.navigate(NAVIGATION_ROUTES.root.stepContent, {
       enrollmentId,
       stepId: step.id,
       stepTitle: step.title,
@@ -74,19 +74,19 @@ export function RoadmapDetailScreen() {
   return (
     <Screen>
       <View style={styles.content}>
-        <AppButton variant="ghost" onPress={() => navigation.goBack()} accessibilityLabel="Go back">
-          Back
+        <AppButton variant="ghost" onPress={() => navigation.goBack()} accessibilityLabel={UI_COPY.common.back}>
+          {UI_COPY.learning.back}
         </AppButton>
         {isLoading ? (
           <View style={styles.message}>
             <ActivityIndicator size="large" color={colors.primary} />
-            <AppText color="textSecondary">Loading roadmap…</AppText>
+            <AppText color="textSecondary">{UI_COPY.learning.loadingRoadmap}</AppText>
           </View>
         ) : error || !roadmap ? (
           <View style={styles.message}>
-            <AppText variant="titleMedium">Roadmap unavailable</AppText>
+            <AppText variant="titleMedium">{UI_COPY.learning.roadmapStatus}</AppText>
             <AppText color="textSecondary">
-              {error instanceof Error ? error.message : "This roadmap could not be loaded."}
+              {error instanceof Error ? error.message : UI_COPY.learning.roadmapUnavailable}
             </AppText>
             <AppButton variant="outline" onPress={() => void (enrollmentId !== undefined ? enrollmentQuery.refetch() : publicQuery.refetch())}>
               {UI_COPY.common.retry}
@@ -101,12 +101,12 @@ export function RoadmapDetailScreen() {
               ) : null}
               <View style={styles.stats}>
                 <AppChip label={roadmap.language.toUpperCase()} size="small" />
-                <AppChip label={String(totalSteps) + " steps"} size="small" />
+                <AppChip label={String(totalSteps) + " " + UI_COPY.roadmaps.stepsSuffix} size="small" />
                 {"totalHours" in roadmap ? (
-                  <AppChip label={String(roadmap.totalHours) + " hours"} size="small" />
+                  <AppChip label={String(roadmap.totalHours) + " " + UI_COPY.roadmaps.hoursSuffix} size="small" />
                 ) : null}
                 {enrollmentId !== undefined ? (
-                  <AppChip label={String(completedSteps) + " of " + String(totalSteps) + " completed"} size="small" />
+                  <AppChip label={String(completedSteps) + " " + UI_COPY.roadmaps.progressOf + " " + String(totalSteps) + " " + UI_COPY.roadmaps.progressCompleted} size="small" />
                 ) : null}
               </View>
               {roadmap.skillAreas.length > 0 ? (
@@ -123,18 +123,18 @@ export function RoadmapDetailScreen() {
                 loading={enrollMutation.isPending}
                 disabled={enrollMutation.isPending}
                 onPress={() => enrollMutation.mutate(roadmapId, {
-                  onSuccess: (result) => navigation.replace("RoadmapDetail", {
+                  onSuccess: (result) => navigation.replace(NAVIGATION_ROUTES.root.roadmapDetail, {
                     roadmapId,
                     enrollmentId: result.enrollmentId,
                   }),
                 })}
               >
-                Enroll in roadmap
+                {UI_COPY.roadmaps.enrollInRoadmap}
               </AppButton>
             ) : null}
             {enrollMutation.isError ? (
               <AppText color="error">
-                {enrollMutation.error instanceof Error ? enrollMutation.error.message : "Enrollment failed."}
+                {enrollMutation.error instanceof Error ? enrollMutation.error.message : UI_COPY.learning.enrollFailed}
               </AppText>
             ) : null}
 
@@ -147,7 +147,7 @@ export function RoadmapDetailScreen() {
                 <AppCard variant="outlined" style={styles.milestone}>
                   <View>
                     <AppText variant="titleMedium">
-                      {String(milestone.sequence) + ". " + milestone.title}
+                      {String(milestone.sequence) + UI_COPY.learning.stepNumberSeparator + milestone.title}
                     </AppText>
                     {milestone.description ? (
                       <AppText color="textSecondary">{milestone.description}</AppText>
@@ -160,18 +160,18 @@ export function RoadmapDetailScreen() {
                       <View key={step.id} style={styles.step}>
                         <View style={styles.stepRow}>
                           <View style={{ flex: 1, gap: spacing[4] }}>
-                            <AppText variant="titleSmall">{String(step.sequence) + ". " + step.title}</AppText>
+                            <AppText variant="titleSmall">{String(step.sequence) + UI_COPY.learning.stepNumberSeparator + step.title}</AppText>
                             {step.description ? (
                               <AppText color="textSecondary">{step.description}</AppText>
                             ) : null}
                           </View>
                           <AppChip
-                            label={progress?.status === "completed" ? "Completed" : step.contentStatus === "ready" ? "Ready" : "Pending"}
+                            label={progress?.status === "completed" ? UI_COPY.learning.statusCompleted : step.contentStatus === "ready" ? UI_COPY.learning.statusReady : UI_COPY.learning.statusPending}
                             size="small"
                           />
                         </View>
                         <AppText color="textSecondary" variant="labelSmall">
-                          {step.estimatedMinutes + " min"}
+                          {step.estimatedMinutes + " " + UI_COPY.learning.minutesSuffix}
                         </AppText>
                         {enrollmentId !== undefined ? (
                           <AppButton
@@ -180,7 +180,7 @@ export function RoadmapDetailScreen() {
                             disabled={!canOpen}
                             onPress={() => openStep(step)}
                           >
-                            {progress?.status === "completed" ? "Review step" : "Open step"}
+                            {progress?.status === "completed" ? UI_COPY.learning.reviewStep : UI_COPY.learning.openStep}
                           </AppButton>
                         ) : null}
                       </View>
@@ -189,7 +189,7 @@ export function RoadmapDetailScreen() {
                 </AppCard>
               )}
               ListEmptyComponent={
-                <AppText color="textSecondary">No learning steps are available yet.</AppText>
+                <AppText color="textSecondary">{UI_COPY.learning.noSteps}</AppText>
               }
             />
           </>
