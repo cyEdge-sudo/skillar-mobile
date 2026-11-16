@@ -168,6 +168,7 @@ export const UI_COPY = {
     requiredFields: "Complete all required fields.",
     invalidEmail: "Enter a valid email address.",
     invalidDateOfBirth: "Enter your date of birth in YYYY-MM-DD format.",
+    passwordTooShort: "Your password must contain at least 8 characters.",
     signupSuccess:
       "Your account request was received. Follow the next step sent to your email.",
   },
@@ -186,6 +187,7 @@ export const UI_COPY = {
     title: "Your profile",
     signOut: "Sign out",
     signOutDescription: "End this session on this device.",
+    signOutFailed: "This device was signed out, but the server could not confirm session revocation.",
   },
   placeholders: {
     exploreTitle: "Explore roadmaps",
