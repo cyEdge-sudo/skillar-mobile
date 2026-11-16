@@ -399,7 +399,7 @@ Submission uses an `Idempotency-Key`. The backend owns scoring and must return t
 
 ## 6. Journeys
 
-Journeys are learner assignments. The backend owns audience filtering, stage gating, completion rules and progress calculation. The mobile app must not infer access from hidden UI.
+Journeys are learner assignments. The backend owns audience filtering, stage gating, completion rules and progress calculation. The mobile app must not infer access from hidden UI. Journey enrollment, stage, activity and assessment-attempt IDs are numeric database identifiers in this API; mobile types must keep them as numbers. Other API resources may continue to use opaque string IDs.
 
 ### List assigned journeys
 
