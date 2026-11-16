@@ -142,6 +142,7 @@ export const NAVIGATION_ROUTES = {
     mainTabs: "MainTabs",
     roadmapDetail: "RoadmapDetail",
     stepContent: "StepContent",
+    journeyDetail: "JourneyDetail",
   },
   auth: {
     login: "Login",
