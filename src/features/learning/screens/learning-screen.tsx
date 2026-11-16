@@ -65,7 +65,7 @@ export function LearningScreen() {
       <AppProgress
         progress={item.progressPercent / 100}
         accessibilityRole="progressbar"
-        accessibilityLabel={item.title + " progress"}
+        accessibilityLabel={item.title + " " + UI_COPY.learning.progressAccessibilitySuffix}
         accessibilityValue={{ min: 0, max: 100, now: item.progressPercent }}
       />
       <AppText color="textSecondary" variant="labelSmall">
@@ -145,7 +145,7 @@ export function LearningScreen() {
                   >
                     {enrollmentsQuery.isFetchingNextPage
                       ? UI_COPY.common.loading
-                      : "Load more"}
+                      : UI_COPY.common.loadMore}
                   </AppButton>
                 </View>
               ) : null
