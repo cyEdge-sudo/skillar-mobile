@@ -32,6 +32,9 @@ jobs:
           npm install expo@^58.0.0
           npx expo install --fix
 
+      - name: Apply non-breaking dependency security fixes
+        run: npm audit fix
+
       - name: Check Expo dependency compatibility
         run: npx expo install --check
 
