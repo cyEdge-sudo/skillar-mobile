@@ -44,7 +44,7 @@ export function RoadmapDetailScreen() {
     : publicQuery.error;
 
   const styles = StyleSheet.create({
-    content: { flex: 1, padding: spacing[24], gap: spacing[16] },
+    content: { flex: 1, gap: spacing[16] },
     header: { gap: spacing[8] },
     stats: { flexDirection: "row", flexWrap: "wrap", gap: spacing[8] },
     milestone: { gap: spacing[12] },
