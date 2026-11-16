@@ -10,6 +10,7 @@ import {
   UI_COPY,
 } from "../../core/constants/app.constants";
 import { StepContentScreen } from "../../features/learning/screens/step-content-screen";
+import { JourneyDetailScreen } from "../../features/journeys/screens/journey-detail-screen";
 import { RoadmapDetailScreen } from "../../features/roadmaps/screens/roadmap-detail-screen";
 import { AppText, AppButton } from "../../shared/components/themed";
 import { useTheme } from "../../shared/theme";
@@ -85,6 +86,7 @@ export function RootNavigator() {
           <Stack.Screen name={NAVIGATION_ROUTES.root.mainTabs} component={MainTabs} />
           <Stack.Screen name={NAVIGATION_ROUTES.root.roadmapDetail} component={RoadmapDetailScreen} />
           <Stack.Screen name={NAVIGATION_ROUTES.root.stepContent} component={StepContentScreen} />
+          <Stack.Screen name={NAVIGATION_ROUTES.root.journeyDetail} component={JourneyDetailScreen} />
         </Stack.Navigator>
       ) : (
         <AuthStack />
