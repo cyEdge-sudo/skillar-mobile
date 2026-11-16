@@ -34,6 +34,10 @@ jobs:
           node-version: 22
           cache: npm
 
+      - name: Align Expo-managed dependencies
+        if: github.event_name == 'push'
+        run: npx expo install --fix
+
       - name: Refresh lockfile for dependency updates
         if: github.event_name == 'push'
         run: npm install --package-lock-only --ignore-scripts --no-audit
@@ -48,8 +52,8 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add package-lock.json
-          git commit -m "chore(deps): refresh Expo-compatible lockfile"
+          git add package.json package-lock.json
+          git commit -m "chore(deps): align Expo SDK-compatible versions"
           git push
 
       - name: Install locked dependencies
