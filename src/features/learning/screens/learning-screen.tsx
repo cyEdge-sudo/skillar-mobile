@@ -129,11 +129,11 @@ export function LearningScreen() {
             ItemSeparatorComponent={() => <View style={{ height: spacing[12] }} />}
             refreshing={enrollmentsQuery.isRefetching}
             onRefresh={() => void enrollmentsQuery.refetch()}
-            ListEmptyComponent={
+            ListEmptyComponent={() => (
               <AppText color="textSecondary" style={styles.message}>
                 {UI_COPY.learning.emptyEnrollments}
               </AppText>
-            }
+            )}
             ListFooterComponent={
               enrollmentsQuery.hasNextPage ? (
                 <View style={styles.footer}>
