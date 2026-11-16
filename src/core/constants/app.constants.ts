@@ -21,6 +21,14 @@ export const API_ROUTES = {
     forgotPassword: "/auth/password/forgot",
     resetPassword: "/auth/password/reset",
   },
+  journeys: {
+    collection: "/me/journeys",
+    detail: (enrollmentId: number): string =>
+      "/journeys/enrollments/" + encodeURIComponent(String(enrollmentId)),
+    completeActivity: (enrollmentId: number, activityId: number): string =>
+      "/journeys/enrollments/" + encodeURIComponent(String(enrollmentId)) +
+      "/activities/" + encodeURIComponent(String(activityId)) + "/complete",
+  },
   user: {
     me: "/me",
     updateMe: "/me",
@@ -125,6 +133,8 @@ export const QUERY_KEYS = {
   enrollment: (enrollmentId: string) =>
     ["skillar", "enrollments", enrollmentId] as const,
   progress: ["skillar", "progress"] as const,
+  journeys: ["skillar", "journeys"] as const,
+  journey: (enrollmentId: number) => ["skillar", "journeys", enrollmentId] as const,
 } as const;
 
 export const NAVIGATION_ROUTES = {
@@ -142,6 +152,7 @@ export const NAVIGATION_ROUTES = {
     dashboard: "Dashboard",
     explore: "Explore",
     learning: "Learning",
+    journeys: "Journeys",
     profile: "Profile",
   },
 } as const;
@@ -150,6 +161,7 @@ export const NAVIGATION_LABELS = {
   dashboard: "Home",
   explore: "Explore",
   learning: "My Learning",
+  journeys: "Journeys",
   profile: "Profile",
 } as const;
 
@@ -232,6 +244,37 @@ export const UI_COPY = {
     ready: "Ready",
     pending: "Pending",
     completed: "Completed",
+  },
+  journeys: {
+    title: "My journeys",
+    description: "Follow your assigned learning programmes and complete their activities.",
+    loading: "Loading your journeys…",
+    unavailable: "Journeys are unavailable",
+    empty: "You do not have any assigned journeys yet.",
+    open: "View journey",
+    detailTitle: "Journey details",
+    noStages: "This journey has no stages yet.",
+    locked: "Locked",
+    completed: "Completed",
+    inProgress: "In progress",
+    pending: "Not started",
+    completeActivity: "Mark activity complete",
+    completing: "Saving progress…",
+    completionFailed: "Activity completion could not be saved.",
+    task: "Task",
+    video: "Video",
+    document: "Document",
+    acknowledgement: "Acknowledgement",
+    assessment: "Assessment",
+    roadmap: "Roadmap",
+    documentUnavailable: "This document is not available in the mobile app yet.",
+    assessmentReadOnly: "Assessment submission is not available in this version.",
+    roadmapCompletion: "Complete the linked roadmap to finish this activity.",
+    openVideo: "Open video",
+    noActivities: "No activities in this stage.",
+    progress: "Progress",
+    stage: "Stage",
+    activity: "Activity",
   },
   learning: {
     myLearningTitle: "My learning",
