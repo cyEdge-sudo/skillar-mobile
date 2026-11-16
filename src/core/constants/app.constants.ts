@@ -128,6 +128,7 @@ export const NAVIGATION_LABELS = {
 export const FORM_VALIDATION = {
   emailPattern: /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/,
   dateOnlyPattern: /^\\d{4}-\\d{2}-\\d{2}$/,
+  passwordMinLength: 8,
 } as const;
 
 export const UI_COPY = {
