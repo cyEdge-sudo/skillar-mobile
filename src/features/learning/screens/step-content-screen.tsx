@@ -48,7 +48,7 @@ export function StepContentScreen() {
   };
 
   const styles = StyleSheet.create({
-    content: { flex: 1, padding: spacing[24], gap: spacing[16] },
+    content: { flex: 1, gap: spacing[16] },
     header: { gap: spacing[8] },
     section: { gap: spacing[12] },
     message: { alignItems: "center", justifyContent: "center", gap: spacing[12], paddingVertical: spacing[24] },
