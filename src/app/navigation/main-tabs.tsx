@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import { NAVIGATION_LABELS, NAVIGATION_ROUTES } from "../../core/constants/app.constants";
+import { FEATURE_FLAGS, NAVIGATION_LABELS, NAVIGATION_ROUTES } from "../../core/constants/app.constants";
 import { DashboardScreen } from "../../features/dashboard/screens/dashboard-screen";
 import { LearningScreen } from "../../features/learning/screens/learning-screen";
 import { JourneysScreen } from "../../features/journeys/screens/journeys-screen";
@@ -45,11 +45,13 @@ export function MainTabs() {
         component={LearningScreen}
         options={{ title: NAVIGATION_LABELS.learning }}
       />
-      <Tab.Screen
-        name={NAVIGATION_ROUTES.tabs.journeys}
-        component={JourneysScreen}
-        options={{ title: NAVIGATION_LABELS.journeys }}
-      />
+      {FEATURE_FLAGS.journeys ? (
+        <Tab.Screen
+          name={NAVIGATION_ROUTES.tabs.journeys}
+          component={JourneysScreen}
+          options={{ title: NAVIGATION_LABELS.journeys }}
+        />
+      ) : null}
       <Tab.Screen
         name={NAVIGATION_ROUTES.tabs.profile}
         component={ProfileScreen}
