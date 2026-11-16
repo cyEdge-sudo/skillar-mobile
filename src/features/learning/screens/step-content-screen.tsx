@@ -28,7 +28,7 @@ const YOUTUBE_URL_PATTERN = /^https:\/\/(?:(?:www|m)\.)?youtube\.com\/|^https:\/
 export function StepContentScreen() {
   const navigation = useNavigation<Navigation>();
   const route = useRoute<StepRoute>();
-  const { enrollmentId, stepId, stepTitle, progressStatus } = route.params;
+  const { enrollmentId, stepId, stepTitle, progressStatus, progressPercent } = route.params;
   const { colors, spacing, typography } = useTheme();
   const contentQuery = useStepContent(stepId);
   const [showAssessment, setShowAssessment] = useState(false);
@@ -65,6 +65,7 @@ export function StepContentScreen() {
   };
 
   const isCompleted = progressStatus === "completed" || progressMutation.isSuccess;
+  const currentProgress = progressMutation.data?.progressPercent ?? progressPercent;
 
   const markCompleted = () => {
     progressMutation.mutate({
@@ -84,6 +85,11 @@ export function StepContentScreen() {
         <View style={styles.header}>
           <AppText variant="headlineSmall">{contentQuery.data?.title ?? stepTitle}</AppText>
           <AppText color="textSecondary">{UI_COPY.learning.stepContentSubtitle}</AppText>
+          <AppProgress
+            progress={currentProgress / 100}
+            accessibilityRole="progressbar"
+            accessibilityValue={{ min: 0, max: 100, now: currentProgress }}
+          />
         </View>
 
         {contentQuery.isLoading ? (
