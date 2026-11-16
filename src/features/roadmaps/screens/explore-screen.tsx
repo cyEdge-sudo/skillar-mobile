@@ -135,7 +135,7 @@ export function ExploreScreen() {
           loading={isEnrolling}
           variant={isEnrolled ? "outline" : "solid"}
           accessibilityLabel={
-            isEnrolled ? item.title + " enrolled" : "Enroll in " + item.title
+            isEnrolled ? item.title + " " + UI_COPY.roadmaps.enrolledAccessibilitySuffix : UI_COPY.roadmaps.enrollAccessibilityPrefix + item.title
           }
         >
           {isEnrolled ? UI_COPY.roadmaps.enrolled : UI_COPY.roadmaps.enroll}
@@ -161,7 +161,7 @@ export function ExploreScreen() {
           placeholder={UI_COPY.roadmaps.searchPlaceholder}
           placeholderTextColor={colors.textSecondary}
           returnKeyType="search"
-          accessibilityLabel="Search roadmaps"
+          accessibilityLabel={UI_COPY.roadmaps.searchAccessibilityLabel}
           style={styles.search}
         />
 
@@ -172,7 +172,7 @@ export function ExploreScreen() {
               label={filter.label}
               selected={selectedLevel === filter.value}
               onPress={() => setSelectedLevel(filter.value)}
-              accessibilityLabel={"Filter by " + filter.label}
+              accessibilityLabel={UI_COPY.roadmaps.filterAccessibilityPrefix + filter.label}
               accessibilityState={{ selected: selectedLevel === filter.value }}
             />
           ))}
@@ -189,13 +189,13 @@ export function ExploreScreen() {
             <AppText color="textSecondary">
               {roadmapsQuery.error instanceof Error
                 ? roadmapsQuery.error.message
-                : "Try again in a moment."}
+                : UI_COPY.roadmaps.retryMessage}
             </AppText>
             <AppButton
               variant="outline"
               onPress={() => void roadmapsQuery.refetch()}
             >
-              Retry
+              {UI_COPY.common.retry}
             </AppButton>
           </View>
         ) : (
@@ -223,7 +223,7 @@ export function ExploreScreen() {
                     disabled={roadmapsQuery.isFetchingNextPage}
                     onPress={() => void roadmapsQuery.fetchNextPage()}
                   >
-                    Load more
+                    {UI_COPY.common.loadMore}
                   </AppButton>
                 </View>
               ) : null
@@ -235,7 +235,7 @@ export function ExploreScreen() {
           <AppText color="error">
             {enrollMutation.error instanceof Error
               ? enrollMutation.error.message
-              : "Enrollment failed. Please try again."}
+              : UI_COPY.roadmaps.enrollFailedMessage}
           </AppText>
         ) : null}
       </View>
