@@ -1,26 +1,20 @@
 import { API_ROUTES } from "../constants/app.constants";
 import { apiRequest } from "../api/api-client";
-import type { AuthResponse, AuthUser, LoginInput, SignupInput, SignupResponse } from "./types";
+import type {
+  AuthResponse,
+  AuthUser,
+  LoginInput,
+  SignupInput,
+  SignupResponse,
+} from "./types";
 import {
+  parseAcceptedAction,
   parseAuthResponse,
   parseCurrentUser,
+  parseLoggedOut,
   parseSignupResponse,
 } from "./validators";
 import { tokenStorage } from "./token-storage";
-
-function parseResetRequestResponse(value: unknown): { accepted: boolean } {
-  if (
-    typeof value !== "object" ||
-    value === null ||
-    Array.isArray(value) ||
-    !("accepted" in value) ||
-    typeof value.accepted !== "boolean"
-  ) {
-    throw new Error("Invalid password reset response.");
-  }
-
-  return { accepted: value.accepted };
-}
 
 export const authService = {
   async login(input: LoginInput): Promise<AuthResponse> {
@@ -29,7 +23,10 @@ export const authService = {
       parseAuthResponse,
       {
         method: "POST",
-        body: input,
+        body: {
+          email: input.email,
+          password: input.password,
+        },
         authenticated: false,
       },
     );
@@ -44,7 +41,12 @@ export const authService = {
       parseSignupResponse,
       {
         method: "POST",
-        body: input,
+        body: {
+          name: input.name,
+          email: input.email,
+          password: input.password,
+          dateOfBirth: input.dateOfBirth,
+        },
         authenticated: false,
       },
     );
@@ -64,7 +66,7 @@ export const authService = {
   async requestPasswordReset(email: string): Promise<void> {
     await apiRequest(
       API_ROUTES.auth.forgotPassword,
-      parseResetRequestResponse,
+      parseAcceptedAction,
       {
         method: "POST",
         body: { email },
@@ -80,7 +82,7 @@ export const authService = {
       if (tokens?.refreshToken) {
         await apiRequest(
           API_ROUTES.auth.logout,
-          () => undefined,
+          parseLoggedOut,
           {
             method: "POST",
             body: { refreshToken: tokens.refreshToken },
