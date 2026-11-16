@@ -1,5 +1,5 @@
 import js from '@eslint/js';
-import expoConfig from 'eslint-config-expo/flat';
+import expoConfig from 'eslint-config-expo/flat.js';
 import tseslint from 'typescript-eslint';
 import importPlugin from 'eslint-plugin-import';
 import reactHooks from 'eslint-plugin-react-hooks';
