@@ -164,18 +164,19 @@ function parseActivity(value: unknown): JourneyActivity {
     position: requiredCount(value.position, "activity.position"),
     isRequired: value.isRequired === true,
     metadata: {
-      taskBody: typeof metadata.taskBody === "string" ? metadata.taskBody : undefined,
+      ...(typeof metadata.taskBody === "string"
+        ? { taskBody: metadata.taskBody }
+        : {}),
       contentUrl: nullableString(metadata.contentUrl),
       duration: nullableNumber(metadata.duration),
       fileName: nullableString(metadata.fileName),
       available: metadata.available === true,
       roadmapId: nullableString(metadata.roadmapId),
-      acknowledgementText:
-        typeof metadata.acknowledgementText === "string"
-          ? metadata.acknowledgementText
-          : undefined,
-      questions,
-      totalQuestions: totalQuestions ?? undefined,
+      ...(typeof metadata.acknowledgementText === "string"
+        ? { acknowledgementText: metadata.acknowledgementText }
+        : {}),
+      ...(questions ? { questions } : {}),
+      ...(totalQuestions !== null ? { totalQuestions } : {}),
       passingScore: nullableNumber(metadata.passingScore),
     },
     progress: {
