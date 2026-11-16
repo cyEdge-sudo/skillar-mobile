@@ -1,0 +1,71 @@
+name: Expo Compatibility
+
+on:
+  push:
+    branches:
+      - "feature/expo-compatible-mainline"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: expo-compatibility-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Expo SDK compatibility and app checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Refresh lockfile for dependency updates
+        if: github.event_name == 'push'
+        run: npm install --package-lock-only --ignore-scripts --no-audit
+
+      - name: Commit refreshed lockfile
+        if: github.event_name == 'push'
+        shell: bash
+        run: |
+          if git diff --quiet -- package-lock.json; then
+            echo "Lockfile is already synchronized."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json
+          git commit -m "chore(deps): refresh Expo-compatible lockfile"
+          git push
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Check Expo SDK dependency versions
+        run: npx expo install --check
+
+      - name: Run Expo Doctor
+        run: npx expo-doctor
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Audit dependencies
+        run: npm audit --audit-level=low
