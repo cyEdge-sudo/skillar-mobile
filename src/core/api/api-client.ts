@@ -1,20 +1,21 @@
-import { API_TIMEOUT_MS, getApiUrl } from "../config/env";
-import { tokenStorage } from "../auth/token-storage";
-import type { AuthResponse, AuthTokens } from "../auth/types";
+import {
+  API_ERROR_CODES,
+  API_ROUTES,
+  APP_CONSTANTS,
+  APP_MESSAGES,
+  REQUEST_HEADERS,
+} from "../constants/app.constants";
 import { ApiError } from "./api-error";
-import type { ApiEnvelope } from "./types";
-
-type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-
-export interface ApiRequestOptions {
-  method?: HttpMethod;
-  body?: unknown;
-  authenticated?: boolean;
-  headers?: Record<string, string>;
-  idempotencyKey?: string;
-  signal?: AbortSignal;
-  retryAuth?: boolean;
-}
+import type {
+  ApiEnvelope,
+  ApiRequestOptions,
+  DataParser,
+  ResponseMeta,
+} from "./types";
+import { getApiUrl } from "../config/env";
+import { tokenStorage } from "../auth/token-storage";
+import { parseAuthResponse, parseAuthTokens } from "../auth/validators";
+import type { AuthTokens } from "../auth/types";
 
 let refreshInFlight: Promise<AuthTokens> | null = null;
 let onAuthenticationExpired: (() => void) | null = null;
@@ -26,7 +27,73 @@ export function setAuthenticationExpiredHandler(
 }
 
 function createRequestId(): string {
-  return "mob-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10);
+  return (
+    APP_CONSTANTS.REQUEST_ID_PREFIX +
+    "-" +
+    Date.now().toString(36) +
+    "-" +
+    Math.random().toString(36).slice(2, 10)
+  );
+}
+
+function parseResponseMeta(value: unknown, fallbackRequestId: string): ResponseMeta {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) {
+    return { requestId: fallbackRequestId };
+  }
+
+  const meta = value as Record<string, unknown>;
+  const requestId =
+    typeof meta.requestId === "string" ? meta.requestId : fallbackRequestId;
+
+  if (meta.pagination === undefined) {
+    return { requestId };
+  }
+
+  if (
+    typeof meta.pagination !== "object" ||
+    meta.pagination === null ||
+    Array.isArray(meta.pagination)
+  ) {
+    throw ApiError.invalidResponse(requestId);
+  }
+
+  const pagination = meta.pagination as Record<string, unknown>;
+  if (
+    (pagination.nextCursor !== null &&
+      typeof pagination.nextCursor !== "string") ||
+    typeof pagination.hasMore !== "boolean"
+  ) {
+    throw ApiError.invalidResponse(requestId);
+  }
+
+  return {
+    requestId,
+    pagination: {
+      nextCursor: pagination.nextCursor as string | null,
+      hasMore: pagination.hasMore,
+    },
+  };
+}
+
+function parseEnvelope<TData>(
+  payload: unknown,
+  parseData: DataParser<TData>,
+  requestId: string,
+): ApiEnvelope<TData> {
+  if (
+    typeof payload !== "object" ||
+    payload === null ||
+    Array.isArray(payload) ||
+    !("data" in payload)
+  ) {
+    throw ApiError.invalidResponse(requestId);
+  }
+
+  const record = payload as Record<string, unknown>;
+  return {
+    data: parseData(record.data),
+    meta: parseResponseMeta(record.meta, requestId),
+  };
 }
 
 async function readJson(response: Response): Promise<unknown> {
@@ -34,28 +101,18 @@ async function readJson(response: Response): Promise<unknown> {
     return undefined;
   }
 
-  const contentType = response.headers.get("content-type") ?? "";
-  if (!contentType.includes("application/json")) {
+  const contentType =
+    response.headers.get(REQUEST_HEADERS.CONTENT_TYPE) ?? "";
+  if (!contentType.includes(REQUEST_HEADERS.JSON)) {
     return undefined;
   }
 
   try {
-    return await response.json();
+    const value: unknown = await response.json();
+    return value;
   } catch {
     return undefined;
   }
-}
-
-function asApiEnvelope<T>(payload: unknown, requestId: string): ApiEnvelope<T> {
-  if (payload === null || typeof payload !== "object" || !("data" in payload)) {
-    throw new ApiError("The server returned an invalid response.", {
-      status: 502,
-      code: "INVALID_RESPONSE",
-      requestId,
-    });
-  }
-
-  return payload as ApiEnvelope<T>;
 }
 
 async function fetchWithTimeout(
@@ -64,7 +121,10 @@ async function fetchWithTimeout(
   externalSignal?: AbortSignal,
 ): Promise<Response> {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+  const timeoutId = setTimeout(
+    () => controller.abort(),
+    APP_CONSTANTS.API_TIMEOUT_MS,
+  );
   const abortFromCaller = () => controller.abort();
 
   externalSignal?.addEventListener("abort", abortFromCaller, { once: true });
@@ -73,47 +133,50 @@ async function fetchWithTimeout(
     return await fetch(url, { ...init, signal: controller.signal });
   } catch {
     if (controller.signal.aborted) {
-      throw new ApiError(
-        externalSignal?.aborted
-          ? "The request was cancelled."
-          : "The request timed out. Please try again.",
-        {
-          status: 0,
-          code: externalSignal?.aborted ? "REQUEST_CANCELLED" : "REQUEST_TIMEOUT",
-        },
+      const cancelled = externalSignal?.aborted === true;
+      throw ApiError.network(
+        cancelled
+          ? API_ERROR_CODES.REQUEST_CANCELLED
+          : API_ERROR_CODES.REQUEST_TIMEOUT,
+        cancelled
+          ? APP_MESSAGES.requestCancelled
+          : APP_MESSAGES.requestTimedOut,
       );
     }
 
-    throw new ApiError("Unable to connect to the service.", {
-      status: 0,
-      code: "NETWORK_ERROR",
-    });
+    throw ApiError.network(
+      API_ERROR_CODES.NETWORK_ERROR,
+      APP_MESSAGES.networkUnavailable,
+    );
   } finally {
-    clearTimeout(timeout);
+    clearTimeout(timeoutId);
     externalSignal?.removeEventListener("abort", abortFromCaller);
   }
 }
 
 async function performTokenRefresh(): Promise<AuthTokens> {
-  const current = await tokenStorage.get();
-  if (!current?.refreshToken) {
-    throw new ApiError("Your session has expired. Please sign in again.", {
-      status: 401,
-      code: "REFRESH_TOKEN_MISSING",
-    });
+  const currentTokens = await tokenStorage.get();
+
+  if (!currentTokens) {
+    throw ApiError.network(
+      API_ERROR_CODES.REFRESH_TOKEN_MISSING,
+      APP_MESSAGES.sessionExpired,
+    );
   }
 
   const requestId = createRequestId();
   const response = await fetchWithTimeout(
-    getApiUrl("/auth/refresh"),
+    getApiUrl(API_ROUTES.auth.refresh),
     {
       method: "POST",
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "X-Request-Id": requestId,
+        [REQUEST_HEADERS.ACCEPT]: REQUEST_HEADERS.JSON,
+        [REQUEST_HEADERS.CONTENT_TYPE]: REQUEST_HEADERS.JSON,
+        [REQUEST_HEADERS.REQUEST_ID]: requestId,
       },
-      body: JSON.stringify({ refreshToken: current.refreshToken }),
+      body: JSON.stringify({
+        refreshToken: currentTokens.refreshToken,
+      }),
     },
   );
 
@@ -122,69 +185,65 @@ async function performTokenRefresh(): Promise<AuthTokens> {
     throw ApiError.fromResponse(response.status, payload);
   }
 
-  const envelope = asApiEnvelope<AuthResponse>(payload, requestId);
-  const tokens = envelope.data?.tokens;
-  if (
-    !tokens?.accessToken ||
-    !tokens.refreshToken ||
-    !tokens.accessTokenExpiresAt ||
-    !tokens.refreshTokenExpiresAt
-  ) {
-    throw new ApiError("The server returned an invalid token response.", {
-      status: 502,
-      code: "INVALID_TOKEN_RESPONSE",
-      requestId,
-    });
-  }
+  const envelope = parseEnvelope(
+    payload,
+    parseAuthResponse,
+    requestId,
+  );
 
-  // Persist the rotated pair together in one secure-store value.
+  // Parse the tokens once more at the storage boundary.
+  const tokens = parseAuthTokens(envelope.data.tokens);
   await tokenStorage.save(tokens);
   return tokens;
 }
 
 async function refreshTokens(): Promise<AuthTokens> {
-  if (!refreshInFlight) {
-    refreshInFlight = performTokenRefresh()
-      .catch(async (error: unknown) => {
-        // A network failure must not erase a session that may still be valid.
-        if (error instanceof ApiError && [401, 403].includes(error.status)) {
-          await tokenStorage.clear();
-          onAuthenticationExpired?.();
-        }
-        throw error;
-      })
-      .finally(() => {
-        refreshInFlight = null;
-      });
+  if (refreshInFlight) {
+    return refreshInFlight;
   }
+
+  refreshInFlight = performTokenRefresh()
+    .catch(async (error: unknown) => {
+      // Keep tokens on network/server outages. Clear only a rejected session.
+      if (error instanceof ApiError && [401, 403].includes(error.status)) {
+        await tokenStorage.clear();
+        onAuthenticationExpired?.();
+      }
+      throw error;
+    })
+    .finally(() => {
+      refreshInFlight = null;
+    });
 
   return refreshInFlight;
 }
 
-export async function apiRequest<T>(
+export async function apiRequest<TData>(
   path: string,
+  parseData: DataParser<TData>,
   options: ApiRequestOptions = {},
-): Promise<ApiEnvelope<T>> {
+): Promise<ApiEnvelope<TData>> {
   const requestId = createRequestId();
   const authenticated = options.authenticated ?? true;
   const headers: Record<string, string> = {
-    Accept: "application/json",
-    "X-Request-Id": requestId,
+    [REQUEST_HEADERS.ACCEPT]: REQUEST_HEADERS.JSON,
+    [REQUEST_HEADERS.REQUEST_ID]: requestId,
     ...options.headers,
   };
 
   if (options.body !== undefined) {
-    headers["Content-Type"] = "application/json";
+    headers[REQUEST_HEADERS.CONTENT_TYPE] = REQUEST_HEADERS.JSON;
   }
 
   if (options.idempotencyKey) {
-    headers["Idempotency-Key"] = options.idempotencyKey;
+    headers[REQUEST_HEADERS.IDEMPOTENCY_KEY] = options.idempotencyKey;
   }
 
   if (authenticated) {
     const tokens = await tokenStorage.get();
-    if (tokens?.accessToken) {
-      headers.Authorization = "Bearer " + tokens.accessToken;
+    if (tokens) {
+      headers[REQUEST_HEADERS.AUTHORIZATION] =
+        REQUEST_HEADERS.BEARER_PREFIX + tokens.accessToken;
     }
   }
 
@@ -193,7 +252,8 @@ export async function apiRequest<T>(
     {
       method: options.method ?? "GET",
       headers,
-      body: options.body === undefined ? undefined : JSON.stringify(options.body),
+      body:
+        options.body === undefined ? undefined : JSON.stringify(options.body),
     },
     options.signal,
   );
@@ -202,12 +262,13 @@ export async function apiRequest<T>(
 
   if (response.status === 401 && authenticated && options.retryAuth !== false) {
     const tokens = await refreshTokens();
-    return apiRequest<T>(path, {
+    return apiRequest(path, parseData, {
       ...options,
       retryAuth: false,
       headers: {
         ...options.headers,
-        Authorization: "Bearer " + tokens.accessToken,
+        [REQUEST_HEADERS.AUTHORIZATION]:
+          REQUEST_HEADERS.BEARER_PREFIX + tokens.accessToken,
       },
     });
   }
@@ -217,8 +278,11 @@ export async function apiRequest<T>(
   }
 
   if (response.status === 204) {
-    return { data: undefined as T, meta: { requestId } };
+    return {
+      data: undefined as TData,
+      meta: { requestId },
+    };
   }
 
-  return asApiEnvelope<T>(payload, requestId);
+  return parseEnvelope(payload, parseData, requestId);
 }
