@@ -9,7 +9,7 @@ import {
 
 import { NAVIGATION_ROUTES, UI_COPY } from "../../../core/constants/app.constants";
 import type { RootStackParamList } from "../../../app/navigation/navigation-types";
-import { AppButton, AppCard, AppChip, AppText, Screen } from "../../../shared/components";
+import { AppButton, AppCard, AppChip, AppProgress, AppText, Screen } from "../../../shared/components";
 import { useTheme } from "../../../shared/theme";
 import { useEnrollRoadmap } from "../use-roadmaps";
 import {
@@ -36,11 +36,6 @@ export function RoadmapDetailScreen() {
     : publicQuery.data;
   const milestones = roadmap?.milestones ?? [];
   const totalSteps = milestones.reduce((total, item) => total + item.steps.length, 0);
-  const completedSteps = milestones.reduce(
-    (total, item) =>
-      total + item.steps.filter((step) => "progress" in step && step.progress?.status === "completed").length,
-    0,
-  );
   const isLoading = enrollmentId !== undefined
     ? enrollmentQuery.isLoading
     : publicQuery.isLoading;
@@ -104,9 +99,6 @@ export function RoadmapDetailScreen() {
                 <AppChip label={String(totalSteps) + " " + UI_COPY.roadmaps.stepsSuffix} size="small" />
                 {"totalHours" in roadmap ? (
                   <AppChip label={String(roadmap.totalHours) + " " + UI_COPY.roadmaps.hoursSuffix} size="small" />
-                ) : null}
-                {enrollmentId !== undefined ? (
-                  <AppChip label={String(completedSteps) + " " + UI_COPY.roadmaps.progressOf + " " + String(totalSteps) + " " + UI_COPY.roadmaps.progressCompleted} size="small" />
                 ) : null}
               </View>
               {roadmap.skillAreas.length > 0 ? (
@@ -173,6 +165,13 @@ export function RoadmapDetailScreen() {
                         <AppText color="textSecondary" variant="labelSmall">
                           {step.estimatedMinutes + " " + UI_COPY.learning.minutesSuffix}
                         </AppText>
+                        {progress ? (
+                          <AppProgress
+                            progress={progress.progressPercent / 100}
+                            accessibilityRole="progressbar"
+                            accessibilityValue={{ min: 0, max: 100, now: progress.progressPercent }}
+                          />
+                        ) : null}
                         {enrollmentId !== undefined ? (
                           <AppButton
                             size="small"
