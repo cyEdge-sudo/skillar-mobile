@@ -1,9 +1,9 @@
+import { ApiError } from "../api/api-error";
 import {
   API_ERROR_CODES,
   APP_CONSTANTS,
   APP_MESSAGES,
 } from "../constants/app.constants";
-import { ApiError } from "../api/api-error";
 
 const rawApiBaseUrl = process.env.EXPO_PUBLIC_API_BASE_URL?.trim();
 export const API_BASE_URL = rawApiBaseUrl?.replace(/\/+$/, "") ?? "";
