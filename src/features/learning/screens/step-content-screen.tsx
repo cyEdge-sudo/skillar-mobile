@@ -10,7 +10,7 @@ import {
   View,
 } from "react-native";
 
-import { UI_COPY } from "../../../core/constants/app.constants";
+import { NAVIGATION_ROUTES, UI_COPY } from "../../../core/constants/app.constants";
 import type { RootStackParamList } from "../../../app/navigation/navigation-types";
 import { AppButton, AppCard, AppText, Screen } from "../../../shared/components";
 import { useTheme } from "../../../shared/theme";
@@ -21,7 +21,7 @@ import {
 } from "../use-learning-detail";
 
 type Navigation = NativeStackNavigationProp<RootStackParamList>;
-type StepRoute = RouteProp<RootStackParamList, "StepContent">;
+type StepRoute = RouteProp<RootStackParamList, typeof NAVIGATION_ROUTES.root.stepContent>;
 
 const YOUTUBE_URL_PATTERN = /^https:\/\/(?:(?:www|m)\.)?youtube\.com\/|^https:\/\/youtu\.be\//i;
 
@@ -79,21 +79,21 @@ export function StepContentScreen() {
     <Screen>
       <View style={styles.content}>
         <AppButton variant="ghost" onPress={() => navigation.goBack()}>
-          Back to roadmap
+          {UI_COPY.learning.backToRoadmap}
         </AppButton>
         <View style={styles.header}>
           <AppText variant="headlineSmall">{contentQuery.data?.title ?? stepTitle}</AppText>
-          <AppText color="textSecondary">Step learning content</AppText>
+          <AppText color="textSecondary">{UI_COPY.learning.stepContentSubtitle}</AppText>
         </View>
 
         {contentQuery.isLoading ? (
           <View style={styles.message}>
             <ActivityIndicator size="large" color={colors.primary} />
-            <AppText color="textSecondary">Loading step content…</AppText>
+            <AppText color="textSecondary">{UI_COPY.learning.loadingStep}</AppText>
           </View>
         ) : contentQuery.isError ? (
           <View style={styles.message}>
-            <AppText variant="titleMedium">Step content unavailable</AppText>
+            <AppText variant="titleMedium">{UI_COPY.learning.stepUnavailable}</AppText>
             <AppText color="textSecondary">
               {contentQuery.error instanceof Error ? contentQuery.error.message : UI_COPY.learning.contentUnavailable}
             </AppText>
@@ -102,12 +102,12 @@ export function StepContentScreen() {
             </AppButton>
           </View>
         ) : (
-          <ScrollView contentContainerStyle={{ gap: spacing[16], paddingBottom: spacing[32] }}>
+          <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: spacing[16], paddingBottom: spacing[32] }}>
             {contentQuery.data?.video ? (
               <AppCard variant="outlined" style={styles.section}>
-                <AppText variant="titleMedium">Video lesson</AppText>
+                <AppText variant="titleMedium">{UI_COPY.learning.videoLesson}</AppText>
                 <AppText color="textSecondary">
-                  {contentQuery.data.video.provider.toUpperCase() + " video"}
+                  {contentQuery.data.video.provider.toUpperCase() + " " + UI_COPY.learning.videoSuffix}
                 </AppText>
                 <AppButton onPress={() => void openVideo(contentQuery.data?.video?.url ?? "")}>
                   {UI_COPY.learning.openVideo}
@@ -124,7 +124,7 @@ export function StepContentScreen() {
             ) : null}
 
             {!contentQuery.data?.video && !contentQuery.data?.contentMarkdown ? (
-              <AppText color="textSecondary">{UI_COPY.learning.pendingContent}</AppText>
+              <AppText color="textSecondary">{UI_COPY.learning.noPublishedContent}</AppText>
             ) : null}
 
             <AppCard variant="outlined" style={styles.section}>
@@ -134,7 +134,7 @@ export function StepContentScreen() {
                 variant="outline"
                 onPress={() => setShowAssessment((current) => !current)}
               >
-                {showAssessment ? "Hide questions" : "View questions"}
+                {showAssessment ? UI_COPY.learning.hideQuestions : UI_COPY.learning.viewQuestions}
               </AppButton>
               {showAssessment ? (
                 assessmentQuery.isLoading ? (
@@ -145,7 +145,7 @@ export function StepContentScreen() {
                   assessmentQuery.data.items.map((question, index) => (
                     <View key={question.questionId} style={styles.question}>
                       <AppText variant="titleSmall">
-                        {String(index + 1) + ". " + question.question}
+                        {String(index + 1) + UI_COPY.learning.questionNumberSeparator + question.question}
                       </AppText>
                       <AppText color="textSecondary" variant="labelSmall">
                         {question.type.replace(/_/g, " ")}
@@ -174,7 +174,7 @@ export function StepContentScreen() {
             </AppButton>
             {progressMutation.isError ? (
               <AppText color="error">
-                {progressMutation.error instanceof Error ? progressMutation.error.message : "Progress could not be saved."}
+                {progressMutation.error instanceof Error ? progressMutation.error.message : UI_COPY.learning.progressSaveFailed}
               </AppText>
             ) : null}
           </View>
