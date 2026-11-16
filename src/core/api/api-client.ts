@@ -247,8 +247,9 @@ export async function apiRequest<TData>(
     {
       method: options.method ?? HTTP_METHODS.GET,
       headers,
-      body:
-        options.body === undefined ? undefined : JSON.stringify(options.body),
+      ...(options.body === undefined
+        ? {}
+        : { body: JSON.stringify(options.body) }),
     },
     options.signal,
   );
