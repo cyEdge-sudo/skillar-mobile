@@ -1,29 +1,65 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 import { useAuth } from "../../core/auth/auth-context";
-import { AppButton } from "../../shared/components";
-import { colors, spacing } from "../../shared/theme/tokens";
+import {
+  APP_MESSAGES,
+  AUTH_STATUS,
+  UI_COPY,
+} from "../../core/constants/app.constants";
+import { AppText, AppButton } from "../../shared/components/themed";
+import { useTheme } from "../../shared/theme";
 import { AuthStack } from "./auth-stack";
 import { MainTabs } from "./main-tabs";
 
 function SessionRestoreScreen() {
   const { error, retrySessionRestore } = useAuth();
+  const { colors, spacing } = useTheme();
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      padding: spacing[32],
+      backgroundColor: colors.background,
+    },
+    message: {
+      marginTop: spacing[16],
+      textAlign: "center",
+    },
+    title: {
+      marginBottom: spacing[8],
+      textAlign: "center",
+    },
+    button: {
+      marginTop: spacing[16],
+    },
+  });
 
   return (
-    <View style={styles.loadingContainer}>
+    <View style={styles.container}>
       {error ? (
         <>
-          <Text style={styles.title}>Unable to connect</Text>
-          <Text style={styles.message}>
-            Your saved session could not be checked. Check your connection and try again.
-          </Text>
-          <AppButton title="Retry" onPress={() => void retrySessionRestore()} />
+          <AppText variant="titleLarge" style={styles.title}>
+            {APP_MESSAGES.restoreSessionFailed}
+          </AppText>
+          <AppText color="textSecondary" style={styles.message}>
+            {error}
+          </AppText>
+          <AppButton
+            style={styles.button}
+            onPress={() => void retrySessionRestore()}
+          >
+            {UI_COPY.common.retry}
+          </AppButton>
         </>
       ) : (
         <>
           <ActivityIndicator size="large" color={colors.primary} />
-          <Text style={styles.message}>Loading Skillar…</Text>
+          <AppText color="textSecondary" style={styles.message}>
+            {UI_COPY.common.loading}
+          </AppText>
         </>
       )}
     </View>
@@ -35,9 +71,9 @@ export function RootNavigator() {
 
   return (
     <NavigationContainer>
-      {status === "restoring" || status === "error" ? (
+      {status === AUTH_STATUS.RESTORING || status === AUTH_STATUS.ERROR ? (
         <SessionRestoreScreen />
-      ) : status === "authenticated" ? (
+      ) : status === AUTH_STATUS.AUTHENTICATED ? (
         <MainTabs />
       ) : (
         <AuthStack />
@@ -45,24 +81,3 @@ export function RootNavigator() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    gap: spacing.md,
-    padding: spacing.xl,
-    backgroundColor: colors.background,
-  },
-  title: {
-    color: colors.text,
-    fontSize: 22,
-    fontWeight: "700",
-  },
-  message: {
-    color: colors.textMuted,
-    fontSize: 14,
-    textAlign: "center",
-  },
-});
