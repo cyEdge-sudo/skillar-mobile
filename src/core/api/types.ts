@@ -1,8 +1,7 @@
-export type JsonPrimitive = string | number | boolean | null;
-export type JsonValue =
-  | JsonPrimitive
-  | JsonValue[]
-  | { [key: string]: JsonValue };
+import type { ApiRequestOptions } from "./request-types";
+
+export type { ApiRequestOptions } from "./request-types";
+export type DataParser<TData> = (value: unknown) => TData;
 
 export interface ResponseMeta {
   requestId: string;
@@ -25,20 +24,9 @@ export interface ApiErrorDetail {
   message: string;
 }
 
-export interface ApiErrorPayload {
-  error: {
-    code: string;
-    message: string;
-    details?: ApiErrorDetail[];
-  };
-  meta?: {
-    requestId?: string;
-  };
-}
-
 export interface CursorPage<TItem> {
   items: TItem[];
   pagination: PaginationMeta;
 }
 
-export type DataParser<TData> = (value: unknown) => TData;
+export type { ApiRequestOptions };
