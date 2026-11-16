@@ -9,7 +9,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 function parseEnrollment(value: unknown): LearningEnrollment {
   if (
     !isRecord(value) ||
-    typeof value.enrollmentId !== "number" ||
+    typeof value.enrollmentId !== "string" ||
     typeof value.roadmapId !== "string" ||
     typeof value.title !== "string" ||
     typeof value.status !== "string" ||
