@@ -80,3 +80,4 @@ const styles = StyleSheet.create({
     disabled: { opacity: 0.5 },
     text: { fontSize: 16, fontWeight: '600' },
 });
+Button.displayName = 'Button';
