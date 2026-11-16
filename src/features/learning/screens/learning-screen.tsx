@@ -148,7 +148,7 @@ export function LearningScreen() {
                       : UI_COPY.common.loadMore}
                   </AppButton>
                 </View>
-              ) : null
+              ) : undefined
             }
           />
         )}
