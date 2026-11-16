@@ -90,7 +90,7 @@ function parseMilestone(value: unknown): EnrolledRoadmapMilestone {
 function parseEnrollmentDetail(value: unknown): EnrollmentDetail {
   if (
     !isRecord(value) ||
-    typeof value.enrollmentId !== "number" ||
+    typeof value.enrollmentId !== "string" ||
     typeof value.roadmapId !== "string" ||
     !isRecord(value.roadmap) ||
     typeof value.roadmap.id !== "string" ||
@@ -229,7 +229,7 @@ function parseProgressUpdate(value: unknown): StepProgressUpdate {
 export const learningDetailService = {
   async getEnrollment(enrollmentId: number): Promise<EnrollmentDetail> {
     const response = await apiRequest(
-      API_ROUTES.enrollments.detail(String(enrollmentId)),
+      API_ROUTES.enrollments.detail(enrollmentId),
       parseEnrollmentDetail,
     );
     return response.data;
@@ -252,13 +252,13 @@ export const learningDetailService = {
   },
 
   async updateProgress(
-    enrollmentId: number,
+    enrollmentId: string,
     stepId: string,
     status: StepProgressStatus,
     progressPercent: number,
   ): Promise<StepProgressUpdate> {
     const response = await apiRequest(
-      API_ROUTES.enrollments.stepProgress(String(enrollmentId), stepId),
+      API_ROUTES.enrollments.stepProgress(enrollmentId, stepId),
       parseProgressUpdate,
       {
         method: HTTP_METHODS.PATCH,
