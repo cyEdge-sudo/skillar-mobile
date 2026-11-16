@@ -117,9 +117,24 @@ export function JourneyDetailScreen() {
         );
       case "ROADMAP":
         return (
-          <AppText color="textSecondary">
-            {UI_COPY.journeys.roadmapCompletion}
-          </AppText>
+          <View style={{ gap: spacing[8] }}>
+            <AppText color="textSecondary">
+              {UI_COPY.journeys.roadmapCompletion}
+            </AppText>
+            {activity.metadata.roadmapId ? (
+              <AppButton
+                size="small"
+                variant="outline"
+                onPress={() =>
+                  navigation.navigate(NAVIGATION_ROUTES.root.roadmapDetail, {
+                    roadmapId: activity.metadata.roadmapId ?? "",
+                  })
+                }
+              >
+                {UI_COPY.roadmaps.viewDetails}
+              </AppButton>
+            ) : null}
+          </View>
         );
       case "ASSESSMENT":
         return (
