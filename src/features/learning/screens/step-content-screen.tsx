@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { useNavigation, useRoute, type RouteProp } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import Markdown, { type MarkdownProps } from "react-native-markdown-display";
 import {
   ActivityIndicator,
-  Linking,
   ScrollView,
   StyleSheet,
   View,
@@ -30,6 +28,7 @@ import {
   useStepContent,
   useUpdateStepProgress,
 } from "../use-learning-detail";
+import { StepContentRenderer } from "../components/step-content-renderer";
 import type { EnrolledRoadmapStep } from "../types";
 
 type Navigation = NativeStackNavigationProp<RootStackParamList>;
@@ -37,9 +36,6 @@ type StepRoute = RouteProp<
   RootStackParamList,
   typeof NAVIGATION_ROUTES.root.stepContent
 >;
-
-const YOUTUBE_URL_PATTERN =
-  /^https:\/\/(?:(?:www|m)\.)?youtube\.com\/|^https:\/\/youtu\.be\//i;
 
 export function StepContentScreen() {
   const navigation = useNavigation<Navigation>();
@@ -51,7 +47,7 @@ export function StepContentScreen() {
     progressStatus,
     progressPercent,
   } = route.params;
-  const { colors, spacing, typography } = useTheme();
+  const { colors, spacing } = useTheme();
   const enrollmentQuery = useEnrollmentDetail(enrollmentId);
   const contentQuery = useStepContent(stepId);
   const [showAssessment, setShowAssessment] = useState(false);
@@ -91,29 +87,6 @@ export function StepContentScreen() {
       ? progressMutation.data?.progressPercent ?? 100
       : currentStep?.progress?.progressPercent ?? progressPercent;
 
-  const markdownStyles: NonNullable<MarkdownProps["style"]> = {
-    body: {
-      color: colors.text,
-      fontSize: typography.bodyMedium.fontSize,
-      lineHeight: typography.bodyMedium.lineHeight,
-    },
-    heading1: { color: colors.text, fontSize: typography.headlineSmall.fontSize },
-    heading2: { color: colors.text, fontSize: typography.titleLarge.fontSize },
-    heading3: { color: colors.text, fontSize: typography.titleMedium.fontSize },
-    paragraph: { marginTop: 0, marginBottom: spacing[12] },
-    code_inline: { backgroundColor: colors.surfaceVariant, color: colors.text },
-    code_block: {
-      backgroundColor: colors.surfaceVariant,
-      color: colors.text,
-      padding: spacing[12],
-    },
-    blockquote: {
-      backgroundColor: colors.surfaceVariant,
-      borderLeftColor: colors.primary,
-    },
-    link: { color: colors.primary },
-  };
-
   const styles = StyleSheet.create({
     content: {
       flex: 1,
@@ -140,15 +113,6 @@ export function StepContentScreen() {
     },
     navigationButton: { flex: 1 },
   });
-
-  const openVideo = async (url: string) => {
-    try {
-      if (!YOUTUBE_URL_PATTERN.test(url)) return;
-      await Linking.openURL(url);
-    } catch {
-      // Invalid or unsupported URLs are not opened.
-    }
-  };
 
   const navigateToStep = (step: EnrolledRoadmapStep) => {
     navigation.replace(NAVIGATION_ROUTES.root.stepContent, {
@@ -232,40 +196,11 @@ export function StepContentScreen() {
               paddingBottom: spacing[32],
             }}
           >
-            {contentQuery.data?.video ? (
-              <AppCard variant="outlined" style={styles.section}>
-                <AppText variant="titleMedium">
-                  {UI_COPY.learning.videoLesson}
-                </AppText>
-                <AppText color="textSecondary">
-                  {contentQuery.data.video.provider.toUpperCase() +
-                    " " +
-                    UI_COPY.learning.videoSuffix}
-                </AppText>
-                <AppButton
-                  onPress={() =>
-                    void openVideo(contentQuery.data?.video?.url ?? "")
-                  }
-                >
-                  {UI_COPY.learning.openVideo}
-                </AppButton>
-              </AppCard>
-            ) : null}
-
-            {contentQuery.data?.contentMarkdown ? (
-              <AppCard variant="outlined">
-                <Markdown style={markdownStyles}>
-                  {contentQuery.data.contentMarkdown}
-                </Markdown>
-              </AppCard>
-            ) : null}
-
-            {!contentQuery.data?.video &&
-            !contentQuery.data?.contentMarkdown ? (
-              <AppText color="textSecondary">
-                {UI_COPY.learning.noPublishedContent}
-              </AppText>
-            ) : null}
+            <StepContentRenderer
+              blocks={contentQuery.data?.contentBlocks ?? []}
+              fallbackVideoUrl={contentQuery.data?.video?.url ?? null}
+              fallbackMarkdown={contentQuery.data?.contentMarkdown ?? null}
+            />
 
             <AppCard variant="outlined" style={styles.section}>
               <AppText variant="titleMedium">

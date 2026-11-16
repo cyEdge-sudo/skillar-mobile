@@ -3,6 +3,7 @@ import {
   HTTP_METHODS,
 } from "../../core/constants/app.constants";
 import { apiRequest } from "../../core/api/api-client";
+import { parseStepContentBlocks } from "./step-content-parser";
 import type {
   AssessmentQuestion,
   EnrollmentDetail,
@@ -152,6 +153,7 @@ function parseStepContent(value: unknown): StepContent {
     contentMarkdown:
       typeof value.contentMarkdown === "string" ? value.contentMarkdown : null,
     video,
+    contentBlocks: parseStepContentBlocks(value.StepContent ?? value.stepContents ?? value.contentBlocks),
   };
 }
 
