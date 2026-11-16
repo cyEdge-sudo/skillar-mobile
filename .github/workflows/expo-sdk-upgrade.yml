@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - "upgrade/expo-sdk-58"
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -24,25 +25,35 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22.13.1
+          node-version: 22
           cache: npm
 
-      - name: Upgrade Expo SDK
+      - name: Upgrade Expo SDK and align native dependencies
         run: |
-          npm install expo@^58.0.0
+          npm install expo@~58.0.25
           npx expo install --fix
+          npx expo install expo-font expo-splash-screen
 
-      - name: Apply non-breaking dependency security fixes
-        run: npm audit fix
+      - name: Apply compatible transitive security overrides
+        run: |
+          npm pkg set 'overrides.markdown-it=14.3.3' 'overrides.linkify-it=5.0.2' 'overrides.minimatch=11.0.1'
+          npm install
+
+      - name: Commit generated dependency manifest and lockfile
+        shell: bash
+        run: |
+          if git diff --quiet -- package.json package-lock.json; then
+            echo "Dependency manifests are already current."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add package.json package-lock.json
+            git commit -m "chore(expo): upgrade to SDK 58 and patch dependencies"
+            git push
+          fi
 
       - name: Check Expo dependency compatibility
         run: npx expo install --check
-
-      - name: Install required icon font dependency
-        run: npx expo install expo-font
-
-      - name: Install splash screen dependency
-        run: npx expo install expo-splash-screen
 
       - name: Run Expo Doctor
         run: npx expo-doctor
@@ -60,7 +71,7 @@ jobs:
         shell: bash
         run: |
           npm audit --json > npm-audit.json || true
-          node -e 'const report = require("./npm-audit.json"); const vulnerabilities = report.metadata?.vulnerabilities ?? {}; console.log(JSON.stringify(vulnerabilities, null, 2)); if ((vulnerabilities.critical ?? 0) > 0 || (vulnerabilities.high ?? 0) > 0) process.exit(1);'
+          node -e 'const report = require("./npm-audit.json"); const vulnerabilities = report.metadata?.vulnerabilities ?? {}; console.log(JSON.stringify(vulnerabilities, null, 2)); if ((vulnerabilities.total ?? 0) > 0) process.exit(1);'
 
       - name: Upload dependency audit report
         if: always()
@@ -70,17 +81,3 @@ jobs:
           path: npm-audit.json
           if-no-files-found: ignore
           retention-days: 14
-
-      - name: Commit SDK dependency updates
-        shell: bash
-        run: |
-          if git diff --quiet -- package.json package-lock.json; then
-            echo "No dependency changes were generated."
-            exit 0
-          fi
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add package.json package-lock.json
-          git commit -m "chore(expo): upgrade to SDK 58"
-          git push
