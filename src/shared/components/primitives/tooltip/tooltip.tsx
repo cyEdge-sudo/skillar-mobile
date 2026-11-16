@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, Modal, StyleSheet, ViewProps, TextStyle } from 'react-native';
+import { View, Text, Pressable, Modal, StyleSheet, ViewProps, TextStyle, type ViewInstance } from 'react-native';
 
 export interface TooltipProps extends ViewProps {
     content: string | React.ReactNode;
@@ -9,7 +9,7 @@ export interface TooltipProps extends ViewProps {
     onVisibleChange?: (visible: boolean) => void;
 }
 
-export const Tooltip = React.forwardRef<View, TooltipProps>(
+export const Tooltip = React.forwardRef<ViewInstance, TooltipProps>(
     ({ content, contentStyle, children, visible: controlledVisible, onVisibleChange, style, ...rest }, ref) => {
         const [internalVisible, setInternalVisible] = useState(false);
         const isVisible = controlledVisible !== undefined ? controlledVisible : internalVisible;
