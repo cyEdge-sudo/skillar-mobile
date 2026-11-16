@@ -1,16 +1,21 @@
-const rawApiBaseUrl = process.env.EXPO_PUBLIC_API_BASE_URL?.trim();
+import {
+  API_ERROR_CODES,
+  APP_CONSTANTS,
+  APP_MESSAGES,
+} from "../constants/app.constants";
+import { ApiError } from "../api/api-error";
 
+const rawApiBaseUrl = process.env.EXPO_PUBLIC_API_BASE_URL?.trim();
 export const API_BASE_URL = rawApiBaseUrl?.replace(/\/+$/, "") ?? "";
-export const API_PREFIX = "/api/v1";
-export const API_TIMEOUT_MS = 20_000;
 
 export function getApiUrl(path: string): string {
-  if (!API_BASE_URL) {
-    throw new Error(
-      "API is not configured. Set EXPO_PUBLIC_API_BASE_URL in your environment.",
+  if (!API_BASE_URL || !/^https?:\/\//i.test(API_BASE_URL)) {
+    throw ApiError.network(
+      API_ERROR_CODES.CONFIGURATION_ERROR,
+      APP_MESSAGES.apiNotConfigured,
     );
   }
 
   const normalizedPath = path.startsWith("/") ? path : "/" + path;
-  return API_BASE_URL + API_PREFIX + normalizedPath;
+  return API_BASE_URL + APP_CONSTANTS.API_VERSION_PREFIX + normalizedPath;
 }
