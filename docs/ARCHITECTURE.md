@@ -6,10 +6,10 @@ The mobile app is the consumer-facing learner application. It does not contain a
 
 ## Technology
 
-- Expo SDK 54
-- React Native 0.81
-- React 19
-- TypeScript with strict compiler options
+- Expo SDK 58
+- React Native 0.88.1
+- React 19.3
+- TypeScript 6 with strict compiler options
 - React Navigation 7 for typed native-stack and bottom-tab navigation
 - TanStack Query for server state and request caching
 - React Context for the small authentication session state
