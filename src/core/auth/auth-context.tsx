@@ -139,7 +139,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
 export function useAuth(): AuthContextValue {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth must be used within AuthProvider.");
+    throw new Error(APP_MESSAGES.authProviderMissing);
   }
   return context;
 }
