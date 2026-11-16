@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ViewProps, ImageProps, TextStyle } from 'react-native';
+import { View, Text, Image, StyleSheet, ViewProps, ImageProps, TextStyle, type ViewInstance } from 'react-native';
 
 export interface EmptyStateProps extends ViewProps {
     imageSource?: ImageProps['source'];
@@ -9,7 +9,7 @@ export interface EmptyStateProps extends ViewProps {
     descriptionStyle?: TextStyle;
 }
 
-export const EmptyState = React.forwardRef<View, EmptyStateProps>(
+export const EmptyState = React.forwardRef<ViewInstance, EmptyStateProps>(
     ({ imageSource, title, description, titleStyle, descriptionStyle, style, ...rest }, ref) => (
         <View ref={ref} style={[styles.container, style]} {...rest}>
             {imageSource && <Image source={imageSource} style={styles.image} />}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ViewProps } from 'react-native';
+import { View, ViewProps, type ViewInstance } from 'react-native';
 import { useTheme } from '@/shared/theme';
 
 export interface AppCardProps extends ViewProps {
@@ -7,7 +7,7 @@ export interface AppCardProps extends ViewProps {
     padding?: 'none' | 'small' | 'medium' | 'large';
 }
 
-export const AppCard = React.forwardRef<View, AppCardProps>(
+export const AppCard = React.forwardRef<ViewInstance, AppCardProps>(
     ({ variant = 'default', padding = 'medium', style, children, ...rest }, ref) => {
         const { colors, radius, spacing, elevation } = useTheme();
 

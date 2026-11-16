@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, View, StyleSheet, ModalProps, ViewStyle } from 'react-native';
+import { Modal, View, StyleSheet, ModalProps, ViewStyle, type ViewInstance } from 'react-native';
 
 export interface PortalProps extends ModalProps {
     visible: boolean;
@@ -7,7 +7,7 @@ export interface PortalProps extends ModalProps {
     children: React.ReactNode;
 }
 
-export const Portal = React.forwardRef<View, PortalProps>(
+export const Portal = React.forwardRef<ViewInstance, PortalProps>(
     ({ visible, containerStyle, children, ...modalProps }, ref) => (
         <Modal visible={visible} transparent animationType="fade" {...modalProps}>
             <View ref={ref} style={[styles.overlay, containerStyle]}>

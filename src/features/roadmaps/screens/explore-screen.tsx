@@ -209,11 +209,11 @@ export function ExploreScreen() {
             keyboardShouldPersistTaps="handled"
             refreshing={roadmapsQuery.isRefetching}
             onRefresh={() => void roadmapsQuery.refetch()}
-            ListEmptyComponent={
+            ListEmptyComponent={() => (
               <AppText color="textSecondary" style={styles.message}>
                 {UI_COPY.roadmaps.noMatches}
               </AppText>
-            }
+            )}
             ListFooterComponent={
               roadmapsQuery.hasNextPage ? (
                 <View style={styles.footer}>
@@ -226,7 +226,7 @@ export function ExploreScreen() {
                     {UI_COPY.common.loadMore}
                   </AppButton>
                 </View>
-              ) : null
+              ) : undefined
             }
           />
         )}

@@ -7,7 +7,7 @@ Consumer-facing mobile application for Skillar. The app is built with Expo and R
 The foundation is being prepared before the learner APIs are implemented in `skiller-backend`.
 
 Implemented in this branch:
-- Expo SDK 54, React Native 0.81, React 19 and strict TypeScript
+- Expo SDK 58, React Native 0.88.1, React 19.3 and strict TypeScript
 - Typed React Navigation stack and bottom-tab navigation
 - Shared theme provider and reusable UI components
 - TanStack Query provider for server state
@@ -21,7 +21,7 @@ The learning screens are intentionally not connected to invented or mock API res
 
 ## Requirements
 
-- Node.js version supported by Expo SDK 54
+- Node.js 22 (supported by Expo SDK 58)
 - npm
 - Expo Go or an Android/iOS development environment
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, View, StyleSheet, PressableProps, ViewStyle } from 'react-native';
+import { Pressable, View, StyleSheet, PressableProps, ViewStyle, type PressableInstance } from 'react-native';
 
 export interface RadioProps extends Omit<PressableProps, 'children'> {
     selected: boolean;
@@ -7,7 +7,7 @@ export interface RadioProps extends Omit<PressableProps, 'children'> {
     style?: ViewStyle;
 }
 
-export const Radio = React.forwardRef<View, RadioProps>(
+export const Radio = React.forwardRef<PressableInstance, RadioProps>(
     ({ selected, onSelect, style, disabled, ...rest }, ref) => {
         const handlePress = () => {
             if (!disabled && onSelect) {

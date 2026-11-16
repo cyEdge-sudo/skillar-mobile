@@ -4,7 +4,7 @@ import {
     TouchableOpacityProps,
     ActivityIndicator,
     StyleSheet,
-    View,
+    TouchableOpacityInstance,
 } from 'react-native';
 import { Text } from '../text/text';
 
@@ -17,7 +17,7 @@ export interface ButtonProps extends TouchableOpacityProps {
     color?: string;
 }
 
-export const Button = React.forwardRef<View, ButtonProps>(
+export const Button = React.forwardRef<TouchableOpacityInstance, ButtonProps>(
     (
         {
             variant = 'solid',
