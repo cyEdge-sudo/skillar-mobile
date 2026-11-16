@@ -2,6 +2,7 @@ import {
   API_ERROR_CODES,
   API_FIELDS,
   APP_MESSAGES,
+  AUTH_NEXT_STEPS,
 } from "../constants/app.constants";
 import { ApiError } from "../api/api-error";
 import type {
@@ -102,7 +103,7 @@ export function parseSignupResponse(value: unknown): SignupResponse {
   }
 
   const nextStep = value.nextStep;
-  if (nextStep !== undefined && nextStep !== "verify_email" && nextStep !== "login") {
+  if (nextStep !== undefined && nextStep !== AUTH_NEXT_STEPS.VERIFY_EMAIL && nextStep !== AUTH_NEXT_STEPS.LOGIN) {
     throw invalidPayload();
   }
 
@@ -112,7 +113,7 @@ export function parseSignupResponse(value: unknown): SignupResponse {
       name: requireString(value.user.name, API_FIELDS.USER_NAME),
       email: requireString(value.user.email, API_FIELDS.USER_EMAIL),
     },
-    nextStep: nextStep ?? "login",
+    nextStep: nextStep ?? AUTH_NEXT_STEPS.LOGIN,
   };
 }
 
