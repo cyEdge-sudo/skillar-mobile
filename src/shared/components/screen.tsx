@@ -4,16 +4,17 @@ import {
   StyleSheet,
   View,
   type ScrollViewProps,
-  type ViewProps,
+  type StyleProp,
+  type ViewStyle,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { colors, spacing } from "../theme/tokens";
+import { useTheme } from "../theme";
 
 interface ScreenProps extends PropsWithChildren {
   scroll?: boolean;
   contentContainerStyle?: ScrollViewProps["contentContainerStyle"];
-  style?: ViewProps["style"];
+  style?: StyleProp<ViewStyle>;
 }
 
 export function Screen({
@@ -22,17 +23,32 @@ export function Screen({
   contentContainerStyle,
   style,
 }: ScreenProps) {
+  const { colors, spacing } = useTheme();
+
+  const containerStyle = [
+    styles.content,
+    { padding: spacing[24] },
+    style,
+  ];
+
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top", "left", "right"]}>
+    <SafeAreaView
+      style={[styles.safeArea, { backgroundColor: colors.background }]}
+      edges={["top", "left", "right"]}
+    >
       {scroll ? (
         <ScrollView
           keyboardShouldPersistTaps="handled"
-          contentContainerStyle={[styles.content, contentContainerStyle]}
+          contentContainerStyle={[
+            styles.scrollContent,
+            { padding: spacing[24] },
+            contentContainerStyle,
+          ]}
         >
           {children}
         </ScrollView>
       ) : (
-        <View style={[styles.content, style]}>{children}</View>
+        <View style={containerStyle}>{children}</View>
       )}
     </SafeAreaView>
   );
@@ -41,10 +57,11 @@ export function Screen({
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: colors.background,
   },
   content: {
+    flex: 1,
+  },
+  scrollContent: {
     flexGrow: 1,
-    padding: spacing.lg,
   },
 });
