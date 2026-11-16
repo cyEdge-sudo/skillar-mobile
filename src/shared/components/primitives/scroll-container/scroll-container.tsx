@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, ScrollViewProps, StyleSheet, View, type ViewInstance, type ViewInstance } from 'react-native';
+import { ScrollView, ScrollViewProps, StyleSheet, View, type ViewInstance } from 'react-native';
 
 export type ScrollContainerProps = ScrollViewProps;
 
