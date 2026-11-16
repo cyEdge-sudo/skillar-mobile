@@ -1,3 +1,5 @@
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import {
   ActivityIndicator,
   FlatList,
@@ -5,7 +7,9 @@ import {
   View,
 } from "react-native";
 
+import type { RootStackParamList } from "../../../app/navigation/navigation-types";
 import {
+  AppButton,
   AppCard,
   AppProgress,
   AppText,
@@ -41,13 +45,13 @@ function statusLabel(status: string): string {
 }
 
 export function LearningScreen() {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { colors, spacing } = useTheme();
   const enrollmentsQuery = useLearningEnrollments();
   const enrollments =
     enrollmentsQuery.data?.pages.flatMap((page) => page.items) ?? [];
 
   const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: colors.background },
     content: { flex: 1, padding: spacing[24], gap: spacing[16] },
     heading: { gap: spacing[4] },
     list: { gap: spacing[12], paddingBottom: spacing[32] },
@@ -69,10 +73,26 @@ export function LearningScreen() {
           {item.progressPercent}%
         </AppText>
       </View>
-      <AppProgress progress={item.progressPercent / 100} />
+      <AppProgress
+        progress={item.progressPercent / 100}
+        accessibilityRole="progressbar"
+        accessibilityLabel={item.title + " progress"}
+        accessibilityValue={{ min: 0, max: 100, now: item.progressPercent }}
+      />
       <AppText color="textSecondary" variant="labelSmall">
         Last activity: {formatDate(item.lastActivityAt)}
       </AppText>
+      <AppButton
+        variant="outline"
+        onPress={() =>
+          navigation.navigate("RoadmapDetail", {
+            roadmapId: item.roadmapId,
+            enrollmentId: item.enrollmentId,
+          })
+        }
+      >
+        Open roadmap
+      </AppButton>
     </AppCard>
   );
 
@@ -99,13 +119,12 @@ export function LearningScreen() {
                 ? enrollmentsQuery.error.message
                 : "Try again in a moment."}
             </AppText>
-            <AppText
-              color="primary"
+            <AppButton
+              variant="outline"
               onPress={() => void enrollmentsQuery.refetch()}
-              accessibilityRole="button"
             >
               Retry
-            </AppText>
+            </AppButton>
           </View>
         ) : (
           <FlatList
@@ -125,13 +144,14 @@ export function LearningScreen() {
             ListFooterComponent={
               enrollmentsQuery.hasNextPage ? (
                 <View style={styles.footer}>
-                  <AppText
-                    color="primary"
+                  <AppButton
+                    variant="outline"
+                    loading={enrollmentsQuery.isFetchingNextPage}
+                    disabled={enrollmentsQuery.isFetchingNextPage}
                     onPress={() => void enrollmentsQuery.fetchNextPage()}
-                    accessibilityRole="button"
                   >
-                    {enrollmentsQuery.isFetchingNextPage ? "Loading…" : "Load more"}
-                  </AppText>
+                    Load more
+                  </AppButton>
                 </View>
               ) : null
             }
