@@ -5,6 +5,7 @@ import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { useAuth } from "../../core/auth/auth-context";
 import {
   APP_MESSAGES,
+  NAVIGATION_ROUTES,
   AUTH_STATUS,
   UI_COPY,
 } from "../../core/constants/app.constants";
@@ -81,9 +82,9 @@ export function RootNavigator() {
         <SessionRestoreScreen />
       ) : status === AUTH_STATUS.AUTHENTICATED ? (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="MainTabs" component={MainTabs} />
-          <Stack.Screen name="RoadmapDetail" component={RoadmapDetailScreen} />
-          <Stack.Screen name="StepContent" component={StepContentScreen} />
+          <Stack.Screen name={NAVIGATION_ROUTES.root.mainTabs} component={MainTabs} />
+          <Stack.Screen name={NAVIGATION_ROUTES.root.roadmapDetail} component={RoadmapDetailScreen} />
+          <Stack.Screen name={NAVIGATION_ROUTES.root.stepContent} component={StepContentScreen} />
         </Stack.Navigator>
       ) : (
         <AuthStack />
