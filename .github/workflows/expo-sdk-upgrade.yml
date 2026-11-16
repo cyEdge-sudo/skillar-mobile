@@ -1,0 +1,65 @@
+name: Expo SDK 58 Upgrade
+
+on:
+  push:
+    branches:
+      - "upgrade/expo-sdk-58"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: expo-sdk-58-upgrade
+  cancel-in-progress: false
+
+jobs:
+  upgrade:
+    name: Upgrade SDK and validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.13.1
+          cache: npm
+
+      - name: Upgrade Expo SDK
+        run: |
+          npm install expo@^58.0.0
+          npx expo install --fix
+
+      - name: Check Expo dependency compatibility
+        run: npx expo install --check
+
+      - name: Run Expo Doctor
+        run: npx expo-doctor
+
+      - name: Install exact lockfile
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
+      - name: Commit SDK dependency updates
+        shell: bash
+        run: |
+          if git diff --quiet -- package.json package-lock.json; then
+            echo "No dependency changes were generated."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json package-lock.json
+          git commit -m "chore(expo): upgrade to SDK 58"
+          git push
