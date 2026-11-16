@@ -68,7 +68,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
     } catch (restoreError: unknown) {
       if (
         restoreError instanceof ApiError &&
-        restoreError.status === 401
+        [401, 403].includes(restoreError.status)
       ) {
         await tokenStorage.clear();
         setUser(null);
