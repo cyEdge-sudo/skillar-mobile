@@ -1,6 +1,21 @@
-import type { ApiRequestOptions } from "./request-types";
+export type JsonPrimitive = string | number | boolean | null;
+export type JsonValue =
+  | JsonPrimitive
+  | JsonValue[]
+  | { [key: string]: JsonValue };
 
-export type { ApiRequestOptions } from "./request-types";
+export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+
+export interface ApiRequestOptions {
+  method?: HttpMethod;
+  body?: unknown;
+  authenticated?: boolean;
+  headers?: Record<string, string>;
+  idempotencyKey?: string;
+  signal?: AbortSignal;
+  retryAuth?: boolean;
+}
+
 export type DataParser<TData> = (value: unknown) => TData;
 
 export interface ResponseMeta {
@@ -28,5 +43,3 @@ export interface CursorPage<TItem> {
   items: TItem[];
   pagination: PaginationMeta;
 }
-
-export type { ApiRequestOptions };
