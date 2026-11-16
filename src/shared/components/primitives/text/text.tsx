@@ -1,12 +1,12 @@
 import React from 'react';
-import { Text as RNText, TextProps as RNTextProps, StyleSheet } from 'react-native';
+import { Text as RNText, TextProps as RNTextProps, StyleSheet, type TextInstance } from 'react-native';
 
 export interface TextProps extends RNTextProps {
     variant?: 'body' | 'heading' | 'caption';
     color?: 'default' | 'muted' | 'error';
 }
 
-export const Text = React.forwardRef<RNText, TextProps>(
+export const Text = React.forwardRef<TextInstance, TextProps>(
     ({ variant = 'body', color = 'default', style, ...rest }, ref) => {
         const colorMap: Record<string, string> = {
             default: '#000',
