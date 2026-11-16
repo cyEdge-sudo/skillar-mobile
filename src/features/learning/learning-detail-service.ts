@@ -98,7 +98,7 @@ function parseEnrollmentDetail(value: unknown): EnrollmentDetail {
     typeof value.roadmap.language !== "string" ||
     !Array.isArray(value.roadmap.milestones) ||
     !Array.isArray(value.roadmap.skillAreas) ||
-    !value.roadmap.skillAreas.every((item) => typeof item === "string")
+    !value.roadmap.skillAreas.every((item): item is string => typeof item === "string")
   ) {
     throw new Error("The server returned an invalid enrollment detail.");
   }
