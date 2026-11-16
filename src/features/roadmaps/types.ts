@@ -13,6 +13,28 @@ export interface RoadmapSummary {
   thumbnailUrl: string | null;
 }
 
+export interface RoadmapStepSummary {
+  id: string;
+  title: string;
+  sequence: number;
+  description: string | null;
+  estimatedMinutes: number;
+  contentStatus: "ready" | "pending" | "unknown";
+}
+
+export interface RoadmapMilestone {
+  id: string;
+  title: string;
+  sequence: number;
+  description: string | null;
+  estimatedHours: number | null;
+  steps: RoadmapStepSummary[];
+}
+
+export interface RoadmapDetail extends RoadmapSummary {
+  milestones: RoadmapMilestone[];
+}
+
 export interface RoadmapCatalogData {
   items: RoadmapSummary[];
 }
