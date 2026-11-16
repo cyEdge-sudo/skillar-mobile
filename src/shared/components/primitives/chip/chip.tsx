@@ -3,8 +3,8 @@ import { Pressable, Text, StyleSheet, PressableProps, TextStyle, ViewStyle, type
 
 export interface ChipProps extends Omit<PressableProps, 'children'> {
     label: string;
-    labelStyle?: TextStyle;
-    style?: ViewStyle;
+    labelStyle?: TextStyle | undefined;
+    style?: ViewStyle | undefined;
     selected?: boolean;
     color?: string;
 }
