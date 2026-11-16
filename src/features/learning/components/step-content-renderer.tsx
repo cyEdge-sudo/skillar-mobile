@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Linking, ScrollView, StyleSheet, View } from "react-native";
+import { Linking, StyleSheet, View } from "react-native";
 import Markdown, { type MarkdownProps } from "react-native-markdown-display";
 
 import { UI_COPY } from "../../../core/constants/app.constants";
