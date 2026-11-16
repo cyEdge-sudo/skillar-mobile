@@ -5,6 +5,7 @@ import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { useAuth } from "../../core/auth/auth-context";
 import {
   APP_MESSAGES,
+  FEATURE_FLAGS,
   NAVIGATION_ROUTES,
   AUTH_STATUS,
   UI_COPY,
@@ -86,7 +87,9 @@ export function RootNavigator() {
           <Stack.Screen name={NAVIGATION_ROUTES.root.mainTabs} component={MainTabs} />
           <Stack.Screen name={NAVIGATION_ROUTES.root.roadmapDetail} component={RoadmapDetailScreen} />
           <Stack.Screen name={NAVIGATION_ROUTES.root.stepContent} component={StepContentScreen} />
-          <Stack.Screen name={NAVIGATION_ROUTES.root.journeyDetail} component={JourneyDetailScreen} />
+          {FEATURE_FLAGS.journeys ? (
+            <Stack.Screen name={NAVIGATION_ROUTES.root.journeyDetail} component={JourneyDetailScreen} />
+          ) : null}
         </Stack.Navigator>
       ) : (
         <AuthStack />
