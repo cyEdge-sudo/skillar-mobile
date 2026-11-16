@@ -28,6 +28,17 @@ export const API_ROUTES = {
     enrollments: "/me/enrollments",
     progress: "/me/progress",
   },
+  journeys: {
+    collection: "/me/journeys",
+    detail: (enrollmentId: number): string =>
+      "/journeys/enrollments/" + encodeURIComponent(String(enrollmentId)),
+    completeActivity: (enrollmentId: number, activityId: number): string =>
+      "/journeys/enrollments/" +
+      encodeURIComponent(String(enrollmentId)) +
+      "/activities/" +
+      encodeURIComponent(String(activityId)) +
+      "/complete",
+  },
   roadmaps: {
     collection: "/roadmaps",
     detail: (roadmapId: string): string =>
@@ -126,6 +137,9 @@ export const QUERY_KEYS = {
   enrollment: (enrollmentId: string) =>
     ["skillar", "enrollments", enrollmentId] as const,
   progress: ["skillar", "progress"] as const,
+  journeys: ["skillar", "journeys"] as const,
+  journey: (enrollmentId: number) =>
+    ["skillar", "journeys", enrollmentId] as const,
   stepContent: (stepId: string) =>
     ["skillar", "steps", stepId, "content"] as const,
   stepAssessment: (stepId: string) =>
@@ -137,6 +151,7 @@ export const NAVIGATION_ROUTES = {
     mainTabs: "MainTabs",
     roadmapDetail: "RoadmapDetail",
     stepContent: "StepContent",
+    journeyDetail: "JourneyDetail",
   },
   auth: {
     login: "Login",
@@ -147,6 +162,7 @@ export const NAVIGATION_ROUTES = {
     dashboard: "Dashboard",
     explore: "Explore",
     learning: "Learning",
+    journeys: "Journeys",
     profile: "Profile",
   },
 } as const;
@@ -155,6 +171,7 @@ export const NAVIGATION_LABELS = {
   dashboard: "Home",
   explore: "Explore",
   learning: "My Learning",
+  journeys: "Journeys",
   profile: "Profile",
 } as const;
 
@@ -237,6 +254,44 @@ export const UI_COPY = {
     ready: "Ready",
     pending: "Pending",
     completed: "Completed",
+  },
+  journeys: {
+    title: "My journeys",
+    description: "Follow your assigned learning programmes and complete their activities.",
+    loading: "Loading your journeys…",
+    unavailable: "Journeys are unavailable",
+    refreshFailed: "Your saved journey data is shown, but the latest refresh failed.",
+    empty: "You do not have any assigned journeys yet.",
+    open: "View journey",
+    detailTitle: "Journey details",
+    noStages: "This journey has no stages yet.",
+    noActivities: "No activities in this stage.",
+    locked: "Locked",
+    completed: "Completed",
+    inProgress: "In progress",
+    pending: "Not started",
+    overdue: "Overdue",
+    unknownStatus: "Unknown status",
+    completeActivity: "Mark activity complete",
+    completionFailed: "Activity completion could not be saved.",
+    task: "Task",
+    video: "Video",
+    document: "Document",
+    acknowledgement: "Acknowledgement",
+    assessment: "Assessment",
+    roadmap: "Roadmap",
+    scorm: "SCORM",
+    documentUnavailable: "This document is not available in the mobile app yet.",
+    assessmentReadOnly: "Assessment answers cannot be submitted in this version.",
+    assessmentNoQuestions: "No assessment questions are available.",
+    roadmapCompletion: "Complete the linked roadmap to finish this activity.",
+    openVideo: "Open video",
+    unsupportedVideoUrl: "This video link is not supported in the mobile app.",
+    scormUnsupported: "Open this SCORM activity on the web to view its content.",
+    unsupportedActivity: "This activity type is not supported in the mobile app yet.",
+    progress: "Progress",
+    stage: "Stage",
+    activity: "Activity",
   },
   learning: {
     myLearningTitle: "My learning",
