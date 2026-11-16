@@ -1,21 +1,24 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
+import { NAVIGATION_LABELS, NAVIGATION_ROUTES } from "../../core/constants/app.constants";
 import { DashboardScreen } from "../../features/dashboard/screens/dashboard-screen";
-import { ExploreScreen } from "../../features/roadmaps/screens/explore-screen";
 import { LearningScreen } from "../../features/learning/screens/learning-screen";
 import { ProfileScreen } from "../../features/profile/screens/profile-screen";
+import { ExploreScreen } from "../../features/roadmaps/screens/explore-screen";
+import { useTheme } from "../../shared/theme";
 import type { MainTabParamList } from "./navigation-types";
-import { colors } from "../../shared/theme/tokens";
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
 export function MainTabs() {
+  const { colors } = useTheme();
+
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: colors.primary,
-        tabBarInactiveTintColor: colors.textMuted,
+        tabBarInactiveTintColor: colors.textSecondary,
         tabBarStyle: {
           height: 62,
           paddingTop: 7,
@@ -26,10 +29,26 @@ export function MainTabs() {
         tabBarLabelStyle: { fontSize: 11, fontWeight: "600" },
       }}
     >
-      <Tab.Screen name="Dashboard" component={DashboardScreen} />
-      <Tab.Screen name="Explore" component={ExploreScreen} />
-      <Tab.Screen name="Learning" component={LearningScreen} options={{ title: "My Learning" }} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen
+        name={NAVIGATION_ROUTES.tabs.dashboard}
+        component={DashboardScreen}
+        options={{ title: NAVIGATION_LABELS.dashboard }}
+      />
+      <Tab.Screen
+        name={NAVIGATION_ROUTES.tabs.explore}
+        component={ExploreScreen}
+        options={{ title: NAVIGATION_LABELS.explore }}
+      />
+      <Tab.Screen
+        name={NAVIGATION_ROUTES.tabs.learning}
+        component={LearningScreen}
+        options={{ title: NAVIGATION_LABELS.learning }}
+      />
+      <Tab.Screen
+        name={NAVIGATION_ROUTES.tabs.profile}
+        component={ProfileScreen}
+        options={{ title: NAVIGATION_LABELS.profile }}
+      />
     </Tab.Navigator>
   );
 }
