@@ -30,9 +30,8 @@ export function ExploreScreen() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLevel, setSelectedLevel] = useState<RoadmapLevel | null>(null);
   const learningQuery = useLearningEnrollments();
-  const enrolledRoadmapIds = new Set(
-    learningQuery.data?.pages.flatMap((page) => page.items.map((item) => item.roadmapId)) ?? [],
-  );
+  const enrollments = learningQuery.data?.pages.flatMap((page) => page.items) ?? [];
+  const enrolledRoadmapIds = new Set(enrollments.map((item) => item.roadmapId));
   const roadmapsQuery = useRoadmaps({
     query: searchQuery,
     level: selectedLevel,
@@ -117,7 +116,13 @@ export function ExploreScreen() {
 
         <AppButton
           variant="outline"
-          onPress={() => navigation.navigate("RoadmapDetail", { roadmapId: item.id })}
+          onPress={() => {
+            const enrollment = enrollments.find((entry) => entry.roadmapId === item.id);
+            navigation.navigate("RoadmapDetail", {
+              roadmapId: item.id,
+              ...(enrollment ? { enrollmentId: enrollment.enrollmentId } : {}),
+            });
+          }}
         >
           View details
         </AppButton>
