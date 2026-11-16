@@ -1,10 +1,10 @@
 import React from 'react';
-import { ScrollView, ScrollViewProps, StyleSheet, View } from 'react-native';
+import { ScrollView, ScrollViewProps, StyleSheet, View, type ViewInstance } from 'react-native';
 
 export type ScrollContainerProps = ScrollViewProps;
 
 export const ScrollContainer = React.forwardRef<
-    View,
+    ViewInstance,
     ScrollContainerProps
 >(({ style, contentContainerStyle, ...rest }, ref) => (
     <View ref={ref} style={styles.container}>

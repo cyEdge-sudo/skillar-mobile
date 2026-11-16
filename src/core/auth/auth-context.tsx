@@ -53,12 +53,16 @@ export function AuthProvider({ children }: PropsWithChildren) {
     setError(null);
   }, [queryClient]);
 
-  const restoreSession = useCallback(async () => {
+  const restoreSession = useCallback(async (isActive: () => boolean = () => true) => {
+    if (!isActive()) return;
+
     setStatus(AUTH_STATUS.RESTORING);
     setError(null);
 
     try {
       const tokens = await tokenStorage.get();
+      if (!isActive()) return;
+
       if (!tokens) {
         setUser(null);
         setStatus(AUTH_STATUS.UNAUTHENTICATED);
@@ -66,14 +70,19 @@ export function AuthProvider({ children }: PropsWithChildren) {
       }
 
       const currentUser = await authService.getCurrentUser();
+      if (!isActive()) return;
+
       setUser(currentUser);
       setStatus(AUTH_STATUS.AUTHENTICATED);
     } catch (restoreError: unknown) {
+      if (!isActive()) return;
+
       if (
         restoreError instanceof ApiError &&
         [401, 403].includes(restoreError.status)
       ) {
         await tokenStorage.clear();
+        if (!isActive()) return;
         setUser(null);
         setStatus(AUTH_STATUS.UNAUTHENTICATED);
         return;
@@ -89,10 +98,14 @@ export function AuthProvider({ children }: PropsWithChildren) {
   }, []);
 
   useEffect(() => {
+    let active = true;
     setAuthenticationExpiredHandler(handleSessionExpired);
-    void restoreSession();
+    void Promise.resolve().then(() => restoreSession(() => active));
 
-    return () => setAuthenticationExpiredHandler(null);
+    return () => {
+      active = false;
+      setAuthenticationExpiredHandler(null);
+    };
   }, [handleSessionExpired, restoreSession]);
 
   const signIn = useCallback(async (input: LoginInput) => {

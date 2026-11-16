@@ -3,8 +3,6 @@ import { Switch as RNSwitch, SwitchProps as RNSwitchProps } from 'react-native';
 
 export type SwitchProps = RNSwitchProps;
 
-export const Switch = React.forwardRef<RNSwitch, SwitchProps>((props, ref) => (
-    <RNSwitch ref={ref} {...props} />
-));
+export const Switch = (props: SwitchProps) => <RNSwitch {...props} />;
 
 Switch.displayName = 'Switch';

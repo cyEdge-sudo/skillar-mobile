@@ -4,6 +4,7 @@ import {
     TextInputProps as RNTextInputProps,
     StyleSheet,
     View,
+    type TextInputInstance,
 } from 'react-native';
 import { Text } from '../text/text';
 
@@ -12,7 +13,7 @@ export interface TextInputProps extends RNTextInputProps {
     label?: string;
 }
 
-export const TextInput = React.forwardRef<RNTextInput, TextInputProps>(
+export const TextInput = React.forwardRef<TextInputInstance, TextInputProps>(
     ({ error, label, style, onBlur, onFocus, ...rest }, ref) => {
         const [isFocused, setIsFocused] = useState(false);
 

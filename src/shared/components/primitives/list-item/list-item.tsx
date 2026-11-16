@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ViewProps, TextStyle } from 'react-native';
+import { View, Text, StyleSheet, ViewProps, TextStyle, type ViewInstance } from 'react-native';
 
 export interface ListItemProps extends ViewProps {
     title: string;
@@ -10,7 +10,7 @@ export interface ListItemProps extends ViewProps {
     rightElement?: React.ReactNode;
 }
 
-export const ListItem = React.forwardRef<View, ListItemProps>(
+export const ListItem = React.forwardRef<ViewInstance, ListItemProps>(
     ({ title, subtitle, titleStyle, subtitleStyle, leftElement, rightElement, style, ...rest }, ref) => (
         <View ref={ref} style={[styles.container, style]} {...rest}>
             {leftElement && <View style={styles.left}>{leftElement}</View>}

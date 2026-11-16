@@ -9,8 +9,7 @@ export interface TooltipProps extends ViewProps {
     onVisibleChange?: (visible: boolean) => void;
 }
 
-export const Tooltip = React.forwardRef<View, TooltipProps>(
-    ({ content, contentStyle, children, visible: controlledVisible, onVisibleChange, style, ...rest }, ref) => {
+export const Tooltip = ({ content, contentStyle, children, visible: controlledVisible, onVisibleChange, style, ...rest }: TooltipProps) => {
         const [internalVisible, setInternalVisible] = useState(false);
         const isVisible = controlledVisible !== undefined ? controlledVisible : internalVisible;
 
@@ -22,7 +21,7 @@ export const Tooltip = React.forwardRef<View, TooltipProps>(
         const toggle = () => setVisible(!isVisible);
 
         return (
-            <View ref={ref} style={style} {...rest}>
+            <View style={style} {...rest}>
                 <Pressable onPress={toggle}>{children}</Pressable>
                 {isVisible && (
                     <Modal transparent animationType="fade">
@@ -41,8 +40,7 @@ export const Tooltip = React.forwardRef<View, TooltipProps>(
                 )}
             </View>
         );
-    }
-);
+    };
 
 Tooltip.displayName = 'Tooltip';
 

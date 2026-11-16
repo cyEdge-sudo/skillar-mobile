@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ViewProps, StyleSheet } from 'react-native';
+import { View, ViewProps, StyleSheet, type ViewInstance } from 'react-native';
 import { Text } from '../text/text';
 
 export interface BadgeProps extends ViewProps {
@@ -8,7 +8,7 @@ export interface BadgeProps extends ViewProps {
     label?: string;
 }
 
-export const Badge = React.forwardRef<View, BadgeProps>(
+export const Badge = React.forwardRef<ViewInstance, BadgeProps>(
     ({
         variant = 'default',
         size = 'medium',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, Text, StyleSheet, ViewProps, ImageProps, TextStyle } from 'react-native';
+import { View, Image, Text, StyleSheet, ViewProps, ImageProps, TextStyle, type ViewInstance } from 'react-native';
 
 export interface AvatarProps extends ViewProps {
     source?: ImageProps['source'];
@@ -8,7 +8,7 @@ export interface AvatarProps extends ViewProps {
     initialsStyle?: TextStyle;
 }
 
-export const Avatar = React.forwardRef<View, AvatarProps>(
+export const Avatar = React.forwardRef<ViewInstance, AvatarProps>(
     ({ source, size = 48, initials, initialsStyle, style, ...rest }, ref) => {
         const containerStyle = [styles.container, { width: size, height: size, borderRadius: size / 2 }, style];
 
