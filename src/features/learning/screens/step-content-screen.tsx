@@ -3,7 +3,6 @@ import { useNavigation, useRoute, type RouteProp } from "@react-navigation/nativ
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import {
   ActivityIndicator,
-  Linking,
   ScrollView,
   StyleSheet,
   View,
@@ -48,7 +47,7 @@ export function StepContentScreen() {
     progressStatus,
     progressPercent,
   } = route.params;
-  const { colors, spacing, typography } = useTheme();
+  const { colors, spacing } = useTheme();
   const enrollmentQuery = useEnrollmentDetail(enrollmentId);
   const contentQuery = useStepContent(stepId);
   const [showAssessment, setShowAssessment] = useState(false);
