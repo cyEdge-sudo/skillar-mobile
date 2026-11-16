@@ -198,8 +198,8 @@ export function StepContentScreen() {
           >
             <StepContentRenderer
               blocks={contentQuery.data?.contentBlocks ?? []}
-              fallbackVideoUrl={contentQuery.data?.video?.url}
-              fallbackMarkdown={contentQuery.data?.contentMarkdown}
+              fallbackVideoUrl={contentQuery.data?.video?.url ?? null}
+              fallbackMarkdown={contentQuery.data?.contentMarkdown ?? null}
             />
 
             <AppCard variant="outlined" style={styles.section}>
