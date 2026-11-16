@@ -1,0 +1,156 @@
+/** Shared application constants. Keep reusable strings and routes here. */
+
+export const APP_CONSTANTS = {
+  NAME: "Skillar",
+  API_VERSION_PREFIX: "/api/v1",
+  API_TIMEOUT_MS: 20_000,
+  QUERY_STALE_TIME_MS: 60_000,
+  QUERY_GC_TIME_MS: 5 * 60_000,
+  QUERY_RETRY_COUNT: 1,
+} as const;
+
+export const API_ROUTES = {
+  auth: {
+    login: "/auth/login",
+    signup: "/auth/signup",
+    google: "/auth/google",
+    refresh: "/auth/refresh",
+    logout: "/auth/logout",
+    sendOtp: "/auth/otp/send",
+    verifyOtp: "/auth/otp/verify",
+    forgotPassword: "/auth/password/forgot",
+    resetPassword: "/auth/password/reset",
+  },
+  user: {
+    me: "/me",
+    updateMe: "/me",
+    enrollments: "/me/enrollments",
+    progress: "/me/progress",
+  },
+  roadmaps: {
+    collection: "/roadmaps",
+    detail: (roadmapId: string): string => "/roadmaps/" + encodeURIComponent(roadmapId),
+    enroll: (roadmapId: string): string => "/roadmaps/" + encodeURIComponent(roadmapId) + "/enrollments",
+  },
+  enrollments: {
+    detail: (enrollmentId: string): string => "/enrollments/" + encodeURIComponent(enrollmentId),
+    progress: (enrollmentId: string): string => "/enrollments/" + encodeURIComponent(enrollmentId) + "/progress",
+    stepProgress: (enrollmentId: string, stepId: string): string =>
+      "/enrollments/" + encodeURIComponent(enrollmentId) + "/steps/" + encodeURIComponent(stepId) + "/progress",
+  },
+  steps: {
+    detail: (stepId: string): string => "/steps/" + encodeURIComponent(stepId) + "/content",
+    assessment: (stepId: string): string => "/steps/" + encodeURIComponent(stepId) + "/assessment",
+  },
+  assessments: {
+    attempts: (assessmentId: string): string => "/assessments/" + encodeURIComponent(assessmentId) + "/attempts",
+    attempt: (attemptId: string): string => "/assessment-attempts/" + encodeURIComponent(attemptId),
+    submitAttempt: (attemptId: string): string => "/assessment-attempts/" + encodeURIComponent(attemptId) + "/submit",
+  },
+} as const;
+
+export const STORAGE_KEYS = {
+  AUTH_TOKENS: "skillar.auth.tokens.v1",
+  THEME_PREFERENCE: "skillar.preferences.theme.v1",
+} as const;
+
+export const REQUEST_HEADERS = {
+  ACCEPT: "Accept",
+  CONTENT_TYPE: "Content-Type",
+  AUTHORIZATION: "Authorization",
+  REQUEST_ID: "X-Request-Id",
+  IDEMPOTENCY_KEY: "Idempotency-Key",
+  RETRY_AFTER: "Retry-After",
+  JSON: "application/json",
+  BEARER_PREFIX: "Bearer ",
+} as const;
+
+export const API_ERROR_CODES = {
+  NETWORK_ERROR: "NETWORK_ERROR",
+  REQUEST_TIMEOUT: "REQUEST_TIMEOUT",
+  REQUEST_CANCELLED: "REQUEST_CANCELLED",
+  INVALID_RESPONSE: "INVALID_RESPONSE",
+  HTTP_ERROR: "HTTP_ERROR",
+  REFRESH_TOKEN_MISSING: "REFRESH_TOKEN_MISSING",
+  INVALID_TOKEN_RESPONSE: "INVALID_TOKEN_RESPONSE",
+} as const;
+
+export const APP_MESSAGES = {
+  networkUnavailable: "Unable to connect. Check your internet connection and try again.",
+  requestTimedOut: "The request timed out. Please try again.",
+  requestCancelled: "The request was cancelled.",
+  serviceUnavailable: "The service is temporarily unavailable. Please try again.",
+  requestFailed: "The request could not be completed.",
+  invalidServerResponse: "The server returned an invalid response.",
+  sessionExpired: "Your session has expired. Please sign in again.",
+  invalidTokenResponse: "The server returned an invalid token response.",
+  unknownError: "Something went wrong. Please try again.",
+  restoreSessionFailed: "Your saved session could not be checked. Check your connection and try again.",
+} as const;
+
+export const QUERY_KEYS = {
+  all: ["skillar"] as const,
+  currentUser: ["skillar", "current-user"] as const,
+  roadmapList: ["skillar", "roadmaps"] as const,
+  roadmap: (roadmapId: string) => ["skillar", "roadmaps", roadmapId] as const,
+  enrollments: ["skillar", "enrollments"] as const,
+  enrollment: (enrollmentId: string) => ["skillar", "enrollments", enrollmentId] as const,
+  progress: ["skillar", "progress"] as const,
+} as const;
+
+export const NAVIGATION_ROUTES = {
+  auth: {
+    login: "Login",
+    signup: "SignUp",
+    forgotPassword: "ForgotPassword",
+  },
+  tabs: {
+    dashboard: "Dashboard",
+    explore: "Explore",
+    learning: "Learning",
+    profile: "Profile",
+  },
+} as const;
+
+export const UI_COPY = {
+  common: {
+    retry: "Retry",
+    loading: "Loading Skillar…",
+    continue: "Continue",
+    cancel: "Cancel",
+  },
+  auth: {
+    loginTitle: "Welcome back",
+    loginSubtitle: "Sign in to continue learning.",
+    emailLabel: "Email address",
+    emailPlaceholder: "name@example.com",
+    passwordLabel: "Password",
+    passwordPlaceholder: "Enter your password",
+    loginAction: "Sign in",
+    signupAction: "Create account",
+    forgotPasswordAction: "Forgot password?",
+    noAccount: "New to Skillar?",
+    signupTitle: "Create your account",
+    signupSubtitle: "Set up your learner account.",
+    nameLabel: "Full name",
+    dateOfBirthLabel: "Date of birth (YYYY-MM-DD)",
+    createAccountAction: "Create account",
+    haveAccount: "Already have an account?",
+    resetTitle: "Reset your password",
+    resetSubtitle: "Enter your email. We will send reset instructions if an account exists.",
+    sendResetAction: "Send reset instructions",
+    resetRequestSent: "If the email is registered, reset instructions will be sent.",
+    requiredFields: "Complete all required fields.",
+    invalidEmail: "Enter a valid email address.",
+  },
+  dashboard: {
+    greeting: "Your learning, in one place",
+    description: "Continue a roadmap or explore a new skill.",
+    activeLearning: "My learning",
+    discoverRoadmaps: "Explore roadmaps",
+    profile: "Profile",
+    comingSoonTitle: "Your learning dashboard",
+    comingSoonDescription: "Your learning activity will appear here when the learner APIs are available.",
+    apiNotConnected: "Backend integration is not available yet.",
+  },
+} as const;
