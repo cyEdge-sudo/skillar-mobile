@@ -214,6 +214,8 @@ export const UI_COPY = {
     hoursSuffix: "hours",
     weeksSuffix: "weeks",
     stepsSuffix: "steps",
+    progressOf: "of",
+    progressCompleted: "completed",
     levelFilters: {
       all: "All levels",
       beginner: "Beginner",
