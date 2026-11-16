@@ -3,7 +3,6 @@
 # dependencies
 node_modules/
 .playwright-mcp
-assets
 ui_mockups
 
 # Expo
