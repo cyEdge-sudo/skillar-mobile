@@ -118,6 +118,18 @@ export const NAVIGATION_ROUTES = {
   },
 } as const;
 
+export const NAVIGATION_LABELS = {
+  dashboard: "Home",
+  explore: "Explore",
+  learning: "My Learning",
+  profile: "Profile",
+} as const;
+
+export const FORM_VALIDATION = {
+  emailPattern: /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/,
+  dateOnlyPattern: /^\\d{4}-\\d{2}-\\d{2}$/,
+} as const;
+
 export const UI_COPY = {
   common: {
     retry: "Retry",
