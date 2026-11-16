@@ -72,8 +72,8 @@ export const AppChip = React.forwardRef<React.ComponentRef<typeof Chip>, AppChip
                 ref={ref}
                 selected={selected}
                 label={resolvedLabel}
-                style={chipStyle}
-                labelStyle={resolvedLabelStyle}
+                {...(chipStyle ? { style: chipStyle } : {})}
+                {...(resolvedLabelStyle ? { labelStyle: resolvedLabelStyle } : {})}
                 {...rest}
             />
         );
