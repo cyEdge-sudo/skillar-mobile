@@ -33,6 +33,7 @@ interface AuthContextValue {
   signIn: (input: LoginInput) => Promise<void>;
   signUp: (input: SignupInput) => Promise<SignupResponse>;
   signOut: () => Promise<void>;
+  requestPasswordReset: (email: string) => Promise<void>;
   retrySessionRestore: () => Promise<void>;
 }
 
@@ -103,6 +104,11 @@ export function AuthProvider({ children }: PropsWithChildren) {
     [],
   );
 
+  const requestPasswordReset = useCallback(
+    (email: string) => authService.requestPasswordReset(email),
+    [],
+  );
+
   const signOut = useCallback(async () => {
     try {
       await authService.logout();
@@ -121,9 +127,10 @@ export function AuthProvider({ children }: PropsWithChildren) {
       signIn,
       signUp,
       signOut,
+      requestPasswordReset,
       retrySessionRestore: restoreSession,
     }),
-    [status, user, error, signIn, signUp, signOut, restoreSession],
+    [status, user, error, signIn, signUp, signOut, requestPasswordReset, restoreSession],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
