@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, Text, StyleSheet, PressableProps, TextStyle, ViewStyle, View } from 'react-native';
+import { Pressable, Text, StyleSheet, PressableProps, TextStyle, ViewStyle, type PressableInstance } from 'react-native';
 
 export interface ChipProps extends Omit<PressableProps, 'children'> {
     label: string;
@@ -9,7 +9,7 @@ export interface ChipProps extends Omit<PressableProps, 'children'> {
     color?: string;
 }
 
-export const Chip = React.forwardRef<View, ChipProps>(
+export const Chip = React.forwardRef<PressableInstance, ChipProps>(
     ({ label, labelStyle, style, selected, disabled, color = '#007AFF', ...rest }, ref) => {
         return (
             <Pressable
