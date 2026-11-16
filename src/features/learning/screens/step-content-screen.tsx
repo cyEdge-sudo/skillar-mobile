@@ -151,7 +151,7 @@ export function StepContentScreen() {
                         {question.type.replace(/_/g, " ")}
                       </AppText>
                       {question.options?.map((option) => (
-                        <AppText key={option.optionId}>{option.optionId + ". " + option.text}</AppText>
+                        <AppText key={option.optionId}>{option.optionId + UI_COPY.learning.optionNumberSeparator + option.text}</AppText>
                       ))}
                     </View>
                   ))
