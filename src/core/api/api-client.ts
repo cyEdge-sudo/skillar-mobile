@@ -4,6 +4,7 @@ import {
   APP_CONSTANTS,
   APP_MESSAGES,
   REQUEST_HEADERS,
+  HTTP_METHODS,
 } from "../constants/app.constants";
 import { tokenStorage } from "../auth/token-storage";
 import { parseAuthResponse } from "../auth/validators";
@@ -118,6 +119,9 @@ async function fetchWithTimeout(
   externalSignal?: AbortSignal,
 ): Promise<Response> {
   const controller = new AbortController();
+  if (externalSignal?.aborted) {
+    controller.abort();
+  }
   const timeoutId = setTimeout(
     () => controller.abort(),
     APP_CONSTANTS.API_TIMEOUT_MS,
@@ -166,7 +170,7 @@ async function performTokenRefresh(): Promise<AuthTokens> {
   const response = await fetchWithTimeout(
     getApiUrl(API_ROUTES.auth.refresh),
     {
-      method: "POST",
+      method: HTTP_METHODS.POST,
       headers: {
         [REQUEST_HEADERS.ACCEPT]: REQUEST_HEADERS.JSON,
         [REQUEST_HEADERS.CONTENT_TYPE]: REQUEST_HEADERS.JSON,
@@ -194,7 +198,7 @@ async function refreshTokens(): Promise<AuthTokens> {
     refreshInFlight = performTokenRefresh()
       .catch(async (error: unknown) => {
         // Preserve the session when refresh fails because of a network outage.
-        if (error instanceof ApiError && error.status === 401) {
+        if (error instanceof ApiError && [401, 403].includes(error.status)) {
           await tokenStorage.clear();
           onAuthenticationExpired?.();
         }
@@ -275,7 +279,7 @@ export async function apiRequest<TData>(
 
   if (response.status === 204) {
     return {
-      data: undefined as TData,
+      data: parseData(undefined),
       meta: { requestId },
     };
   }
