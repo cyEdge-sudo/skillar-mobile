@@ -1,4 +1,14 @@
 export const palette = {
+    skillar: {
+        primary: '#6C47FF',
+        primaryPressed: '#5835E8',
+        teal: '#00D4B4',
+        background: '#F7F7FB',
+        surface: '#FFFFFF',
+        text: '#202033',
+        textMuted: '#6F7185',
+        border: '#E5E6EF',
+    },
     blue: {
         50: '#EFF6FF',
         100: '#DBEAFE',
