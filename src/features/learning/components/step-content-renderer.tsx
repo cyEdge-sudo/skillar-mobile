@@ -16,6 +16,16 @@ interface StepContentRendererProps {
 const YOUTUBE_URL_PATTERN =
   /^https:\/\/(?:(?:www|m)\.)?youtube\.com\/|^https:\/\/youtu\.be\//i;
 
+const CONTENT_TYPE_ORDER: Record<StepContentBlock["contentType"], number> = {
+  VIDEO: 0,
+  TEXT: 1,
+  CAROUSEL: 2,
+  EXAMPLES: 3,
+  CODE: 4,
+  NOTE: 5,
+  QUIZ: 6,
+};
+
 export function StepContentRenderer({
   blocks,
   fallbackVideoUrl,
@@ -46,9 +56,13 @@ export function StepContentRenderer({
     try { await Linking.openURL(url); } catch { /* The device cannot open this URL. */ }
   };
 
+  const orderedBlocks = blocks.slice().sort(
+    (left, right) => CONTENT_TYPE_ORDER[left.contentType] - CONTENT_TYPE_ORDER[right.contentType],
+  );
+
   return (
     <View style={{ gap: spacing[16] }}>
-      {blocks.map((block) => (
+      {orderedBlocks.map((block) => (
         <AppCard key={block.id} variant="outlined" style={styles.block}>
           {block.title.length > 0 ? <AppText variant="titleMedium">{block.title}</AppText> : null}
           {block.contentType === "VIDEO" ? (
