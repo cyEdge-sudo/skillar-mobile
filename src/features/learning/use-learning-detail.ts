@@ -20,7 +20,12 @@ export function useRoadmapDetail(roadmapId: string, enabled = true) {
 export function useEnrollmentDetail(enrollmentId: number | undefined) {
   return useQuery({
     queryKey: QUERY_KEYS.enrollment(String(enrollmentId ?? "")),
-    queryFn: () => learningDetailService.getEnrollment(enrollmentId as number),
+    queryFn: () => {
+      if (typeof enrollmentId !== "number") {
+        throw new Error("A valid enrollment ID is required.");
+      }
+      return learningDetailService.getEnrollment(enrollmentId);
+    },
     enabled: typeof enrollmentId === "number" && Number.isInteger(enrollmentId),
   });
 }
