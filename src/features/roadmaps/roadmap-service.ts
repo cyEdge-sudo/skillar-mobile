@@ -1,6 +1,5 @@
 import { API_ROUTES, HTTP_METHODS } from "../../core/constants/app.constants";
 import { apiRequest } from "../../core/api/api-client";
-import type { CursorPage } from "../../core/api/types";
 import type {
   RoadmapCatalogData,
   RoadmapCatalogPage,
