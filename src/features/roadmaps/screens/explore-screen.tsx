@@ -43,7 +43,7 @@ export function ExploreScreen() {
 
   const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: colors.background },
-    content: { flex: 1, padding: spacing[24], gap: spacing[16] },
+    content: { flex: 1, gap: spacing[16] },
     heading: { gap: spacing[4] },
     search: {
       minHeight: 48,
