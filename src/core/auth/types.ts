@@ -1,3 +1,5 @@
+import { AUTH_NEXT_STEPS } from "../constants/app.constants";
+
 export interface AuthUser {
   id: string;
   name: string;
@@ -17,9 +19,12 @@ export interface AuthResponse {
   tokens: AuthTokens;
 }
 
+export type SignupNextStep =
+  (typeof AUTH_NEXT_STEPS)[keyof typeof AUTH_NEXT_STEPS];
+
 export interface SignupResponse {
   user: Pick<AuthUser, "id" | "name" | "email">;
-  nextStep: string;
+  nextStep: SignupNextStep;
 }
 
 export interface LoginInput {
