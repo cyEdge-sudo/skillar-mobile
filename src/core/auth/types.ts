@@ -19,7 +19,7 @@ export interface AuthResponse {
 
 export interface SignupResponse {
   user: Pick<AuthUser, "id" | "name" | "email">;
-  nextStep: "verify_email" | "login" | string;
+  nextStep: string;
 }
 
 export interface LoginInput {
