@@ -1,6 +1,7 @@
 export type StepProgressStatus = "not_started" | "in_progress" | "completed";
 
 export interface LearningEnrollment {
+  /** Opaque enrollment identifier supplied by the backend. */
   enrollmentId: string;
   roadmapId: string;
   title: string;
@@ -42,6 +43,7 @@ export interface EnrolledRoadmapMilestone {
 }
 
 export interface EnrollmentDetail {
+  /** Opaque enrollment identifier supplied by the backend. */
   enrollmentId: string;
   roadmapId: string;
   status: string;
