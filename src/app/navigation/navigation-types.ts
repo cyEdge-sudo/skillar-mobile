@@ -1,12 +1,14 @@
+import { NAVIGATION_ROUTES } from "../../core/constants/app.constants";
+
 export type AuthStackParamList = {
-  Login: undefined;
-  SignUp: undefined;
-  ForgotPassword: undefined;
+  [NAVIGATION_ROUTES.auth.login]: undefined;
+  [NAVIGATION_ROUTES.auth.signup]: undefined;
+  [NAVIGATION_ROUTES.auth.forgotPassword]: undefined;
 };
 
 export type MainTabParamList = {
-  Dashboard: undefined;
-  Explore: undefined;
-  Learning: undefined;
-  Profile: undefined;
+  [NAVIGATION_ROUTES.tabs.dashboard]: undefined;
+  [NAVIGATION_ROUTES.tabs.explore]: undefined;
+  [NAVIGATION_ROUTES.tabs.learning]: undefined;
+  [NAVIGATION_ROUTES.tabs.profile]: undefined;
 };
