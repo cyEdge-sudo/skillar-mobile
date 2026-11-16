@@ -1,25 +1,26 @@
-import React from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import React, { type ComponentProps } from 'react';
+import { ScrollView, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+
 import { useTheme } from '@/shared/theme';
 import { AppText } from '../../themed/app-text';
 
 export interface KpiStat {
     label: string;
     value: string | number;
-    icon?: string;
+    icon?: ComponentProps<typeof Ionicons>['name'];
     trend?: 'up' | 'down' | 'flat';
 }
 
 export interface KpiStatRowProps {
     stats: KpiStat[];
-    style?: any;
+    style?: StyleProp<ViewStyle>;
 }
 
 export const KpiStatRow: React.FC<KpiStatRowProps> = ({ stats, style }) => {
     const { colors } = useTheme();
 
-    const getTrendColor = (trend?: string) => {
+    const getTrendColor = (trend?: KpiStat['trend']) => {
         switch (trend) {
             case 'up':
                 return colors.success;
@@ -41,7 +42,7 @@ export const KpiStatRow: React.FC<KpiStatRowProps> = ({ stats, style }) => {
                     <View style={styles.statItem}>
                         {stat.icon && (
                             <View style={[styles.iconBadge, { backgroundColor: colors.primary + '18' }]}>
-                                <Ionicons name={stat.icon as any} size={16} color={colors.primary} />
+                                <Ionicons name={stat.icon} size={16} color={colors.primary} />
                             </View>
                         )}
                         <AppText variant="headlineSmall" style={[styles.value, { color: colors.text }]}>
