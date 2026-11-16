@@ -48,7 +48,7 @@ function activityLabel(type: string): string {
     case "SCORM":
       return UI_COPY.journeys.scorm;
     default:
-      return UI_COPY.journeys.unknownActivity;
+      return UI_COPY.journeys.unsupportedActivity;
   }
 }
 
