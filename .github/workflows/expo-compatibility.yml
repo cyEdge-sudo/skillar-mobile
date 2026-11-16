@@ -34,6 +34,10 @@ jobs:
           node-version: 22
           cache: npm
 
+      - name: Install dependencies for Expo CLI
+        if: github.event_name == 'push'
+        run: npm install --ignore-scripts --no-audit
+
       - name: Align Expo-managed dependencies
         if: github.event_name == 'push'
         run: npx expo install --fix
