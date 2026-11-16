@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, View, StyleSheet, PressableProps, ViewStyle } from 'react-native';
+import { Pressable, View, StyleSheet, PressableProps, ViewStyle, type PressableInstance } from 'react-native';
 
 export interface CheckboxProps extends Omit<PressableProps, 'children'> {
     checked: boolean;
@@ -7,7 +7,7 @@ export interface CheckboxProps extends Omit<PressableProps, 'children'> {
     style?: ViewStyle;
 }
 
-export const Checkbox = React.forwardRef<View, CheckboxProps>(
+export const Checkbox = React.forwardRef<PressableInstance, CheckboxProps>(
     ({ checked, onCheckedChange, style, disabled, ...rest }, ref) => {
         const handlePress = () => {
             if (!disabled && onCheckedChange) {
