@@ -1,4 +1,4 @@
-import { API_ROUTES } from "../constants/app.constants";
+import { API_ROUTES, HTTP_METHODS } from "../constants/app.constants";
 import { apiRequest } from "../api/api-client";
 import type {
   AuthResponse,
@@ -22,7 +22,7 @@ export const authService = {
       API_ROUTES.auth.login,
       parseAuthResponse,
       {
-        method: "POST",
+        method: HTTP_METHODS.POST,
         body: {
           email: input.email,
           password: input.password,
@@ -40,7 +40,7 @@ export const authService = {
       API_ROUTES.auth.signup,
       parseSignupResponse,
       {
-        method: "POST",
+        method: HTTP_METHODS.POST,
         body: {
           name: input.name,
           email: input.email,
@@ -68,7 +68,7 @@ export const authService = {
       API_ROUTES.auth.forgotPassword,
       parseAcceptedAction,
       {
-        method: "POST",
+        method: HTTP_METHODS.POST,
         body: { email },
         authenticated: false,
       },
@@ -84,7 +84,7 @@ export const authService = {
           API_ROUTES.auth.logout,
           parseLoggedOut,
           {
-            method: "POST",
+            method: HTTP_METHODS.POST,
             body: { refreshToken: tokens.refreshToken },
             authenticated: false,
           },
