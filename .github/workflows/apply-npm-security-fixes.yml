@@ -10,7 +10,6 @@ permissions:
 
 jobs:
   update-lockfile:
-    if: github.event.head_commit.message != 'chore(security): apply safe npm audit fixes'
     runs-on: ubuntu-latest
 
     steps:
