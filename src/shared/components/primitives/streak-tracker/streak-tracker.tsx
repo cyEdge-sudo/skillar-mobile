@@ -1,13 +1,14 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+
 import { useTheme } from '@/shared/theme';
 import { AppText } from '../../themed/app-text';
 
 export interface StreakTrackerProps {
     streak: number;
     totalDays?: number;
-    style?: any;
+    style?: StyleProp<ViewStyle>;
 }
 
 const DEFAULT_DAYS = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
