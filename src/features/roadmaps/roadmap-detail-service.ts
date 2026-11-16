@@ -11,7 +11,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 function parseStringArray(value: unknown, field: string): string[] {
-  if (!Array.isArray(value) || !value.every((item) => typeof item === "string")) {
+  if (!Array.isArray(value) || !value.every((item): item is string => typeof item === "string")) {
     throw new Error("The server returned invalid " + field + ".");
   }
   return value;
