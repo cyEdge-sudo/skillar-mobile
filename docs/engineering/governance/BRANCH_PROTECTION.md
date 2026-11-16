@@ -1,18 +1,22 @@
 # Main Branch Protection
 
-## Required target
+## Current status
 
-Protect the `main` branch in GitHub repository settings.
+Verified on 16 November 2026:
 
-The connected GitHub integration used for this implementation cannot read or change branch-protection settings. This policy is documented for a repository administrator to apply in GitHub.
+- GitHub reports `main.protected = false`.
+- The repository rulesets endpoint returned an empty list.
+- Therefore, `main` is currently **not protected**.
 
-## GitHub settings
+The connected GitHub integration can read the branch protection flag and repository ruleset list. It cannot read detailed classic protection settings (the protection endpoint returns HTTP 403), and it does not expose a branch-protection or ruleset write action. A repository owner must apply the rule in GitHub Settings.
+
+## Apply the protection rule
 
 Open:
 
-`Settings → Branches → Add branch protection rule`
+[Repository branch settings](https://github.com/cyEdge-sudo/skillar-mobile/settings/branches)
 
-Set the branch name pattern to:
+Create a branch protection rule or repository ruleset that targets the exact branch name:
 
 `main`
 
@@ -21,28 +25,34 @@ Enable:
 1. Require a pull request before merging.
 2. Require conversation resolution before merging.
 3. Require status checks to pass before merging.
-4. Block force pushes.
-5. Block branch deletion.
-6. Require linear history if the repository adopts squash/rebase-only merges.
+4. Require branches to be up to date before merging.
+5. Block force pushes.
+6. Block branch deletion.
+7. Dismiss stale approvals when new commits are pushed.
+8. Require at least one approval if another trusted reviewer is available.
 
-For teams with more than one reviewer, require at least one approving review and dismiss stale approvals when new commits are pushed. For a single-maintainer repository, do not require an approval that nobody else can provide; keep the PR requirement and status checks enabled.
+For a single-maintainer repository, do not require an approval that nobody else can provide. Keep the pull request and status-check requirements enabled. Apply the rule to administrators too, where practical.
 
 ## Required status check
 
-The current workflow is `.github/workflows/mobile-ci.yml`. After it completes successfully, select the job check:
+The CI workflow is `.github/workflows/mobile-ci.yml`.
+
+After a successful workflow run, select this exact job check:
 
 `Typecheck and lint`
 
-That job runs:
+It runs:
+
 - `npm ci`
 - `npm run typecheck`
 - `npm run lint`
 
-Do not require `format:check` until that command is added to CI and the repository has been normalized with Prettier.
+Do not require `format:check` until it is included in CI and the whole repository has been normalized with Prettier.
 
 ## Working agreement
 
-- All implementation work happens on feature or fix branches.
+- All application work happens on feature or fix branches.
 - Pull requests target `main`.
-- No direct feature commits to `main`.
-- Keep `main` deployable.
+- Do not push feature commits directly to `main`.
+- Keep `main` in a releasable state.
+- Delete short-lived branches after their pull requests are merged.
