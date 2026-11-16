@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import {
   ActivityIndicator,
   FlatList,
@@ -12,6 +14,7 @@ import { useTheme } from "../../../shared/theme";
 import { useEnrollRoadmap, useRoadmaps } from "../use-roadmaps";
 import { useLearningEnrollments } from "../../learning/use-learning";
 import type { RoadmapLevel, RoadmapSummary } from "../types";
+import type { RootStackParamList } from "../../../app/navigation/navigation-types";
 
 const LEVEL_FILTERS: Array<{ label: string; value: RoadmapLevel | null }> = [
   { label: "All levels", value: null },
@@ -21,6 +24,7 @@ const LEVEL_FILTERS: Array<{ label: string; value: RoadmapLevel | null }> = [
 ];
 
 export function ExploreScreen() {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { colors, spacing, radius } = useTheme();
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -111,6 +115,12 @@ export function ExploreScreen() {
           </View>
         ) : null}
 
+        <AppButton
+          variant="outline"
+          onPress={() => navigation.navigate("RoadmapDetail", { roadmapId: item.id })}
+        >
+          View details
+        </AppButton>
         <AppButton
           onPress={() => {
             enrollMutation.mutate(item.id);
