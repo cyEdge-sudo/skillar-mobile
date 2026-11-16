@@ -5,7 +5,7 @@ import {
 } from "@tanstack/react-query";
 import { useEffect } from "react";
 
-import { QUERY_KEYS } from "../../core/constants/app.constants";
+import { APP_CONSTANTS, QUERY_KEYS } from "../../core/constants/app.constants";
 import { learningDetailService } from "./learning-detail-service";
 import { roadmapDetailService } from "../roadmaps/roadmap-detail-service";
 import type { StepProgressStatus } from "./types";
@@ -36,6 +36,7 @@ export function useStepContent(stepId: string) {
     queryKey: QUERY_KEYS.stepContent(stepId),
     queryFn: () => learningDetailService.getStepContent(stepId),
     enabled: stepId.length > 0,
+    staleTime: APP_CONSTANTS.CONTENT_QUERY_STALE_TIME_MS,
   });
 }
 
@@ -50,6 +51,7 @@ export function usePrefetchStepContent(stepId: string | undefined) {
     void queryClient.prefetchQuery({
       queryKey: QUERY_KEYS.stepContent(stepId),
       queryFn: () => learningDetailService.getStepContent(stepId),
+      staleTime: APP_CONSTANTS.CONTENT_QUERY_STALE_TIME_MS,
     });
   }, [queryClient, stepId]);
 }
