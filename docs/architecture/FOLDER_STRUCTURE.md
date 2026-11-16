@@ -2,46 +2,80 @@
 
 ## Purpose
 
-This document defines the canonical repository structure for the Skillar Mobile application. Every file added to the project should fit into this structure. New top-level directories should only be introduced after architectural review.
+This document describes the folder structure that exists in the Skillar Mobile application. Add files to the owning feature or shared module. Do not create new root-level folders without an architecture decision.
 
-## Guiding Principles
-
-- Feature-first organization.
-- Clear separation of concerns.
-- Shared code lives outside feature modules.
-- Business logic is isolated from UI.
-- Infrastructure concerns are centralized.
-
-## Proposed Repository Structure
+## Repository structure
 
 ```text
-app/                    # Expo Router routes
+App.tsx
+index.ts
+assets/
+docs/
 src/
-  assets/               # Images, fonts, icons
-  components/           # Shared UI components
-  constants/            # App-wide constants
-  domain/               # Domain models and interfaces
-  features/             # Feature modules
-  hooks/                # Shared React hooks
-  navigation/           # Navigation helpers
-  providers/            # Context providers
-  repositories/         # Repository implementations
-  services/             # API and platform services
-  store/                # Shared state
-  theme/                # Design tokens and themes
-  types/                # Shared TypeScript types
-  utils/                # Utility functions
-
-docs/                   # Project documentation
+  app/
+    navigation/
+    providers/
+  core/
+    api/
+    auth/
+    config/
+    constants/
+  features/
+    auth/
+      screens/
+    dashboard/
+      screens/
+    learning/
+      screens/
+    profile/
+      screens/
+    roadmaps/
+      screens/
+  shared/
+    components/
+      primitives/
+      themed/
+    theme/
+      context/
+      hooks/
+      providers/
+      themes/
+      tokens/
+      types/
 ```
 
-## Feature Module Structure
+## Ownership
 
-Each feature should follow a consistent internal layout:
+### `src/app`
+
+Application bootstrap concerns that compose the application:
+
+- Navigation containers and typed route parameter lists.
+- Application-wide providers.
+
+### `src/core`
+
+Cross-feature infrastructure and stable app contracts:
+
+- `api`: HTTP transport, typed request options, response envelopes and normalized errors.
+- `auth`: authentication services, session state, token persistence and runtime parsers.
+- `config`: environment-backed public configuration.
+- `constants`: API routes, navigation names, copy, storage keys, query keys, headers, status values and stable error codes.
+
+### `src/features`
+
+Feature-owned screens, components, services, hooks, types and validation. A feature should only add subfolders when it needs them. Do not create empty folders to match a template.
+
+### `src/shared`
+
+Reusable UI components and design-system code. Shared code must not depend on feature modules.
+
+## Feature module conventions
+
+Use this structure when a feature grows:
 
 ```text
 feature-name/
-  api/
   components/
   hooks/
   screens/
@@ -50,29 +84,22 @@ feature-name/
   utils/
 ```
 
-## Ownership Rules
+API calls remain behind feature services and the shared API client. Screens must not call `fetch` or build endpoint URLs.
 
-- Shared UI belongs in `src/components`.
-- Feature-specific UI belongs within the feature.
-- API access should be encapsulated in repositories and services.
-- Screens should contain presentation logic only.
-- Business rules should reside outside UI components.
+## Import rules
 
-## Import Rules
-
-- Features may depend on shared modules.
-- Shared modules must not depend on feature modules.
+- Features may depend on `core` and `shared`.
+- Core and shared modules must not import feature implementation details.
+- Features must not import another feature's internal files.
 - Avoid circular dependencies.
-- Use path aliases where appropriate.
+- Prefer type-only imports when importing only TypeScript types.
 
-## Naming Conventions
+## Naming conventions
 
-- Components: PascalCase
-- Hooks: `use*`
-- Types: PascalCase
-- Files: Match exported symbol where practical.
-- Constants: UPPER_SNAKE_CASE for values, camelCase for objects.
+- Components and types: PascalCase.
+- Hooks: `use*`.
+- Files and folders: kebab-case.
+- Exported constants: UPPER_SNAKE_CASE keys inside named constant groups.
+- Functions and variables: camelCase.
 
-## Future Evolution
-
-The folder structure may evolve through approved Architecture Decision Records (ADRs). Any structural changes should preserve backward compatibility where possible and minimize disruption to existing modules.
+The structure may evolve through Architecture Decision Records. Update this document when the actual structure changes.
