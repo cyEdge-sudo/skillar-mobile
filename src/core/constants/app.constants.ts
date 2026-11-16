@@ -72,6 +72,25 @@ export const REQUEST_HEADERS = {
   IDEMPOTENCY_KEY: "Idempotency-Key",
   JSON: "application/json",
   BEARER_PREFIX: "Bearer ",
+
+} as const;
+
+export const HTTP_METHODS = {
+  GET: "GET",
+  POST: "POST",
+  PUT: "PUT",
+  PATCH: "PATCH",
+  DELETE: "DELETE",
+} as const;
+
+export const API_FIELDS = {
+  USER_ID: "user.id",
+  USER_NAME: "user.name",
+  USER_EMAIL: "user.email",
+  ACCESS_TOKEN: "tokens.accessToken",
+  REFRESH_TOKEN: "tokens.refreshToken",
+  ACCESS_TOKEN_EXPIRES_AT: "tokens.accessTokenExpiresAt",
+  REFRESH_TOKEN_EXPIRES_AT: "tokens.refreshTokenExpiresAt",
 } as const;
 
 export const API_ERROR_CODES = {
@@ -216,4 +235,6 @@ export const APP_MESSAGES = {
   unknownError: "Something went wrong. Please try again.",
   restoreSessionFailed:
     "Your saved session could not be checked. Check your connection and try again.",
+  invalidPasswordResetResponse: "The server returned an invalid password reset response.",
+  invalidLogoutResponse: "The server returned an invalid logout response.",
 } as const;
