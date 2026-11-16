@@ -59,7 +59,7 @@ function parseRoadmapCatalog(value: unknown): RoadmapCatalogData {
 function parseEnrollment(value: unknown): RoadmapEnrollment {
   if (
     !isRecord(value) ||
-    typeof value.enrollmentId !== "number" ||
+    typeof value.enrollmentId !== "string" ||
     typeof value.roadmapId !== "string" ||
     typeof value.status !== "string" ||
     typeof value.enrolledAt !== "string"
