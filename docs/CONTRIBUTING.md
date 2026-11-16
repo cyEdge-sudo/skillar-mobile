@@ -1,83 +1,61 @@
 # Contributing to Skillar Mobile
 
-Thank you for contributing to the Skillar Mobile project. This repository follows a documentation-first and architecture-driven development process.
+This repository follows a documentation-first and architecture-driven process.
 
-## Development Workflow
+## Development workflow
 
-1. Review the relevant documentation before starting work.
-2. Update or create documentation for any significant feature or architectural change.
-3. Implement the feature.
-4. Ensure all quality checks pass.
-5. Submit for review.
+1. Review the relevant architecture and API documentation.
+2. Create a feature or fix branch from the current `main`.
+3. Update documentation for contract or architecture changes.
+4. Implement the change.
+5. Run typecheck, lint and formatting checks.
+6. Open a pull request against `main`.
 
-## Branching Strategy
+## Branch names
 
-- `main` – Production-ready code.
-- `develop` – Active development.
+- `main` – Protected integration branch.
 - `feature/<feature-name>` – New features.
 - `bugfix/<issue-name>` – Bug fixes.
 - `hotfix/<issue-name>` – Production fixes.
 
-## Commit Message Convention
+A separate long-lived `develop` branch is not required for the current workflow.
+
+## Commit messages
 
 Use Conventional Commits:
 
-- feat:
-- fix:
-- docs:
-- refactor:
-- test:
-- chore:
-- perf:
-- ci:
+- `feat:`
+- `fix:`
+- `docs:`
+- `refactor:`
+- `test:`
+- `chore:`
+- `perf:`
+- `ci:`
 
 Example:
 
-```
+```text
 feat(auth): implement secure login flow
 ```
 
-## Pull Request Checklist
+## Pull request checklist
 
 - Documentation updated.
-- Code follows project architecture.
-- No TypeScript `any` usage.
-- Loading, error, and empty states handled.
-- Accessibility considered.
-- Tests added or updated where applicable.
-- Linting passes.
+- Code follows the feature-first architecture.
+- No explicit TypeScript `any`.
+- External data is validated at runtime.
+- Loading, error and empty states are handled.
+- Accessibility is considered.
+- Tests are added or updated where applicable.
+- Typecheck and lint pass.
+- No credentials or generated agent artefacts are committed.
 
-## Documentation-First Principle
+## Definition of done
 
-Every major feature should be documented before implementation. Architectural changes must be captured using an Architecture Decision Record (ADR).
-
-## Definition of Done
-
-A feature is considered complete when:
-
+A change is complete when:
 - Functional requirements are met.
-- Documentation is updated.
-- Code review is completed.
+- Documentation is current.
+- Review comments are resolved.
 - Quality checks pass.
-- Performance and security considerations have been addressed.
-
-## AI-Assisted Development
-
-AI-generated code should:
-
-- Adhere to the documented architecture.
-- Follow the design system.
-- Avoid introducing unnecessary dependencies.
-- Maintain strict TypeScript typing.
-- Preserve readability and maintainability.
-
-## Code Review Principles
-
-Reviews should focus on:
-
-- Correctness
-- Maintainability
-- Performance
-- Security
-- Accessibility
-- Consistency with project standards
+- Performance and security risks are addressed.
