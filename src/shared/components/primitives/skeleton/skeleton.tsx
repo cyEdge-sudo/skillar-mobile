@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ViewProps, DimensionValue } from 'react-native';
+import { View, StyleSheet, ViewProps, DimensionValue, type ViewInstance } from 'react-native';
 
 export interface SkeletonProps extends ViewProps {
     width?: DimensionValue;
@@ -7,7 +7,7 @@ export interface SkeletonProps extends ViewProps {
     borderRadius?: number;
 }
 
-export const Skeleton = React.forwardRef<View, SkeletonProps>(
+export const Skeleton = React.forwardRef<ViewInstance, SkeletonProps>(
     ({ width = '100%', height = 24, borderRadius = 4, style, ...rest }, ref) => (
         <View
             ref={ref}
