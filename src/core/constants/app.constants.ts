@@ -195,6 +195,19 @@ export const UI_COPY = {
     signupSuccess:
       "Your account request was received. Follow the next step sent to your email.",
   },
+  learning: {
+    detailTitle: "Learning roadmap",
+    continueLearning: "Continue learning",
+    markComplete: "Mark as complete",
+    completed: "Completed",
+    pendingContent: "This step does not have published content yet.",
+    contentUnavailable: "Step content is unavailable.",
+    assessmentTitle: "Knowledge check",
+    assessmentUnavailable: "No assessment is available for this step.",
+    readOnlyAssessment: "You can review the questions here. Answer submission is not available yet.",
+    openVideo: "Open video",
+    noSteps: "No learning steps are available yet.",
+  },
   dashboard: {
     greeting: "Your learning, in one place",
     description: "Continue a roadmap or explore a new skill.",
