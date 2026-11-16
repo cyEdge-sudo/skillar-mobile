@@ -41,7 +41,7 @@ export function LearningScreen() {
     enrollmentsQuery.data?.pages.flatMap((page) => page.items) ?? [];
 
   const styles = StyleSheet.create({
-    content: { flex: 1, padding: spacing[24], gap: spacing[16] },
+    content: { flex: 1, gap: spacing[16] },
     heading: { gap: spacing[4] },
     list: { gap: spacing[12], paddingBottom: spacing[32] },
     card: { gap: spacing[12] },
