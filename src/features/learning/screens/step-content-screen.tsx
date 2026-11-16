@@ -23,7 +23,7 @@ import {
 type Navigation = NativeStackNavigationProp<RootStackParamList>;
 type StepRoute = RouteProp<RootStackParamList, "StepContent">;
 
-const YOUTUBE_URL_PATTERN = /^https:\/\/(?:(?:www|m)\\.)?youtube\\.com\\/|^https:\/\/youtu\\.be\\//i;
+const YOUTUBE_URL_PATTERN = /^https:\/\/(?:(?:www|m)\.)?youtube\.com\/|^https:\/\/youtu\.be\//i;
 
 export function StepContentScreen() {
   const navigation = useNavigation<Navigation>();
