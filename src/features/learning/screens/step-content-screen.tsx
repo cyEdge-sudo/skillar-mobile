@@ -54,13 +54,14 @@ export function StepContentScreen() {
 
   const openVideo = async (url: string) => {
     try {
-      const parsed = new URL(url);
-      if (parsed.protocol !== "https:") return;
-      await Linking.openURL(parsed.toString());
+      if (!/^https:\/\//i.test(url)) return;
+      await Linking.openURL(url);
     } catch {
       // Invalid or unsupported URLs are not opened.
     }
   };
+
+  const isCompleted = progressStatus === "completed" || progressMutation.isSuccess;
 
   const markCompleted = () => {
     progressMutation.mutate({
@@ -144,7 +145,7 @@ export function StepContentScreen() {
                         {String(index + 1) + ". " + question.question}
                       </AppText>
                       <AppText color="textSecondary" variant="labelSmall">
-                        {question.type.replaceAll("_", " ")}
+                        {question.type.replace(/_/g, " ")}
                       </AppText>
                       {question.options?.map((option) => (
                         <AppText key={option.optionId}>{option.optionId + ". " + option.text}</AppText>
@@ -159,7 +160,7 @@ export function StepContentScreen() {
           </ScrollView>
         )}
 
-        {progressStatus !== "completed" ? (
+        {!isCompleted ? (
           <View style={{ gap: spacing[8] }}>
             <AppButton
               loading={progressMutation.isPending}
