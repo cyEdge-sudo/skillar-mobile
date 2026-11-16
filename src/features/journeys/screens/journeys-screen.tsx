@@ -196,7 +196,7 @@ export function JourneysScreen() {
                       {UI_COPY.common.loadMore}
                     </AppButton>
                   </View>
-                ) : null
+                ) : undefined
               }
             />
           </>
