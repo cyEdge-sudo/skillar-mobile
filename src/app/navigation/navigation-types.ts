@@ -15,9 +15,9 @@ export type MainTabParamList = {
 
 export type RootStackParamList = {
   MainTabs: undefined;
-  RoadmapDetail: { roadmapId: string; enrollmentId?: number };
+  RoadmapDetail: { roadmapId: string; enrollmentId?: string };
   StepContent: {
-    enrollmentId: number;
+    enrollmentId: string;
     stepId: string;
     stepTitle: string;
     progressStatus: "not_started" | "in_progress" | "completed";
