@@ -162,6 +162,7 @@ The current repository includes a profile feature and documents \`GET /me\` and 
 The supplied onboarding/API reference documents Journey entities and SRS review payload examples, but the current repository roadmap treats Journeys as a separate product concept to add only after mobile/backend contracts are defined. The current API contract does not define Journey or SRS routes.
 
 Before starting either feature, obtain:
+
 - Confirmed endpoints and response schemas.
 - Completion/submission semantics.
 - Status enums from backend source.
@@ -175,30 +176,31 @@ The older API reference calls out missing Journey activity completion, SRS submi
 
 This is a planning inventory. Confirm exact route names against the existing navigation tree before adding screens.
 
-| Area | Screen / flow | Status |
-|---|---|---|
-| Auth | Login | Existing foundation |
-| Auth | Signup | Existing foundation |
-| Auth | Password reset | Existing foundation |
-| Auth | Session restoration | Foundation requirement |
-| Dashboard | Learner dashboard | Placeholder in repository |
-| Roadmaps | Browse/search list | Placeholder / planned |
-| Roadmaps | Roadmap details | Planned |
-| Roadmaps | Enrollment | Contract-defined; backend readiness to verify |
-| Roadmaps | Learner enrollments/progress | Contract-defined; backend readiness to verify |
-| Learning | Lesson content | Planned |
-| Learning | Assessment | Contract-defined; backend readiness to verify |
-| Learning | Assessment result/feedback | Contract-defined; backend readiness to verify |
-| Profile | Learner profile | Placeholder / planned |
-| Journeys | Journey list/details/activity | Later; contract required |
-| Reviews | Flashcards/review quiz | Later; contract required |
-| Shared | Loading, empty, error, offline, unsupported states | Cross-cutting requirement |
+| Area      | Screen / flow                                      | Status                                        |
+| --------- | -------------------------------------------------- | --------------------------------------------- |
+| Auth      | Login                                              | Existing foundation                           |
+| Auth      | Signup                                             | Existing foundation                           |
+| Auth      | Password reset                                     | Existing foundation                           |
+| Auth      | Session restoration                                | Foundation requirement                        |
+| Dashboard | Learner dashboard                                  | Placeholder in repository                     |
+| Roadmaps  | Browse/search list                                 | Placeholder / planned                         |
+| Roadmaps  | Roadmap details                                    | Planned                                       |
+| Roadmaps  | Enrollment                                         | Contract-defined; backend readiness to verify |
+| Roadmaps  | Learner enrollments/progress                       | Contract-defined; backend readiness to verify |
+| Learning  | Lesson content                                     | Planned                                       |
+| Learning  | Assessment                                         | Contract-defined; backend readiness to verify |
+| Learning  | Assessment result/feedback                         | Contract-defined; backend readiness to verify |
+| Profile   | Learner profile                                    | Placeholder / planned                         |
+| Journeys  | Journey list/details/activity                      | Later; contract required                      |
+| Reviews   | Flashcards/review quiz                             | Later; contract required                      |
+| Shared    | Loading, empty, error, offline, unsupported states | Cross-cutting requirement                     |
 
 ### 5.1 Navigation
 
 Use the current typed React Navigation 7 stack and bottom tabs. Do not replace it with Expo Router without a separately approved architecture migration.
 
 Navigation must:
+
 - Use typed route parameters.
 - Avoid passing sensitive tokens or large API payloads in navigation params.
 - Re-fetch protected resources after deep-link navigation.
@@ -213,41 +215,41 @@ Preserve the current feature-first structure documented in the repository:
 
 \`\`\`text
 src/
-  app/
-    navigation/
-    providers/
-  core/
-    api/
-    auth/
-    config/
-    constants/
-  features/
-    auth/
-    dashboard/
-    learning/
-    profile/
-    roadmaps/
-  shared/
-    components/
-    theme/
+app/
+navigation/
+providers/
+core/
+api/
+auth/
+config/
+constants/
+features/
+auth/
+dashboard/
+learning/
+profile/
+roadmaps/
+shared/
+components/
+theme/
 \`\`\`
 
 Add folders only when a real feature requirement needs them. Do not replace the repository structure with an older example tree from the supplied documents.
 
 ### 6.2 Responsibilities
 
-| Layer | Responsibility |
-|---|---|
-| Screens | Compose UI and connect feature hooks |
-| Feature components | Feature-specific presentation |
-| Feature services/hooks | Use cases, queries, mutations and mapping |
-| Core API | HTTP transport, request IDs, timeout, cancellation, auth refresh and normalized errors |
-| Runtime parsers | Validate unknown external payloads |
-| TanStack Query | Server state, cache and invalidation |
-| Auth Context | Minimal session state and learner identity |
-| SecureStore | Access and refresh token persistence |
-| Shared components | Feature-agnostic UI |
-| Theme | Centralized design tokens and theme provider |
+| Layer                  | Responsibility                                                                         |
+| ---------------------- | -------------------------------------------------------------------------------------- |
+| Screens                | Compose UI and connect feature hooks                                                   |
+| Feature components     | Feature-specific presentation                                                          |
+| Feature services/hooks | Use cases, queries, mutations and mapping                                              |
+| Core API               | HTTP transport, request IDs, timeout, cancellation, auth refresh and normalized errors |
+| Runtime parsers        | Validate unknown external payloads                                                     |
+| TanStack Query         | Server state, cache and invalidation                                                   |
+| Auth Context           | Minimal session state and learner identity                                             |
+| SecureStore            | Access and refresh token persistence                                                   |
+| Shared components      | Feature-agnostic UI                                                                    |
+| Theme                  | Centralized design tokens and theme provider                                           |
 
 ### 6.3 Engineering rules
 
@@ -268,6 +270,7 @@ Add folders only when a real feature requirement needs them. Do not replace the 
 ### 7.1 API baseline
 
 The current repository contract specifies:
+
 - Backend: NestJS in \`skiller-backend\`.
 - Base path: \`/api/v1\`.
 - Base URL configuration: backend origin only; the client appends the version prefix.
@@ -285,34 +288,35 @@ The API contract is a target agreement, not proof that routes are deployed. Veri
 
 ### 7.2 Current documented endpoint inventory
 
-| Capability | Method | Route |
-|---|---|---|
-| Signup | POST | \`/auth/signup\` |
-| Login | POST | \`/auth/login\` |
-| Google sign-in | POST | \`/auth/google\` |
-| Refresh | POST | \`/auth/refresh\` |
-| Logout | POST | \`/auth/logout\` |
-| Send email OTP | POST | \`/auth/otp/send\` |
-| Verify email OTP | POST | \`/auth/otp/verify\` |
-| Forgot password | POST | \`/auth/password/forgot\` |
-| Reset password | POST | \`/auth/password/reset\` |
-| Current learner | GET | \`/me\` |
-| Update learner | PATCH | \`/me\` |
-| Browse roadmaps | GET | \`/roadmaps\` |
-| Roadmap details | GET | \`/roadmaps/:roadmapId\` |
-| Enroll | POST | \`/roadmaps/:roadmapId/enrollments\` |
-| Learner enrollments | GET | \`/me/enrollments\` |
-| Enrollment details/progress | GET | \`/enrollments/:enrollmentId\` |
-| Lesson content | GET | \`/steps/:stepId/content\` |
-| Update step progress | PATCH | \`/enrollments/:enrollmentId/steps/:stepId/progress\` |
-| Get assessment | GET | \`/steps/:stepId/assessment\` |
-| Create assessment attempt | POST | \`/assessments/:assessmentId/attempts\` |
-| Submit assessment | POST | \`/assessment-attempts/:attemptId/submit\` |
-| Get assessment attempt | GET | \`/assessment-attempts/:attemptId\` |
+| Capability                  | Method | Route                                                 |
+| --------------------------- | ------ | ----------------------------------------------------- |
+| Signup                      | POST   | \`/auth/signup\`                                      |
+| Login                       | POST   | \`/auth/login\`                                       |
+| Google sign-in              | POST   | \`/auth/google\`                                      |
+| Refresh                     | POST   | \`/auth/refresh\`                                     |
+| Logout                      | POST   | \`/auth/logout\`                                      |
+| Send email OTP              | POST   | \`/auth/otp/send\`                                    |
+| Verify email OTP            | POST   | \`/auth/otp/verify\`                                  |
+| Forgot password             | POST   | \`/auth/password/forgot\`                             |
+| Reset password              | POST   | \`/auth/password/reset\`                              |
+| Current learner             | GET    | \`/me\`                                               |
+| Update learner              | PATCH  | \`/me\`                                               |
+| Browse roadmaps             | GET    | \`/roadmaps\`                                         |
+| Roadmap details             | GET    | \`/roadmaps/:roadmapId\`                              |
+| Enroll                      | POST   | \`/roadmaps/:roadmapId/enrollments\`                  |
+| Learner enrollments         | GET    | \`/me/enrollments\`                                   |
+| Enrollment details/progress | GET    | \`/enrollments/:enrollmentId\`                        |
+| Lesson content              | GET    | \`/steps/:stepId/content\`                            |
+| Update step progress        | PATCH  | \`/enrollments/:enrollmentId/steps/:stepId/progress\` |
+| Get assessment              | GET    | \`/steps/:stepId/assessment\`                         |
+| Create assessment attempt   | POST   | \`/assessments/:assessmentId/attempts\`               |
+| Submit assessment           | POST   | \`/assessment-attempts/:attemptId/submit\`            |
+| Get assessment attempt      | GET    | \`/assessment-attempts/:attemptId\`                   |
 
 ### 7.3 API integration workflow
 
 For each feature:
+
 1. Confirm route and backend implementation.
 2. Confirm request/response DTOs and error codes.
 3. Add or update runtime parser.
@@ -328,18 +332,18 @@ For each feature:
 
 Use HTTP status and stable error codes, not message-text parsing.
 
-| Condition | Expected client behavior |
-|---|---|
-| Network unavailable | Connection message and retry |
-| Timeout | Retry affordance |
-| Cancelled request | No server-failure message |
-| 400 / 422 | Safe validation feedback |
-| 401 | One refresh attempt for protected calls |
-| 403 | Access denied |
-| 404 | Resource unavailable |
-| 409 | State conflict explanation |
-| 429 | Respect Retry-After when supplied |
-| 5xx | Service unavailable and retry |
+| Condition           | Expected client behavior                |
+| ------------------- | --------------------------------------- |
+| Network unavailable | Connection message and retry            |
+| Timeout             | Retry affordance                        |
+| Cancelled request   | No server-failure message               |
+| 400 / 422           | Safe validation feedback                |
+| 401                 | One refresh attempt for protected calls |
+| 403                 | Access denied                           |
+| 404                 | Resource unavailable                    |
+| 409                 | State conflict explanation              |
+| 429                 | Respect Retry-After when supplied       |
+| 5xx                 | Service unavailable and retry           |
 
 Do not automatically retry a mutation unless it is idempotent or protected by an idempotency key.
 
@@ -348,6 +352,7 @@ Do not automatically retry a mutation unless it is idempotent or protected by an
 ### 8.1 Design token policy
 
 The supplied Skillar design-system notes confirm:
+
 - Primary accent: \`#6C47FF\`.
 - Amber accent: \`#F59E0B\`.
 - Web variables \`--sk-bg\` and \`--sk-surface\` are the source of truth for backgrounds/surfaces.
@@ -430,6 +435,7 @@ Do not add certificate pinning, custom cryptography, biometric authentication, d
 ### 9.5 Privacy and store disclosures
 
 Before release:
+
 - Audit actual API calls and collected data.
 - Confirm retention and deletion requirements.
 - Review crash-reporting and analytics payloads.
@@ -441,6 +447,7 @@ Before release:
 Offline downloads and queued progress are not part of the current repository foundation. The current architecture documentation explicitly says not to implement them without an explicit backend sync design.
 
 If offline support is approved later, first define:
+
 - Which content can be stored.
 - Whether content can be stored unencrypted.
 - Cache expiry and schema versioning.
@@ -468,6 +475,7 @@ Do not advertise offline learning until it is implemented, security-reviewed and
 - Keep server-derived progress and streak values authoritative.
 
 Potential monitoring measures:
+
 - Crash-free sessions.
 - Screen load time.
 - API latency and error rate.
@@ -482,21 +490,22 @@ Analytics/crash-reporting vendor selection is not yet defined. Make that decisio
 
 ### 12.1 Test levels
 
-| Level | Coverage |
-|---|---|
-| Unit | Mappers, parsers, validators, utilities |
-| Component | Shared components, content renderers, quiz controls |
-| Integration | Feature services, query hooks and API client |
-| Contract | Runtime parsers against backend DTO fixtures/OpenAPI |
-| Navigation | Typed routes, deep links and unauthorized resources |
-| Device | Supported Android and iOS versions/screen sizes |
+| Level         | Coverage                                                |
+| ------------- | ------------------------------------------------------- |
+| Unit          | Mappers, parsers, validators, utilities                 |
+| Component     | Shared components, content renderers, quiz controls     |
+| Integration   | Feature services, query hooks and API client            |
+| Contract      | Runtime parsers against backend DTO fixtures/OpenAPI    |
+| Navigation    | Typed routes, deep links and unauthorized resources     |
+| Device        | Supported Android and iOS versions/screen sizes         |
 | Accessibility | Screen reader, font scaling, contrast and touch targets |
-| Security | Session, storage, authorization, logs and data cleanup |
-| Acceptance | End-to-end learner workflows |
+| Security      | Session, storage, authorization, logs and data cleanup  |
+| Acceptance    | End-to-end learner workflows                            |
 
 ### 12.2 Minimum scenario coverage
 
 **Authentication**
+
 - Valid and invalid login.
 - Signup and verification paths.
 - Password reset.
@@ -508,11 +517,13 @@ Analytics/crash-reporting vendor selection is not yet defined. Make that decisio
 - Logout when backend is unavailable.
 
 **Dashboard**
+
 - Loading, success, empty, error and retry.
 - Pull-to-refresh.
 - Cached data behavior if configured.
 
 **Roadmaps**
+
 - Empty and populated list.
 - Search/filter/pagination.
 - Roadmap details.
@@ -524,6 +535,7 @@ Analytics/crash-reporting vendor selection is not yet defined. Make that decisio
 - Lesson load failure.
 
 **Assessments**
+
 - Required-answer validation.
 - Each backend-supported question type.
 - Submission success/failure.
@@ -532,11 +544,13 @@ Analytics/crash-reporting vendor selection is not yet defined. Make that decisio
 - Navigation away during an attempt.
 
 **Profile**
+
 - Current learner load.
 - Supported profile update fields.
 - Validation and server errors.
 
 **Cross-cutting**
+
 - Slow/intermittent network.
 - Cancellation.
 - Unauthorized deep link.
@@ -564,6 +578,7 @@ The sequence below follows the current repository roadmap. Estimates are intenti
 ### Phase 0 — Foundation and contract readiness
 
 **Work**
+
 - Inspect the current repository and installed dependencies.
 - Verify current navigation, providers, API client and auth foundation.
 - Confirm NestJS routes, DTOs, enums and OpenAPI availability.
@@ -572,6 +587,7 @@ The sequence below follows the current repository roadmap. Estimates are intenti
 - Resolve contract gaps before feature work.
 
 **Deliverables**
+
 - Repository baseline and dependency inventory.
 - API readiness matrix.
 - Design token source.
@@ -579,6 +595,7 @@ The sequence below follows the current repository roadmap. Estimates are intenti
 - Open questions and risk register.
 
 **Exit criteria**
+
 - No unresolved contract assumption blocks the next feature.
 - Existing architecture and navigation are understood.
 - Required design assets are available or explicitly deferred.
@@ -586,6 +603,7 @@ The sequence below follows the current repository roadmap. Estimates are intenti
 ### Phase 1 — Account and learner shell
 
 **Work**
+
 - Complete login, signup, verification and password reset.
 - Implement session restoration and logout.
 - Verify SecureStore and refresh behavior.
@@ -594,11 +612,13 @@ The sequence below follows the current repository roadmap. Estimates are intenti
 - Complete learner shell and profile read flow where API is ready.
 
 **Deliverables**
+
 - Authenticated app shell.
 - Secure session lifecycle.
 - Typed navigation and common feedback components.
 
 **Exit criteria**
+
 - Auth flows match the backend contract.
 - Session errors and network failures are handled safely.
 - No credentials are stored outside SecureStore.
@@ -606,6 +626,7 @@ The sequence below follows the current repository roadmap. Estimates are intenti
 ### Phase 2 — Roadmap learning
 
 **Work**
+
 - Browse/search roadmaps.
 - Roadmap detail.
 - Enrollments.
@@ -616,12 +637,14 @@ The sequence below follows the current repository roadmap. Estimates are intenti
 - Persisted progress.
 
 **Deliverables**
+
 - End-to-end roadmap learning workflow.
 - Runtime schemas and feature services.
 - Loading, empty, error and retry states.
 - Unit, integration and contract tests.
 
 **Exit criteria**
+
 - Learners can complete a supported roadmap flow against implemented backend routes.
 - Server remains authoritative for enrollment, scoring and progress.
 
@@ -630,6 +653,7 @@ The sequence below follows the current repository roadmap. Estimates are intenti
 Start only after the product and backend contracts are approved.
 
 **Potential work**
+
 - Journey list and details.
 - Stages and activities.
 - Task, video and document renderers.
@@ -639,12 +663,14 @@ Start only after the product and backend contracts are approved.
 - Notifications, if approved and supported.
 
 **Deliverables**
+
 - Verified Journey API contract.
 - Journey learner workflow.
 - Supported activity renderers.
 - Explicit unsupported-content fallback.
 
 **Exit criteria**
+
 - Every shipped activity type has a verified backend contract and tested completion behavior.
 
 ### Phase 4 — Offline support (conditional)
@@ -652,6 +678,7 @@ Start only after the product and backend contracts are approved.
 Start only after backend synchronization and security design are approved.
 
 **Potential work**
+
 - Persistent content cache.
 - Content schema versioning.
 - Offline availability indicators.
@@ -661,17 +688,20 @@ Start only after backend synchronization and security design are approved.
 - Logout/tenant purge.
 
 **Deliverables**
+
 - Approved offline data policy.
 - Offline cache and sync implementation.
 - Recovery and data-loss tests.
 
 **Exit criteria**
+
 - No silent loss or duplicate progress mutation in tested failure scenarios.
 - Security review approves local data handling.
 
 ### Phase 5 — Production readiness
 
 **Work**
+
 - Unit/integration/contract regression.
 - End-to-end Android and iOS validation.
 - Accessibility review.
@@ -682,12 +712,14 @@ Start only after backend synchronization and security design are approved.
 - Support and incident response readiness.
 
 **Deliverables**
+
 - QA report.
 - Security review evidence.
 - Accessibility/performance report.
 - Release candidate and release checklist.
 
 **Exit criteria**
+
 - No unresolved critical security findings or release-blocking defects.
 - Required quality checks pass.
 - Store disclosures match actual data collection.
@@ -696,39 +728,39 @@ Start only after backend synchronization and security design are approved.
 
 The application is ready for release only when all applicable criteria are met:
 
-| Area | Acceptance criteria |
-|---|---|
-| Authentication | Secure login, session restore, refresh and logout |
-| API | Verified contracts, runtime parsing and normalized errors |
-| Dashboard | Correct server data and complete loading/error/empty behavior |
-| Roadmaps | Browse, details, enrollment and supported learning flow |
-| Content | Safe rendering of all shipped content types |
-| Assessments | Validated submission and backend-owned results |
-| Profile | Only confirmed editable fields are exposed |
-| UX | Pressed/loading/success/error/empty states are consistent |
-| Accessibility | Screen reader, font scaling, contrast and touch-target checks |
-| Security | Secure token storage, authorization and safe logging |
-| Performance | Responsive list and lesson loading on supported devices |
-| Compatibility | Regression passes on supported Android/iOS versions |
-| Release | Privacy disclosures, permissions, assets and operational readiness |
+| Area           | Acceptance criteria                                                |
+| -------------- | ------------------------------------------------------------------ |
+| Authentication | Secure login, session restore, refresh and logout                  |
+| API            | Verified contracts, runtime parsing and normalized errors          |
+| Dashboard      | Correct server data and complete loading/error/empty behavior      |
+| Roadmaps       | Browse, details, enrollment and supported learning flow            |
+| Content        | Safe rendering of all shipped content types                        |
+| Assessments    | Validated submission and backend-owned results                     |
+| Profile        | Only confirmed editable fields are exposed                         |
+| UX             | Pressed/loading/success/error/empty states are consistent          |
+| Accessibility  | Screen reader, font scaling, contrast and touch-target checks      |
+| Security       | Secure token storage, authorization and safe logging               |
+| Performance    | Responsive list and lesson loading on supported devices            |
+| Compatibility  | Regression passes on supported Android/iOS versions                |
+| Release        | Privacy disclosures, permissions, assets and operational readiness |
 
 Journeys, Reviews and offline criteria become release requirements only if those features are included in the approved release scope.
 
 ## 15. Risks and dependencies
 
-| Risk / dependency | Impact | Mitigation |
-|---|---|---|
-| SDK/navigation discrepancy between initial project profile and repository | High | Follow current repository baseline; get explicit approval before migration |
-| Supplied older API routes differ from current NestJS contract | High | Use current API contract and verify backend implementation |
-| Backend endpoints not yet deployed | High | Gate feature work on backend readiness |
-| Incomplete assessment question schemas | High | Confirm DTOs and supported types |
-| Design token gaps | Medium | Obtain token export; do not guess |
-| Journey API not defined in current contract | High | Keep Journey phase conditional |
-| SRS API not defined in current contract | Medium | Keep Reviews phase conditional |
-| Signed document URL contract absent | Medium | Verify before implementing document download |
-| Offline conflict/idempotency contract absent | High | Defer offline mutations until agreed |
-| Cached tenant data exposure | High | Define encryption and purge policy |
-| Analytics/privacy vendor undecided | Medium | Complete privacy review before integration |
+| Risk / dependency                                                         | Impact | Mitigation                                                                 |
+| ------------------------------------------------------------------------- | ------ | -------------------------------------------------------------------------- |
+| SDK/navigation discrepancy between initial project profile and repository | High   | Follow current repository baseline; get explicit approval before migration |
+| Supplied older API routes differ from current NestJS contract             | High   | Use current API contract and verify backend implementation                 |
+| Backend endpoints not yet deployed                                        | High   | Gate feature work on backend readiness                                     |
+| Incomplete assessment question schemas                                    | High   | Confirm DTOs and supported types                                           |
+| Design token gaps                                                         | Medium | Obtain token export; do not guess                                          |
+| Journey API not defined in current contract                               | High   | Keep Journey phase conditional                                             |
+| SRS API not defined in current contract                                   | Medium | Keep Reviews phase conditional                                             |
+| Signed document URL contract absent                                       | Medium | Verify before implementing document download                               |
+| Offline conflict/idempotency contract absent                              | High   | Defer offline mutations until agreed                                       |
+| Cached tenant data exposure                                               | High   | Define encryption and purge policy                                         |
+| Analytics/privacy vendor undecided                                        | Medium | Complete privacy review before integration                                 |
 
 ## 16. Success measures
 

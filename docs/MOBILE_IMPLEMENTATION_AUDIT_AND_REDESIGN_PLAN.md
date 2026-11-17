@@ -68,14 +68,15 @@ Classify every finding using one of these statuses:
 
 Classify severity:
 
-| Severity | Meaning | Expected handling |
-|---|---|---|
-| Critical | Exploitable security issue, data loss, severe privacy issue or release-blocking failure | Stop affected release/workflow and escalate immediately |
-| High | Core learner workflow failure, authorization flaw, recurring crash or major reliability risk | Prioritize before feature expansion |
-| Medium | Significant usability, maintainability, performance or test gap | Schedule in the relevant workstream |
-| Low | Minor inconsistency or improvement | Backlog and address when practical |
+| Severity | Meaning                                                                                      | Expected handling                                       |
+| -------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| Critical | Exploitable security issue, data loss, severe privacy issue or release-blocking failure      | Stop affected release/workflow and escalate immediately |
+| High     | Core learner workflow failure, authorization flaw, recurring crash or major reliability risk | Prioritize before feature expansion                     |
+| Medium   | Significant usability, maintainability, performance or test gap                              | Schedule in the relevant workstream                     |
+| Low      | Minor inconsistency or improvement                                                           | Backlog and address when practical                      |
 
 Every finding must include:
+
 - Unique ID and short title.
 - Area and affected workflow.
 - Evidence: file/line, test, API trace, screenshot, recording or reproducible steps.
@@ -138,6 +139,7 @@ Inspect each screen for:
 Do not invent design tokens to fill gaps. Obtain the approved Figma file or design-token export. Record missing tokens and request design-owner decisions.
 
 **Redesign sequence:**
+
 1. Information architecture and navigation.
 2. Low-fidelity wireframes for critical journeys.
 3. Design-system token and component mapping.
@@ -348,19 +350,19 @@ Evaluate automated controls for:
 
 Establish a test pyramid that matches the actual repository and tools:
 
-| Level | Required focus |
-|---|---|
-| Static checks | TypeScript, lint, formatting, dependency and secret checks |
-| Unit | Parsers, mappers, validators, business rules and utilities |
-| Component | Shared components, forms, content renderers and feedback states |
-| Integration | API client, auth refresh, feature services and query hooks |
-| Contract | Mobile parsers against verified backend DTO/OpenAPI fixtures |
-| Navigation | Auth gates, deep links, invalid IDs and back behavior |
-| End-to-end | Signup/login, roadmap discovery, enrollment, lesson and assessment |
-| Device | Supported Android/iOS versions, screen sizes and memory classes |
-| Accessibility | Screen reader, font scaling, contrast, keyboard and touch targets |
-| Security | Token lifecycle, authorization, tenant isolation, logging and purge |
-| Performance | Startup, scrolling, memory, media and API latency |
+| Level         | Required focus                                                      |
+| ------------- | ------------------------------------------------------------------- |
+| Static checks | TypeScript, lint, formatting, dependency and secret checks          |
+| Unit          | Parsers, mappers, validators, business rules and utilities          |
+| Component     | Shared components, forms, content renderers and feedback states     |
+| Integration   | API client, auth refresh, feature services and query hooks          |
+| Contract      | Mobile parsers against verified backend DTO/OpenAPI fixtures        |
+| Navigation    | Auth gates, deep links, invalid IDs and back behavior               |
+| End-to-end    | Signup/login, roadmap discovery, enrollment, lesson and assessment  |
+| Device        | Supported Android/iOS versions, screen sizes and memory classes     |
+| Accessibility | Screen reader, font scaling, contrast, keyboard and touch targets   |
+| Security      | Token lifecycle, authorization, tenant isolation, logging and purge |
+| Performance   | Startup, scrolling, memory, media and API latency                   |
 
 ### 9.2 Failure and resilience scenarios
 
@@ -459,18 +461,21 @@ The audit should proceed in gates. Do not start a broad rewrite before the first
 ### Gate 0 — Access and reproducibility
 
 **Activities**
+
 - Confirm repository and environment access.
 - Reproduce clean install, typecheck, lint, tests and development build.
 - Confirm supported devices and build targets.
 - Identify missing access to backend, design files and CI.
 
 **Exit criteria**
+
 - Baseline commands and results are recorded.
 - Blocking access gaps have owners.
 
 ### Gate 1 — Current-state audit
 
 **Activities**
+
 - Complete product, screen, navigation and user-journey inventory.
 - Map mobile architecture, dependencies, state and API usage.
 - Verify authentication and security controls.
@@ -479,6 +484,7 @@ The audit should proceed in gates. Do not start a broad rewrite before the first
 - Review backend, database, infrastructure and deployment with their owners.
 
 **Exit criteria**
+
 - Findings have evidence, severity and owners.
 - Critical security and data-loss risks are escalated.
 - Current-state architecture and workflow maps are reviewed.
@@ -486,6 +492,7 @@ The audit should proceed in gates. Do not start a broad rewrite before the first
 ### Gate 2 — Target design and architecture
 
 **Activities**
+
 - Confirm product scope and release priorities.
 - Approve user journeys and information architecture.
 - Approve design tokens and component specifications.
@@ -494,6 +501,7 @@ The audit should proceed in gates. Do not start a broad rewrite before the first
 - Agree scale assumptions, SLOs and privacy requirements.
 
 **Exit criteria**
+
 - Product and design approve the target workflows and screens.
 - Engineering owners approve the architecture and API boundaries.
 - No critical unknown blocks the first implementation slice.
@@ -501,6 +509,7 @@ The audit should proceed in gates. Do not start a broad rewrite before the first
 ### Gate 3 — Foundation remediation
 
 **Activities**
+
 - Fix build, environment, dependency and CI issues.
 - Fix critical security and session issues.
 - Establish shared theme, typography, layout and component foundations.
@@ -508,6 +517,7 @@ The audit should proceed in gates. Do not start a broad rewrite before the first
 - Establish runtime parsing, API error handling and test conventions.
 
 **Exit criteria**
+
 - Clean builds and required checks pass.
 - Foundation components meet design and accessibility requirements.
 - Auth and API foundations have automated coverage.
@@ -526,6 +536,7 @@ Deliver one vertical slice at a time:
 8. Profile and approved account operations.
 
 For each slice:
+
 - Confirm acceptance criteria and API readiness.
 - Complete approved design and edge states.
 - Implement UI, feature logic and API integration.
@@ -539,6 +550,7 @@ Journeys, SRS reviews, offline downloads, push notifications and payments remain
 ### Gate 5 — Scale and operational readiness
 
 **Activities**
+
 - Run load and stress tests against staging using agreed traffic profiles.
 - Measure API, database and mobile performance.
 - Tune only measured bottlenecks.
@@ -547,6 +559,7 @@ Journeys, SRS reviews, offline downloads, push notifications and payments remain
 - Conduct security, privacy and accessibility reviews.
 
 **Exit criteria**
+
 - Agreed SLOs and capacity targets are met in representative tests.
 - No unresolved critical security findings remain.
 - Operational owners can detect, triage and recover from known failure modes.
@@ -554,6 +567,7 @@ Journeys, SRS reviews, offline downloads, push notifications and payments remain
 ### Gate 6 — Controlled release and post-release audit
 
 **Activities**
+
 - Release to a limited cohort where supported.
 - Monitor crash, ANR, API and key learner workflow metrics.
 - Pause rollout when agreed thresholds are crossed.
@@ -562,6 +576,7 @@ Journeys, SRS reviews, offline downloads, push notifications and payments remain
 - Convert findings into the next prioritized improvement cycle.
 
 **Exit criteria**
+
 - Release thresholds are met.
 - Rollback and support processes are operational.
 - Post-release findings have owners and due dates.
@@ -602,33 +617,33 @@ Before selecting infrastructure or claiming scale readiness, product and enginee
 
 Candidate measures include:
 
-| Area | Measure |
-|---|---|
-| Mobile stability | Crash-free sessions, crash rate and ANRs |
+| Area               | Measure                                                |
+| ------------------ | ------------------------------------------------------ |
+| Mobile stability   | Crash-free sessions, crash rate and ANRs               |
 | Mobile performance | Startup time, screen readiness, frame drops and memory |
-| API | p50/p95/p99 latency, error rate and timeout rate |
-| Database | Query latency, connection saturation and slow queries |
+| API                | p50/p95/p99 latency, error rate and timeout rate       |
+| Database           | Query latency, connection saturation and slow queries  |
 | Learning workflows | Enrollment, progress and assessment submission success |
-| Operations | Detection time, recovery time and rollback time |
-| Quality | Automated test coverage and escaped defect rate |
-| Accessibility | Critical workflow audit completion and defect count |
+| Operations         | Detection time, recovery time and rollback time        |
+| Quality            | Automated test coverage and escaped defect rate        |
+| Accessibility      | Critical workflow audit completion and defect count    |
 
 Set numeric targets only after baseline measurement and owner agreement. A target such as 99.8% crash-free sessions is a proposal, not an automatic acceptance threshold.
 
 ## 14. Key risks and guardrails
 
-| Risk | Guardrail |
-|---|---|
-| Rewriting stable areas without evidence | Require findings and migration rationale before replacement |
+| Risk                                     | Guardrail                                                          |
+| ---------------------------------------- | ------------------------------------------------------------------ |
+| Rewriting stable areas without evidence  | Require findings and migration rationale before replacement        |
 | Conflicting SDK/navigation documentation | Verify lockfile and source; obtain owner approval before migration |
-| Redesign without product agreement | Approve journeys and wireframes before implementation |
-| Building against assumed API routes | Verify backend handlers, DTOs and deployed behavior |
-| Adding infrastructure too early | Require capacity evidence, cost and an owner |
-| Offline data exposure or sync conflicts | Keep offline work gated on an approved data/sync design |
-| Remote flags used as security controls | Enforce authorization on the backend |
-| Force-update blocks all users | Define version compatibility and recovery behavior |
-| Monitoring leaks learner data | Privacy review, redaction and retention controls |
-| Large-bang release | Use vertical slices, staged rollout and rollback |
+| Redesign without product agreement       | Approve journeys and wireframes before implementation              |
+| Building against assumed API routes      | Verify backend handlers, DTOs and deployed behavior                |
+| Adding infrastructure too early          | Require capacity evidence, cost and an owner                       |
+| Offline data exposure or sync conflicts  | Keep offline work gated on an approved data/sync design            |
+| Remote flags used as security controls   | Enforce authorization on the backend                               |
+| Force-update blocks all users            | Define version compatibility and recovery behavior                 |
+| Monitoring leaks learner data            | Privacy review, redaction and retention controls                   |
+| Large-bang release                       | Use vertical slices, staged rollout and rollback                   |
 
 ## 15. Immediate first-week checklist
 
@@ -672,6 +687,7 @@ Do not start broad visual replacement until the screen inventory, critical user 
 This document defines how to audit and improve the existing implementation. The companion [Learner Mobile Development Plan](LEARNER_MOBILE_DEVELOPMENT_PLAN.md) defines the learner product scope, documented feature workflows, API inventory and target delivery phases.
 
 Use both documents together:
+
 - Audit plan: establish current state, evidence, gaps and remediation sequence.
 - Development plan: preserve approved product scope and architecture constraints.
 - Repository implementation and verified backend contracts: final authority for what is actually built and available.
