@@ -1,0 +1,44 @@
+export type JsonPrimitive = string | number | boolean | null;
+export type JsonValue = JsonPrimitive | JsonValue[] | { [key: string]: JsonValue };
+
+import { HTTP_METHODS } from '../constants/app.constants';
+
+export type HttpMethod = (typeof HTTP_METHODS)[keyof typeof HTTP_METHODS];
+
+export interface ApiRequestOptions {
+  method?: HttpMethod;
+  body?: JsonValue;
+  authenticated?: boolean;
+  headers?: Readonly<Record<string, string>>;
+  idempotencyKey?: string;
+  signal?: AbortSignal;
+  retryAuth?: boolean;
+}
+
+export type DataParser<TData> = (value: unknown) => TData;
+
+export interface ResponseMeta {
+  requestId: string;
+  pagination?: PaginationMeta;
+}
+
+export interface PaginationMeta {
+  nextCursor: string | null;
+  hasMore: boolean;
+}
+
+export interface ApiEnvelope<TData> {
+  data: TData;
+  meta: ResponseMeta;
+}
+
+export interface ApiErrorDetail {
+  field?: string;
+  code: string;
+  message: string;
+}
+
+export interface CursorPage<TItem> {
+  items: TItem[];
+  pagination: PaginationMeta;
+}
