@@ -31,7 +31,12 @@ function isLocalDevelopmentHost(hostname: string): boolean {
     return false;
   }
 
-  const [first, second] = octets;
+  const first = octets[0];
+  const second = octets[1];
+  if (first === undefined || second === undefined) {
+    return false;
+  }
+
   return (
     first === 10 ||
     first === 127 ||
