@@ -1,18 +1,17 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useNavigation } from "@react-navigation/native";
-
 import { useAuth } from "../../../core/auth/auth-context";
-import { FORM_VALIDATION, NAVIGATION_ROUTES, UI_COPY } from "../../../core/constants/app.constants";
+import { FORM_VALIDATION, UI_COPY } from "../../../core/constants/app.constants";
 import { getErrorMessage } from "../../../core/api/api-error";
-import type { AuthStackParamList } from "../../../app/navigation/navigation-types";
 import { AppButton, AppText, FormField, Screen } from "../../../shared/components";
 import { useTheme } from "../../../shared/theme";
 
-export function LoginScreen() {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
+export interface LoginScreenProps {
+  onOpenForgotPassword: () => void;
+  onOpenSignup: () => void;
+}
+
+export function LoginScreen({ onOpenForgotPassword, onOpenSignup }: LoginScreenProps) {
   const { signIn } = useAuth();
   const { colors, spacing } = useTheme();
 
@@ -113,7 +112,7 @@ export function LoginScreen() {
 
       <Pressable
         accessibilityRole="button"
-        onPress={() => navigation.navigate(NAVIGATION_ROUTES.auth.forgotPassword)}
+        onPress={onOpenForgotPassword}
       >
         <AppText color="primary" style={{ textAlign: "center" }}>
           {UI_COPY.auth.forgotPasswordAction}
@@ -124,7 +123,7 @@ export function LoginScreen() {
         <AppText color="textSecondary">{UI_COPY.auth.noAccount}</AppText>
         <Pressable
           accessibilityRole="button"
-          onPress={() => navigation.navigate(NAVIGATION_ROUTES.auth.signup)}
+          onPress={onOpenSignup}
         >
           <AppText style={styles.link}>{UI_COPY.auth.signupAction}</AppText>
         </Pressable>
