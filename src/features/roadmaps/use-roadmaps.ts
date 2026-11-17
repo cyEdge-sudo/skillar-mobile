@@ -19,8 +19,8 @@ export function useRoadmaps(filters: RoadmapListFilters = {}) {
       filters.level ?? "all",
     ],
     initialPageParam: null as string | null,
-    queryFn: ({ pageParam }) =>
-      roadmapService.list({ ...filters, cursor: pageParam }),
+    queryFn: ({ pageParam, signal }) =>
+      roadmapService.list({ ...filters, cursor: pageParam }, signal),
     getNextPageParam: (lastPage) =>
       lastPage.hasMore ? lastPage.nextCursor : undefined,
   });
@@ -29,7 +29,7 @@ export function useRoadmaps(filters: RoadmapListFilters = {}) {
 export function useRoadmapDetail(roadmapId: string, enabled = true) {
   return useQuery({
     queryKey: QUERY_KEYS.roadmap(roadmapId),
-    queryFn: () => roadmapDetailService.get(roadmapId),
+    queryFn: ({ signal }) => roadmapDetailService.get(roadmapId, signal),
     enabled: enabled && roadmapId.length > 0,
   });
 }
