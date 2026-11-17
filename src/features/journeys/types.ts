@@ -142,3 +142,7 @@ export interface JourneyActivityCompletion {
   stageCompleted: boolean;
   nextStagePosition: number | null;
 }
+
+export interface JourneyDetailRouteParams {
+  enrollmentId: number;
+}
