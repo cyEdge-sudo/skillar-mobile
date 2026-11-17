@@ -63,7 +63,9 @@ export type StepContentBlock =
   | QuizContentBlock
   | UnsupportedContentBlock;
 
-export interface UnsupportedContentBlock extends StepContentBase {
+export interface UnsupportedContentBlock {
+  id: string;
+  title: string;
   contentType: "UNSUPPORTED";
   originalContentType: string;
 }
