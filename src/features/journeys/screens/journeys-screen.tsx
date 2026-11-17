@@ -1,5 +1,3 @@
-import { useNavigation } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import {
   ActivityIndicator,
   FlatList,
@@ -7,11 +5,7 @@ import {
   View,
 } from "react-native";
 
-import type { RootStackParamList } from "../../../app/navigation/navigation-types";
-import {
-  NAVIGATION_ROUTES,
-  UI_COPY,
-} from "../../../core/constants/app.constants";
+import { UI_COPY } from "../../../core/constants/app.constants";
 import {
   AppButton,
   AppCard,
@@ -22,8 +16,6 @@ import {
 import { useTheme } from "../../../shared/theme";
 import type { JourneySummary } from "../types";
 import { useJourneys } from "../use-journeys";
-
-type Navigation = NativeStackNavigationProp<RootStackParamList>;
 
 function journeyStatusLabel(status: string): string {
   switch (status) {
@@ -41,8 +33,11 @@ function journeyStatusLabel(status: string): string {
   }
 }
 
-export function JourneysScreen() {
-  const navigation = useNavigation<Navigation>();
+export interface JourneysScreenProps {
+  onOpenJourneyDetail: (enrollmentId: number) => void;
+}
+
+export function JourneysScreen({ onOpenJourneyDetail }: JourneysScreenProps) {
   const { colors, spacing } = useTheme();
   const query = useJourneys();
   const journeys = query.data?.pages.flatMap((page) => page.items) ?? [];
@@ -118,11 +113,7 @@ export function JourneysScreen() {
 
       <AppButton
         variant="outline"
-        onPress={() =>
-          navigation.navigate(NAVIGATION_ROUTES.root.journeyDetail, {
-            enrollmentId: item.enrollmentId,
-          })
-        }
+        onPress={() => onOpenJourneyDetail(item.enrollmentId)}
       >
         {UI_COPY.journeys.open}
       </AppButton>
