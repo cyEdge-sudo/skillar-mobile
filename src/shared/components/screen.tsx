@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from "react";
+import type { PropsWithChildren } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -6,35 +6,26 @@ import {
   type ScrollViewProps,
   type StyleProp,
   type ViewStyle,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { useTheme } from "../theme";
+import { useTheme } from '../theme';
 
 interface ScreenProps extends PropsWithChildren {
   scroll?: boolean;
-  contentContainerStyle?: ScrollViewProps["contentContainerStyle"];
+  contentContainerStyle?: ScrollViewProps['contentContainerStyle'];
   style?: StyleProp<ViewStyle>;
 }
 
-export function Screen({
-  children,
-  scroll = false,
-  contentContainerStyle,
-  style,
-}: ScreenProps) {
+export function Screen({ children, scroll = false, contentContainerStyle, style }: ScreenProps) {
   const { colors, spacing } = useTheme();
 
-  const containerStyle = [
-    styles.content,
-    { padding: spacing[24] },
-    style,
-  ];
+  const containerStyle = [styles.content, { padding: spacing[24] }, style];
 
   return (
     <SafeAreaView
       style={[styles.safeArea, { backgroundColor: colors.background }]}
-      edges={["top", "left", "right"]}
+      edges={['top', 'left', 'right']}
     >
       {scroll ? (
         <ScrollView

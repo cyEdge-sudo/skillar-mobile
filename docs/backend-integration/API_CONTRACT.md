@@ -18,13 +18,13 @@ Do not include `/api/v1` in `EXPO_PUBLIC_API_BASE_URL`.
 
 ### Headers
 
-| Header | Requirement | Purpose |
-|---|---|---|
-| `Accept: application/json` | Every request | Response format |
-| `Content-Type: application/json` | Requests with JSON bodies | Request format |
-| `Authorization: Bearer <accessToken>` | Protected routes | Access authentication |
-| `X-Request-Id` | Every request | Request tracing |
-| `Idempotency-Key` | Supported create/submit operations | Safe retry of a mutation |
+| Header                                | Requirement                        | Purpose                  |
+| ------------------------------------- | ---------------------------------- | ------------------------ |
+| `Accept: application/json`            | Every request                      | Response format          |
+| `Content-Type: application/json`      | Requests with JSON bodies          | Request format           |
+| `Authorization: Bearer <accessToken>` | Protected routes                   | Access authentication    |
+| `X-Request-Id`                        | Every request                      | Request tracing          |
+| `Idempotency-Key`                     | Supported create/submit operations | Safe retry of a mutation |
 
 The backend must validate access tokens and enforce authorization. A mobile role or hidden screen is not an authorization boundary.
 
@@ -221,19 +221,19 @@ The backend must revoke the supplied refresh session. The mobile app clears its 
 
 ### Email OTP
 
-| Method | Route | Request body | Response data |
-|---|---|---|---|
-| POST | `/auth/otp/send` | `{ "email": "learner@example.com" }` | `{ "sent": true }` |
-| POST | `/auth/otp/verify` | `{ "email": "learner@example.com", "otp": "[OTP]" }` | `{ "verified": true }` |
+| Method | Route              | Request body                                         | Response data          |
+| ------ | ------------------ | ---------------------------------------------------- | ---------------------- |
+| POST   | `/auth/otp/send`   | `{ "email": "learner@example.com" }`                 | `{ "sent": true }`     |
+| POST   | `/auth/otp/verify` | `{ "email": "learner@example.com", "otp": "[OTP]" }` | `{ "verified": true }` |
 
 OTP expiry, retry limits and rate limits are enforced by the backend: [OTP_TTL], [OTP_RATE_LIMIT].
 
 ### Password reset
 
-| Method | Route | Request body | Response data |
-|---|---|---|---|
-| POST | `/auth/password/forgot` | `{ "email": "learner@example.com" }` | `{ "accepted": true }` |
-| POST | `/auth/password/reset` | `{ "token": "[RESET_TOKEN]", "newPassword": "[NEW_PASSWORD]" }` | `{ "reset": true }` |
+| Method | Route                   | Request body                                                    | Response data          |
+| ------ | ----------------------- | --------------------------------------------------------------- | ---------------------- |
+| POST   | `/auth/password/forgot` | `{ "email": "learner@example.com" }`                            | `{ "accepted": true }` |
+| POST   | `/auth/password/reset`  | `{ "token": "[RESET_TOKEN]", "newPassword": "[NEW_PASSWORD]" }` | `{ "reset": true }`    |
 
 The forgot-password response must not disclose whether an email address exists.
 
@@ -294,6 +294,7 @@ Response data:
 `GET /roadmaps/:roadmapId`
 
 Response data contains:
+
 - Roadmap metadata: `id`, `title`, `description`, `level`, `totalHours`, `estimatedWeeks`, `language`, `skillAreas`, `keywords`, `thumbnailUrl`
 - Ordered milestones: `id`, `title`, `sequence`, `description`, `estimatedHours`
 - Ordered steps in each milestone: `id`, `title`, `sequence`, `description`, `estimatedMinutes`, `contentStatus`
@@ -375,12 +376,12 @@ Response data returns the persisted step status, percentage and `updatedAt`. The
 
 ### Assessment
 
-| Method | Route | Purpose |
-|---|---|---|
-| GET | `/steps/:stepId/assessment` | Get assessment definition |
-| POST | `/assessments/:assessmentId/attempts` | Create an attempt |
-| POST | `/assessment-attempts/:attemptId/submit` | Submit answers |
-| GET | `/assessment-attempts/:attemptId` | Get attempt/result |
+| Method | Route                                    | Purpose                   |
+| ------ | ---------------------------------------- | ------------------------- |
+| GET    | `/steps/:stepId/assessment`              | Get assessment definition |
+| POST   | `/assessments/:assessmentId/attempts`    | Create an attempt         |
+| POST   | `/assessment-attempts/:attemptId/submit` | Submit answers            |
+| GET    | `/assessment-attempts/:attemptId`        | Get attempt/result        |
 
 Assessment submission request:
 
@@ -401,16 +402,16 @@ Submission uses an `Idempotency-Key`. The backend owns scoring and must return t
 
 Initial standard codes:
 
-| Code | Meaning |
-|---|---|
-| `VALIDATION_ERROR` | Request fields failed validation |
-| `UNAUTHENTICATED` | Access token missing, invalid or expired |
-| `SESSION_REVOKED` | Refresh session is no longer valid |
-| `FORBIDDEN` | Authenticated learner cannot access this resource |
-| `NOT_FOUND` | Resource does not exist or is not visible to the learner |
-| `CONFLICT` | State conflict, such as duplicate or invalid enrollment |
-| `RATE_LIMITED` | Rate limit reached |
-| `INTERNAL_ERROR` | Unexpected backend error |
+| Code               | Meaning                                                  |
+| ------------------ | -------------------------------------------------------- |
+| `VALIDATION_ERROR` | Request fields failed validation                         |
+| `UNAUTHENTICATED`  | Access token missing, invalid or expired                 |
+| `SESSION_REVOKED`  | Refresh session is no longer valid                       |
+| `FORBIDDEN`        | Authenticated learner cannot access this resource        |
+| `NOT_FOUND`        | Resource does not exist or is not visible to the learner |
+| `CONFLICT`         | State conflict, such as duplicate or invalid enrollment  |
+| `RATE_LIMITED`     | Rate limit reached                                       |
+| `INTERNAL_ERROR`   | Unexpected backend error                                 |
 
 The backend should use standard HTTP status codes and stable error codes. Mobile behavior must use the code/status, not parse message text.
 

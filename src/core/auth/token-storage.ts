@@ -1,14 +1,12 @@
-import * as SecureStore from "expo-secure-store";
+import * as SecureStore from 'expo-secure-store';
 
-import { STORAGE_KEYS } from "../constants/app.constants";
-import { parseAuthTokens } from "./validators";
-import type { AuthTokens } from "./types";
+import { STORAGE_KEYS } from '../constants/app.constants';
+import { parseAuthTokens } from './validators';
+import type { AuthTokens } from './types';
 
 export const tokenStorage = {
   async get(): Promise<AuthTokens | null> {
-    const serialized = await SecureStore.getItemAsync(
-      STORAGE_KEYS.AUTH_TOKENS,
-    );
+    const serialized = await SecureStore.getItemAsync(STORAGE_KEYS.AUTH_TOKENS);
 
     if (!serialized) {
       return null;
@@ -24,10 +22,7 @@ export const tokenStorage = {
   },
 
   async save(tokens: AuthTokens): Promise<void> {
-    await SecureStore.setItemAsync(
-      STORAGE_KEYS.AUTH_TOKENS,
-      JSON.stringify(tokens),
-    );
+    await SecureStore.setItemAsync(STORAGE_KEYS.AUTH_TOKENS, JSON.stringify(tokens));
   },
 
   async clear(): Promise<void> {

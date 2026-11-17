@@ -7,6 +7,7 @@ Consumer-facing mobile application for Skillar. The app is built with Expo and R
 The foundation is being prepared before the learner APIs are implemented in `skiller-backend`.
 
 Implemented in this branch:
+
 - Expo SDK 58, React Native 0.88.1, React 19.3 and strict TypeScript
 - Typed React Navigation stack and bottom-tab navigation
 - Shared theme provider and reusable UI components
@@ -40,6 +41,7 @@ Copy-Item .env.example .env
 Set `EXPO_PUBLIC_API_BASE_URL` in `.env` to the backend origin. Do not add the `/api/v1` suffix; the API client adds the version prefix.
 
 Examples:
+
 - Android emulator: use the Android emulator host address for your development machine.
 - iOS simulator: use the development machine's loopback address.
 - Physical device: use the development machine's LAN address, reachable from the phone.
@@ -108,6 +110,7 @@ assets/               # Expo app assets
 The mobile app talks only to the NestJS API in `skiller-backend`. The target API is versioned under `/api/v1`.
 
 The API contract is documented in:
+
 - [API Contract](docs/backend-integration/API_CONTRACT.md)
 - [API Architecture](docs/backend-integration/API_ARCHITECTURE.md)
 - [Authentication](docs/backend-integration/AUTHENTICATION.md)

@@ -1,12 +1,7 @@
-import {
-  StyleSheet,
-  TextInput,
-  View,
-  type TextInputProps,
-} from "react-native";
+import { StyleSheet, TextInput, View, type TextInputProps } from 'react-native';
 
-import { AppText } from "./themed/app-text";
-import { useTheme } from "../theme";
+import { AppText } from './themed/app-text';
+import { useTheme } from '../theme';
 
 export interface FormFieldProps {
   label: string;
@@ -15,10 +10,10 @@ export interface FormFieldProps {
   placeholder?: string;
   error?: string;
   secureTextEntry?: boolean;
-  keyboardType?: TextInputProps["keyboardType"];
-  autoCapitalize?: TextInputProps["autoCapitalize"];
-  autoComplete?: TextInputProps["autoComplete"];
-  returnKeyType?: TextInputProps["returnKeyType"];
+  keyboardType?: TextInputProps['keyboardType'];
+  autoCapitalize?: TextInputProps['autoCapitalize'];
+  autoComplete?: TextInputProps['autoComplete'];
+  returnKeyType?: TextInputProps['returnKeyType'];
 }
 
 export function FormField({
@@ -28,10 +23,10 @@ export function FormField({
   placeholder,
   error,
   secureTextEntry = false,
-  keyboardType = "default",
-  autoCapitalize = "none",
-  autoComplete = "off",
-  returnKeyType = "next",
+  keyboardType = 'default',
+  autoCapitalize = 'none',
+  autoComplete = 'off',
+  returnKeyType = 'next',
 }: FormFieldProps) {
   const { colors, radius, spacing, typography } = useTheme();
 
@@ -58,7 +53,7 @@ export function FormField({
         accessibilityLabel={label}
         value={value}
         onChangeText={onChangeText}
-        placeholder={placeholder ?? ""}
+        placeholder={placeholder ?? ''}
         placeholderTextColor={colors.textSecondary}
         secureTextEntry={secureTextEntry}
         keyboardType={keyboardType}

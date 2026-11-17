@@ -1,11 +1,4 @@
-export type StepContentType =
-  | "VIDEO"
-  | "TEXT"
-  | "CAROUSEL"
-  | "EXAMPLES"
-  | "CODE"
-  | "NOTE"
-  | "QUIZ";
+export type StepContentType = 'VIDEO' | 'TEXT' | 'CAROUSEL' | 'EXAMPLES' | 'CODE' | 'NOTE' | 'QUIZ';
 
 export interface StepContentBase {
   id: string;
@@ -14,38 +7,38 @@ export interface StepContentBase {
 }
 
 export interface VideoContentBlock extends StepContentBase {
-  contentType: "VIDEO";
+  contentType: 'VIDEO';
   videos: Array<{ id: string; title: string; thumbnail: string | null }>;
 }
 
 export interface TextContentBlock extends StepContentBase {
-  contentType: "TEXT";
+  contentType: 'TEXT';
   markdown: string;
 }
 
 export interface CarouselContentBlock extends StepContentBase {
-  contentType: "CAROUSEL";
+  contentType: 'CAROUSEL';
   slides: Array<{ title: string; body: string; bullets: string[] }>;
 }
 
 export interface ExamplesContentBlock extends StepContentBase {
-  contentType: "EXAMPLES";
+  contentType: 'EXAMPLES';
   examples: string[];
 }
 
 export interface CodeContentBlock extends StepContentBase {
-  contentType: "CODE";
+  contentType: 'CODE';
   language: string | null;
   code: string;
 }
 
 export interface NoteContentBlock extends StepContentBase {
-  contentType: "NOTE";
+  contentType: 'NOTE';
   note: string;
 }
 
 export interface QuizContentBlock extends StepContentBase {
-  contentType: "QUIZ";
+  contentType: 'QUIZ';
   questions: Array<{
     type: string;
     question: string;
@@ -66,7 +59,6 @@ export type StepContentBlock =
 export interface UnsupportedContentBlock {
   id: string;
   title: string;
-  contentType: "UNSUPPORTED";
+  contentType: 'UNSUPPORTED';
   originalContentType: string;
 }
-

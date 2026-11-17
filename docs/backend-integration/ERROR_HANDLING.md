@@ -19,18 +19,18 @@ The backend returns the standard error response defined in [API Contract](./API_
 
 ## Client behavior
 
-| Condition | Client behavior |
-|---|---|
-| Network unavailable | Show a connection message and retry action |
-| Request timeout | Allow retry |
-| Request cancelled | Do not show as a server failure |
-| 400 / 422 | Show safe validation message or field details |
-| 401 | Attempt one token refresh for protected calls |
-| 403 | Show access denied; clear session only when refresh itself is rejected |
-| 404 | Show resource unavailable |
-| 409 | Explain that the requested operation conflicts with current state |
-| 429 | Respect `Retry-After` when supplied |
-| 5xx | Show service unavailable and allow retry |
+| Condition           | Client behavior                                                        |
+| ------------------- | ---------------------------------------------------------------------- |
+| Network unavailable | Show a connection message and retry action                             |
+| Request timeout     | Allow retry                                                            |
+| Request cancelled   | Do not show as a server failure                                        |
+| 400 / 422           | Show safe validation message or field details                          |
+| 401                 | Attempt one token refresh for protected calls                          |
+| 403                 | Show access denied; clear session only when refresh itself is rejected |
+| 404                 | Show resource unavailable                                              |
+| 409                 | Explain that the requested operation conflicts with current state      |
+| 429                 | Respect `Retry-After` when supplied                                    |
+| 5xx                 | Show service unavailable and allow retry                               |
 
 ## Rules
 

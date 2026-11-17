@@ -1,17 +1,14 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View } from 'react-native';
 
-import { useTheme } from "../theme";
-import { AppText } from "./themed/app-text";
+import { useTheme } from '../theme';
+import { AppText } from './themed/app-text';
 
 interface FeaturePlaceholderProps {
   title: string;
   description: string;
 }
 
-export function FeaturePlaceholder({
-  title,
-  description,
-}: FeaturePlaceholderProps) {
+export function FeaturePlaceholder({ title, description }: FeaturePlaceholderProps) {
   const { colors, radius, spacing } = useTheme();
 
   const styles = StyleSheet.create({

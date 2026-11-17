@@ -1,26 +1,18 @@
 export type JourneyEnrollmentStatus =
-  | "IN_PROGRESS"
-  | "COMPLETED"
-  | "NOT_STARTED"
-  | "OVERDUE"
-  | (string & {});
+  'IN_PROGRESS' | 'COMPLETED' | 'NOT_STARTED' | 'OVERDUE' | (string & {});
 
 export type JourneyActivityType =
-  | "TASK"
-  | "VIDEO"
-  | "DOCUMENT"
-  | "ROADMAP"
-  | "ASSESSMENT"
-  | "ACKNOWLEDGEMENT"
-  | "SCORM"
+  | 'TASK'
+  | 'VIDEO'
+  | 'DOCUMENT'
+  | 'ROADMAP'
+  | 'ASSESSMENT'
+  | 'ACKNOWLEDGEMENT'
+  | 'SCORM'
   | (string & {});
 
 export type JourneyActivityProgressStatus =
-  | "PENDING"
-  | "COMPLETED"
-  | "SKIPPED_PASSED"
-  | "SKIPPED_CONDITION"
-  | (string & {});
+  'PENDING' | 'COMPLETED' | 'SKIPPED_PASSED' | 'SKIPPED_CONDITION' | (string & {});
 
 export interface JourneyProgress {
   percent: number;
@@ -141,4 +133,8 @@ export interface JourneyActivityCompletion {
   completedAt: string | null;
   stageCompleted: boolean;
   nextStagePosition: number | null;
+}
+
+export interface JourneyDetailRouteParams {
+  enrollmentId: number;
 }

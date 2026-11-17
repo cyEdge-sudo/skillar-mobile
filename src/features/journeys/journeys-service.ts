@@ -1,5 +1,5 @@
-import { API_ROUTES, HTTP_METHODS } from "../../core/constants/app.constants";
-import { apiRequest } from "../../core/api/api-client";
+import { API_ROUTES, HTTP_METHODS } from '../../core/constants/app.constants';
+import { apiRequest } from '../../core/api/api-client';
 import type {
   JourneyActivity,
   JourneyActivityCompletion,
@@ -8,15 +8,15 @@ import type {
   JourneyProgress,
   JourneyStage,
   JourneySummary,
-} from "./types";
+} from './types';
 
 function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
 function requiredNumber(value: unknown, field: string): number {
-  if (typeof value !== "number" || !Number.isFinite(value)) {
-    throw new Error("The server returned an invalid journey field: " + field);
+  if (typeof value !== 'number' || !Number.isFinite(value)) {
+    throw new Error('The server returned an invalid journey field: ' + field);
   }
   return value;
 }
@@ -24,7 +24,7 @@ function requiredNumber(value: unknown, field: string): number {
 function requiredId(value: unknown, field: string): number {
   const id = requiredNumber(value, field);
   if (!Number.isSafeInteger(id) || id <= 0) {
-    throw new Error("The server returned an invalid journey identifier: " + field);
+    throw new Error('The server returned an invalid journey identifier: ' + field);
   }
   return id;
 }
@@ -32,79 +32,74 @@ function requiredId(value: unknown, field: string): number {
 function requiredCount(value: unknown, field: string): number {
   const count = requiredNumber(value, field);
   if (!Number.isSafeInteger(count) || count < 0) {
-    throw new Error("The server returned an invalid journey count: " + field);
+    throw new Error('The server returned an invalid journey count: ' + field);
   }
   return count;
 }
 
 function requiredString(value: unknown, field: string): string {
-  if (typeof value !== "string" || value.trim().length === 0) {
-    throw new Error("The server returned an invalid journey field: " + field);
+  if (typeof value !== 'string' || value.trim().length === 0) {
+    throw new Error('The server returned an invalid journey field: ' + field);
   }
   return value;
 }
 
 function nullableString(value: unknown): string | null {
-  return typeof value === "string" && value.trim().length > 0 ? value : null;
+  return typeof value === 'string' && value.trim().length > 0 ? value : null;
 }
 
 function nullableNumber(value: unknown): number | null {
-  return typeof value === "number" && Number.isFinite(value) && value >= 0
-    ? value
-    : null;
+  return typeof value === 'number' && Number.isFinite(value) && value >= 0 ? value : null;
 }
 
 function parseProgress(value: unknown): JourneyProgress {
   if (!isRecord(value)) {
-    throw new Error("The server returned invalid journey progress.");
+    throw new Error('The server returned invalid journey progress.');
   }
 
-  const percent = requiredNumber(value.percent, "progress.percent");
+  const percent = requiredNumber(value.percent, 'progress.percent');
   if (percent < 0 || percent > 100) {
-    throw new Error("The server returned an invalid journey progress percentage.");
+    throw new Error('The server returned an invalid journey progress percentage.');
   }
 
   return {
     percent,
-    totalStages: requiredCount(value.totalStages, "progress.totalStages"),
-    completedStages: requiredCount(value.completedStages, "progress.completedStages"),
-    totalActivities: requiredCount(value.totalActivities, "progress.totalActivities"),
-    completedActivities: requiredCount(value.completedActivities, "progress.completedActivities"),
+    totalStages: requiredCount(value.totalStages, 'progress.totalStages'),
+    completedStages: requiredCount(value.completedStages, 'progress.completedStages'),
+    totalActivities: requiredCount(value.totalActivities, 'progress.totalActivities'),
+    completedActivities: requiredCount(value.completedActivities, 'progress.completedActivities'),
   };
 }
 
 function parseJourneySummary(value: unknown): JourneySummary {
   if (!isRecord(value) || !isRecord(value.journey)) {
-    throw new Error("The server returned an invalid journey.");
+    throw new Error('The server returned an invalid journey.');
   }
 
   const nextActivity = isRecord(value.nextActivity)
     ? {
-        id: requiredId(value.nextActivity.id, "nextActivity.id"),
-        type: requiredString(value.nextActivity.type, "nextActivity.type"),
-        title: requiredString(value.nextActivity.title, "nextActivity.title"),
+        id: requiredId(value.nextActivity.id, 'nextActivity.id'),
+        type: requiredString(value.nextActivity.type, 'nextActivity.type'),
+        title: requiredString(value.nextActivity.title, 'nextActivity.title'),
         stagePosition: requiredCount(
           value.nextActivity.stagePosition,
-          "nextActivity.stagePosition",
+          'nextActivity.stagePosition',
         ),
       }
     : null;
 
   return {
-    enrollmentId: requiredId(value.enrollmentId, "enrollmentId"),
-    status: requiredString(value.status, "status"),
-    enrolledAt: requiredString(value.enrolledAt, "enrolledAt"),
+    enrollmentId: requiredId(value.enrollmentId, 'enrollmentId'),
+    status: requiredString(value.status, 'status'),
+    enrolledAt: requiredString(value.enrolledAt, 'enrolledAt'),
     dueAt: nullableString(value.dueAt),
     completedAt: nullableString(value.completedAt),
-    currentStagePosition: requiredCount(
-      value.currentStagePosition,
-      "currentStagePosition",
-    ),
+    currentStagePosition: requiredCount(value.currentStagePosition, 'currentStagePosition'),
     journey: {
-      id: requiredId(value.journey.id, "journey.id"),
-      title: requiredString(value.journey.title, "journey.title"),
+      id: requiredId(value.journey.id, 'journey.id'),
+      title: requiredString(value.journey.title, 'journey.title'),
       description: nullableString(value.journey.description),
-      type: requiredString(value.journey.type, "journey.type"),
+      type: requiredString(value.journey.type, 'journey.type'),
       durationDays: nullableNumber(value.journey.durationDays),
     },
     progress: parseProgress(value.progress),
@@ -114,14 +109,14 @@ function parseJourneySummary(value: unknown): JourneySummary {
 
 function parseJourneyPage(value: unknown): { items: JourneySummary[] } {
   if (!isRecord(value) || !Array.isArray(value.items)) {
-    throw new Error("The server returned an invalid journey list.");
+    throw new Error('The server returned an invalid journey list.');
   }
   return { items: value.items.map(parseJourneySummary) };
 }
 
 function parseActivity(value: unknown): JourneyActivity {
   if (!isRecord(value) || !isRecord(value.progress)) {
-    throw new Error("The server returned an invalid journey activity.");
+    throw new Error('The server returned an invalid journey activity.');
   }
 
   const metadata = isRecord(value.metadata) ? value.metadata : {};
@@ -129,18 +124,18 @@ function parseActivity(value: unknown): JourneyActivity {
   const questions = Array.isArray(metadata.questions)
     ? metadata.questions.filter(isRecord).map((question, index) => ({
         questionId:
-          typeof question.questionId === "string" && question.questionId.length > 0
+          typeof question.questionId === 'string' && question.questionId.length > 0
             ? question.questionId
-            : "question-" + String(index + 1),
-        type: typeof question.type === "string" ? question.type : "MCQ",
-        question: typeof question.question === "string" ? question.question : "",
+            : 'question-' + String(index + 1),
+        type: typeof question.type === 'string' ? question.type : 'MCQ',
+        question: typeof question.question === 'string' ? question.question : '',
         options: Array.isArray(question.options)
           ? question.options.filter(isRecord).map((option, optionIndex) => ({
               optionId:
-                typeof option.optionId === "string" && option.optionId.length > 0
+                typeof option.optionId === 'string' && option.optionId.length > 0
                   ? option.optionId
                   : String(optionIndex + 1),
-              text: typeof option.text === "string" ? option.text : "",
+              text: typeof option.text === 'string' ? option.text : '',
             }))
           : [],
       }))
@@ -148,31 +143,29 @@ function parseActivity(value: unknown): JourneyActivity {
 
   const attempts = Array.isArray(value.attempts)
     ? value.attempts.filter(isRecord).map((attempt) => ({
-        id: requiredId(attempt.id, "attempt.id"),
-        attemptNumber: requiredCount(attempt.attemptNumber, "attempt.attemptNumber"),
-        scorePercent: requiredNumber(attempt.scorePercent, "attempt.scorePercent"),
+        id: requiredId(attempt.id, 'attempt.id'),
+        attemptNumber: requiredCount(attempt.attemptNumber, 'attempt.attemptNumber'),
+        scorePercent: requiredNumber(attempt.scorePercent, 'attempt.scorePercent'),
         isPassed: attempt.isPassed === true,
-        submittedAt: requiredString(attempt.submittedAt, "attempt.submittedAt"),
+        submittedAt: requiredString(attempt.submittedAt, 'attempt.submittedAt'),
       }))
     : [];
 
   return {
-    id: requiredId(value.id, "activity.id"),
-    type: requiredString(value.type, "activity.type"),
-    title: requiredString(value.title, "activity.title"),
+    id: requiredId(value.id, 'activity.id'),
+    type: requiredString(value.type, 'activity.type'),
+    title: requiredString(value.title, 'activity.title'),
     description: nullableString(value.description),
-    position: requiredCount(value.position, "activity.position"),
+    position: requiredCount(value.position, 'activity.position'),
     isRequired: value.isRequired === true,
     metadata: {
-      ...(typeof metadata.taskBody === "string"
-        ? { taskBody: metadata.taskBody }
-        : {}),
+      ...(typeof metadata.taskBody === 'string' ? { taskBody: metadata.taskBody } : {}),
       contentUrl: nullableString(metadata.contentUrl),
       duration: nullableNumber(metadata.duration),
       fileName: nullableString(metadata.fileName),
       available: metadata.available === true,
       roadmapId: nullableString(metadata.roadmapId),
-      ...(typeof metadata.acknowledgementText === "string"
+      ...(typeof metadata.acknowledgementText === 'string'
         ? { acknowledgementText: metadata.acknowledgementText }
         : {}),
       ...(questions ? { questions } : {}),
@@ -180,7 +173,7 @@ function parseActivity(value: unknown): JourneyActivity {
       passingScore: nullableNumber(metadata.passingScore),
     },
     progress: {
-      status: requiredString(value.progress.status, "activity.progress.status"),
+      status: requiredString(value.progress.status, 'activity.progress.status'),
       completedAt: nullableString(value.progress.completedAt),
       score: nullableNumber(value.progress.score),
     },
@@ -190,14 +183,14 @@ function parseActivity(value: unknown): JourneyActivity {
 
 function parseStage(value: unknown): JourneyStage {
   if (!isRecord(value) || !isRecord(value.progress) || !Array.isArray(value.activities)) {
-    throw new Error("The server returned an invalid journey stage.");
+    throw new Error('The server returned an invalid journey stage.');
   }
 
   return {
-    id: requiredId(value.id, "stage.id"),
-    title: requiredString(value.title, "stage.title"),
+    id: requiredId(value.id, 'stage.id'),
+    title: requiredString(value.title, 'stage.title'),
     description: nullableString(value.description),
-    position: requiredCount(value.position, "stage.position"),
+    position: requiredCount(value.position, 'stage.position'),
     isRequired: value.isRequired === true,
     unlockAfterDays: nullableNumber(value.unlockAfterDays),
     progress: {
@@ -212,24 +205,21 @@ function parseStage(value: unknown): JourneyStage {
 
 function parseJourneyDetail(value: unknown): JourneyDetail {
   if (!isRecord(value) || !isRecord(value.journey) || !Array.isArray(value.journey.stages)) {
-    throw new Error("The server returned invalid journey details.");
+    throw new Error('The server returned invalid journey details.');
   }
 
   return {
-    enrollmentId: requiredId(value.enrollmentId, "enrollmentId"),
-    status: requiredString(value.status, "status"),
-    enrolledAt: requiredString(value.enrolledAt, "enrolledAt"),
+    enrollmentId: requiredId(value.enrollmentId, 'enrollmentId'),
+    status: requiredString(value.status, 'status'),
+    enrolledAt: requiredString(value.enrolledAt, 'enrolledAt'),
     dueAt: nullableString(value.dueAt),
     completedAt: nullableString(value.completedAt),
-    currentStagePosition: requiredCount(
-      value.currentStagePosition,
-      "currentStagePosition",
-    ),
+    currentStagePosition: requiredCount(value.currentStagePosition, 'currentStagePosition'),
     journey: {
-      id: requiredId(value.journey.id, "journey.id"),
-      title: requiredString(value.journey.title, "journey.title"),
+      id: requiredId(value.journey.id, 'journey.id'),
+      title: requiredString(value.journey.title, 'journey.title'),
       description: nullableString(value.journey.description),
-      type: requiredString(value.journey.type, "journey.type"),
+      type: requiredString(value.journey.type, 'journey.type'),
       durationDays: nullableNumber(value.journey.durationDays),
       stages: value.journey.stages.map(parseStage),
     },
@@ -239,18 +229,18 @@ function parseJourneyDetail(value: unknown): JourneyDetail {
 
 function parseCompletion(value: unknown): JourneyActivityCompletion {
   if (!isRecord(value)) {
-    throw new Error("The server returned an invalid activity completion response.");
+    throw new Error('The server returned an invalid activity completion response.');
   }
 
   return {
-    activityId: requiredId(value.activityId, "activityId"),
-    status: requiredString(value.status, "status"),
+    activityId: requiredId(value.activityId, 'activityId'),
+    status: requiredString(value.status, 'status'),
     completedAt: nullableString(value.completedAt),
     stageCompleted: value.stageCompleted === true,
     nextStagePosition:
       value.nextStagePosition === null || value.nextStagePosition === undefined
         ? null
-        : requiredCount(value.nextStagePosition, "nextStagePosition"),
+        : requiredCount(value.nextStagePosition, 'nextStagePosition'),
   };
 }
 
@@ -268,19 +258,19 @@ export function createJourneyActivityIdempotencyKey(
     !Number.isSafeInteger(activityId) ||
     activityId <= 0
   ) {
-    throw new Error("Valid enrollment and activity identifiers are required.");
+    throw new Error('Valid enrollment and activity identifiers are required.');
   }
 
-  return "journey-activity-completion:" + enrollmentId + ":" + activityId;
+  return 'journey-activity-completion:' + enrollmentId + ':' + activityId;
 }
 
 export const journeysService = {
   async list(cursor: string | null = null, signal?: AbortSignal): Promise<JourneyPage> {
-    const params = ["limit=20"];
-    if (cursor) params.push("cursor=" + encodeURIComponent(cursor));
+    const params = ['limit=20'];
+    if (cursor) params.push('cursor=' + encodeURIComponent(cursor));
 
     const response = await apiRequest(
-      API_ROUTES.journeys.collection + "?" + params.join("&"),
+      API_ROUTES.journeys.collection + '?' + params.join('&'),
       parseJourneyPage,
       { ...(signal ? { signal } : {}) },
     );
@@ -310,10 +300,7 @@ export const journeysService = {
       parseCompletion,
       {
         method: HTTP_METHODS.POST,
-        idempotencyKey: createJourneyActivityIdempotencyKey(
-          enrollmentId,
-          activityId,
-        ),
+        idempotencyKey: createJourneyActivityIdempotencyKey(enrollmentId, activityId),
       },
     );
     return response.data;

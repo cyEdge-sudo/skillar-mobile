@@ -27,11 +27,13 @@ This document defines the TypeScript standards for the Skillar Mobile applicatio
 ## Interfaces vs Types
 
 Use interfaces for:
+
 - Object contracts
 - Public APIs
 - Repository contracts
 
 Use type aliases for:
+
 - Unions
 - Utility types
 - Function signatures

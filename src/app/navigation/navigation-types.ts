@@ -1,4 +1,7 @@
-import { NAVIGATION_ROUTES } from "../../core/constants/app.constants";
+import { NAVIGATION_ROUTES } from '../../core/constants/app.constants';
+import type { JourneyDetailRouteParams } from '../../features/journeys';
+import type { StepContentRouteParams } from '../../features/learning';
+import type { RoadmapDetailRouteParams } from '../../features/roadmaps';
 
 export type AuthStackParamList = {
   [NAVIGATION_ROUTES.auth.login]: undefined;
@@ -16,13 +19,7 @@ export type MainTabParamList = {
 
 export type RootStackParamList = {
   [NAVIGATION_ROUTES.root.mainTabs]: undefined;
-  [NAVIGATION_ROUTES.root.roadmapDetail]: { roadmapId: string; enrollmentId?: string };
-  [NAVIGATION_ROUTES.root.journeyDetail]: { enrollmentId: number };
-  [NAVIGATION_ROUTES.root.stepContent]: {
-    enrollmentId: string;
-    stepId: string;
-    stepTitle: string;
-    progressStatus: "not_started" | "in_progress" | "completed";
-    progressPercent: number;
-  };
+  [NAVIGATION_ROUTES.root.roadmapDetail]: RoadmapDetailRouteParams;
+  [NAVIGATION_ROUTES.root.journeyDetail]: JourneyDetailRouteParams;
+  [NAVIGATION_ROUTES.root.stepContent]: StepContentRouteParams;
 };

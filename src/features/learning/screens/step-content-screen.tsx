@@ -1,52 +1,31 @@
-import { useState } from "react";
-import { useNavigation, useRoute, type RouteProp } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import {
-  ActivityIndicator,
-  ScrollView,
-  StyleSheet,
-  View,
-} from "react-native";
+import { useState } from 'react';
+import { ActivityIndicator, ScrollView, StyleSheet, View } from 'react-native';
 
-import {
-  NAVIGATION_ROUTES,
-  UI_COPY,
-} from "../../../core/constants/app.constants";
-import type { RootStackParamList } from "../../../app/navigation/navigation-types";
-import {
-  AppButton,
-  AppCard,
-  AppProgress,
-  AppText,
-  Screen,
-} from "../../../shared/components";
-import { useTheme } from "../../../shared/theme";
+import { UI_COPY } from '../../../core/constants/app.constants';
+import { AppButton, AppCard, AppProgress, AppText, Screen } from '../../../shared/components';
+import { useTheme } from '../../../shared/theme';
 import {
   useEnrollmentDetail,
   usePrefetchStepContent,
   useStepAssessment,
   useStepContent,
   useUpdateStepProgress,
-} from "../use-learning-detail";
-import { StepContentRenderer } from "../components/step-content-renderer";
-import type { EnrolledRoadmapStep } from "../types";
+} from '../use-learning-detail';
+import { StepContentRenderer } from '../components/step-content-renderer';
+import type { EnrolledRoadmapStep, StepContentRouteParams } from '../types';
 
-type Navigation = NativeStackNavigationProp<RootStackParamList>;
-type StepRoute = RouteProp<
-  RootStackParamList,
-  typeof NAVIGATION_ROUTES.root.stepContent
->;
+export interface StepContentScreenProps {
+  routeParams: StepContentRouteParams;
+  onGoBack: () => void;
+  onReplaceStep: (params: StepContentRouteParams) => void;
+}
 
-export function StepContentScreen() {
-  const navigation = useNavigation<Navigation>();
-  const route = useRoute<StepRoute>();
-  const {
-    enrollmentId,
-    stepId,
-    stepTitle,
-    progressStatus,
-    progressPercent,
-  } = route.params;
+export function StepContentScreen({
+  routeParams,
+  onGoBack,
+  onReplaceStep,
+}: StepContentScreenProps) {
+  const { enrollmentId, stepId, stepTitle, progressStatus, progressPercent } = routeParams;
   const { colors, spacing } = useTheme();
   const enrollmentQuery = useEnrollmentDetail(enrollmentId);
   const contentQuery = useStepContent(stepId);
@@ -62,12 +41,11 @@ export function StepContentScreen() {
         milestone.steps
           .slice()
           .sort((left, right) => left.sequence - right.sequence)
-          .filter((step) => step.contentStatus === "ready"),
+          .filter((step) => step.contentStatus === 'ready'),
       ) ?? [];
 
   const currentStepIndex = navigableSteps.findIndex((step) => step.id === stepId);
-  const previousStep =
-    currentStepIndex > 0 ? navigableSteps[currentStepIndex - 1] : undefined;
+  const previousStep = currentStepIndex > 0 ? navigableSteps[currentStepIndex - 1] : undefined;
   const nextStep =
     currentStepIndex >= 0 && currentStepIndex < navigableSteps.length - 1
       ? navigableSteps[currentStepIndex + 1]
@@ -75,17 +53,14 @@ export function StepContentScreen() {
 
   usePrefetchStepContent(nextStep?.id);
 
-  const currentStep =
-    currentStepIndex >= 0 ? navigableSteps[currentStepIndex] : undefined;
-  const mutationAppliesToCurrentStep =
-    progressMutation.variables?.stepId === stepId;
+  const currentStep = currentStepIndex >= 0 ? navigableSteps[currentStepIndex] : undefined;
+  const mutationAppliesToCurrentStep = progressMutation.variables?.stepId === stepId;
   const isCompleted =
-    progressStatus === "completed" ||
-    (mutationAppliesToCurrentStep && progressMutation.isSuccess);
+    progressStatus === 'completed' || (mutationAppliesToCurrentStep && progressMutation.isSuccess);
   const currentProgress =
     mutationAppliesToCurrentStep && progressMutation.isSuccess
-      ? progressMutation.data?.progressPercent ?? 100
-      : currentStep?.progress?.progressPercent ?? progressPercent;
+      ? (progressMutation.data?.progressPercent ?? 100)
+      : (currentStep?.progress?.progressPercent ?? progressPercent);
 
   const styles = StyleSheet.create({
     content: {
@@ -96,8 +71,8 @@ export function StepContentScreen() {
     header: { gap: spacing[8] },
     section: { gap: spacing[12] },
     message: {
-      alignItems: "center",
-      justifyContent: "center",
+      alignItems: 'center',
+      justifyContent: 'center',
       gap: spacing[12],
       paddingVertical: spacing[24],
     },
@@ -108,18 +83,18 @@ export function StepContentScreen() {
       borderRadius: 8,
     },
     navigation: {
-      flexDirection: "row",
+      flexDirection: 'row',
       gap: spacing[12],
     },
     navigationButton: { flex: 1 },
   });
 
   const navigateToStep = (step: EnrolledRoadmapStep) => {
-    navigation.replace(NAVIGATION_ROUTES.root.stepContent, {
+    onReplaceStep({
       enrollmentId,
       stepId: step.id,
       stepTitle: step.title,
-      progressStatus: step.progress?.status ?? "not_started",
+      progressStatus: step.progress?.status ?? 'not_started',
       progressPercent: step.progress?.progressPercent ?? 0,
     });
   };
@@ -128,7 +103,7 @@ export function StepContentScreen() {
     progressMutation.mutate({
       enrollmentId,
       stepId,
-      status: "completed",
+      status: 'completed',
       progressPercent: 100,
     });
   };
@@ -136,28 +111,24 @@ export function StepContentScreen() {
   return (
     <Screen>
       <View style={styles.content}>
-        <AppButton variant="ghost" onPress={() => navigation.goBack()}>
+        <AppButton variant="ghost" onPress={onGoBack}>
           {UI_COPY.learning.backToRoadmap}
         </AppButton>
 
         <View style={styles.header}>
-          <AppText variant="headlineSmall">
-            {contentQuery.data?.title ?? stepTitle}
-          </AppText>
+          <AppText variant="headlineSmall">{contentQuery.data?.title ?? stepTitle}</AppText>
           {currentStepIndex >= 0 ? (
             <AppText color="textSecondary" variant="labelMedium">
               {UI_COPY.learning.stepPositionPrefix +
-                " " +
+                ' ' +
                 String(currentStepIndex + 1) +
-                " " +
+                ' ' +
                 UI_COPY.learning.stepPositionSeparator +
-                " " +
+                ' ' +
                 String(navigableSteps.length)}
             </AppText>
           ) : (
-            <AppText color="textSecondary">
-              {UI_COPY.learning.stepContentSubtitle}
-            </AppText>
+            <AppText color="textSecondary">{UI_COPY.learning.stepContentSubtitle}</AppText>
           )}
           <AppProgress
             progress={currentProgress / 100}
@@ -173,18 +144,13 @@ export function StepContentScreen() {
           </View>
         ) : contentQuery.isError ? (
           <View style={styles.message}>
-            <AppText variant="titleMedium">
-              {UI_COPY.learning.stepUnavailable}
-            </AppText>
+            <AppText variant="titleMedium">{UI_COPY.learning.stepUnavailable}</AppText>
             <AppText color="textSecondary">
               {contentQuery.error instanceof Error
                 ? contentQuery.error.message
                 : UI_COPY.learning.contentUnavailable}
             </AppText>
-            <AppButton
-              variant="outline"
-              onPress={() => void contentQuery.refetch()}
-            >
+            <AppButton variant="outline" onPress={() => void contentQuery.refetch()}>
               {UI_COPY.common.retry}
             </AppButton>
           </View>
@@ -203,29 +169,17 @@ export function StepContentScreen() {
             />
 
             <AppCard variant="outlined" style={styles.section}>
-              <AppText variant="titleMedium">
-                {UI_COPY.learning.assessmentTitle}
-              </AppText>
-              <AppText color="textSecondary">
-                {UI_COPY.learning.readOnlyAssessment}
-              </AppText>
-              <AppButton
-                variant="outline"
-                onPress={() => setShowAssessment((current) => !current)}
-              >
-                {showAssessment
-                  ? UI_COPY.learning.hideQuestions
-                  : UI_COPY.learning.viewQuestions}
+              <AppText variant="titleMedium">{UI_COPY.learning.assessmentTitle}</AppText>
+              <AppText color="textSecondary">{UI_COPY.learning.readOnlyAssessment}</AppText>
+              <AppButton variant="outline" onPress={() => setShowAssessment((current) => !current)}>
+                {showAssessment ? UI_COPY.learning.hideQuestions : UI_COPY.learning.viewQuestions}
               </AppButton>
               {showAssessment ? (
                 assessmentQuery.isLoading ? (
                   <ActivityIndicator color={colors.primary} />
                 ) : assessmentQuery.isError ? (
-                  <AppText color="textSecondary">
-                    {UI_COPY.learning.assessmentUnavailable}
-                  </AppText>
-                ) : assessmentQuery.data &&
-                  assessmentQuery.data.items.length > 0 ? (
+                  <AppText color="textSecondary">{UI_COPY.learning.assessmentUnavailable}</AppText>
+                ) : assessmentQuery.data && assessmentQuery.data.items.length > 0 ? (
                   assessmentQuery.data.items.map((question, index) => (
                     <View key={question.questionId} style={styles.question}>
                       <AppText variant="titleSmall">
@@ -234,21 +188,17 @@ export function StepContentScreen() {
                           question.question}
                       </AppText>
                       <AppText color="textSecondary" variant="labelSmall">
-                        {question.type.replace(/_/g, " ")}
+                        {question.type.replace(/_/g, ' ')}
                       </AppText>
                       {question.options?.map((option) => (
                         <AppText key={option.optionId}>
-                          {option.optionId +
-                            UI_COPY.learning.optionNumberSeparator +
-                            option.text}
+                          {option.optionId + UI_COPY.learning.optionNumberSeparator + option.text}
                         </AppText>
                       ))}
                     </View>
                   ))
                 ) : (
-                  <AppText color="textSecondary">
-                    {UI_COPY.learning.assessmentUnavailable}
-                  </AppText>
+                  <AppText color="textSecondary">{UI_COPY.learning.assessmentUnavailable}</AppText>
                 )
               ) : null}
             </AppCard>
@@ -258,9 +208,7 @@ export function StepContentScreen() {
         {!isCompleted ? (
           <View style={{ gap: spacing[8] }}>
             <AppButton
-              loading={
-                progressMutation.isPending && mutationAppliesToCurrentStep
-              }
+              loading={progressMutation.isPending && mutationAppliesToCurrentStep}
               disabled={
                 (progressMutation.isPending && mutationAppliesToCurrentStep) ||
                 contentQuery.isLoading ||
@@ -288,8 +236,7 @@ export function StepContentScreen() {
               variant="outline"
               style={styles.navigationButton}
               disabled={
-                !previousStep ||
-                (progressMutation.isPending && mutationAppliesToCurrentStep)
+                !previousStep || (progressMutation.isPending && mutationAppliesToCurrentStep)
               }
               onPress={() => {
                 if (previousStep) navigateToStep(previousStep);
@@ -299,10 +246,7 @@ export function StepContentScreen() {
             </AppButton>
             <AppButton
               style={styles.navigationButton}
-              disabled={
-                !nextStep ||
-                (progressMutation.isPending && mutationAppliesToCurrentStep)
-              }
+              disabled={!nextStep || (progressMutation.isPending && mutationAppliesToCurrentStep)}
               onPress={() => {
                 if (nextStep) navigateToStep(nextStep);
               }}

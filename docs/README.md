@@ -16,6 +16,7 @@ Welcome to the official documentation for the Skillar Mobile application. This d
 ## Documentation Roadmap
 
 ### Architecture
+
 - ARCHITECTURE.md
 - Folder Structure
 - Module Boundaries
@@ -25,6 +26,7 @@ Welcome to the official documentation for the Skillar Mobile application. This d
 - ADRs
 
 ### Engineering
+
 - Coding Standards
 - TypeScript Guidelines
 - Testing Strategy
@@ -33,6 +35,7 @@ Welcome to the official documentation for the Skillar Mobile application. This d
 - Build & Release
 
 ### Frontend
+
 - Design System
 - Component Guidelines
 - Navigation
@@ -41,6 +44,7 @@ Welcome to the official documentation for the Skillar Mobile application. This d
 - Accessibility
 
 ### Backend Integration
+
 - API Architecture
 - Authentication
 - Offline Sync
@@ -48,6 +52,7 @@ Welcome to the official documentation for the Skillar Mobile application. This d
 - Notifications
 
 ### Product
+
 - Feature Map
 - User Flows
 - Module Catalog

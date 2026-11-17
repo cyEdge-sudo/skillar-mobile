@@ -14,6 +14,7 @@ Build a secure, maintainable learner application for Skillar using Expo, React N
 - Add repository documentation and CI checks.
 
 Exit criteria:
+
 - App starts on Android and iOS.
 - Strict TypeScript and lint checks pass.
 - No feature screen calls the backend directly.
@@ -28,6 +29,7 @@ Exit criteria:
 - Profile shell
 
 Exit criteria:
+
 - Authentication follows the agreed backend contract.
 - Tokens are stored only in SecureStore.
 - Expired sessions are refreshed or cleared safely.
@@ -43,6 +45,7 @@ Exit criteria:
 - Progress tracking
 
 Exit criteria:
+
 - Learners can complete a roadmap flow.
 - Progress persists through backend APIs.
 - Loading, empty, error and retry states are handled.
@@ -52,6 +55,7 @@ Exit criteria:
 Journeys are a separate product concept from roadmaps. Add them only after their mobile/API contracts are defined.
 
 Potential learner capabilities:
+
 - Skill development journeys
 - Compliance journeys
 - Governance journeys

@@ -3,21 +3,13 @@ import {
   API_FIELDS,
   APP_MESSAGES,
   AUTH_NEXT_STEPS,
-} from "../constants/app.constants";
-import { ApiError } from "../api/api-error";
-import type {
-  AuthResponse,
-  AuthTokens,
-  AuthUser,
-  SignupResponse,
-} from "./types";
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
+} from '../constants/app.constants';
+import { ApiError } from '../api/api-error';
+import type { AuthResponse, AuthTokens, AuthUser, SignupResponse } from './types';
+import { isRecord } from '../../shared/utils/is-record';
 
 function requireString(value: unknown, fieldName: string): string {
-  if (typeof value !== "string" || value.trim().length === 0) {
+  if (typeof value !== 'string' || value.trim().length === 0) {
     throw new ApiError(APP_MESSAGES.invalidServerResponse, {
       status: 502,
       code: API_ERROR_CODES.INVALID_RESPONSE,
@@ -50,7 +42,7 @@ export function parseAuthUser(value: unknown): AuthUser {
     id: requireString(value.id, API_FIELDS.USER_ID),
     name: requireString(value.name, API_FIELDS.USER_NAME),
     email: requireString(value.email, API_FIELDS.USER_EMAIL),
-    avatarUrl: typeof value.avatarUrl === "string" ? value.avatarUrl : null,
+    avatarUrl: typeof value.avatarUrl === 'string' ? value.avatarUrl : null,
   };
 }
 
@@ -63,14 +55,8 @@ export function parseAuthTokens(value: unknown): AuthTokens {
   }
 
   return {
-    accessToken: requireString(
-      value.accessToken,
-      API_FIELDS.ACCESS_TOKEN,
-    ),
-    refreshToken: requireString(
-      value.refreshToken,
-      API_FIELDS.REFRESH_TOKEN,
-    ),
+    accessToken: requireString(value.accessToken, API_FIELDS.ACCESS_TOKEN),
+    refreshToken: requireString(value.refreshToken, API_FIELDS.REFRESH_TOKEN),
     accessTokenExpiresAt: requireString(
       value.accessTokenExpiresAt,
       API_FIELDS.ACCESS_TOKEN_EXPIRES_AT,
@@ -103,7 +89,11 @@ export function parseSignupResponse(value: unknown): SignupResponse {
   }
 
   const nextStep = value.nextStep;
-  if (nextStep !== undefined && nextStep !== AUTH_NEXT_STEPS.VERIFY_EMAIL && nextStep !== AUTH_NEXT_STEPS.LOGIN) {
+  if (
+    nextStep !== undefined &&
+    nextStep !== AUTH_NEXT_STEPS.VERIFY_EMAIL &&
+    nextStep !== AUTH_NEXT_STEPS.LOGIN
+  ) {
     throw invalidPayload();
   }
 
@@ -118,7 +108,7 @@ export function parseSignupResponse(value: unknown): SignupResponse {
 }
 
 export function parseAcceptedAction(value: unknown): { accepted: boolean } {
-  if (!isRecord(value) || typeof value.accepted !== "boolean") {
+  if (!isRecord(value) || typeof value.accepted !== 'boolean') {
     throw new ApiError(APP_MESSAGES.invalidPasswordResetResponse, {
       status: 502,
       code: API_ERROR_CODES.INVALID_RESPONSE,
@@ -129,7 +119,7 @@ export function parseAcceptedAction(value: unknown): { accepted: boolean } {
 }
 
 export function parseLoggedOut(value: unknown): { loggedOut: boolean } {
-  if (!isRecord(value) || typeof value.loggedOut !== "boolean") {
+  if (!isRecord(value) || typeof value.loggedOut !== 'boolean') {
     throw new ApiError(APP_MESSAGES.invalidLogoutResponse, {
       status: 502,
       code: API_ERROR_CODES.INVALID_RESPONSE,

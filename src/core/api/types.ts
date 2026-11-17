@@ -1,10 +1,7 @@
 export type JsonPrimitive = string | number | boolean | null;
-export type JsonValue =
-  | JsonPrimitive
-  | JsonValue[]
-  | { [key: string]: JsonValue };
+export type JsonValue = JsonPrimitive | JsonValue[] | { [key: string]: JsonValue };
 
-import { HTTP_METHODS } from "../constants/app.constants";
+import { HTTP_METHODS } from '../constants/app.constants';
 
 export type HttpMethod = (typeof HTTP_METHODS)[keyof typeof HTTP_METHODS];
 
