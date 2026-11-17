@@ -233,7 +233,7 @@ export const learningDetailService = {
     const response = await apiRequest(
       API_ROUTES.enrollments.detail(enrollmentId),
       parseEnrollmentDetail,
-      { signal },
+      { ...(signal ? { signal } : {}) },
     );
     return response.data;
   },
@@ -242,7 +242,7 @@ export const learningDetailService = {
     const response = await apiRequest(
       API_ROUTES.steps.detail(stepId),
       parseStepContent,
-      { signal },
+      { ...(signal ? { signal } : {}) },
     );
     return response.data;
   },
@@ -251,7 +251,7 @@ export const learningDetailService = {
     const response = await apiRequest(
       API_ROUTES.steps.assessment(stepId),
       parseAssessment,
-      { signal },
+      { ...(signal ? { signal } : {}) },
     );
     return response.data;
   },
