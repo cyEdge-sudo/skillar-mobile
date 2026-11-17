@@ -20,7 +20,9 @@ We use React Navigation because it is already installed and used by the app. Exp
 
 ## Architecture rules
 
-- Feature-first modules own their screens and feature-specific code.
+- Feature-first modules own their screens, feature-specific code and feature-owned route parameter contracts.
+- React Navigation route maps and navigator configuration belong in `src/app/navigation`.
+- App-level route components adapt navigator props to typed feature screen props. Feature screens do not import app navigation types or React Navigation hooks.
 - Shared code is feature-agnostic.
 - Screens call feature services or hooks. They do not issue HTTP requests directly.
 - The shared API client owns transport concerns.

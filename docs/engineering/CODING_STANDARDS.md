@@ -49,6 +49,7 @@ These standards apply to all production code in Skillar Mobile.
 ## Quality
 
 Before a change is merged:
+
 - TypeScript passes.
 - ESLint passes.
 - Formatting passes.

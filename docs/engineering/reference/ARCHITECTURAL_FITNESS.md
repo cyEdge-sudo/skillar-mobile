@@ -14,26 +14,31 @@ Architectural fitness functions are continuous checks that ensure the Skillar Mo
 ## Fitness Checks
 
 ### Structure
+
 - Feature isolation maintained.
 - Folder conventions followed.
 - Layer boundaries respected.
 
 ### Dependencies
+
 - No circular dependencies.
 - No cross-feature imports.
 - Domain layer independent of UI.
 
 ### Code Quality
+
 - SOLID principles followed.
 - Low duplication.
 - Small focused components.
 
 ### Performance
+
 - Startup time monitored.
 - Bundle size monitored.
 - Rendering performance reviewed.
 
 ### Security
+
 - No hardcoded secrets.
 - Secure storage used.
 - Dependencies scanned.

@@ -5,18 +5,14 @@ import { ScreenContainer, ScreenContainerProps } from '../../primitives/screen-c
 export interface AppScreenProps extends ScreenContainerProps {}
 
 export const AppScreen = React.forwardRef<
-    React.ComponentRef<typeof ScreenContainer>,
-    AppScreenProps
+  React.ComponentRef<typeof ScreenContainer>,
+  AppScreenProps
 >(({ style, ...rest }, ref) => {
-    const { colors } = useTheme();
+  const { colors } = useTheme();
 
-    return (
-        <ScreenContainer
-            ref={ref}
-            style={[{ backgroundColor: colors.background }, style]}
-            {...rest}
-        />
-    );
+  return (
+    <ScreenContainer ref={ref} style={[{ backgroundColor: colors.background }, style]} {...rest} />
+  );
 });
 
 AppScreen.displayName = 'AppScreen';

@@ -20,6 +20,7 @@ Favor a broad base of unit tests with a smaller number of end-to-end tests.
 ## Unit Testing
 
 Test:
+
 - Domain logic
 - Utility functions
 - Mappers
@@ -27,6 +28,7 @@ Test:
 - Custom hooks
 
 Requirements:
+
 - Fast
 - Deterministic
 - Independent
@@ -36,6 +38,7 @@ Requirements:
 ## Component Testing
 
 Verify:
+
 - Rendering
 - User interactions
 - Accessibility
@@ -48,6 +51,7 @@ Mock external dependencies where appropriate.
 ## Integration Testing
 
 Test interactions between:
+
 - Screens
 - Navigation
 - API layer
@@ -61,6 +65,7 @@ Focus on realistic application flows.
 ## End-to-End Testing
 
 Validate critical user journeys such as:
+
 - Authentication
 - Course browsing
 - Learning flow
@@ -92,6 +97,7 @@ Coverage metrics should guide quality, not replace thoughtful testing.
 ## CI Requirements
 
 Every pull request should:
+
 - Run automated tests.
 - Pass linting.
 - Pass type checking.
@@ -102,6 +108,7 @@ Every pull request should:
 ## Anti-Patterns
 
 Avoid:
+
 - Brittle snapshot tests
 - Testing implementation details
 - Excessive mocking

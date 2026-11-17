@@ -54,6 +54,7 @@ feat(auth): implement secure login flow
 ## Definition of done
 
 A change is complete when:
+
 - Functional requirements are met.
 - Documentation is current.
 - Review comments are resolved.

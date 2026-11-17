@@ -1,43 +1,24 @@
-import { useState } from "react";
-import { Pressable, StyleSheet, View } from "react-native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useNavigation } from "@react-navigation/native";
+import { useState } from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
+import { useAuth } from '../../../core/auth/auth-context';
+import { FORM_VALIDATION, UI_COPY } from '../../../core/constants/app.constants';
+import { isValidDateOnly, isValidEmail, normalizeEmail } from '../../../core/auth/input-validation';
+import { getErrorMessage } from '../../../core/api/api-error';
+import { AppButton, AppText, FormField, Screen } from '../../../shared/components';
+import { useTheme } from '../../../shared/theme';
 
-import { useAuth } from "../../../core/auth/auth-context";
-import { FORM_VALIDATION, NAVIGATION_ROUTES, UI_COPY } from "../../../core/constants/app.constants";
-import { getErrorMessage } from "../../../core/api/api-error";
-import type { AuthStackParamList } from "../../../app/navigation/navigation-types";
-import { AppButton, AppText, FormField, Screen } from "../../../shared/components";
-import { useTheme } from "../../../shared/theme";
-
-function isValidDateOnly(value: string): boolean {
-  if (!FORM_VALIDATION.dateOnlyPattern.test(value)) {
-    return false;
-  }
-
-  const [yearPart, monthPart, dayPart] = value.split("-");
-  const year = Number(yearPart);
-  const month = Number(monthPart);
-  const day = Number(dayPart);
-  const candidate = new Date(Date.UTC(year, month - 1, day));
-
-  return (
-    candidate.getUTCFullYear() === year &&
-    candidate.getUTCMonth() === month - 1 &&
-    candidate.getUTCDate() === day
-  );
+export interface SignupScreenProps {
+  onOpenLogin: () => void;
 }
 
-export function SignupScreen() {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
+export function SignupScreen({ onOpenLogin }: SignupScreenProps) {
   const { signUp } = useAuth();
   const { colors, spacing } = useTheme();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -53,29 +34,29 @@ export function SignupScreen() {
     notice: {
       padding: spacing[12],
       borderRadius: spacing[8],
-      backgroundColor: colors.success + "14",
+      backgroundColor: colors.success + '14',
     },
     error: {
       padding: spacing[12],
       borderRadius: spacing[8],
-      backgroundColor: colors.error + "14",
+      backgroundColor: colors.error + '14',
     },
     footer: {
-      flexDirection: "row",
-      justifyContent: "center",
+      flexDirection: 'row',
+      justifyContent: 'center',
       gap: spacing[8],
-      flexWrap: "wrap",
+      flexWrap: 'wrap',
     },
     link: {
       color: colors.primary,
-      fontWeight: "700",
+      fontWeight: '700',
     },
   });
 
   const handleSignup = async () => {
     setError(null);
 
-    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedEmail = normalizeEmail(email);
     const normalizedName = name.trim();
 
     if (!normalizedName || !normalizedEmail || !password || !dateOfBirth) {
@@ -83,7 +64,7 @@ export function SignupScreen() {
       return;
     }
 
-    if (!FORM_VALIDATION.emailPattern.test(normalizedEmail)) {
+    if (!isValidEmail(normalizedEmail)) {
       setError(UI_COPY.auth.invalidEmail);
       return;
     }
@@ -168,20 +149,14 @@ export function SignupScreen() {
           <AppText color="success">{UI_COPY.auth.signupSuccess}</AppText>
         </View>
       ) : (
-        <AppButton
-          loading={isSubmitting}
-          onPress={() => void handleSignup()}
-        >
+        <AppButton loading={isSubmitting} onPress={() => void handleSignup()}>
           {UI_COPY.auth.createAccountAction}
         </AppButton>
       )}
 
       <View style={styles.footer}>
         <AppText color="textSecondary">{UI_COPY.auth.haveAccount}</AppText>
-        <Pressable
-          accessibilityRole="button"
-          onPress={() => navigation.navigate(NAVIGATION_ROUTES.auth.login)}
-        >
+        <Pressable accessibilityRole="button" onPress={onOpenLogin}>
           <AppText style={styles.link}>{UI_COPY.auth.loginAction}</AppText>
         </Pressable>
       </View>

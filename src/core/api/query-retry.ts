@@ -1,13 +1,7 @@
-import {
-  API_ERROR_CODES,
-  APP_CONSTANTS,
-} from "../constants/app.constants";
-import { ApiError } from "./api-error";
+import { API_ERROR_CODES, APP_CONSTANTS } from '../constants/app.constants';
+import { ApiError } from './api-error';
 
-export function shouldRetryQuery(
-  failureCount: number,
-  error: unknown,
-): boolean {
+export function shouldRetryQuery(failureCount: number, error: unknown): boolean {
   if (failureCount >= APP_CONSTANTS.QUERY_RETRY_COUNT) {
     return false;
   }

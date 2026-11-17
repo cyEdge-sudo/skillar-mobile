@@ -4,13 +4,13 @@
 
 Use the smallest state mechanism that fits the data.
 
-| State | Owner | Examples |
-|---|---|---|
-| Screen-local state | React state | Form values, modal visibility, selected tab within a screen |
-| Server state | TanStack Query | Roadmaps, enrollments, lesson content, assessments and progress |
-| Authentication session | Auth Context | Session status and current learner |
-| Sensitive persisted state | Expo SecureStore | Access and refresh token pair |
-| Non-sensitive preferences | AsyncStorage, only when required | User-selected preferences |
+| State                     | Owner                            | Examples                                                        |
+| ------------------------- | -------------------------------- | --------------------------------------------------------------- |
+| Screen-local state        | React state                      | Form values, modal visibility, selected tab within a screen     |
+| Server state              | TanStack Query                   | Roadmaps, enrollments, lesson content, assessments and progress |
+| Authentication session    | Auth Context                     | Session status and current learner                              |
+| Sensitive persisted state | Expo SecureStore                 | Access and refresh token pair                                   |
+| Non-sensitive preferences | AsyncStorage, only when required | User-selected preferences                                       |
 
 ## Rules
 

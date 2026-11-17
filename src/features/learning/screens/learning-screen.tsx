@@ -1,24 +1,10 @@
-import { useNavigation } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  View,
-} from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 
-import type { RootStackParamList } from "../../../app/navigation/navigation-types";
-import { NAVIGATION_ROUTES, UI_COPY } from "../../../core/constants/app.constants";
-import {
-  AppButton,
-  AppCard,
-  AppProgress,
-  AppText,
-  Screen,
-} from "../../../shared/components";
-import { useTheme } from "../../../shared/theme";
-import { useLearningEnrollments } from "../use-learning";
-import type { LearningEnrollment } from "../types";
+import { UI_COPY } from '../../../core/constants/app.constants';
+import { AppButton, AppCard, AppProgress, AppText, Screen } from '../../../shared/components';
+import { useTheme } from '../../../shared/theme';
+import { useLearningEnrollments } from '../use-learning';
+import type { LearningEnrollment } from '../types';
 
 function formatDate(value: string | null): string {
   if (!value) return UI_COPY.learning.notStarted;
@@ -33,22 +19,24 @@ function statusLabel(status: string): string {
   return labels[normalizedStatus as keyof typeof labels] ?? labels.unknown;
 }
 
-export function LearningScreen() {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+export interface LearningScreenProps {
+  onOpenRoadmap: (roadmapId: string, enrollmentId: string) => void;
+}
+
+export function LearningScreen({ onOpenRoadmap }: LearningScreenProps) {
   const { colors, spacing } = useTheme();
   const enrollmentsQuery = useLearningEnrollments();
-  const enrollments =
-    enrollmentsQuery.data?.pages.flatMap((page) => page.items) ?? [];
+  const enrollments = enrollmentsQuery.data?.pages.flatMap((page) => page.items) ?? [];
 
   const styles = StyleSheet.create({
     content: { flex: 1, gap: spacing[16] },
     heading: { gap: spacing[4] },
     list: { gap: spacing[12], paddingBottom: spacing[32] },
     card: { gap: spacing[12] },
-    metadata: { flexDirection: "row", justifyContent: "space-between" },
-    message: { textAlign: "center", paddingVertical: spacing[24] },
-    error: { alignItems: "center", gap: spacing[12], paddingVertical: spacing[24] },
-    footer: { alignItems: "center", paddingVertical: spacing[16] },
+    metadata: { flexDirection: 'row', justifyContent: 'space-between' },
+    message: { textAlign: 'center', paddingVertical: spacing[24] },
+    error: { alignItems: 'center', gap: spacing[12], paddingVertical: spacing[24] },
+    footer: { alignItems: 'center', paddingVertical: spacing[16] },
   });
 
   const renderEnrollment = ({ item }: { item: LearningEnrollment }) => (
@@ -65,21 +53,13 @@ export function LearningScreen() {
       <AppProgress
         progress={item.progressPercent / 100}
         accessibilityRole="progressbar"
-        accessibilityLabel={item.title + " " + UI_COPY.learning.progressAccessibilitySuffix}
+        accessibilityLabel={item.title + ' ' + UI_COPY.learning.progressAccessibilitySuffix}
         accessibilityValue={{ min: 0, max: 100, now: item.progressPercent }}
       />
       <AppText color="textSecondary" variant="labelSmall">
         {UI_COPY.learning.lastActivityPrefix} {formatDate(item.lastActivityAt)}
       </AppText>
-      <AppButton
-        variant="outline"
-        onPress={() =>
-          navigation.navigate(NAVIGATION_ROUTES.root.roadmapDetail, {
-            roadmapId: item.roadmapId,
-            enrollmentId: item.enrollmentId,
-          })
-        }
-      >
+      <AppButton variant="outline" onPress={() => onOpenRoadmap(item.roadmapId, item.enrollmentId)}>
         {UI_COPY.learning.openRoadmap}
       </AppButton>
     </AppCard>
@@ -90,32 +70,23 @@ export function LearningScreen() {
       <View style={styles.content}>
         <View style={styles.heading}>
           <AppText variant="headlineSmall">{UI_COPY.learning.myLearningTitle}</AppText>
-          <AppText color="textSecondary">
-            {UI_COPY.learning.myLearningDescription}
-          </AppText>
+          <AppText color="textSecondary">{UI_COPY.learning.myLearningDescription}</AppText>
         </View>
 
         {enrollmentsQuery.isLoading ? (
           <View style={styles.message}>
             <ActivityIndicator size="large" color={colors.primary} />
-            <AppText color="textSecondary">
-              {UI_COPY.learning.loadingEnrollments}
-            </AppText>
+            <AppText color="textSecondary">{UI_COPY.learning.loadingEnrollments}</AppText>
           </View>
         ) : enrollmentsQuery.isError ? (
           <View style={styles.error}>
-            <AppText variant="titleMedium">
-              {UI_COPY.learning.dataUnavailable}
-            </AppText>
+            <AppText variant="titleMedium">{UI_COPY.learning.dataUnavailable}</AppText>
             <AppText color="textSecondary">
               {enrollmentsQuery.error instanceof Error
                 ? enrollmentsQuery.error.message
                 : UI_COPY.learning.dataUnavailable}
             </AppText>
-            <AppButton
-              variant="outline"
-              onPress={() => void enrollmentsQuery.refetch()}
-            >
+            <AppButton variant="outline" onPress={() => void enrollmentsQuery.refetch()}>
               {UI_COPY.common.retry}
             </AppButton>
           </View>

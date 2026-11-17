@@ -1,30 +1,30 @@
-import { useState } from "react";
-import { Pressable, StyleSheet, View } from "react-native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useNavigation } from "@react-navigation/native";
+import { useState } from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
+import { useAuth } from '../../../core/auth/auth-context';
+import { UI_COPY } from '../../../core/constants/app.constants';
+import { isValidEmail, normalizeEmail } from '../../../core/auth/input-validation';
+import { getErrorMessage } from '../../../core/api/api-error';
+import { AppButton, AppText, FormField, Screen } from '../../../shared/components';
+import { useTheme } from '../../../shared/theme';
 
-import { useAuth } from "../../../core/auth/auth-context";
-import { FORM_VALIDATION, NAVIGATION_ROUTES, UI_COPY } from "../../../core/constants/app.constants";
-import { getErrorMessage } from "../../../core/api/api-error";
-import type { AuthStackParamList } from "../../../app/navigation/navigation-types";
-import { AppButton, AppText, FormField, Screen } from "../../../shared/components";
-import { useTheme } from "../../../shared/theme";
+export interface LoginScreenProps {
+  onOpenForgotPassword: () => void;
+  onOpenSignup: () => void;
+}
 
-export function LoginScreen() {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
+export function LoginScreen({ onOpenForgotPassword, onOpenSignup }: LoginScreenProps) {
   const { signIn } = useAuth();
   const { colors, spacing } = useTheme();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const styles = StyleSheet.create({
     content: {
       flexGrow: 1,
-      justifyContent: "center",
+      justifyContent: 'center',
       gap: spacing[20],
     },
     heading: {
@@ -32,33 +32,33 @@ export function LoginScreen() {
       marginBottom: spacing[8],
     },
     links: {
-      flexDirection: "row",
-      flexWrap: "wrap",
-      justifyContent: "center",
-      alignItems: "center",
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      alignItems: 'center',
       gap: spacing[8],
     },
     link: {
       color: colors.primary,
-      fontWeight: "700",
+      fontWeight: '700',
     },
     error: {
       padding: spacing[12],
       borderRadius: spacing[8],
-      backgroundColor: colors.error + "14",
+      backgroundColor: colors.error + '14',
     },
   });
 
   const handleLogin = async () => {
     setError(null);
 
-    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedEmail = normalizeEmail(email);
     if (!normalizedEmail || !password) {
       setError(UI_COPY.auth.requiredFields);
       return;
     }
 
-    if (!FORM_VALIDATION.emailPattern.test(normalizedEmail)) {
+    if (!isValidEmail(normalizedEmail)) {
       setError(UI_COPY.auth.invalidEmail);
       return;
     }
@@ -111,21 +111,15 @@ export function LoginScreen() {
         {UI_COPY.auth.loginAction}
       </AppButton>
 
-      <Pressable
-        accessibilityRole="button"
-        onPress={() => navigation.navigate(NAVIGATION_ROUTES.auth.forgotPassword)}
-      >
-        <AppText color="primary" style={{ textAlign: "center" }}>
+      <Pressable accessibilityRole="button" onPress={onOpenForgotPassword}>
+        <AppText color="primary" style={{ textAlign: 'center' }}>
           {UI_COPY.auth.forgotPasswordAction}
         </AppText>
       </Pressable>
 
       <View style={styles.links}>
         <AppText color="textSecondary">{UI_COPY.auth.noAccount}</AppText>
-        <Pressable
-          accessibilityRole="button"
-          onPress={() => navigation.navigate(NAVIGATION_ROUTES.auth.signup)}
-        >
+        <Pressable accessibilityRole="button" onPress={onOpenSignup}>
           <AppText style={styles.link}>{UI_COPY.auth.signupAction}</AppText>
         </Pressable>
       </View>

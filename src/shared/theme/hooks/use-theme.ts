@@ -5,8 +5,8 @@ import { ThemeContext } from '../context';
 import { lightTheme } from '../themes';
 
 export const useTheme = (): DesignSystem => {
-    const theme = useContext(ThemeContext);
+  const theme = useContext(ThemeContext);
 
-    // ponytail: fallback to lightTheme if context missing (e.g. during module init)
-    return theme ?? lightTheme;
+  // ponytail: fallback to lightTheme if context missing (e.g. during module init)
+  return theme ?? lightTheme;
 };

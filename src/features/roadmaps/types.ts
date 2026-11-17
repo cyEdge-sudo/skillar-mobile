@@ -1,4 +1,4 @@
-export type RoadmapLevel = "beginner" | "intermediate" | "advanced";
+export type RoadmapLevel = 'beginner' | 'intermediate' | 'advanced';
 
 export interface RoadmapSummary {
   id: string;
@@ -19,9 +19,9 @@ export interface RoadmapStepSummary {
   sequence: number;
   description: string | null;
   estimatedMinutes: number;
-  contentStatus: "ready" | "pending" | "unknown";
+  contentStatus: 'ready' | 'pending' | 'unknown';
   progress?: {
-    status: "not_started" | "in_progress" | "completed";
+    status: 'not_started' | 'in_progress' | 'completed';
     progressPercent: number;
     updatedAt?: string;
   } | null;
@@ -62,4 +62,9 @@ export interface RoadmapEnrollment {
   roadmapId: string;
   status: string;
   enrolledAt: string;
+}
+
+export interface RoadmapDetailRouteParams {
+  roadmapId: string;
+  enrollmentId?: string;
 }

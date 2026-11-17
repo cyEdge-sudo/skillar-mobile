@@ -1,9 +1,6 @@
-import {
-  API_ROUTES,
-  HTTP_METHODS,
-} from "../../core/constants/app.constants";
-import { apiRequest } from "../../core/api/api-client";
-import { parseStepContentBlocks } from "./step-content-parser";
+import { API_ROUTES, HTTP_METHODS } from '../../core/constants/app.constants';
+import { apiRequest } from '../../core/api/api-client';
+import { parseStepContentBlocks } from './step-content-parser';
 import type {
   AssessmentQuestion,
   EnrollmentDetail,
@@ -13,42 +10,43 @@ import type {
   StepContent,
   StepProgressStatus,
   StepProgressUpdate,
-} from "./types";
+} from './types';
 
 function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
 function parseStep(value: unknown): EnrolledRoadmapStep {
   if (
     !isRecord(value) ||
-    typeof value.id !== "string" ||
-    typeof value.title !== "string" ||
-    typeof value.sequence !== "number" ||
-    typeof value.estimatedMinutes !== "number"
+    typeof value.id !== 'string' ||
+    typeof value.title !== 'string' ||
+    typeof value.sequence !== 'number' ||
+    typeof value.estimatedMinutes !== 'number'
   ) {
-    throw new Error("The server returned an invalid learning step.");
+    throw new Error('The server returned an invalid learning step.');
   }
 
-  let progress: EnrolledRoadmapStep["progress"] = null;
+  let progress: EnrolledRoadmapStep['progress'] = null;
   if (value.progress !== null && value.progress !== undefined) {
-    if (!isRecord(value.progress) || typeof value.progress.status !== "string") {
-      throw new Error("The server returned invalid step progress.");
+    if (!isRecord(value.progress) || typeof value.progress.status !== 'string') {
+      throw new Error('The server returned invalid step progress.');
     }
     const status: StepProgressStatus =
-      value.progress.status === "completed"
-        ? "completed"
-        : value.progress.status === "in_progress"
-          ? "in_progress"
-          : "not_started";
+      value.progress.status === 'completed'
+        ? 'completed'
+        : value.progress.status === 'in_progress'
+          ? 'in_progress'
+          : 'not_started';
     progress = {
       status,
       progressPercent:
-        typeof value.progress.progressPercent === "number"
+        typeof value.progress.progressPercent === 'number'
           ? Math.min(100, Math.max(0, value.progress.progressPercent))
-          : status === "completed" ? 100 : 0,
-      updatedAt:
-        typeof value.progress.updatedAt === "string" ? value.progress.updatedAt : "",
+          : status === 'completed'
+            ? 100
+            : 0,
+      updatedAt: typeof value.progress.updatedAt === 'string' ? value.progress.updatedAt : '',
     };
   }
 
@@ -56,12 +54,12 @@ function parseStep(value: unknown): EnrolledRoadmapStep {
     id: value.id,
     title: value.title,
     sequence: value.sequence,
-    description: typeof value.description === "string" ? value.description : null,
+    description: typeof value.description === 'string' ? value.description : null,
     estimatedMinutes: Math.max(0, value.estimatedMinutes),
     contentStatus:
-      value.contentStatus === "ready" || value.contentStatus === "pending"
+      value.contentStatus === 'ready' || value.contentStatus === 'pending'
         ? value.contentStatus
-        : "unknown",
+        : 'unknown',
     progress,
   };
 }
@@ -69,21 +67,20 @@ function parseStep(value: unknown): EnrolledRoadmapStep {
 function parseMilestone(value: unknown): EnrolledRoadmapMilestone {
   if (
     !isRecord(value) ||
-    typeof value.id !== "string" ||
-    typeof value.title !== "string" ||
-    typeof value.sequence !== "number" ||
+    typeof value.id !== 'string' ||
+    typeof value.title !== 'string' ||
+    typeof value.sequence !== 'number' ||
     !Array.isArray(value.steps)
   ) {
-    throw new Error("The server returned an invalid learning milestone.");
+    throw new Error('The server returned an invalid learning milestone.');
   }
 
   return {
     id: value.id,
     title: value.title,
     sequence: value.sequence,
-    description: typeof value.description === "string" ? value.description : null,
-    estimatedHours:
-      typeof value.estimatedHours === "number" ? value.estimatedHours : null,
+    description: typeof value.description === 'string' ? value.description : null,
+    estimatedHours: typeof value.estimatedHours === 'number' ? value.estimatedHours : null,
     steps: value.steps.map(parseStep),
   };
 }
@@ -91,33 +88,29 @@ function parseMilestone(value: unknown): EnrolledRoadmapMilestone {
 function parseEnrollmentDetail(value: unknown): EnrollmentDetail {
   if (
     !isRecord(value) ||
-    typeof value.enrollmentId !== "string" ||
-    typeof value.roadmapId !== "string" ||
+    typeof value.enrollmentId !== 'string' ||
+    typeof value.roadmapId !== 'string' ||
     !isRecord(value.roadmap) ||
-    typeof value.roadmap.id !== "string" ||
-    typeof value.roadmap.title !== "string" ||
-    typeof value.roadmap.language !== "string" ||
+    typeof value.roadmap.id !== 'string' ||
+    typeof value.roadmap.title !== 'string' ||
+    typeof value.roadmap.language !== 'string' ||
     !Array.isArray(value.roadmap.milestones) ||
     !Array.isArray(value.roadmap.skillAreas) ||
-    !value.roadmap.skillAreas.every((item): item is string => typeof item === "string")
+    !value.roadmap.skillAreas.every((item): item is string => typeof item === 'string')
   ) {
-    throw new Error("The server returned an invalid enrollment detail.");
+    throw new Error('The server returned an invalid enrollment detail.');
   }
 
   return {
     enrollmentId: value.enrollmentId,
     roadmapId: value.roadmapId,
-    status: typeof value.status === "string" ? value.status : "unknown",
-    startedAt: typeof value.startedAt === "string" ? value.startedAt : null,
-    lastActivityAt:
-      typeof value.lastActivityAt === "string" ? value.lastActivityAt : null,
+    status: typeof value.status === 'string' ? value.status : 'unknown',
+    startedAt: typeof value.startedAt === 'string' ? value.startedAt : null,
+    lastActivityAt: typeof value.lastActivityAt === 'string' ? value.lastActivityAt : null,
     roadmap: {
       id: value.roadmap.id,
       title: value.roadmap.title,
-      description:
-        typeof value.roadmap.description === "string"
-          ? value.roadmap.description
-          : null,
+      description: typeof value.roadmap.description === 'string' ? value.roadmap.description : null,
       language: value.roadmap.language,
       skillAreas: value.roadmap.skillAreas,
       milestones: value.roadmap.milestones.map(parseMilestone),
@@ -126,19 +119,19 @@ function parseEnrollmentDetail(value: unknown): EnrollmentDetail {
 }
 
 function parseStepContent(value: unknown): StepContent {
-  if (!isRecord(value) || typeof value.stepId !== "string" || typeof value.title !== "string") {
-    throw new Error("The server returned invalid step content.");
+  if (!isRecord(value) || typeof value.stepId !== 'string' || typeof value.title !== 'string') {
+    throw new Error('The server returned invalid step content.');
   }
 
-  let video: StepContent["video"] = null;
+  let video: StepContent['video'] = null;
   if (value.video !== null && value.video !== undefined) {
     if (
       !isRecord(value.video) ||
-      typeof value.video.provider !== "string" ||
-      typeof value.video.url !== "string" ||
-      typeof value.video.videoId !== "string"
+      typeof value.video.provider !== 'string' ||
+      typeof value.video.url !== 'string' ||
+      typeof value.video.videoId !== 'string'
     ) {
-      throw new Error("The server returned invalid video content.");
+      throw new Error('The server returned invalid video content.');
     }
     video = {
       provider: value.video.provider,
@@ -150,32 +143,33 @@ function parseStepContent(value: unknown): StepContent {
   return {
     stepId: value.stepId,
     title: value.title,
-    contentMarkdown:
-      typeof value.contentMarkdown === "string" ? value.contentMarkdown : null,
+    contentMarkdown: typeof value.contentMarkdown === 'string' ? value.contentMarkdown : null,
     video,
-    contentBlocks: parseStepContentBlocks(value.StepContent ?? value.stepContents ?? value.contentBlocks),
+    contentBlocks: parseStepContentBlocks(
+      value.StepContent ?? value.stepContents ?? value.contentBlocks,
+    ),
   };
 }
 
 function parseAssessmentQuestion(value: unknown): AssessmentQuestion {
   if (
     !isRecord(value) ||
-    typeof value.questionId !== "string" ||
-    typeof value.type !== "string" ||
-    typeof value.question !== "string"
+    typeof value.questionId !== 'string' ||
+    typeof value.type !== 'string' ||
+    typeof value.question !== 'string'
   ) {
-    throw new Error("The server returned an invalid assessment question.");
+    throw new Error('The server returned an invalid assessment question.');
   }
 
-  let options: AssessmentQuestion["options"] = null;
+  let options: AssessmentQuestion['options'] = null;
   if (Array.isArray(value.options)) {
     options = value.options.map((option) => {
       if (
         !isRecord(option) ||
-        typeof option.optionId !== "string" ||
-        typeof option.text !== "string"
+        typeof option.optionId !== 'string' ||
+        typeof option.text !== 'string'
       ) {
-        throw new Error("The server returned invalid assessment options.");
+        throw new Error('The server returned invalid assessment options.');
       }
       return { optionId: option.optionId, text: option.text };
     });
@@ -190,12 +184,8 @@ function parseAssessmentQuestion(value: unknown): AssessmentQuestion {
 }
 
 function parseAssessment(value: unknown): StepAssessment {
-  if (
-    !isRecord(value) ||
-    !Array.isArray(value.items) ||
-    typeof value.totalQuestions !== "number"
-  ) {
-    throw new Error("The server returned an invalid assessment.");
+  if (!isRecord(value) || !Array.isArray(value.items) || typeof value.totalQuestions !== 'number') {
+    throw new Error('The server returned an invalid assessment.');
   }
 
   return {
@@ -207,19 +197,19 @@ function parseAssessment(value: unknown): StepAssessment {
 function parseProgressUpdate(value: unknown): StepProgressUpdate {
   if (
     !isRecord(value) ||
-    typeof value.status !== "string" ||
-    typeof value.progressPercent !== "number" ||
-    typeof value.updatedAt !== "string"
+    typeof value.status !== 'string' ||
+    typeof value.progressPercent !== 'number' ||
+    typeof value.updatedAt !== 'string'
   ) {
-    throw new Error("The server returned an invalid progress response.");
+    throw new Error('The server returned an invalid progress response.');
   }
 
   const status: StepProgressStatus =
-    value.status === "completed"
-      ? "completed"
-      : value.status === "in_progress"
-        ? "in_progress"
-        : "not_started";
+    value.status === 'completed'
+      ? 'completed'
+      : value.status === 'in_progress'
+        ? 'in_progress'
+        : 'not_started';
 
   return {
     status,
@@ -239,20 +229,16 @@ export const learningDetailService = {
   },
 
   async getStepContent(stepId: string, signal?: AbortSignal): Promise<StepContent> {
-    const response = await apiRequest(
-      API_ROUTES.steps.detail(stepId),
-      parseStepContent,
-      { ...(signal ? { signal } : {}) },
-    );
+    const response = await apiRequest(API_ROUTES.steps.detail(stepId), parseStepContent, {
+      ...(signal ? { signal } : {}),
+    });
     return response.data;
   },
 
   async getAssessment(stepId: string, signal?: AbortSignal): Promise<StepAssessment> {
-    const response = await apiRequest(
-      API_ROUTES.steps.assessment(stepId),
-      parseAssessment,
-      { ...(signal ? { signal } : {}) },
-    );
+    const response = await apiRequest(API_ROUTES.steps.assessment(stepId), parseAssessment, {
+      ...(signal ? { signal } : {}),
+    });
     return response.data;
   },
 

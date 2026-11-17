@@ -1,15 +1,16 @@
-import { useNavigation } from "@react-navigation/native";
-import type { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View } from 'react-native';
 
-import { NAVIGATION_ROUTES, UI_COPY } from "../../../core/constants/app.constants";
-import { useAuth } from "../../../core/auth/auth-context";
-import type { MainTabParamList } from "../../../app/navigation/navigation-types";
-import { AppButton, AppText, FeaturePlaceholder, Screen } from "../../../shared/components";
-import { useTheme } from "../../../shared/theme";
+import { UI_COPY } from '../../../core/constants/app.constants';
+import { useAuth } from '../../../core/auth/auth-context';
+import { AppButton, AppText, FeaturePlaceholder, Screen } from '../../../shared/components';
+import { useTheme } from '../../../shared/theme';
 
-export function DashboardScreen() {
-  const navigation = useNavigation<BottomTabNavigationProp<MainTabParamList>>();
+export interface DashboardScreenProps {
+  onOpenExplore: () => void;
+  onOpenLearning: () => void;
+}
+
+export function DashboardScreen({ onOpenExplore, onOpenLearning }: DashboardScreenProps) {
   const { user } = useAuth();
   const { spacing } = useTheme();
 
@@ -40,19 +41,8 @@ export function DashboardScreen() {
       />
 
       <View style={styles.actions}>
-        <AppButton
-          onPress={() =>
-            navigation.navigate(NAVIGATION_ROUTES.tabs.explore)
-          }
-        >
-          {UI_COPY.dashboard.discoverRoadmaps}
-        </AppButton>
-        <AppButton
-          variant="outline"
-          onPress={() =>
-            navigation.navigate(NAVIGATION_ROUTES.tabs.learning)
-          }
-        >
+        <AppButton onPress={onOpenExplore}>{UI_COPY.dashboard.discoverRoadmaps}</AppButton>
+        <AppButton variant="outline" onPress={onOpenLearning}>
           {UI_COPY.dashboard.activeLearning}
         </AppButton>
       </View>
