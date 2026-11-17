@@ -10,6 +10,7 @@ import { tokenStorage } from "../auth/token-storage";
 import { parseAuthResponse } from "../auth/validators";
 import type { AuthTokens } from "../auth/types";
 import { getApiUrl } from "../config/env";
+import { isRecord } from "../../shared/utils/is-record";
 import { ApiError } from "./api-error";
 import type {
   ApiEnvelope,
@@ -35,10 +36,6 @@ function createRequestId(): string {
     "-" +
     Math.random().toString(36).slice(2, 10)
   );
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function parseResponseMeta(
