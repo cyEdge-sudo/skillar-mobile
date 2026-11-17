@@ -12,11 +12,11 @@ import type { StepProgressStatus } from "./types";
 export function useEnrollmentDetail(enrollmentId: string | undefined) {
   return useQuery({
     queryKey: QUERY_KEYS.enrollment(enrollmentId ?? ""),
-    queryFn: () => {
+    queryFn: ({ signal }) => {
       if (!enrollmentId) {
         throw new Error("A valid enrollment ID is required.");
       }
-      return learningDetailService.getEnrollment(enrollmentId);
+      return learningDetailService.getEnrollment(enrollmentId, signal);
     },
     enabled: typeof enrollmentId === "string" && enrollmentId.length > 0,
   });
@@ -25,7 +25,7 @@ export function useEnrollmentDetail(enrollmentId: string | undefined) {
 export function useStepContent(stepId: string) {
   return useQuery({
     queryKey: QUERY_KEYS.stepContent(stepId),
-    queryFn: () => learningDetailService.getStepContent(stepId),
+    queryFn: ({ signal }) => learningDetailService.getStepContent(stepId, signal),
     enabled: stepId.length > 0,
     staleTime: APP_CONSTANTS.CONTENT_QUERY_STALE_TIME_MS,
   });
@@ -41,7 +41,7 @@ export function usePrefetchStepContent(stepId: string | undefined) {
 
     void queryClient.prefetchQuery({
       queryKey: QUERY_KEYS.stepContent(stepId),
-      queryFn: () => learningDetailService.getStepContent(stepId),
+      queryFn: ({ signal }) => learningDetailService.getStepContent(stepId, signal),
       staleTime: APP_CONSTANTS.CONTENT_QUERY_STALE_TIME_MS,
     });
   }, [queryClient, stepId]);
@@ -50,7 +50,7 @@ export function usePrefetchStepContent(stepId: string | undefined) {
 export function useStepAssessment(stepId: string, enabled: boolean) {
   return useQuery({
     queryKey: QUERY_KEYS.stepAssessment(stepId),
-    queryFn: () => learningDetailService.getAssessment(stepId),
+    queryFn: ({ signal }) => learningDetailService.getAssessment(stepId, signal),
     enabled: enabled && stepId.length > 0,
     retry: false,
   });
