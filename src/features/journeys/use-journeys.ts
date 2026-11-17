@@ -27,6 +27,7 @@ export function useJourneyDetail(enrollmentId: number) {
     queryFn: ({ signal }) => journeysService.getDetail(enrollmentId, signal),
     enabled: Number.isSafeInteger(enrollmentId) && enrollmentId > 0,
     staleTime: APP_CONSTANTS.CONTENT_QUERY_STALE_TIME_MS,
+    gcTime: APP_CONSTANTS.CONTENT_QUERY_GC_TIME_MS,
   });
 }
 
