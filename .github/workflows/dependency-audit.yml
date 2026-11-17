@@ -4,12 +4,16 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - "security/**"
+      - main
+    paths:
+      - package.json
+      - package-lock.json
   pull_request:
     branches:
       - main
-      - "feature/**"
-      - "security/**"
+    paths:
+      - package.json
+      - package-lock.json
   schedule:
     - cron: "17 5 * * 1"
 
@@ -20,6 +24,7 @@ jobs:
   audit:
     name: npm dependency audit
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Checkout
