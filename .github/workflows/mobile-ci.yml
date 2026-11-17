@@ -36,6 +36,9 @@ jobs:
       - name: Architecture fitness checks
         run: npm run check:architecture
 
+      - name: Unit tests
+        run: npm test
+
       - name: Typecheck
         run: npm run typecheck
 
