@@ -1,9 +1,9 @@
-import { Alert, StyleSheet, View } from "react-native";
+import { Alert, StyleSheet, View } from 'react-native';
 
-import { useAuth } from "../../../core/auth/auth-context";
-import { APP_CONSTANTS, UI_COPY } from "../../../core/constants/app.constants";
-import { AppButton, AppText, Screen } from "../../../shared/components";
-import { useTheme } from "../../../shared/theme";
+import { useAuth } from '../../../core/auth/auth-context';
+import { APP_CONSTANTS, UI_COPY } from '../../../core/constants/app.constants';
+import { AppButton, AppText, Screen } from '../../../shared/components';
+import { useTheme } from '../../../shared/theme';
 
 export function ProfileScreen() {
   const { user, signOut } = useAuth();
@@ -39,9 +39,7 @@ export function ProfileScreen() {
       <AppText variant="displaySmall">{UI_COPY.profile.title}</AppText>
 
       <View style={styles.profileCard}>
-        <AppText variant="titleLarge">
-          {user?.name ?? UI_COPY.profile.title}
-        </AppText>
+        <AppText variant="titleLarge">{user?.name ?? UI_COPY.profile.title}</AppText>
         {user?.email ? (
           <AppText color="textSecondary" style={styles.email}>
             {user.email}

@@ -1,5 +1,5 @@
-export { AppMarkdown } from "./app-markdown/app-markdown";
-export type { AppMarkdownProps } from "./app-markdown/app-markdown";
+export { AppMarkdown } from './app-markdown/app-markdown';
+export type { AppMarkdownProps } from './app-markdown/app-markdown';
 
 export { AppButton } from './app-button';
 export type { AppButtonProps } from './app-button';

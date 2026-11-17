@@ -1,12 +1,6 @@
-import {
-  ActivityIndicator,
-  Linking,
-  ScrollView,
-  StyleSheet,
-  View,
-} from "react-native";
+import { ActivityIndicator, Linking, ScrollView, StyleSheet, View } from 'react-native';
 
-import { UI_COPY } from "../../../core/constants/app.constants";
+import { UI_COPY } from '../../../core/constants/app.constants';
 import {
   AppButton,
   AppCard,
@@ -14,10 +8,10 @@ import {
   AppMarkdown,
   AppText,
   Screen,
-} from "../../../shared/components";
-import { useTheme } from "../../../shared/theme";
-import { useCompleteJourneyActivity, useJourneyDetail } from "../use-journeys";
-import type { JourneyActivity } from "../types";
+} from '../../../shared/components';
+import { useTheme } from '../../../shared/theme';
+import { useCompleteJourneyActivity, useJourneyDetail } from '../use-journeys';
+import type { JourneyActivity } from '../types';
 
 export interface JourneyDetailScreenProps {
   enrollmentId: number;
@@ -27,19 +21,19 @@ export interface JourneyDetailScreenProps {
 
 function activityLabel(type: string): string {
   switch (type) {
-    case "TASK":
+    case 'TASK':
       return UI_COPY.journeys.task;
-    case "VIDEO":
+    case 'VIDEO':
       return UI_COPY.journeys.video;
-    case "DOCUMENT":
+    case 'DOCUMENT':
       return UI_COPY.journeys.document;
-    case "ACKNOWLEDGEMENT":
+    case 'ACKNOWLEDGEMENT':
       return UI_COPY.journeys.acknowledgement;
-    case "ASSESSMENT":
+    case 'ASSESSMENT':
       return UI_COPY.journeys.assessment;
-    case "ROADMAP":
+    case 'ROADMAP':
       return UI_COPY.journeys.roadmap;
-    case "SCORM":
+    case 'SCORM':
       return UI_COPY.journeys.scorm;
     default:
       return UI_COPY.journeys.unsupportedActivity;
@@ -47,19 +41,15 @@ function activityLabel(type: string): string {
 }
 
 function isCompleted(status: string): boolean {
-  return (
-    status === "COMPLETED" ||
-    status === "SKIPPED_PASSED" ||
-    status === "SKIPPED_CONDITION"
-  );
+  return status === 'COMPLETED' || status === 'SKIPPED_PASSED' || status === 'SKIPPED_CONDITION';
 }
 
 function activityStatusLabel(status: string): string {
   if (isCompleted(status)) return UI_COPY.journeys.completed;
-  if (status === "PENDING" || status === "NOT_STARTED") {
+  if (status === 'PENDING' || status === 'NOT_STARTED') {
     return UI_COPY.journeys.pending;
   }
-  if (status === "IN_PROGRESS") return UI_COPY.journeys.inProgress;
+  if (status === 'IN_PROGRESS') return UI_COPY.journeys.inProgress;
   return UI_COPY.journeys.unknownStatus;
 }
 
@@ -68,18 +58,22 @@ function isSupportedVideoUrl(value: string): boolean {
     const url = new URL(value);
     const host = url.hostname.toLowerCase();
     return (
-      url.protocol === "https:" &&
-      (host === "youtube.com" ||
-        host === "www.youtube.com" ||
-        host === "m.youtube.com" ||
-        host === "youtu.be")
+      url.protocol === 'https:' &&
+      (host === 'youtube.com' ||
+        host === 'www.youtube.com' ||
+        host === 'm.youtube.com' ||
+        host === 'youtu.be')
     );
   } catch {
     return false;
   }
 }
 
-export function JourneyDetailScreen({ enrollmentId, onGoBack, onOpenRoadmap }: JourneyDetailScreenProps) {
+export function JourneyDetailScreen({
+  enrollmentId,
+  onGoBack,
+  onOpenRoadmap,
+}: JourneyDetailScreenProps) {
   const { colors, spacing, typography } = useTheme();
   const query = useJourneyDetail(enrollmentId);
   const completionMutation = useCompleteJourneyActivity(enrollmentId);
@@ -87,7 +81,7 @@ export function JourneyDetailScreen({ enrollmentId, onGoBack, onOpenRoadmap }: J
   const styles = StyleSheet.create({
     content: { flex: 1, gap: spacing[16] },
     heading: { gap: spacing[8] },
-    metadata: { flexDirection: "row", flexWrap: "wrap", gap: spacing[8] },
+    metadata: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing[8] },
     stage: { gap: spacing[12] },
     stageHeading: { gap: spacing[4] },
     activity: {
@@ -97,15 +91,15 @@ export function JourneyDetailScreen({ enrollmentId, onGoBack, onOpenRoadmap }: J
       borderRadius: 8,
     },
     activityHeading: {
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
       gap: spacing[8],
     },
     message: {
       flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
+      justifyContent: 'center',
+      alignItems: 'center',
       gap: spacing[12],
     },
     question: { gap: spacing[4], paddingVertical: spacing[4] },
@@ -122,7 +116,7 @@ export function JourneyDetailScreen({ enrollmentId, onGoBack, onOpenRoadmap }: J
 
   const renderActivityContent = (activity: JourneyActivity) => {
     switch (activity.type) {
-      case "TASK": {
+      case 'TASK': {
         const taskBody = activity.metadata.taskBody;
         if (taskBody) {
           return <AppMarkdown>{taskBody}</AppMarkdown>;
@@ -131,98 +125,75 @@ export function JourneyDetailScreen({ enrollmentId, onGoBack, onOpenRoadmap }: J
           <AppText color="textSecondary">{activity.description}</AppText>
         ) : null;
       }
-      case "VIDEO":
+      case 'VIDEO':
         if (!activity.metadata.contentUrl) {
           return activity.description ? (
             <AppText color="textSecondary">{activity.description}</AppText>
           ) : (
-            <AppText color="textSecondary">
-              {UI_COPY.journeys.unsupportedVideoUrl}
-            </AppText>
+            <AppText color="textSecondary">{UI_COPY.journeys.unsupportedVideoUrl}</AppText>
           );
         }
         return isSupportedVideoUrl(activity.metadata.contentUrl) ? (
           <AppButton
             size="small"
             variant="outline"
-            onPress={() => void openVideo(activity.metadata.contentUrl ?? "")}
+            onPress={() => void openVideo(activity.metadata.contentUrl ?? '')}
           >
             {UI_COPY.journeys.openVideo}
           </AppButton>
         ) : (
-          <AppText color="textSecondary">
-            {UI_COPY.journeys.unsupportedVideoUrl}
-          </AppText>
+          <AppText color="textSecondary">{UI_COPY.journeys.unsupportedVideoUrl}</AppText>
         );
-      case "DOCUMENT":
-        return (
-          <AppText color="textSecondary">
-            {UI_COPY.journeys.documentUnavailable}
-          </AppText>
-        );
-      case "ROADMAP":
+      case 'DOCUMENT':
+        return <AppText color="textSecondary">{UI_COPY.journeys.documentUnavailable}</AppText>;
+      case 'ROADMAP':
         return activity.metadata.roadmapId ? (
           <View style={{ gap: spacing[8] }}>
-            <AppText color="textSecondary">
-              {UI_COPY.journeys.roadmapCompletion}
-            </AppText>
+            <AppText color="textSecondary">{UI_COPY.journeys.roadmapCompletion}</AppText>
             <AppButton
               size="small"
               variant="outline"
-              onPress={() => onOpenRoadmap(activity.metadata.roadmapId ?? "")}
+              onPress={() => onOpenRoadmap(activity.metadata.roadmapId ?? '')}
             >
               {UI_COPY.roadmaps.viewDetails}
             </AppButton>
           </View>
         ) : (
-          <AppText color="textSecondary">
-            {UI_COPY.journeys.roadmapCompletion}
-          </AppText>
+          <AppText color="textSecondary">{UI_COPY.journeys.roadmapCompletion}</AppText>
         );
-      case "ASSESSMENT":
+      case 'ASSESSMENT':
         return (
           <View style={{ gap: spacing[8] }}>
-            <AppText color="textSecondary">
-              {UI_COPY.journeys.assessmentReadOnly}
-            </AppText>
-            {activity.metadata.questions &&
-            activity.metadata.questions.length > 0 ? (
+            <AppText color="textSecondary">{UI_COPY.journeys.assessmentReadOnly}</AppText>
+            {activity.metadata.questions && activity.metadata.questions.length > 0 ? (
               activity.metadata.questions.map((question, index) => (
                 <View key={question.questionId} style={styles.question}>
                   <AppText variant="titleSmall">
-                    {String(index + 1) + ". " + question.question}
+                    {String(index + 1) + '. ' + question.question}
                   </AppText>
                   <AppText color="textSecondary" variant="labelSmall">
-                    {question.type.replace(/_/g, " ")}
+                    {question.type.replace(/_/g, ' ')}
                   </AppText>
                   {question.options.map((option) => (
                     <AppText key={option.optionId} color="textSecondary">
-                      {option.optionId + ". " + option.text}
+                      {option.optionId + '. ' + option.text}
                     </AppText>
                   ))}
                 </View>
               ))
             ) : (
-              <AppText color="textSecondary">
-                {UI_COPY.journeys.assessmentNoQuestions}
-              </AppText>
+              <AppText color="textSecondary">{UI_COPY.journeys.assessmentNoQuestions}</AppText>
             )}
           </View>
         );
-      case "ACKNOWLEDGEMENT":
+      case 'ACKNOWLEDGEMENT':
         return (
           <AppText color="textSecondary">
-            {activity.metadata.acknowledgementText ||
-              activity.description ||
-              ""}
+            {activity.metadata.acknowledgementText || activity.description || ''}
           </AppText>
         );
-      case "SCORM":
-        return (
-          <AppText color="textSecondary">
-            {UI_COPY.journeys.scormUnsupported}
-          </AppText>
-        );
+      case 'SCORM':
+        return <AppText color="textSecondary">{UI_COPY.journeys.scormUnsupported}</AppText>;
       default:
         return (
           <AppText color="textSecondary">
@@ -242,24 +213,15 @@ export function JourneyDetailScreen({ enrollmentId, onGoBack, onOpenRoadmap }: J
         {query.isLoading ? (
           <View style={styles.message}>
             <ActivityIndicator size="large" color={colors.primary} />
-            <AppText color="textSecondary">
-              {UI_COPY.journeys.loading}
-            </AppText>
+            <AppText color="textSecondary">{UI_COPY.journeys.loading}</AppText>
           </View>
         ) : query.isError && !query.data ? (
           <View style={styles.message}>
-            <AppText variant="titleMedium">
-              {UI_COPY.journeys.unavailable}
-            </AppText>
+            <AppText variant="titleMedium">{UI_COPY.journeys.unavailable}</AppText>
             <AppText color="textSecondary">
-              {query.error instanceof Error
-                ? query.error.message
-                : UI_COPY.journeys.unavailable}
+              {query.error instanceof Error ? query.error.message : UI_COPY.journeys.unavailable}
             </AppText>
-            <AppButton
-              variant="outline"
-              onPress={() => void query.refetch()}
-            >
+            <AppButton variant="outline" onPress={() => void query.refetch()}>
               {UI_COPY.common.retry}
             </AppButton>
           </View>
@@ -272,35 +234,23 @@ export function JourneyDetailScreen({ enrollmentId, onGoBack, onOpenRoadmap }: J
             }}
           >
             {query.isError ? (
-              <AppText color="error">
-                {UI_COPY.journeys.refreshFailed}
-              </AppText>
+              <AppText color="error">{UI_COPY.journeys.refreshFailed}</AppText>
             ) : null}
 
             <View style={styles.heading}>
-              <AppText variant="headlineSmall">
-                {query.data.journey.title}
-              </AppText>
+              <AppText variant="headlineSmall">{query.data.journey.title}</AppText>
               {query.data.journey.description ? (
-                <AppText color="textSecondary">
-                  {query.data.journey.description}
-                </AppText>
+                <AppText color="textSecondary">{query.data.journey.description}</AppText>
               ) : null}
               <View style={styles.metadata}>
-                <AppChip
-                  label={query.data.journey.type.replace(/_/g, " ")}
-                  size="small"
-                />
-                <AppChip
-                  label={query.data.progress.percent + "%"}
-                  size="small"
-                />
+                <AppChip label={query.data.journey.type.replace(/_/g, ' ')} size="small" />
+                <AppChip label={query.data.progress.percent + '%'} size="small" />
                 <AppChip
                   label={
                     query.data.progress.completedStages +
-                    " / " +
+                    ' / ' +
                     query.data.progress.totalStages +
-                    " " +
+                    ' ' +
                     UI_COPY.journeys.stage.toLowerCase()
                   }
                   size="small"
@@ -309,9 +259,7 @@ export function JourneyDetailScreen({ enrollmentId, onGoBack, onOpenRoadmap }: J
             </View>
 
             {query.data.journey.stages.length === 0 ? (
-              <AppText color="textSecondary">
-                {UI_COPY.journeys.noStages}
-              </AppText>
+              <AppText color="textSecondary">{UI_COPY.journeys.noStages}</AppText>
             ) : null}
 
             {query.data.journey.stages.map((stage) => (
@@ -319,7 +267,7 @@ export function JourneyDetailScreen({ enrollmentId, onGoBack, onOpenRoadmap }: J
                 <View style={styles.stageHeading}>
                   <View style={styles.activityHeading}>
                     <AppText variant="titleMedium">
-                      {String(stage.position) + ". " + stage.title}
+                      {String(stage.position) + '. ' + stage.title}
                     </AppText>
                     <AppChip
                       label={
@@ -333,40 +281,30 @@ export function JourneyDetailScreen({ enrollmentId, onGoBack, onOpenRoadmap }: J
                     />
                   </View>
                   {stage.description ? (
-                    <AppText color="textSecondary">
-                      {stage.description}
-                    </AppText>
+                    <AppText color="textSecondary">{stage.description}</AppText>
                   ) : null}
                 </View>
 
                 {!stage.progress.isUnlocked ? (
-                  <AppText color="textSecondary">
-                    {UI_COPY.journeys.locked}
-                  </AppText>
+                  <AppText color="textSecondary">{UI_COPY.journeys.locked}</AppText>
                 ) : stage.activities.length === 0 ? (
-                  <AppText color="textSecondary">
-                    {UI_COPY.journeys.noActivities}
-                  </AppText>
+                  <AppText color="textSecondary">{UI_COPY.journeys.noActivities}</AppText>
                 ) : (
                   stage.activities.map((activity) => {
                     const done = isCompleted(activity.progress.status);
                     const canComplete =
                       stage.progress.isUnlocked &&
                       !done &&
-                      ["TASK", "VIDEO", "ACKNOWLEDGEMENT"].includes(
-                        activity.type,
-                      );
+                      ['TASK', 'VIDEO', 'ACKNOWLEDGEMENT'].includes(activity.type);
 
                     return (
                       <View key={activity.id} style={styles.activity}>
                         <View style={styles.activityHeading}>
                           <View style={{ flex: 1, gap: spacing[4] }}>
-                            <AppText variant="titleSmall">
-                              {activity.title}
-                            </AppText>
+                            <AppText variant="titleSmall">{activity.title}</AppText>
                             <AppText color="textSecondary" variant="labelSmall">
                               {activityLabel(activity.type)}
-                              {activity.isRequired ? " · Required" : ""}
+                              {activity.isRequired ? ' · Required' : ''}
                             </AppText>
                           </View>
                           <AppChip
@@ -375,11 +313,8 @@ export function JourneyDetailScreen({ enrollmentId, onGoBack, onOpenRoadmap }: J
                           />
                         </View>
 
-                        {activity.description &&
-                        activity.type !== "TASK" ? (
-                          <AppText color="textSecondary">
-                            {activity.description}
-                          </AppText>
+                        {activity.description && activity.type !== 'TASK' ? (
+                          <AppText color="textSecondary">{activity.description}</AppText>
                         ) : null}
 
                         {renderActivityContent(activity)}
@@ -392,9 +327,7 @@ export function JourneyDetailScreen({ enrollmentId, onGoBack, onOpenRoadmap }: J
                               completionMutation.variables === activity.id
                             }
                             disabled={completionMutation.isPending}
-                            onPress={() =>
-                              completionMutation.mutate(activity.id)
-                            }
+                            onPress={() => completionMutation.mutate(activity.id)}
                           >
                             {UI_COPY.journeys.completeActivity}
                           </AppButton>

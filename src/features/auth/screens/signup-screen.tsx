@@ -1,15 +1,11 @@
-import { useState } from "react";
-import { Pressable, StyleSheet, View } from "react-native";
-import { useAuth } from "../../../core/auth/auth-context";
-import { FORM_VALIDATION, UI_COPY } from "../../../core/constants/app.constants";
-import {
-  isValidDateOnly,
-  isValidEmail,
-  normalizeEmail,
-} from "../../../core/auth/input-validation";
-import { getErrorMessage } from "../../../core/api/api-error";
-import { AppButton, AppText, FormField, Screen } from "../../../shared/components";
-import { useTheme } from "../../../shared/theme";
+import { useState } from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
+import { useAuth } from '../../../core/auth/auth-context';
+import { FORM_VALIDATION, UI_COPY } from '../../../core/constants/app.constants';
+import { isValidDateOnly, isValidEmail, normalizeEmail } from '../../../core/auth/input-validation';
+import { getErrorMessage } from '../../../core/api/api-error';
+import { AppButton, AppText, FormField, Screen } from '../../../shared/components';
+import { useTheme } from '../../../shared/theme';
 
 export interface SignupScreenProps {
   onOpenLogin: () => void;
@@ -19,10 +15,10 @@ export function SignupScreen({ onOpenLogin }: SignupScreenProps) {
   const { signUp } = useAuth();
   const { colors, spacing } = useTheme();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -38,22 +34,22 @@ export function SignupScreen({ onOpenLogin }: SignupScreenProps) {
     notice: {
       padding: spacing[12],
       borderRadius: spacing[8],
-      backgroundColor: colors.success + "14",
+      backgroundColor: colors.success + '14',
     },
     error: {
       padding: spacing[12],
       borderRadius: spacing[8],
-      backgroundColor: colors.error + "14",
+      backgroundColor: colors.error + '14',
     },
     footer: {
-      flexDirection: "row",
-      justifyContent: "center",
+      flexDirection: 'row',
+      justifyContent: 'center',
       gap: spacing[8],
-      flexWrap: "wrap",
+      flexWrap: 'wrap',
     },
     link: {
       color: colors.primary,
-      fontWeight: "700",
+      fontWeight: '700',
     },
   });
 
@@ -153,20 +149,14 @@ export function SignupScreen({ onOpenLogin }: SignupScreenProps) {
           <AppText color="success">{UI_COPY.auth.signupSuccess}</AppText>
         </View>
       ) : (
-        <AppButton
-          loading={isSubmitting}
-          onPress={() => void handleSignup()}
-        >
+        <AppButton loading={isSubmitting} onPress={() => void handleSignup()}>
           {UI_COPY.auth.createAccountAction}
         </AppButton>
       )}
 
       <View style={styles.footer}>
         <AppText color="textSecondary">{UI_COPY.auth.haveAccount}</AppText>
-        <Pressable
-          accessibilityRole="button"
-          onPress={onOpenLogin}
-        >
+        <Pressable accessibilityRole="button" onPress={onOpenLogin}>
           <AppText style={styles.link}>{UI_COPY.auth.loginAction}</AppText>
         </Pressable>
       </View>

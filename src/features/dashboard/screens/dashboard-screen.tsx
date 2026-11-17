@@ -1,9 +1,9 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View } from 'react-native';
 
-import { UI_COPY } from "../../../core/constants/app.constants";
-import { useAuth } from "../../../core/auth/auth-context";
-import { AppButton, AppText, FeaturePlaceholder, Screen } from "../../../shared/components";
-import { useTheme } from "../../../shared/theme";
+import { UI_COPY } from '../../../core/constants/app.constants';
+import { useAuth } from '../../../core/auth/auth-context';
+import { AppButton, AppText, FeaturePlaceholder, Screen } from '../../../shared/components';
+import { useTheme } from '../../../shared/theme';
 
 export interface DashboardScreenProps {
   onOpenExplore: () => void;
@@ -41,15 +41,8 @@ export function DashboardScreen({ onOpenExplore, onOpenLearning }: DashboardScre
       />
 
       <View style={styles.actions}>
-        <AppButton
-          onPress={onOpenExplore}
-        >
-          {UI_COPY.dashboard.discoverRoadmaps}
-        </AppButton>
-        <AppButton
-          variant="outline"
-          onPress={onOpenLearning}
-        >
+        <AppButton onPress={onOpenExplore}>{UI_COPY.dashboard.discoverRoadmaps}</AppButton>
+        <AppButton variant="outline" onPress={onOpenLearning}>
           {UI_COPY.dashboard.activeLearning}
         </AppButton>
       </View>

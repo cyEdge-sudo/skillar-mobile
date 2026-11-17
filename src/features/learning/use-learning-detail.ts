@@ -1,24 +1,20 @@
-import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
-import { APP_CONSTANTS, QUERY_KEYS } from "../../core/constants/app.constants";
-import { learningDetailService } from "./learning-detail-service";
-import type { StepProgressStatus } from "./types";
+import { APP_CONSTANTS, QUERY_KEYS } from '../../core/constants/app.constants';
+import { learningDetailService } from './learning-detail-service';
+import type { StepProgressStatus } from './types';
 
 export function useEnrollmentDetail(enrollmentId: string | undefined) {
   return useQuery({
-    queryKey: QUERY_KEYS.enrollment(enrollmentId ?? ""),
+    queryKey: QUERY_KEYS.enrollment(enrollmentId ?? ''),
     queryFn: ({ signal }) => {
       if (!enrollmentId) {
-        throw new Error("A valid enrollment ID is required.");
+        throw new Error('A valid enrollment ID is required.');
       }
       return learningDetailService.getEnrollment(enrollmentId, signal);
     },
-    enabled: typeof enrollmentId === "string" && enrollmentId.length > 0,
+    enabled: typeof enrollmentId === 'string' && enrollmentId.length > 0,
   });
 }
 

@@ -78,6 +78,7 @@ This document defines the secure engineering practices for the Skillar Mobile ap
 ## Code Review Checklist
 
 Verify:
+
 - No hardcoded secrets.
 - Input validation exists.
 - Proper authorization checks.

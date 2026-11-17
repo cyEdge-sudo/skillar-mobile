@@ -1,4 +1,4 @@
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from '@tanstack/react-query';
 import {
   createContext,
   useCallback,
@@ -7,26 +7,16 @@ import {
   useMemo,
   useState,
   type PropsWithChildren,
-} from "react";
+} from 'react';
 
-import { setAuthenticationExpiredHandler } from "../api/api-client";
-import { ApiError } from "../api/api-error";
-import {
-  API_ERROR_CODES,
-  APP_MESSAGES,
-  AUTH_STATUS,
-} from "../constants/app.constants";
-import { authService } from "./auth-service";
-import type {
-  AuthUser,
-  LoginInput,
-  SignupInput,
-  SignupResponse,
-} from "./types";
-import { tokenStorage } from "./token-storage";
+import { setAuthenticationExpiredHandler } from '../api/api-client';
+import { ApiError } from '../api/api-error';
+import { API_ERROR_CODES, APP_MESSAGES, AUTH_STATUS } from '../constants/app.constants';
+import { authService } from './auth-service';
+import type { AuthUser, LoginInput, SignupInput, SignupResponse } from './types';
+import { tokenStorage } from './token-storage';
 
-export type AuthStatus =
-  (typeof AUTH_STATUS)[keyof typeof AUTH_STATUS];
+export type AuthStatus = (typeof AUTH_STATUS)[keyof typeof AUTH_STATUS];
 
 interface AuthContextValue {
   status: AuthStatus;
@@ -93,9 +83,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
       }
 
       setError(
-        restoreError instanceof Error
-          ? restoreError.message
-          : APP_MESSAGES.restoreSessionFailed,
+        restoreError instanceof Error ? restoreError.message : APP_MESSAGES.restoreSessionFailed,
       );
       setStatus(AUTH_STATUS.ERROR);
     }
@@ -119,10 +107,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
     setStatus(AUTH_STATUS.AUTHENTICATED);
   }, []);
 
-  const signUp = useCallback(
-    (input: SignupInput) => authService.signup(input),
-    [],
-  );
+  const signUp = useCallback((input: SignupInput) => authService.signup(input), []);
 
   const requestPasswordReset = useCallback(
     (email: string) => authService.requestPasswordReset(email),

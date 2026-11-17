@@ -5,7 +5,7 @@ updates:
     schedule:
       interval: weekly
       day: monday
-      time: "05:00"
+      time: '05:00'
     open-pull-requests-limit: 10
     labels:
       - dependencies
@@ -13,11 +13,11 @@ updates:
     groups:
       expo-react-native-compatible:
         patterns:
-          - "expo*"
-          - "react-native*"
-          - "@react-native/*"
-          - "@react-navigation/*"
-          - "react*"
+          - 'expo*'
+          - 'react-native*'
+          - '@react-native/*'
+          - '@react-navigation/*'
+          - 'react*'
         update-types:
           - patch
           - minor

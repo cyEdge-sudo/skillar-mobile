@@ -3,5 +3,5 @@
  * Keep runtime payloads as unknown until their fields are validated.
  */
 export function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
 }

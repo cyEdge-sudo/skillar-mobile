@@ -4,15 +4,15 @@ on:
   push:
     branches:
       - main
-      - "feature/expo-compatible-mainline"
+      - 'feature/expo-compatible-mainline'
     paths:
       - package.json
       - package-lock.json
       - app.json
-      - "app.config.*"
+      - 'app.config.*'
       - eas.json
-      - "babel.config.*"
-      - "metro.config.*"
+      - 'babel.config.*'
+      - 'metro.config.*'
   pull_request:
     branches:
       - main
@@ -20,10 +20,10 @@ on:
       - package.json
       - package-lock.json
       - app.json
-      - "app.config.*"
+      - 'app.config.*'
       - eas.json
-      - "babel.config.*"
-      - "metro.config.*"
+      - 'babel.config.*'
+      - 'metro.config.*'
   workflow_dispatch:
 
 permissions:

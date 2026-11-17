@@ -1,6 +1,6 @@
-import Markdown, { type MarkdownProps } from "react-native-markdown-display";
+import Markdown, { type MarkdownProps } from 'react-native-markdown-display';
 
-import { useTheme } from "@/shared/theme";
+import { useTheme } from '@/shared/theme';
 
 export interface AppMarkdownProps {
   children: string;
@@ -13,7 +13,7 @@ export interface AppMarkdownProps {
 export function AppMarkdown({ children }: AppMarkdownProps) {
   const { colors, spacing, typography } = useTheme();
 
-  const markdownStyles: NonNullable<MarkdownProps["style"]> = {
+  const markdownStyles: NonNullable<MarkdownProps['style']> = {
     body: {
       color: colors.text,
       fontSize: typography.bodyMedium.fontSize,

@@ -15,6 +15,7 @@ This document defines the Clean Architecture principles adopted by the Skillar M
 ## Architectural Layers
 
 ### Presentation
+
 - Expo Router screens
 - React components
 - Custom hooks
@@ -23,6 +24,7 @@ This document defines the Clean Architecture principles adopted by the Skillar M
 Responsible for rendering UI and user interaction only.
 
 ### Domain
+
 - Entities
 - Use cases
 - Repository interfaces
@@ -31,6 +33,7 @@ Responsible for rendering UI and user interaction only.
 Contains no React, Expo, or React Native dependencies.
 
 ### Data
+
 - DTOs
 - Mappers
 - Repository implementations
@@ -39,6 +42,7 @@ Contains no React, Expo, or React Native dependencies.
 Responsible for translating external data into domain entities.
 
 ### Infrastructure
+
 - REST client
 - Secure Store
 - Notifications
@@ -56,6 +60,7 @@ No layer may depend on an outer layer.
 ## Feature Isolation
 
 Each feature owns:
+
 - Screens
 - Components
 - Hooks
@@ -71,6 +76,7 @@ Shared code should contain only reusable utilities, UI primitives, hooks, and do
 ## Anti-Patterns
 
 Avoid:
+
 - Business logic inside UI components.
 - Direct API calls from screens.
 - Cross-feature imports.

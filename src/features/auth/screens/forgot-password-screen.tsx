@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { Pressable, StyleSheet, View } from "react-native";
-import { useAuth } from "../../../core/auth/auth-context";
-import { UI_COPY } from "../../../core/constants/app.constants";
-import { isValidEmail, normalizeEmail } from "../../../core/auth/input-validation";
-import { getErrorMessage } from "../../../core/api/api-error";
-import { AppButton, AppText, FormField, Screen } from "../../../shared/components";
-import { useTheme } from "../../../shared/theme";
+import { useState } from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
+import { useAuth } from '../../../core/auth/auth-context';
+import { UI_COPY } from '../../../core/constants/app.constants';
+import { isValidEmail, normalizeEmail } from '../../../core/auth/input-validation';
+import { getErrorMessage } from '../../../core/api/api-error';
+import { AppButton, AppText, FormField, Screen } from '../../../shared/components';
+import { useTheme } from '../../../shared/theme';
 
 export interface ForgotPasswordScreenProps {
   onOpenLogin: () => void;
@@ -15,7 +15,7 @@ export function ForgotPasswordScreen({ onOpenLogin }: ForgotPasswordScreenProps)
   const { colors, spacing } = useTheme();
   const { requestPasswordReset } = useAuth();
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -23,7 +23,7 @@ export function ForgotPasswordScreen({ onOpenLogin }: ForgotPasswordScreenProps)
   const styles = StyleSheet.create({
     content: {
       flexGrow: 1,
-      justifyContent: "center",
+      justifyContent: 'center',
       gap: spacing[20],
     },
     heading: {
@@ -32,12 +32,12 @@ export function ForgotPasswordScreen({ onOpenLogin }: ForgotPasswordScreenProps)
     notice: {
       padding: spacing[12],
       borderRadius: spacing[8],
-      backgroundColor: colors.success + "14",
+      backgroundColor: colors.success + '14',
     },
     error: {
       padding: spacing[12],
       borderRadius: spacing[8],
-      backgroundColor: colors.error + "14",
+      backgroundColor: colors.error + '14',
     },
   });
 
@@ -88,19 +88,13 @@ export function ForgotPasswordScreen({ onOpenLogin }: ForgotPasswordScreenProps)
           <AppText color="success">{UI_COPY.auth.resetRequestSent}</AppText>
         </View>
       ) : (
-        <AppButton
-          loading={isSubmitting}
-          onPress={() => void handleSubmit()}
-        >
+        <AppButton loading={isSubmitting} onPress={() => void handleSubmit()}>
           {UI_COPY.auth.sendResetAction}
         </AppButton>
       )}
 
-      <Pressable
-        accessibilityRole="button"
-        onPress={onOpenLogin}
-      >
-        <AppText color="primary" style={{ textAlign: "center" }}>
+      <Pressable accessibilityRole="button" onPress={onOpenLogin}>
+        <AppText color="primary" style={{ textAlign: 'center' }}>
           {UI_COPY.common.back}
         </AppText>
       </Pressable>

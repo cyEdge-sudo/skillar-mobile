@@ -1,23 +1,17 @@
-import { useState } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  TextInput,
-  View,
-} from "react-native";
+import { useState } from 'react';
+import { ActivityIndicator, FlatList, StyleSheet, TextInput, View } from 'react-native';
 
-import { AppButton, AppCard, AppChip, AppText, Screen } from "../../../shared/components";
-import { useTheme } from "../../../shared/theme";
-import { useEnrollRoadmap, useRoadmaps } from "../use-roadmaps";
-import { UI_COPY } from "../../../core/constants/app.constants";
-import type { RoadmapLevel, RoadmapSummary } from "../types";
+import { AppButton, AppCard, AppChip, AppText, Screen } from '../../../shared/components';
+import { useTheme } from '../../../shared/theme';
+import { useEnrollRoadmap, useRoadmaps } from '../use-roadmaps';
+import { UI_COPY } from '../../../core/constants/app.constants';
+import type { RoadmapLevel, RoadmapSummary } from '../types';
 
 const LEVEL_FILTERS: Array<{ label: string; value: RoadmapLevel | null }> = [
   { label: UI_COPY.roadmaps.levelFilters.all, value: null },
-  { label: UI_COPY.roadmaps.levelFilters.beginner, value: "beginner" },
-  { label: UI_COPY.roadmaps.levelFilters.intermediate, value: "intermediate" },
-  { label: UI_COPY.roadmaps.levelFilters.advanced, value: "advanced" },
+  { label: UI_COPY.roadmaps.levelFilters.beginner, value: 'beginner' },
+  { label: UI_COPY.roadmaps.levelFilters.intermediate, value: 'intermediate' },
+  { label: UI_COPY.roadmaps.levelFilters.advanced, value: 'advanced' },
 ];
 
 export interface ExploreScreenProps {
@@ -27,8 +21,8 @@ export interface ExploreScreenProps {
 
 export function ExploreScreen({ enrollmentsByRoadmapId, onOpenRoadmapDetail }: ExploreScreenProps) {
   const { colors, spacing, radius } = useTheme();
-  const [searchInput, setSearchInput] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchInput, setSearchInput] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedLevel, setSelectedLevel] = useState<RoadmapLevel | null>(null);
   const roadmapsQuery = useRoadmaps({
     query: searchQuery,
@@ -52,27 +46,26 @@ export function ExploreScreen({ enrollmentsByRoadmapId, onOpenRoadmapDetail }: E
       paddingHorizontal: spacing[16],
       fontSize: 16,
     },
-    filters: { flexDirection: "row", flexWrap: "wrap", gap: spacing[8] },
+    filters: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing[8] },
     list: { gap: spacing[12], paddingBottom: spacing[32] },
     card: { gap: spacing[12] },
     cardHeader: {
-      flexDirection: "row",
-      alignItems: "flex-start",
-      justifyContent: "space-between",
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      justifyContent: 'space-between',
       gap: spacing[8],
     },
-    metadata: { flexDirection: "row", flexWrap: "wrap", gap: spacing[12] },
-    skillAreas: { flexDirection: "row", flexWrap: "wrap", gap: spacing[8] },
-    message: { textAlign: "center", paddingVertical: spacing[24] },
-    error: { gap: spacing[12], alignItems: "center", paddingVertical: spacing[24] },
-    footer: { paddingVertical: spacing[16], alignItems: "center" },
+    metadata: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing[12] },
+    skillAreas: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing[8] },
+    message: { textAlign: 'center', paddingVertical: spacing[24] },
+    error: { gap: spacing[12], alignItems: 'center', paddingVertical: spacing[24] },
+    footer: { paddingVertical: spacing[16], alignItems: 'center' },
   });
 
   const renderRoadmap = ({ item }: { item: RoadmapSummary }) => {
     const enrollmentId = enrollmentsByRoadmapId.get(item.id);
     const isEnrolled = enrollmentId !== undefined;
-    const isEnrolling =
-      enrollMutation.isPending && enrollMutation.variables === item.id;
+    const isEnrolling = enrollMutation.isPending && enrollMutation.variables === item.id;
 
     return (
       <AppCard variant="outlined" style={styles.card}>
@@ -90,9 +83,7 @@ export function ExploreScreen({ enrollmentsByRoadmapId, onOpenRoadmapDetail }: E
           </AppText>
         </View>
 
-        {item.description ? (
-          <AppText color="textSecondary">{item.description}</AppText>
-        ) : null}
+        {item.description ? <AppText color="textSecondary">{item.description}</AppText> : null}
 
         <View style={styles.metadata}>
           <AppText variant="labelMedium" color="textSecondary">
@@ -113,10 +104,7 @@ export function ExploreScreen({ enrollmentsByRoadmapId, onOpenRoadmapDetail }: E
           </View>
         ) : null}
 
-        <AppButton
-          variant="outline"
-          onPress={() => onOpenRoadmapDetail(item.id, enrollmentId)}
-        >
+        <AppButton variant="outline" onPress={() => onOpenRoadmapDetail(item.id, enrollmentId)}>
           {UI_COPY.roadmaps.viewDetails}
         </AppButton>
         <AppButton
@@ -125,9 +113,11 @@ export function ExploreScreen({ enrollmentsByRoadmapId, onOpenRoadmapDetail }: E
           }}
           disabled={isEnrolled || enrollMutation.isPending}
           loading={isEnrolling}
-          variant={isEnrolled ? "outline" : "solid"}
+          variant={isEnrolled ? 'outline' : 'solid'}
           accessibilityLabel={
-            isEnrolled ? item.title + " " + UI_COPY.roadmaps.enrolledAccessibilitySuffix : UI_COPY.roadmaps.enrollAccessibilityPrefix + item.title
+            isEnrolled
+              ? item.title + ' ' + UI_COPY.roadmaps.enrolledAccessibilitySuffix
+              : UI_COPY.roadmaps.enrollAccessibilityPrefix + item.title
           }
         >
           {isEnrolled ? UI_COPY.roadmaps.enrolled : UI_COPY.roadmaps.enroll}
@@ -141,9 +131,7 @@ export function ExploreScreen({ enrollmentsByRoadmapId, onOpenRoadmapDetail }: E
       <View style={styles.content}>
         <View style={styles.heading}>
           <AppText variant="headlineSmall">{UI_COPY.roadmaps.exploreTitle}</AppText>
-          <AppText color="textSecondary">
-            {UI_COPY.roadmaps.exploreDescription}
-          </AppText>
+          <AppText color="textSecondary">{UI_COPY.roadmaps.exploreDescription}</AppText>
         </View>
 
         <TextInput
@@ -183,10 +171,7 @@ export function ExploreScreen({ enrollmentsByRoadmapId, onOpenRoadmapDetail }: E
                 ? roadmapsQuery.error.message
                 : UI_COPY.roadmaps.retryMessage}
             </AppText>
-            <AppButton
-              variant="outline"
-              onPress={() => void roadmapsQuery.refetch()}
-            >
+            <AppButton variant="outline" onPress={() => void roadmapsQuery.refetch()}>
               {UI_COPY.common.retry}
             </AppButton>
           </View>

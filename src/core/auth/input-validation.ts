@@ -1,4 +1,4 @@
-import { FORM_VALIDATION } from "../constants/app.constants";
+import { FORM_VALIDATION } from '../constants/app.constants';
 
 /**
  * Normalize email input before validation or API submission.
@@ -20,7 +20,7 @@ export function isValidDateOnly(value: string): boolean {
     return false;
   }
 
-  const [yearPart, monthPart, dayPart] = value.split("-");
+  const [yearPart, monthPart, dayPart] = value.split('-');
   const year = Number(yearPart);
   const month = Number(monthPart);
   const day = Number(dayPart);

@@ -3,26 +3,25 @@ import { ScrollView, ScrollViewProps, StyleSheet, View, type ViewInstance } from
 
 export type ScrollContainerProps = ScrollViewProps;
 
-export const ScrollContainer = React.forwardRef<
-    ViewInstance,
-    ScrollContainerProps
->(({ style, contentContainerStyle, ...rest }, ref) => (
+export const ScrollContainer = React.forwardRef<ViewInstance, ScrollContainerProps>(
+  ({ style, contentContainerStyle, ...rest }, ref) => (
     <View ref={ref} style={styles.container}>
-        <ScrollView
-            contentContainerStyle={[styles.content, contentContainerStyle]}
-            style={style}
-            {...rest}
-        />
+      <ScrollView
+        contentContainerStyle={[styles.content, contentContainerStyle]}
+        style={style}
+        {...rest}
+      />
     </View>
-));
+  ),
+);
 
 ScrollContainer.displayName = 'ScrollContainer';
 
 const styles = StyleSheet.create({
-    container: { flex: 1 },
-    content: {
-        flexGrow: 1,
-        paddingHorizontal: 16,
-        paddingVertical: 16,
-    },
+  container: { flex: 1 },
+  content: {
+    flexGrow: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+  },
 });

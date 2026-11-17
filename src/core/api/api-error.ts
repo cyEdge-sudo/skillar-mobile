@@ -1,11 +1,8 @@
-import {
-  API_ERROR_CODES,
-  APP_MESSAGES,
-} from "../constants/app.constants";
-import type { ApiErrorDetail } from "./types";
+import { API_ERROR_CODES, APP_MESSAGES } from '../constants/app.constants';
+import type { ApiErrorDetail } from './types';
 
 function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
 function parseDetails(value: unknown): ApiErrorDetail[] {
@@ -18,7 +15,7 @@ function parseDetails(value: unknown): ApiErrorDetail[] {
       return [];
     }
 
-    if (typeof item.code !== "string" || typeof item.message !== "string") {
+    if (typeof item.code !== 'string' || typeof item.message !== 'string') {
       return [];
     }
 
@@ -27,7 +24,7 @@ function parseDetails(value: unknown): ApiErrorDetail[] {
       message: item.message,
     };
 
-    if (typeof item.field === "string") {
+    if (typeof item.field === 'string') {
       detail.field = item.field;
     }
 
@@ -51,7 +48,7 @@ export class ApiError extends Error {
     },
   ) {
     super(message);
-    this.name = "ApiError";
+    this.name = 'ApiError';
     this.status = options.status;
     this.code = options.code;
     this.details = options.details ?? [];
@@ -63,16 +60,9 @@ export class ApiError extends Error {
     const error = isRecord(root.error) ? root.error : {};
     const meta = isRecord(root.meta) ? root.meta : {};
 
-    const message =
-      typeof error.message === "string"
-        ? error.message
-        : APP_MESSAGES.requestFailed;
-    const code =
-      typeof error.code === "string"
-        ? error.code
-        : API_ERROR_CODES.HTTP_ERROR;
-    const requestId =
-      typeof meta.requestId === "string" ? meta.requestId : undefined;
+    const message = typeof error.message === 'string' ? error.message : APP_MESSAGES.requestFailed;
+    const code = typeof error.code === 'string' ? error.code : API_ERROR_CODES.HTTP_ERROR;
+    const requestId = typeof meta.requestId === 'string' ? meta.requestId : undefined;
 
     return new ApiError(message, {
       status,
@@ -82,10 +72,7 @@ export class ApiError extends Error {
     });
   }
 
-  static network(
-    code: string,
-    message: string,
-  ): ApiError {
+  static network(code: string, message: string): ApiError {
     return new ApiError(message, { status: 0, code });
   }
 

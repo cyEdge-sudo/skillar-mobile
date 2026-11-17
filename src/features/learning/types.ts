@@ -1,6 +1,6 @@
-import type { StepContentBlock } from "./content-types";
+import type { StepContentBlock } from './content-types';
 
-export type StepProgressStatus = "not_started" | "in_progress" | "completed";
+export type StepProgressStatus = 'not_started' | 'in_progress' | 'completed';
 
 export interface LearningEnrollment {
   enrollmentId: string;
@@ -30,7 +30,7 @@ export interface EnrolledRoadmapStep {
   sequence: number;
   description: string | null;
   estimatedMinutes: number;
-  contentStatus: "ready" | "pending" | "unknown";
+  contentStatus: 'ready' | 'pending' | 'unknown';
   progress: StepProgress | null;
 }
 

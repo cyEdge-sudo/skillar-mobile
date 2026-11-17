@@ -1,7 +1,7 @@
-import { NAVIGATION_ROUTES } from "../../core/constants/app.constants";
-import type { JourneyDetailRouteParams } from "../../features/journeys";
-import type { StepContentRouteParams } from "../../features/learning";
-import type { RoadmapDetailRouteParams } from "../../features/roadmaps";
+import { NAVIGATION_ROUTES } from '../../core/constants/app.constants';
+import type { JourneyDetailRouteParams } from '../../features/journeys';
+import type { StepContentRouteParams } from '../../features/learning';
+import type { RoadmapDetailRouteParams } from '../../features/roadmaps';
 
 export type AuthStackParamList = {
   [NAVIGATION_ROUTES.auth.login]: undefined;
