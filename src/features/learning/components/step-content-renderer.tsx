@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { Linking, StyleSheet, View } from "react-native";
-import Markdown, { type MarkdownProps } from "react-native-markdown-display";
 
 import { UI_COPY } from "../../../core/constants/app.constants";
-import { AppButton, AppCard, AppText } from "../../../shared/components";
+import { AppButton, AppCard, AppMarkdown, AppText } from "../../../shared/components";
 import { useTheme } from "../../../shared/theme";
 import type { StepContentBlock } from "../content-types";
 
@@ -33,17 +32,6 @@ export function StepContentRenderer({
   fallbackMarkdown,
 }: StepContentRendererProps) {
   const { colors, spacing, typography } = useTheme();
-  const markdownStyles: NonNullable<MarkdownProps["style"]> = {
-    body: { color: colors.text, fontSize: typography.bodyMedium.fontSize, lineHeight: typography.bodyMedium.lineHeight },
-    heading1: { color: colors.text, fontSize: typography.headlineSmall.fontSize },
-    heading2: { color: colors.text, fontSize: typography.titleLarge.fontSize },
-    heading3: { color: colors.text, fontSize: typography.titleMedium.fontSize },
-    paragraph: { marginTop: 0, marginBottom: spacing[12] },
-    code_inline: { backgroundColor: colors.surfaceVariant, color: colors.text },
-    code_block: { backgroundColor: colors.surfaceVariant, color: colors.text, padding: spacing[12] },
-    blockquote: { backgroundColor: colors.surfaceVariant, borderLeftColor: colors.primary },
-    link: { color: colors.primary },
-  };
   const styles = StyleSheet.create({
     block: { gap: spacing[12] },
     slide: { gap: spacing[8], padding: spacing[12], borderRadius: 8, backgroundColor: colors.surfaceVariant },
@@ -79,7 +67,7 @@ export function StepContentRenderer({
               </View>
             )) : <AppText color="textSecondary">{UI_COPY.learning.noVideoItems}</AppText>
           ) : null}
-          {block.contentType === "TEXT" ? <Markdown style={markdownStyles}>{block.markdown}</Markdown> : null}
+          {block.contentType === "TEXT" ? <AppMarkdown>{block.markdown}</AppMarkdown> : null}
           {block.contentType === "CAROUSEL" ? <CarouselSlides slides={block.slides} /> : null}
           {block.contentType === "EXAMPLES" ? block.examples.map((example, index) => (
             <View key={String(index)} style={styles.bullet}>
@@ -109,7 +97,7 @@ export function StepContentRenderer({
         </AppCard>
       ) : null}
       {blocks.length === 0 && fallbackMarkdown ? (
-        <AppCard variant="outlined"><Markdown style={markdownStyles}>{fallbackMarkdown}</Markdown></AppCard>
+        <AppCard variant="outlined"><AppMarkdown>{fallbackMarkdown}</AppMarkdown></AppCard>
       ) : null}
       {blocks.length === 0 && !fallbackVideoUrl && !fallbackMarkdown ? (
         <AppText color="textSecondary">{UI_COPY.learning.noPublishedContent}</AppText>

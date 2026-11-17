@@ -1,6 +1,5 @@
 import { useNavigation, useRoute, type RouteProp } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import Markdown, { type MarkdownProps } from "react-native-markdown-display";
 import {
   ActivityIndicator,
   Linking,
@@ -18,6 +17,7 @@ import {
   AppButton,
   AppCard,
   AppChip,
+  AppMarkdown,
   AppText,
   Screen,
 } from "../../../shared/components";
@@ -120,41 +120,6 @@ export function JourneyDetailScreen() {
     question: { gap: spacing[4], paddingVertical: spacing[4] },
   });
 
-  const markdownStyles: NonNullable<MarkdownProps["style"]> = {
-    body: {
-      color: colors.text,
-      fontSize: typography.bodyMedium.fontSize,
-      lineHeight: typography.bodyMedium.lineHeight,
-    },
-    heading1: {
-      color: colors.text,
-      fontSize: typography.headlineSmall.fontSize,
-    },
-    heading2: {
-      color: colors.text,
-      fontSize: typography.titleLarge.fontSize,
-    },
-    heading3: {
-      color: colors.text,
-      fontSize: typography.titleMedium.fontSize,
-    },
-    paragraph: { marginTop: 0, marginBottom: spacing[12] },
-    code_inline: {
-      backgroundColor: colors.surfaceVariant,
-      color: colors.text,
-    },
-    code_block: {
-      backgroundColor: colors.surfaceVariant,
-      color: colors.text,
-      padding: spacing[12],
-    },
-    blockquote: {
-      backgroundColor: colors.surfaceVariant,
-      borderLeftColor: colors.primary,
-    },
-    link: { color: colors.primary },
-  };
-
   const openVideo = async (url: string) => {
     if (!isSupportedVideoUrl(url)) return;
     try {
@@ -169,7 +134,7 @@ export function JourneyDetailScreen() {
       case "TASK": {
         const taskBody = activity.metadata.taskBody;
         if (taskBody) {
-          return <Markdown style={markdownStyles}>{taskBody}</Markdown>;
+          return <AppMarkdown>{taskBody}</AppMarkdown>;
         }
         return activity.description ? (
           <AppText color="textSecondary">{activity.description}</AppText>
