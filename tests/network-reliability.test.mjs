@@ -113,6 +113,7 @@ test("query retry policy does not retry cancellation or client errors", () => {
   assert.equal(retryPolicy.shouldRetryQuery(0, new TestApiError(401, "HTTP_ERROR")), false);
   assert.equal(retryPolicy.shouldRetryQuery(0, new TestApiError(403, "HTTP_ERROR")), false);
   assert.equal(retryPolicy.shouldRetryQuery(1, new TestApiError(503, "HTTP_ERROR")), false);
+  assert.equal(retryPolicy.shouldRetryQuery(0, new Error("Invalid response shape")), false);
 });
 
 test("query retry policy uses capped exponential backoff", () => {
