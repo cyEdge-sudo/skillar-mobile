@@ -7,16 +7,13 @@ import {
   View,
 } from "react-native";
 
-import { NAVIGATION_ROUTES, UI_COPY } from "../../../core/constants/app.constants";
 import type { RootStackParamList } from "../../../app/navigation/navigation-types";
+import { NAVIGATION_ROUTES, UI_COPY } from "../../../core/constants/app.constants";
 import { AppButton, AppCard, AppChip, AppProgress, AppText, Screen } from "../../../shared/components";
 import { useTheme } from "../../../shared/theme";
-import { useEnrollRoadmap } from "../use-roadmaps";
-import {
-  useEnrollmentDetail,
-  useRoadmapDetail,
-} from "../../learning/use-learning-detail";
 import type { EnrolledRoadmapStep } from "../../learning/types";
+import { useEnrollmentDetail } from "../../learning/use-learning-detail";
+import { useEnrollRoadmap, useRoadmapDetail } from "../use-roadmaps";
 import type { RoadmapStepSummary } from "../types";
 
 type Navigation = NativeStackNavigationProp<RootStackParamList>;
