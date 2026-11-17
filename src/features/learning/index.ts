@@ -21,4 +21,6 @@ export type {
 
 export { LearningScreen } from "./screens/learning-screen";
 export { StepContentScreen } from "./screens/step-content-screen";
+export type { StepContentScreenProps } from "./screens/step-content-screen";
+export type { StepContentRouteParams } from "./types";
 export { useLearningEnrollments } from "./use-learning";
