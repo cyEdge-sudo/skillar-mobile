@@ -9,7 +9,18 @@ import { ExploreScreen } from "../../features/roadmaps";
 import { useTheme } from "../../shared/theme";
 import type { MainTabParamList } from "./navigation-types";
 
-const Tab = createBottomTabNavigator<MainTabParamList>();\n\nfunction ExploreTabScreen() {\n  const enrollmentsQuery = useLearningEnrollments();\n  const enrollmentsByRoadmapId = new Map(\n    (enrollmentsQuery.data?.pages.flatMap((page) => page.items) ?? []).map(\n      (enrollment) => [enrollment.roadmapId, enrollment.enrollmentId] as const,\n    ),\n  );\n\n  return <ExploreScreen enrollmentsByRoadmapId={enrollmentsByRoadmapId} />;\n}
+const Tab = createBottomTabNavigator<MainTabParamList>();
+
+function ExploreTabScreen() {
+  const enrollmentsQuery = useLearningEnrollments();
+  const enrollmentsByRoadmapId = new Map(
+    (enrollmentsQuery.data?.pages.flatMap((page) => page.items) ?? []).map(
+      (enrollment) => [enrollment.roadmapId, enrollment.enrollmentId] as const,
+    ),
+  );
+
+  return <ExploreScreen enrollmentsByRoadmapId={enrollmentsByRoadmapId} />;
+}
 
 export function MainTabs() {
   const { colors } = useTheme();
