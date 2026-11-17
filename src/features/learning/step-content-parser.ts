@@ -1,10 +1,5 @@
+import { isRecord } from "../../shared/utils/is-record";
 import type { StepContentBlock } from "./content-types";
-
-type UnknownRecord = Record<string, unknown>;
-
-function isRecord(value: unknown): value is UnknownRecord {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
 
 function parseJsonContent(value: unknown): unknown {
   if (typeof value !== "string") return value;
