@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { useNavigation, useRoute, type RouteProp } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import {
   ActivityIndicator,
   ScrollView,
@@ -8,11 +6,7 @@ import {
   View,
 } from "react-native";
 
-import {
-  NAVIGATION_ROUTES,
-  UI_COPY,
-} from "../../../core/constants/app.constants";
-import type { RootStackParamList } from "../../../app/navigation/navigation-types";
+import { UI_COPY } from "../../../core/constants/app.constants";
 import {
   AppButton,
   AppCard,
@@ -29,24 +23,22 @@ import {
   useUpdateStepProgress,
 } from "../use-learning-detail";
 import { StepContentRenderer } from "../components/step-content-renderer";
-import type { EnrolledRoadmapStep } from "../types";
+import type { EnrolledRoadmapStep, StepContentRouteParams } from "../types";
 
-type Navigation = NativeStackNavigationProp<RootStackParamList>;
-type StepRoute = RouteProp<
-  RootStackParamList,
-  typeof NAVIGATION_ROUTES.root.stepContent
->;
+export interface StepContentScreenProps {
+  routeParams: StepContentRouteParams;
+  onGoBack: () => void;
+  onReplaceStep: (params: StepContentRouteParams) => void;
+}
 
-export function StepContentScreen() {
-  const navigation = useNavigation<Navigation>();
-  const route = useRoute<StepRoute>();
+export function StepContentScreen({ routeParams, onGoBack, onReplaceStep }: StepContentScreenProps) {
   const {
     enrollmentId,
     stepId,
     stepTitle,
     progressStatus,
     progressPercent,
-  } = route.params;
+  } = routeParams;
   const { colors, spacing } = useTheme();
   const enrollmentQuery = useEnrollmentDetail(enrollmentId);
   const contentQuery = useStepContent(stepId);
@@ -115,7 +107,7 @@ export function StepContentScreen() {
   });
 
   const navigateToStep = (step: EnrolledRoadmapStep) => {
-    navigation.replace(NAVIGATION_ROUTES.root.stepContent, {
+    onReplaceStep({
       enrollmentId,
       stepId: step.id,
       stepTitle: step.title,
@@ -136,7 +128,7 @@ export function StepContentScreen() {
   return (
     <Screen>
       <View style={styles.content}>
-        <AppButton variant="ghost" onPress={() => navigation.goBack()}>
+        <AppButton variant="ghost" onPress={onGoBack}>
           {UI_COPY.learning.backToRoadmap}
         </AppButton>
 
