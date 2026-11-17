@@ -1,18 +1,16 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useNavigation } from "@react-navigation/native";
-
 import { useAuth } from "../../../core/auth/auth-context";
-import { FORM_VALIDATION, NAVIGATION_ROUTES, UI_COPY } from "../../../core/constants/app.constants";
+import { FORM_VALIDATION, UI_COPY } from "../../../core/constants/app.constants";
 import { getErrorMessage } from "../../../core/api/api-error";
-import type { AuthStackParamList } from "../../../app/navigation/navigation-types";
 import { AppButton, AppText, FormField, Screen } from "../../../shared/components";
 import { useTheme } from "../../../shared/theme";
 
-export function ForgotPasswordScreen() {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
+export interface ForgotPasswordScreenProps {
+  onOpenLogin: () => void;
+}
+
+export function ForgotPasswordScreen({ onOpenLogin }: ForgotPasswordScreenProps) {
   const { colors, spacing } = useTheme();
   const { requestPasswordReset } = useAuth();
 
@@ -99,7 +97,7 @@ export function ForgotPasswordScreen() {
 
       <Pressable
         accessibilityRole="button"
-        onPress={() => navigation.navigate(NAVIGATION_ROUTES.auth.login)}
+        onPress={onOpenLogin}
       >
         <AppText color="primary" style={{ textAlign: "center" }}>
           {UI_COPY.common.back}
