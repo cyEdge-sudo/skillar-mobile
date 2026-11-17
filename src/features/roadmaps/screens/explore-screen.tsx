@@ -23,7 +23,11 @@ const LEVEL_FILTERS: Array<{ label: string; value: RoadmapLevel | null }> = [
   { label: UI_COPY.roadmaps.levelFilters.advanced, value: "advanced" },
 ];
 
-interface ExploreScreenProps {\n  enrollmentsByRoadmapId: ReadonlyMap<string, string>;\n}\n\nexport function ExploreScreen({ enrollmentsByRoadmapId }: ExploreScreenProps) {
+interface ExploreScreenProps {
+  enrollmentsByRoadmapId: ReadonlyMap<string, string>;
+}
+
+export function ExploreScreen({ enrollmentsByRoadmapId }: ExploreScreenProps) {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { colors, spacing, radius } = useTheme();
   const [searchInput, setSearchInput] = useState("");
@@ -68,7 +72,8 @@ interface ExploreScreenProps {\n  enrollmentsByRoadmapId: ReadonlyMap<string, st
   });
 
   const renderRoadmap = ({ item }: { item: RoadmapSummary }) => {
-    const enrollmentId = enrollmentsByRoadmapId.get(item.id);\n    const isEnrolled = enrollmentId !== undefined;
+    const enrollmentId = enrollmentsByRoadmapId.get(item.id);
+    const isEnrolled = enrollmentId !== undefined;
     const isEnrolling =
       enrollMutation.isPending && enrollMutation.variables === item.id;
 
