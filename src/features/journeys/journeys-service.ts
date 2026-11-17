@@ -254,6 +254,26 @@ function parseCompletion(value: unknown): JourneyActivityCompletion {
   };
 }
 
+/**
+ * Stable per-activity key. The backend scopes keys by tenant, user and operation,
+ * so this value is safe to reproduce after a timeout or app restart.
+ */
+export function createJourneyActivityIdempotencyKey(
+  enrollmentId: number,
+  activityId: number,
+): string {
+  if (
+    !Number.isSafeInteger(enrollmentId) ||
+    enrollmentId <= 0 ||
+    !Number.isSafeInteger(activityId) ||
+    activityId <= 0
+  ) {
+    throw new Error("Valid enrollment and activity identifiers are required.");
+  }
+
+  return "journey-activity-completion:" + enrollmentId + ":" + activityId;
+}
+
 export const journeysService = {
   async list(cursor: string | null = null, signal?: AbortSignal): Promise<JourneyPage> {
     const params = ["limit=20"];
@@ -288,7 +308,13 @@ export const journeysService = {
     const response = await apiRequest(
       API_ROUTES.journeys.completeActivity(enrollmentId, activityId),
       parseCompletion,
-      { method: HTTP_METHODS.POST },
+      {
+        method: HTTP_METHODS.POST,
+        idempotencyKey: createJourneyActivityIdempotencyKey(
+          enrollmentId,
+          activityId,
+        ),
+      },
     );
     return response.data;
   },
