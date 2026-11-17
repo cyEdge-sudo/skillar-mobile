@@ -7,7 +7,7 @@ export function useLearningEnrollments() {
   return useInfiniteQuery({
     queryKey: [...QUERY_KEYS.enrollments, "list"],
     initialPageParam: null as string | null,
-    queryFn: ({ pageParam }) => learningService.listEnrollments(pageParam),
+    queryFn: ({ pageParam, signal }) => learningService.listEnrollments(pageParam, signal),
     getNextPageParam: (lastPage) =>
       lastPage.hasMore ? lastPage.nextCursor : undefined,
   });
