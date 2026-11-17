@@ -1,8 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { ForgotPasswordScreen } from "../../features/auth/screens/forgot-password-screen";
-import { LoginScreen } from "../../features/auth/screens/login-screen";
-import { SignupScreen } from "../../features/auth/screens/signup-screen";
+import { ForgotPasswordScreen, LoginScreen, SignupScreen } from "../../features/auth";
 import { NAVIGATION_ROUTES, UI_COPY } from "../../core/constants/app.constants";
 import { useTheme } from "../../shared/theme";
 import type { AuthStackParamList } from "./navigation-types";
