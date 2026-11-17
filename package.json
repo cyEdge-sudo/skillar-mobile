@@ -12,7 +12,8 @@
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "typecheck": "tsc --noEmit",
-    "check:architecture": "node .github/scripts/check-architecture.mjs"
+    "check:architecture": "node .github/scripts/check-architecture.mjs",
+    "test": "node --test"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
