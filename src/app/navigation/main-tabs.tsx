@@ -1,15 +1,15 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { FEATURE_FLAGS, NAVIGATION_LABELS, NAVIGATION_ROUTES } from "../../core/constants/app.constants";
-import { DashboardScreen } from "../../features/dashboard/screens/dashboard-screen";
-import { LearningScreen } from "../../features/learning/screens/learning-screen";
-import { JourneysScreen } from "../../features/journeys/screens/journeys-screen";
-import { ProfileScreen } from "../../features/profile/screens/profile-screen";
-import { ExploreScreen } from "../../features/roadmaps/screens/explore-screen";
+import { DashboardScreen } from "../../features/dashboard";
+import { LearningScreen, useLearningEnrollments } from "../../features/learning";
+import { JourneysScreen } from "../../features/journeys";
+import { ProfileScreen } from "../../features/profile";
+import { ExploreScreen } from "../../features/roadmaps";
 import { useTheme } from "../../shared/theme";
 import type { MainTabParamList } from "./navigation-types";
 
-const Tab = createBottomTabNavigator<MainTabParamList>();
+const Tab = createBottomTabNavigator<MainTabParamList>();\n\nfunction ExploreTabScreen() {\n  const enrollmentsQuery = useLearningEnrollments();\n  const enrollmentsByRoadmapId = new Map(\n    (enrollmentsQuery.data?.pages.flatMap((page) => page.items) ?? []).map(\n      (enrollment) => [enrollment.roadmapId, enrollment.enrollmentId] as const,\n    ),\n  );\n\n  return <ExploreScreen enrollmentsByRoadmapId={enrollmentsByRoadmapId} />;\n}
 
 export function MainTabs() {
   const { colors } = useTheme();
@@ -37,7 +37,7 @@ export function MainTabs() {
       />
       <Tab.Screen
         name={NAVIGATION_ROUTES.tabs.explore}
-        component={ExploreScreen}
+        component={ExploreTabScreen}
         options={{ title: NAVIGATION_LABELS.explore }}
       />
       <Tab.Screen
