@@ -9,7 +9,10 @@ const rawApiBaseUrl = process.env.EXPO_PUBLIC_API_BASE_URL?.trim();
 export const API_BASE_URL = rawApiBaseUrl?.replace(/\/+$/, "") ?? "";
 
 function isLocalDevelopmentHost(hostname: string): boolean {
-  const normalizedHostname = hostname.replace(/^\\[|\\]$/g, "").toLowerCase();
+  const normalizedHostname =
+    hostname.startsWith("[") && hostname.endsWith("]")
+      ? hostname.slice(1, -1).toLowerCase()
+      : hostname.toLowerCase();
 
   if (
     normalizedHostname === "localhost" ||
@@ -55,8 +58,11 @@ export function isAllowedApiBaseUrl(
       return false;
     }
 
-    // Plain HTTP is permitted only for local development environments.
-    return !isProduction || url.protocol === "https:";
+    // Plain HTTP is restricted to private or loopback hosts in development builds.
+    return (
+      url.protocol === "https:" ||
+      (!isProduction && isLocalDevelopmentHost(url.hostname))
+    );
   } catch {
     return false;
   }
