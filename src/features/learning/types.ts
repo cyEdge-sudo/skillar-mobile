@@ -95,3 +95,11 @@ export interface StepProgressUpdate {
   progressPercent: number;
   updatedAt: string;
 }
+
+export interface StepContentRouteParams {
+  enrollmentId: string;
+  stepId: string;
+  stepTitle: string;
+  progressStatus: StepProgressStatus;
+  progressPercent: number;
+}
