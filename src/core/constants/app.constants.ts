@@ -346,6 +346,7 @@ export const UI_COPY = {
     hideQuestions: "Hide questions",
     viewQuestions: "View questions",
     noPublishedContent: "This step does not have published content yet.",
+    unsupportedContentBlock: "This content block is not supported in this app version."
     progressSaveFailed: "Progress could not be saved.",
     roadmapUnavailable: "This roadmap could not be loaded.",
     loadingRoadmap: "Loading roadmap…",
