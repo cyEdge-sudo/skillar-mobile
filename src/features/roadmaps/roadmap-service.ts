@@ -99,7 +99,7 @@ export const roadmapService = {
     const response = await apiRequest(
       buildRoadmapQuery(filters),
       parseRoadmapCatalog,
-      { signal },
+      { ...(signal ? { signal } : {}) },
     );
 
     const pagination = response.meta.pagination;
