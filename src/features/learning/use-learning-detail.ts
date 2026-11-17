@@ -7,16 +7,7 @@ import { useEffect } from "react";
 
 import { APP_CONSTANTS, QUERY_KEYS } from "../../core/constants/app.constants";
 import { learningDetailService } from "./learning-detail-service";
-import { roadmapDetailService } from "../roadmaps/roadmap-detail-service";
 import type { StepProgressStatus } from "./types";
-
-export function useRoadmapDetail(roadmapId: string, enabled = true) {
-  return useQuery({
-    queryKey: QUERY_KEYS.roadmap(roadmapId),
-    queryFn: () => roadmapDetailService.get(roadmapId),
-    enabled: enabled && roadmapId.length > 0,
-  });
-}
 
 export function useEnrollmentDetail(enrollmentId: string | undefined) {
   return useQuery({
