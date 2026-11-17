@@ -61,3 +61,9 @@ export type StepContentBlock =
   | CodeContentBlock
   | NoteContentBlock
   | QuizContentBlock;
+
+export interface UnsupportedContentBlock extends StepContentBase {
+  contentType: "UNSUPPORTED";
+  originalContentType: string;
+}
+
