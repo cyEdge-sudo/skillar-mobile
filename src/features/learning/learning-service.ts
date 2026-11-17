@@ -47,7 +47,7 @@ export const learningService = {
     const response = await apiRequest(
       API_ROUTES.user.enrollments + "?" + params.join("&"),
       parseEnrollmentPage,
-      { signal },
+      { ...(signal ? { signal } : {}) },
     );
 
     return {
