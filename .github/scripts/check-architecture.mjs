@@ -69,6 +69,15 @@ for (const filePath of files) {
     if (!targetPath) return;
 
     const targetFeature = featureOf(targetPath);
+    const targetRelativePath = path.relative(sourceRoot, targetPath);
+
+    if (importerFeature && targetRelativePath.startsWith("app" + path.sep)) {
+      violations.push(
+        relativePath + ":" + line + " imports app implementation '" +
+        targetRelativePath + "'. Features must receive navigation actions through typed props.",
+      );
+    }
+
     if (importerFeature && targetFeature && importerFeature !== targetFeature) {
       violations.push(
         relativePath + ":" + line + " imports another feature (" +
