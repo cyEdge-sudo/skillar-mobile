@@ -10,8 +10,8 @@ import {
   AUTH_STATUS,
   UI_COPY,
 } from "../../core/constants/app.constants";
-import { StepContentScreen } from "../../features/learning/screens/step-content-screen";
-import { JourneyDetailScreen } from "../../features/journeys/screens/journey-detail-screen";
+import { StepContentScreen } from "../../features/learning";
+import { JourneyDetailScreen } from "../../features/journeys";
 import { RoadmapDetailScreen } from "./roadmap-detail-screen";
 import { AppText, AppButton } from "../../shared/components/themed";
 import { useTheme } from "../../shared/theme";
