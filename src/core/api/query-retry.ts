@@ -26,7 +26,7 @@ export function shouldRetryQuery(
     );
   }
 
-  return true;
+  return false;
 }
 
 export function getQueryRetryDelay(attemptIndex: number): number {
