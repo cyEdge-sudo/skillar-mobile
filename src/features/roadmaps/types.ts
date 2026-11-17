@@ -63,3 +63,8 @@ export interface RoadmapEnrollment {
   status: string;
   enrolledAt: string;
 }
+
+export interface RoadmapDetailRouteParams {
+  roadmapId: string;
+  enrollmentId?: string;
+}
