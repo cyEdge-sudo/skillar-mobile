@@ -52,6 +52,9 @@ const retryPolicy = loadTypeScriptModule("src/core/api/query-retry.ts", {
   "./api-error": { ApiError: TestApiError },
 });
 
+const previousApiBaseUrl = process.env.EXPO_PUBLIC_API_BASE_URL;
+process.env.EXPO_PUBLIC_API_BASE_URL = "https://api.example.com";
+
 const environment = loadTypeScriptModule("src/core/config/env.ts", {
   "../api/api-error": {
     ApiError: class extends Error {
@@ -66,6 +69,12 @@ const environment = loadTypeScriptModule("src/core/config/env.ts", {
     APP_MESSAGES: { apiNotConfigured: "API is not configured." },
   },
 });
+
+if (previousApiBaseUrl === undefined) {
+  delete process.env.EXPO_PUBLIC_API_BASE_URL;
+} else {
+  process.env.EXPO_PUBLIC_API_BASE_URL = previousApiBaseUrl;
+}
 
 test("production API base URLs require HTTPS", () => {
   assert.equal(environment.isAllowedApiBaseUrl("https://api.example.com", true), true);
@@ -86,7 +95,7 @@ test("API base URL rejects invalid schemes, credentials, queries, and fragments"
 });
 
 test("API URL builder applies the version prefix", () => {
-  assert.equal(environment.getApiUrl("/me"), "/api/v1/me");
+  assert.equal(environment.getApiUrl("/me"), "https://api.example.com/api/v1/me");
 });
 
 test("query retry policy retries transient network and server failures", () => {
