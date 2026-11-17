@@ -20,6 +20,7 @@ export type {
 } from "./types";
 
 export { LearningScreen } from "./screens/learning-screen";
+export type { LearningScreenProps } from "./screens/learning-screen";
 export { StepContentScreen } from "./screens/step-content-screen";
 export type { StepContentScreenProps } from "./screens/step-content-screen";
 export type { StepContentRouteParams } from "./types";
