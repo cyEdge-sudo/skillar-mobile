@@ -28,6 +28,7 @@ export function useStepContent(stepId: string) {
     queryFn: ({ signal }) => learningDetailService.getStepContent(stepId, signal),
     enabled: stepId.length > 0,
     staleTime: APP_CONSTANTS.CONTENT_QUERY_STALE_TIME_MS,
+    gcTime: APP_CONSTANTS.CONTENT_QUERY_GC_TIME_MS,
   });
 }
 
@@ -43,6 +44,7 @@ export function usePrefetchStepContent(stepId: string | undefined) {
       queryKey: QUERY_KEYS.stepContent(stepId),
       queryFn: ({ signal }) => learningDetailService.getStepContent(stepId, signal),
       staleTime: APP_CONSTANTS.CONTENT_QUERY_STALE_TIME_MS,
+      gcTime: APP_CONSTANTS.CONTENT_QUERY_GC_TIME_MS,
     });
   }, [queryClient, stepId]);
 }
