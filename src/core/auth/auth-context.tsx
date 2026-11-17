@@ -79,7 +79,9 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
       if (
         restoreError instanceof ApiError &&
-        [401, 403].includes(restoreError.status)
+        (restoreError.status === 401 ||
+          restoreError.code === "UNAUTHENTICATED" ||
+          restoreError.code === "SESSION_REVOKED")
       ) {
         await tokenStorage.clear();
         if (!isActive()) return;
