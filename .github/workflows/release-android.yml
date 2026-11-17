@@ -1,0 +1,93 @@
+name: Android Release
+
+# Release builds are intentionally gated:
+# - Never triggered by branch pushes or pull requests.
+# - Production builds: only from version tags (v*).
+# - Manual dispatch: only from the main branch (enforced by the guard step).
+
+on:
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: EAS build profile
+        required: true
+        default: preview
+        type: choice
+        options:
+          - preview
+          - production
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-android-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Build Android release on EAS
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Enforce main-only dispatch
+        if: github.event_name == 'workflow_dispatch' && github.ref != 'refs/heads/main'
+        run: |
+          echo "Android releases may only be dispatched from the main branch (received ${{ github.ref }})." >&2
+          exit 1
+
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Guard - require release configuration
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: |
+          if [ -z "$EXPO_TOKEN" ]; then
+            echo "EXPO_TOKEN repository secret is not configured." >&2
+            echo "Run: gh secret set EXPO_TOKEN --repo cyEdge-sudo/skillar-mobile" >&2
+            echo "The token comes from the Expo account that owns this project (expo.dev - Access tokens)." >&2
+            exit 1
+          fi
+          if ! grep -q '"projectId"' app.json; then
+            echo "app.json is missing expo.extra.eas.projectId." >&2
+            echo "Run 'npx eas-cli init' locally against the Expo account that owns the project." >&2
+            exit 1
+          fi
+          if ! grep -q '"package"' app.json; then
+            echo "app.json is missing expo.android.package (the permanent Play Store application ID)." >&2
+            echo "Decide the application ID (e.g. com.cyedge.skillar) and add it under expo.android before releasing." >&2
+            exit 1
+          fi
+
+      - name: Resolve build profile
+        id: profile
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            echo "profile=production" >> "$GITHUB_OUTPUT"
+          else
+            echo "profile=${{ inputs.profile }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Submit EAS build
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: |
+          npx eas-cli@latest build \
+            --platform android \
+            --profile "${{ steps.profile.outputs.profile }}" \
+            --non-interactive \
+            --no-wait
