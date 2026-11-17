@@ -20,7 +20,7 @@ const LEVEL_FILTERS: Array<{ label: string; value: RoadmapLevel | null }> = [
   { label: UI_COPY.roadmaps.levelFilters.advanced, value: "advanced" },
 ];
 
-interface ExploreScreenProps {
+export interface ExploreScreenProps {
   enrollmentsByRoadmapId: ReadonlyMap<string, string>;
   onOpenRoadmapDetail: (roadmapId: string, enrollmentId?: string) => void;
 }
