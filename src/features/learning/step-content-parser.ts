@@ -22,10 +22,26 @@ function parseStringRecord(value: unknown): Record<string, string> {
   );
 }
 
+function createUnsupportedContentBlock(value: unknown, index: number): StepContentBlock {
+  const record = isRecord(value) ? value : {};
+  return {
+    id: typeof record.id === "string" && record.id.trim().length > 0
+      ? record.id
+      : "unsupported-" + String(index),
+    title: typeof record.title === "string" ? record.title : "",
+    contentType: "UNSUPPORTED",
+    originalContentType:
+      typeof record.contentType === "string" && record.contentType.trim().length > 0
+        ? record.contentType
+        : "UNKNOWN",
+  };
+}
+
 function parseContentBlock(value: unknown): StepContentBlock {
   if (
     !isRecord(value) ||
     typeof value.id !== "string" ||
+    value.id.trim().length === 0 ||
     typeof value.contentType !== "string"
   ) {
     throw new Error("The server returned an invalid step content block.");
@@ -110,11 +126,17 @@ function parseContentBlock(value: unknown): StepContentBlock {
       return { ...base, contentType: "QUIZ", questions };
     }
     default:
-      throw new Error("The server returned an unsupported step content type.");
+      return createUnsupportedContentBlock(value, 0);
   }
 }
 
 export function parseStepContentBlocks(value: unknown): StepContentBlock[] {
   if (!Array.isArray(value)) return [];
-  return value.map(parseContentBlock);
+  return value.map((block, index) => {
+    try {
+      return parseContentBlock(block);
+    } catch {
+      return createUnsupportedContentBlock(block, index);
+    }
+  });
 }

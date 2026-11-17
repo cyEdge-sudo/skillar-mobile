@@ -95,10 +95,11 @@ function buildRoadmapQuery(filters: RoadmapListFilters): string {
 }
 
 export const roadmapService = {
-  async list(filters: RoadmapListFilters = {}): Promise<RoadmapCatalogPage> {
+  async list(filters: RoadmapListFilters = {}, signal?: AbortSignal): Promise<RoadmapCatalogPage> {
     const response = await apiRequest(
       buildRoadmapQuery(filters),
       parseRoadmapCatalog,
+      { ...(signal ? { signal } : {}) },
     );
 
     const pagination = response.meta.pagination;

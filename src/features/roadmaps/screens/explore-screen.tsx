@@ -12,7 +12,6 @@ import {
 import { AppButton, AppCard, AppChip, AppText, Screen } from "../../../shared/components";
 import { useTheme } from "../../../shared/theme";
 import { useEnrollRoadmap, useRoadmaps } from "../use-roadmaps";
-import { useLearningEnrollments } from "../../learning/use-learning";
 import { NAVIGATION_ROUTES, UI_COPY } from "../../../core/constants/app.constants";
 import type { RoadmapLevel, RoadmapSummary } from "../types";
 import type { RootStackParamList } from "../../../app/navigation/navigation-types";
@@ -24,15 +23,16 @@ const LEVEL_FILTERS: Array<{ label: string; value: RoadmapLevel | null }> = [
   { label: UI_COPY.roadmaps.levelFilters.advanced, value: "advanced" },
 ];
 
-export function ExploreScreen() {
+interface ExploreScreenProps {
+  enrollmentsByRoadmapId: ReadonlyMap<string, string>;
+}
+
+export function ExploreScreen({ enrollmentsByRoadmapId }: ExploreScreenProps) {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { colors, spacing, radius } = useTheme();
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLevel, setSelectedLevel] = useState<RoadmapLevel | null>(null);
-  const learningQuery = useLearningEnrollments();
-  const enrollments = learningQuery.data?.pages.flatMap((page) => page.items) ?? [];
-  const enrolledRoadmapIds = new Set(enrollments.map((item) => item.roadmapId));
   const roadmapsQuery = useRoadmaps({
     query: searchQuery,
     level: selectedLevel,
@@ -72,7 +72,8 @@ export function ExploreScreen() {
   });
 
   const renderRoadmap = ({ item }: { item: RoadmapSummary }) => {
-    const isEnrolled = enrolledRoadmapIds.has(item.id);
+    const enrollmentId = enrollmentsByRoadmapId.get(item.id);
+    const isEnrolled = enrollmentId !== undefined;
     const isEnrolling =
       enrollMutation.isPending && enrollMutation.variables === item.id;
 
@@ -118,10 +119,10 @@ export function ExploreScreen() {
         <AppButton
           variant="outline"
           onPress={() => {
-            const enrollment = enrollments.find((entry) => entry.roadmapId === item.id);
+            const enrollment = enrollmentId;
             navigation.navigate(NAVIGATION_ROUTES.root.roadmapDetail, {
               roadmapId: item.id,
-              ...(enrollment ? { enrollmentId: enrollment.enrollmentId } : {}),
+              ...(enrollment ? { enrollmentId: enrollment } : {}),
             });
           }}
         >

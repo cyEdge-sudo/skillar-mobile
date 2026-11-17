@@ -60,4 +60,13 @@ export type StepContentBlock =
   | ExamplesContentBlock
   | CodeContentBlock
   | NoteContentBlock
-  | QuizContentBlock;
+  | QuizContentBlock
+  | UnsupportedContentBlock;
+
+export interface UnsupportedContentBlock {
+  id: string;
+  title: string;
+  contentType: "UNSUPPORTED";
+  originalContentType: string;
+}
+

@@ -229,26 +229,29 @@ function parseProgressUpdate(value: unknown): StepProgressUpdate {
 }
 
 export const learningDetailService = {
-  async getEnrollment(enrollmentId: string): Promise<EnrollmentDetail> {
+  async getEnrollment(enrollmentId: string, signal?: AbortSignal): Promise<EnrollmentDetail> {
     const response = await apiRequest(
       API_ROUTES.enrollments.detail(enrollmentId),
       parseEnrollmentDetail,
+      { ...(signal ? { signal } : {}) },
     );
     return response.data;
   },
 
-  async getStepContent(stepId: string): Promise<StepContent> {
+  async getStepContent(stepId: string, signal?: AbortSignal): Promise<StepContent> {
     const response = await apiRequest(
       API_ROUTES.steps.detail(stepId),
       parseStepContent,
+      { ...(signal ? { signal } : {}) },
     );
     return response.data;
   },
 
-  async getAssessment(stepId: string): Promise<StepAssessment> {
+  async getAssessment(stepId: string, signal?: AbortSignal): Promise<StepAssessment> {
     const response = await apiRequest(
       API_ROUTES.steps.assessment(stepId),
       parseAssessment,
+      { ...(signal ? { signal } : {}) },
     );
     return response.data;
   },

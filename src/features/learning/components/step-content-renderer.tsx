@@ -24,6 +24,7 @@ const CONTENT_TYPE_ORDER: Record<StepContentBlock["contentType"], number> = {
   CODE: 4,
   NOTE: 5,
   QUIZ: 6,
+  UNSUPPORTED: 7,
 };
 
 export function StepContentRenderer({
@@ -94,6 +95,11 @@ export function StepContentRenderer({
           ) : null}
           {block.contentType === "NOTE" ? <AppText>{block.note}</AppText> : null}
           {block.contentType === "QUIZ" ? <QuizQuestions questions={block.questions} /> : null}
+          {block.contentType === "UNSUPPORTED" ? (
+            <AppText color="textSecondary">
+              {UI_COPY.learning.unsupportedContentBlock}
+            </AppText>
+          ) : null}
         </AppCard>
       ))}
       {blocks.length === 0 && fallbackVideoUrl ? (

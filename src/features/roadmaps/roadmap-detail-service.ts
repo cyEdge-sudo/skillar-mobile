@@ -94,10 +94,11 @@ function parseRoadmapDetail(value: unknown): RoadmapDetail {
 }
 
 export const roadmapDetailService = {
-  async get(roadmapId: string): Promise<RoadmapDetail> {
+  async get(roadmapId: string, signal?: AbortSignal): Promise<RoadmapDetail> {
     const response = await apiRequest(
       API_ROUTES.roadmaps.detail(roadmapId),
       parseRoadmapDetail,
+      { ...(signal ? { signal } : {}) },
     );
     return response.data;
   },

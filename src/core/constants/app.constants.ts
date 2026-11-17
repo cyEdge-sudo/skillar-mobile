@@ -10,6 +10,7 @@ export const APP_CONSTANTS = {
   API_TIMEOUT_MS: 20_000,
   QUERY_STALE_TIME_MS: 60_000,
   CONTENT_QUERY_STALE_TIME_MS: 24 * 60 * 60 * 1_000,
+  CONTENT_QUERY_GC_TIME_MS: 24 * 60 * 60 * 1_000,
   QUERY_GC_TIME_MS: 5 * 60_000,
   QUERY_RETRY_COUNT: 1,
   REQUEST_ID_PREFIX: "mobile",
@@ -123,6 +124,8 @@ export const API_ERROR_CODES = {
   HTTP_ERROR: "HTTP_ERROR",
   REFRESH_TOKEN_MISSING: "REFRESH_TOKEN_MISSING",
   INVALID_TOKEN_RESPONSE: "INVALID_TOKEN_RESPONSE",
+  UNAUTHENTICATED: "UNAUTHENTICATED",
+  SESSION_REVOKED: "SESSION_REVOKED",
 } as const;
 
 export const AUTH_STATUS = {
@@ -344,6 +347,7 @@ export const UI_COPY = {
     hideQuestions: "Hide questions",
     viewQuestions: "View questions",
     noPublishedContent: "This step does not have published content yet.",
+    unsupportedContentBlock: "This content block is not supported in this app version.",
     progressSaveFailed: "Progress could not be saved.",
     roadmapUnavailable: "This roadmap could not be loaded.",
     loadingRoadmap: "Loading roadmap…",

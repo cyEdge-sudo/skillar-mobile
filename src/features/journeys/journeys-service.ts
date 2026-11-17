@@ -255,13 +255,14 @@ function parseCompletion(value: unknown): JourneyActivityCompletion {
 }
 
 export const journeysService = {
-  async list(cursor: string | null = null): Promise<JourneyPage> {
+  async list(cursor: string | null = null, signal?: AbortSignal): Promise<JourneyPage> {
     const params = ["limit=20"];
     if (cursor) params.push("cursor=" + encodeURIComponent(cursor));
 
     const response = await apiRequest(
       API_ROUTES.journeys.collection + "?" + params.join("&"),
       parseJourneyPage,
+      { ...(signal ? { signal } : {}) },
     );
 
     return {
@@ -271,10 +272,11 @@ export const journeysService = {
     };
   },
 
-  async getDetail(enrollmentId: number): Promise<JourneyDetail> {
+  async getDetail(enrollmentId: number, signal?: AbortSignal): Promise<JourneyDetail> {
     const response = await apiRequest(
       API_ROUTES.journeys.detail(enrollmentId),
       parseJourneyDetail,
+      { ...(signal ? { signal } : {}) },
     );
     return response.data;
   },

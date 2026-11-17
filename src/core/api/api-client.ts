@@ -198,7 +198,13 @@ async function refreshTokens(): Promise<AuthTokens> {
     refreshInFlight = performTokenRefresh()
       .catch(async (error: unknown) => {
         // Preserve the session when refresh fails because of a network outage.
-        if (error instanceof ApiError && [401, 403].includes(error.status)) {
+        if (
+          error instanceof ApiError &&
+          (error.status === 401 ||
+            error.code === API_ERROR_CODES.UNAUTHENTICATED ||
+            error.code === API_ERROR_CODES.SESSION_REVOKED ||
+            error.code === API_ERROR_CODES.REFRESH_TOKEN_MISSING)
+        ) {
           await tokenStorage.clear();
           onAuthenticationExpired?.();
         }

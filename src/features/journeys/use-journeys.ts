@@ -12,7 +12,7 @@ export function useJourneys() {
   return useInfiniteQuery({
     queryKey: [...QUERY_KEYS.journeys, "list"],
     initialPageParam: null as string | null,
-    queryFn: ({ pageParam }) => journeysService.list(pageParam),
+    queryFn: ({ pageParam, signal }) => journeysService.list(pageParam, signal),
     getNextPageParam: (lastPage) =>
       lastPage.hasMore && lastPage.nextCursor
         ? lastPage.nextCursor
@@ -24,9 +24,10 @@ export function useJourneys() {
 export function useJourneyDetail(enrollmentId: number) {
   return useQuery({
     queryKey: QUERY_KEYS.journey(enrollmentId),
-    queryFn: () => journeysService.getDetail(enrollmentId),
+    queryFn: ({ signal }) => journeysService.getDetail(enrollmentId, signal),
     enabled: Number.isSafeInteger(enrollmentId) && enrollmentId > 0,
     staleTime: APP_CONSTANTS.CONTENT_QUERY_STALE_TIME_MS,
+    gcTime: APP_CONSTANTS.CONTENT_QUERY_GC_TIME_MS,
   });
 }
 

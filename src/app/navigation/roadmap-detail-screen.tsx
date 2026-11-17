@@ -7,17 +7,14 @@ import {
   View,
 } from "react-native";
 
-import { NAVIGATION_ROUTES, UI_COPY } from "../../../core/constants/app.constants";
-import type { RootStackParamList } from "../../../app/navigation/navigation-types";
-import { AppButton, AppCard, AppChip, AppProgress, AppText, Screen } from "../../../shared/components";
-import { useTheme } from "../../../shared/theme";
-import { useEnrollRoadmap } from "../use-roadmaps";
-import {
-  useEnrollmentDetail,
-  useRoadmapDetail,
-} from "../../learning/use-learning-detail";
-import type { EnrolledRoadmapStep } from "../../learning/types";
-import type { RoadmapStepSummary } from "../types";
+import type { RootStackParamList } from "./navigation-types";
+import { NAVIGATION_ROUTES, UI_COPY } from "../../core/constants/app.constants";
+import { AppButton, AppCard, AppChip, AppProgress, AppText, Screen } from "../../shared/components";
+import { useTheme } from "../../shared/theme";
+import type { EnrolledRoadmapStep } from "../../features/learning";
+import { useEnrollmentDetail } from "../../features/learning";
+import { useEnrollRoadmap, useRoadmapDetail } from "../../features/roadmaps";
+import type { RoadmapStepSummary } from "../../features/roadmaps";
 
 type Navigation = NativeStackNavigationProp<RootStackParamList>;
 type DetailRoute = RouteProp<RootStackParamList, typeof NAVIGATION_ROUTES.root.roadmapDetail>;
