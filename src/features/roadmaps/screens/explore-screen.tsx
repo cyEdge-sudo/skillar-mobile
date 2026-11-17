@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import {
   ActivityIndicator,
   FlatList,
@@ -12,9 +10,8 @@ import {
 import { AppButton, AppCard, AppChip, AppText, Screen } from "../../../shared/components";
 import { useTheme } from "../../../shared/theme";
 import { useEnrollRoadmap, useRoadmaps } from "../use-roadmaps";
-import { NAVIGATION_ROUTES, UI_COPY } from "../../../core/constants/app.constants";
+import { UI_COPY } from "../../../core/constants/app.constants";
 import type { RoadmapLevel, RoadmapSummary } from "../types";
-import type { RootStackParamList } from "../../../app/navigation/navigation-types";
 
 const LEVEL_FILTERS: Array<{ label: string; value: RoadmapLevel | null }> = [
   { label: UI_COPY.roadmaps.levelFilters.all, value: null },
@@ -25,10 +22,10 @@ const LEVEL_FILTERS: Array<{ label: string; value: RoadmapLevel | null }> = [
 
 interface ExploreScreenProps {
   enrollmentsByRoadmapId: ReadonlyMap<string, string>;
+  onOpenRoadmapDetail: (roadmapId: string, enrollmentId?: string) => void;
 }
 
-export function ExploreScreen({ enrollmentsByRoadmapId }: ExploreScreenProps) {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+export function ExploreScreen({ enrollmentsByRoadmapId, onOpenRoadmapDetail }: ExploreScreenProps) {
   const { colors, spacing, radius } = useTheme();
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -118,13 +115,7 @@ export function ExploreScreen({ enrollmentsByRoadmapId }: ExploreScreenProps) {
 
         <AppButton
           variant="outline"
-          onPress={() => {
-            const enrollment = enrollmentId;
-            navigation.navigate(NAVIGATION_ROUTES.root.roadmapDetail, {
-              roadmapId: item.id,
-              ...(enrollment ? { enrollmentId: enrollment } : {}),
-            });
-          }}
+          onPress={() => onOpenRoadmapDetail(item.id, enrollmentId)}
         >
           {UI_COPY.roadmaps.viewDetails}
         </AppButton>
