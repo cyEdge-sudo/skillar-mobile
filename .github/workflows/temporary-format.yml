@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: write
+  workflows: write
 
 concurrency:
   group: temporary-format-${{ github.ref }}
