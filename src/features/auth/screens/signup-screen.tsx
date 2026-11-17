@@ -1,12 +1,8 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useNavigation } from "@react-navigation/native";
-
 import { useAuth } from "../../../core/auth/auth-context";
-import { FORM_VALIDATION, NAVIGATION_ROUTES, UI_COPY } from "../../../core/constants/app.constants";
+import { FORM_VALIDATION, UI_COPY } from "../../../core/constants/app.constants";
 import { getErrorMessage } from "../../../core/api/api-error";
-import type { AuthStackParamList } from "../../../app/navigation/navigation-types";
 import { AppButton, AppText, FormField, Screen } from "../../../shared/components";
 import { useTheme } from "../../../shared/theme";
 
@@ -28,9 +24,11 @@ function isValidDateOnly(value: string): boolean {
   );
 }
 
-export function SignupScreen() {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
+export interface SignupScreenProps {
+  onOpenLogin: () => void;
+}
+
+export function SignupScreen({ onOpenLogin }: SignupScreenProps) {
   const { signUp } = useAuth();
   const { colors, spacing } = useTheme();
 
@@ -180,7 +178,7 @@ export function SignupScreen() {
         <AppText color="textSecondary">{UI_COPY.auth.haveAccount}</AppText>
         <Pressable
           accessibilityRole="button"
-          onPress={() => navigation.navigate(NAVIGATION_ROUTES.auth.login)}
+          onPress={onOpenLogin}
         >
           <AppText style={styles.link}>{UI_COPY.auth.loginAction}</AppText>
         </Pressable>
