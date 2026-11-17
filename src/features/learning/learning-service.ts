@@ -40,13 +40,14 @@ function parseEnrollmentPage(value: unknown): { items: LearningEnrollment[] } {
 }
 
 export const learningService = {
-  async listEnrollments(cursor: string | null = null): Promise<LearningEnrollmentPage> {
+  async listEnrollments(cursor: string | null = null, signal?: AbortSignal): Promise<LearningEnrollmentPage> {
     const params = ["limit=20"];
     if (cursor) params.push("cursor=" + encodeURIComponent(cursor));
 
     const response = await apiRequest(
       API_ROUTES.user.enrollments + "?" + params.join("&"),
       parseEnrollmentPage,
+      { signal },
     );
 
     return {
