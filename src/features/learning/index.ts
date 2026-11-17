@@ -18,3 +18,7 @@ export type {
   StepProgressStatus,
   StepProgressUpdate,
 } from "./types";
+
+export { LearningScreen } from "./screens/learning-screen";
+export { StepContentScreen } from "./screens/step-content-screen";
+export { useLearningEnrollments } from "./use-learning";
