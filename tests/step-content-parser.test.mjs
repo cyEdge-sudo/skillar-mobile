@@ -7,6 +7,18 @@ import { fileURLToPath } from "node:url";
 import ts from "typescript";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+
+Module._extensions[".ts"] = (loadedModule, filename) => {
+  const source = fs.readFileSync(filename, "utf8");
+  const compiled = ts.transpileModule(source, {
+    compilerOptions: {
+      module: ts.ModuleKind.CommonJS,
+      target: ts.ScriptTarget.ES2022,
+    },
+  }).outputText;
+
+  loadedModule._compile(compiled, filename);
+};
 const parserPath = path.join(
   projectRoot,
   "src",
