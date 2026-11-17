@@ -1,5 +1,3 @@
-import { useNavigation } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import {
   ActivityIndicator,
   FlatList,
@@ -7,8 +5,7 @@ import {
   View,
 } from "react-native";
 
-import type { RootStackParamList } from "../../../app/navigation/navigation-types";
-import { NAVIGATION_ROUTES, UI_COPY } from "../../../core/constants/app.constants";
+import { UI_COPY } from "../../../core/constants/app.constants";
 import {
   AppButton,
   AppCard,
@@ -33,8 +30,11 @@ function statusLabel(status: string): string {
   return labels[normalizedStatus as keyof typeof labels] ?? labels.unknown;
 }
 
-export function LearningScreen() {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+export interface LearningScreenProps {
+  onOpenRoadmap: (roadmapId: string, enrollmentId: string) => void;
+}
+
+export function LearningScreen({ onOpenRoadmap }: LearningScreenProps) {
   const { colors, spacing } = useTheme();
   const enrollmentsQuery = useLearningEnrollments();
   const enrollments =
@@ -73,12 +73,7 @@ export function LearningScreen() {
       </AppText>
       <AppButton
         variant="outline"
-        onPress={() =>
-          navigation.navigate(NAVIGATION_ROUTES.root.roadmapDetail, {
-            roadmapId: item.roadmapId,
-            enrollmentId: item.enrollmentId,
-          })
-        }
+        onPress={() => onOpenRoadmap(item.roadmapId, item.enrollmentId)}
       >
         {UI_COPY.learning.openRoadmap}
       </AppButton>
