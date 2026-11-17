@@ -15,6 +15,16 @@ import type { MainTabParamList, RootStackParamList } from "./navigation-types";
 const Tab = createBottomTabNavigator<MainTabParamList>();
 type TabRootNavigation = CompositeNavigationProp<BottomTabNavigationProp<MainTabParamList>, NativeStackNavigationProp<RootStackParamList>>;
 
+function DashboardTabScreen() {
+  const navigation = useNavigation<TabRootNavigation>();
+  return <DashboardScreen onOpenExplore={() => navigation.navigate(NAVIGATION_ROUTES.tabs.explore)} onOpenLearning={() => navigation.navigate(NAVIGATION_ROUTES.tabs.learning)} />;
+}
+
+function LearningTabScreen() {
+  const navigation = useNavigation<TabRootNavigation>();
+  return <LearningScreen onOpenRoadmap={(roadmapId, enrollmentId) => navigation.navigate(NAVIGATION_ROUTES.root.roadmapDetail, { roadmapId, enrollmentId })} />;
+}
+
 function ExploreTabScreen() {
   const navigation = useNavigation<TabRootNavigation>();
   const enrollmentsQuery = useLearningEnrollments();
@@ -41,9 +51,9 @@ export function MainTabs() {
       tabBarStyle: { height: 62, paddingTop: 7, paddingBottom: 7, borderTopColor: colors.border, backgroundColor: colors.surface },
       tabBarLabelStyle: { fontSize: 11, fontWeight: "600" },
     }}>
-      <Tab.Screen name={NAVIGATION_ROUTES.tabs.dashboard} component={DashboardScreen} options={{ title: NAVIGATION_LABELS.dashboard }} />
+      <Tab.Screen name={NAVIGATION_ROUTES.tabs.dashboard} component={DashboardTabScreen} options={{ title: NAVIGATION_LABELS.dashboard }} />
       <Tab.Screen name={NAVIGATION_ROUTES.tabs.explore} component={ExploreTabScreen} options={{ title: NAVIGATION_LABELS.explore }} />
-      <Tab.Screen name={NAVIGATION_ROUTES.tabs.learning} component={LearningScreen} options={{ title: NAVIGATION_LABELS.learning }} />
+      <Tab.Screen name={NAVIGATION_ROUTES.tabs.learning} component={LearningTabScreen} options={{ title: NAVIGATION_LABELS.learning }} />
       {FEATURE_FLAGS.journeys ? <Tab.Screen name={NAVIGATION_ROUTES.tabs.journeys} component={JourneysTabScreen} options={{ title: NAVIGATION_LABELS.journeys }} /> : null}
       <Tab.Screen name={NAVIGATION_ROUTES.tabs.profile} component={ProfileScreen} options={{ title: NAVIGATION_LABELS.profile }} />
     </Tab.Navigator>
