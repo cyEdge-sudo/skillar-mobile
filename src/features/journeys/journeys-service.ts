@@ -262,7 +262,7 @@ export const journeysService = {
     const response = await apiRequest(
       API_ROUTES.journeys.collection + "?" + params.join("&"),
       parseJourneyPage,
-      { signal },
+      { ...(signal ? { signal } : {}) },
     );
 
     return {
@@ -276,7 +276,7 @@ export const journeysService = {
     const response = await apiRequest(
       API_ROUTES.journeys.detail(enrollmentId),
       parseJourneyDetail,
-      { signal },
+      { ...(signal ? { signal } : {}) },
     );
     return response.data;
   },
