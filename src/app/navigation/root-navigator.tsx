@@ -1,4 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 
@@ -11,6 +12,7 @@ import {
   UI_COPY,
 } from "../../core/constants/app.constants";
 import { StepContentScreen } from "../../features/learning";
+import type { StepContentRouteParams } from "../../features/learning";
 import { JourneyDetailScreen } from "../../features/journeys";
 import { RoadmapDetailScreen } from "./roadmap-detail-screen";
 import { AppText, AppButton } from "../../shared/components/themed";
@@ -20,6 +22,26 @@ import { MainTabs } from "./main-tabs";
 import type { RootStackParamList } from "./navigation-types";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+
+function StepContentRouteScreen({ route, navigation }: NativeStackScreenProps<RootStackParamList, typeof NAVIGATION_ROUTES.root.stepContent>) {
+  return (
+    <StepContentScreen
+      routeParams={route.params}
+      onGoBack={() => navigation.goBack()}
+      onReplaceStep={(params: StepContentRouteParams) => navigation.replace(NAVIGATION_ROUTES.root.stepContent, params)}
+    />
+  );
+}
+
+function JourneyDetailRouteScreen({ route, navigation }: NativeStackScreenProps<RootStackParamList, typeof NAVIGATION_ROUTES.root.journeyDetail>) {
+  return (
+    <JourneyDetailScreen
+      enrollmentId={route.params.enrollmentId}
+      onGoBack={() => navigation.goBack()}
+      onOpenRoadmap={(roadmapId) => navigation.navigate(NAVIGATION_ROUTES.root.roadmapDetail, { roadmapId })}
+    />
+  );
+}
 
 function SessionRestoreScreen() {
   const { error, retrySessionRestore } = useAuth();
@@ -86,9 +108,9 @@ export function RootNavigator() {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name={NAVIGATION_ROUTES.root.mainTabs} component={MainTabs} />
           <Stack.Screen name={NAVIGATION_ROUTES.root.roadmapDetail} component={RoadmapDetailScreen} />
-          <Stack.Screen name={NAVIGATION_ROUTES.root.stepContent} component={StepContentScreen} />
+          <Stack.Screen name={NAVIGATION_ROUTES.root.stepContent} component={StepContentRouteScreen} />
           {FEATURE_FLAGS.journeys ? (
-            <Stack.Screen name={NAVIGATION_ROUTES.root.journeyDetail} component={JourneyDetailScreen} />
+            <Stack.Screen name={NAVIGATION_ROUTES.root.journeyDetail} component={JourneyDetailRouteScreen} />
           ) : null}
         </Stack.Navigator>
       ) : (
