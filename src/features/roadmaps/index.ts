@@ -14,6 +14,8 @@ export type {
   RoadmapEnrollment,
   RoadmapStepSummary,
   RoadmapSummary,
+  RoadmapDetailRouteParams,
 } from "./types";
 
 export { ExploreScreen } from "./screens/explore-screen";
+export type { ExploreScreenProps } from "./screens/explore-screen";
