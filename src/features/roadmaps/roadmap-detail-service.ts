@@ -98,7 +98,7 @@ export const roadmapDetailService = {
     const response = await apiRequest(
       API_ROUTES.roadmaps.detail(roadmapId),
       parseRoadmapDetail,
-      { signal },
+      { ...(signal ? { signal } : {}) },
     );
     return response.data;
   },
