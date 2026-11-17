@@ -2,27 +2,14 @@ import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import { useAuth } from "../../../core/auth/auth-context";
 import { FORM_VALIDATION, UI_COPY } from "../../../core/constants/app.constants";
+import {
+  isValidDateOnly,
+  isValidEmail,
+  normalizeEmail,
+} from "../../../core/auth/input-validation";
 import { getErrorMessage } from "../../../core/api/api-error";
 import { AppButton, AppText, FormField, Screen } from "../../../shared/components";
 import { useTheme } from "../../../shared/theme";
-
-function isValidDateOnly(value: string): boolean {
-  if (!FORM_VALIDATION.dateOnlyPattern.test(value)) {
-    return false;
-  }
-
-  const [yearPart, monthPart, dayPart] = value.split("-");
-  const year = Number(yearPart);
-  const month = Number(monthPart);
-  const day = Number(dayPart);
-  const candidate = new Date(Date.UTC(year, month - 1, day));
-
-  return (
-    candidate.getUTCFullYear() === year &&
-    candidate.getUTCMonth() === month - 1 &&
-    candidate.getUTCDate() === day
-  );
-}
 
 export interface SignupScreenProps {
   onOpenLogin: () => void;
@@ -73,7 +60,7 @@ export function SignupScreen({ onOpenLogin }: SignupScreenProps) {
   const handleSignup = async () => {
     setError(null);
 
-    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedEmail = normalizeEmail(email);
     const normalizedName = name.trim();
 
     if (!normalizedName || !normalizedEmail || !password || !dateOfBirth) {
@@ -81,7 +68,7 @@ export function SignupScreen({ onOpenLogin }: SignupScreenProps) {
       return;
     }
 
-    if (!FORM_VALIDATION.emailPattern.test(normalizedEmail)) {
+    if (!isValidEmail(normalizedEmail)) {
       setError(UI_COPY.auth.invalidEmail);
       return;
     }

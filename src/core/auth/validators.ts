@@ -11,10 +11,7 @@ import type {
   AuthUser,
   SignupResponse,
 } from "./types";
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
+import { isRecord } from "../../shared/utils/is-record";
 
 function requireString(value: unknown, fieldName: string): string {
   if (typeof value !== "string" || value.trim().length === 0) {

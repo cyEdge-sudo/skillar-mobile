@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import { useAuth } from "../../../core/auth/auth-context";
-import { FORM_VALIDATION, UI_COPY } from "../../../core/constants/app.constants";
+import { UI_COPY } from "../../../core/constants/app.constants";
+import { isValidEmail, normalizeEmail } from "../../../core/auth/input-validation";
 import { getErrorMessage } from "../../../core/api/api-error";
 import { AppButton, AppText, FormField, Screen } from "../../../shared/components";
 import { useTheme } from "../../../shared/theme";
@@ -51,13 +52,13 @@ export function LoginScreen({ onOpenForgotPassword, onOpenSignup }: LoginScreenP
   const handleLogin = async () => {
     setError(null);
 
-    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedEmail = normalizeEmail(email);
     if (!normalizedEmail || !password) {
       setError(UI_COPY.auth.requiredFields);
       return;
     }
 
-    if (!FORM_VALIDATION.emailPattern.test(normalizedEmail)) {
+    if (!isValidEmail(normalizedEmail)) {
       setError(UI_COPY.auth.invalidEmail);
       return;
     }
