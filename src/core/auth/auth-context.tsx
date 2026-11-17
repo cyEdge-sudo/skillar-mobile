@@ -12,6 +12,7 @@ import {
 import { setAuthenticationExpiredHandler } from "../api/api-client";
 import { ApiError } from "../api/api-error";
 import {
+  API_ERROR_CODES,
   APP_MESSAGES,
   AUTH_STATUS,
 } from "../constants/app.constants";
@@ -80,8 +81,8 @@ export function AuthProvider({ children }: PropsWithChildren) {
       if (
         restoreError instanceof ApiError &&
         (restoreError.status === 401 ||
-          restoreError.code === "UNAUTHENTICATED" ||
-          restoreError.code === "SESSION_REVOKED")
+          restoreError.code === API_ERROR_CODES.UNAUTHENTICATED ||
+          restoreError.code === API_ERROR_CODES.SESSION_REVOKED)
       ) {
         await tokenStorage.clear();
         if (!isActive()) return;
