@@ -21,7 +21,7 @@ const compiledParser = ts.transpileModule(parserSource, {
     target: ts.ScriptTarget.ES2022,
   },
 }).outputText;
-const parserModule = new Module(parserPath, module);
+const parserModule = new Module(parserPath);
 parserModule.filename = parserPath;
 parserModule.paths = Module._nodeModulePaths(path.dirname(parserPath));
 parserModule._compile(compiledParser, parserPath);
