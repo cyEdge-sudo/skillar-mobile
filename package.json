@@ -11,7 +11,8 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check:architecture": "node .github/scripts/check-architecture.mjs"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
