@@ -82,7 +82,8 @@ export function AuthProvider({ children }: PropsWithChildren) {
         restoreError instanceof ApiError &&
         (restoreError.status === 401 ||
           restoreError.code === API_ERROR_CODES.UNAUTHENTICATED ||
-          restoreError.code === API_ERROR_CODES.SESSION_REVOKED ||\n          restoreError.code === API_ERROR_CODES.REFRESH_TOKEN_MISSING)
+          restoreError.code === API_ERROR_CODES.SESSION_REVOKED ||
+          restoreError.code === API_ERROR_CODES.REFRESH_TOKEN_MISSING)
       ) {
         await tokenStorage.clear();
         if (!isActive()) return;
