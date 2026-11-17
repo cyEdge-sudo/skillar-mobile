@@ -82,7 +82,9 @@ test("production API base URLs require HTTPS", () => {
 });
 
 test("development API base URLs permit HTTP for local development", () => {
-  assert.equal(environment.isAllowedApiBaseUrl("http://10.0.2.2:3000", false), true);\n  assert.equal(environment.isAllowedApiBaseUrl("http://localhost:3000", false), true);\n  assert.equal(environment.isAllowedApiBaseUrl("http://[::1]:3000", false), true);
+  assert.equal(environment.isAllowedApiBaseUrl("http://10.0.2.2:3000", false), true);
+  assert.equal(environment.isAllowedApiBaseUrl("http://localhost:3000", false), true);
+  assert.equal(environment.isAllowedApiBaseUrl("http://[::1]:3000", false), true);
   assert.equal(environment.isAllowedApiBaseUrl("https://api.example.com", false), true);
 });
 
