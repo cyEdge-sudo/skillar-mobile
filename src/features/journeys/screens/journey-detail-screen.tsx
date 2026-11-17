@@ -1,5 +1,3 @@
-import { useNavigation, useRoute, type RouteProp } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import {
   ActivityIndicator,
   Linking,
@@ -8,11 +6,7 @@ import {
   View,
 } from "react-native";
 
-import type { RootStackParamList } from "../../../app/navigation/navigation-types";
-import {
-  NAVIGATION_ROUTES,
-  UI_COPY,
-} from "../../../core/constants/app.constants";
+import { UI_COPY } from "../../../core/constants/app.constants";
 import {
   AppButton,
   AppCard,
@@ -25,11 +19,11 @@ import { useTheme } from "../../../shared/theme";
 import { useCompleteJourneyActivity, useJourneyDetail } from "../use-journeys";
 import type { JourneyActivity } from "../types";
 
-type Navigation = NativeStackNavigationProp<RootStackParamList>;
-type JourneyRoute = RouteProp<
-  RootStackParamList,
-  typeof NAVIGATION_ROUTES.root.journeyDetail
->;
+export interface JourneyDetailScreenProps {
+  enrollmentId: number;
+  onGoBack: () => void;
+  onOpenRoadmap: (roadmapId: string) => void;
+}
 
 function activityLabel(type: string): string {
   switch (type) {
@@ -85,10 +79,7 @@ function isSupportedVideoUrl(value: string): boolean {
   }
 }
 
-export function JourneyDetailScreen() {
-  const navigation = useNavigation<Navigation>();
-  const route = useRoute<JourneyRoute>();
-  const { enrollmentId } = route.params;
+export function JourneyDetailScreen({ enrollmentId, onGoBack, onOpenRoadmap }: JourneyDetailScreenProps) {
   const { colors, spacing, typography } = useTheme();
   const query = useJourneyDetail(enrollmentId);
   const completionMutation = useCompleteJourneyActivity(enrollmentId);
@@ -178,11 +169,7 @@ export function JourneyDetailScreen() {
             <AppButton
               size="small"
               variant="outline"
-              onPress={() =>
-                navigation.navigate(NAVIGATION_ROUTES.root.roadmapDetail, {
-                  roadmapId: activity.metadata.roadmapId ?? "",
-                })
-              }
+              onPress={() => onOpenRoadmap(activity.metadata.roadmapId ?? "")}
             >
               {UI_COPY.roadmaps.viewDetails}
             </AppButton>
@@ -248,7 +235,7 @@ export function JourneyDetailScreen() {
   return (
     <Screen>
       <View style={styles.content}>
-        <AppButton variant="ghost" onPress={() => navigation.goBack()}>
+        <AppButton variant="ghost" onPress={onGoBack}>
           {UI_COPY.common.back}
         </AppButton>
 
