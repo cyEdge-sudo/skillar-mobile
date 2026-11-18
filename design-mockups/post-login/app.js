@@ -264,7 +264,7 @@
     stageNote.textContent = isCompare
       ? "Both variants render at a true " + DEV_SCREEN_W + " × " + (DEV_H - 20) +
         " phone width, then scale as whole devices to fit. Clones are visual-only — click a phone to open its full preview."
-      : "Variant: " + (state.variant === "warm" ? "Warm modern" : "Minimal neutral") +
+      : "Variant: " + (state.variant === "warm" ? "Warm modern" : "Implemented") +
         " · Mode: " + state.mode +
         " · Every “Prototype: …” control shows its intended behaviour in the toast.";
 
@@ -361,7 +361,7 @@
     if (v === state.variant) return;
     state.variant = v;
     render(false);
-    say("Variant: " + (v === "warm" ? "Warm modern" : "Minimal neutral"));
+    say("Variant: " + (v === "warm" ? "Warm modern" : "Implemented"));
   });
 
   document.querySelector(".seg[aria-label='Preview mode']").addEventListener("click", function (ev) {
@@ -398,7 +398,7 @@
     state.variant = hit.getAttribute("data-open-variant");
     state.mode = "phone";
     render(true);
-    say("Opened full preview: " + (state.variant === "warm" ? "Warm modern" : "Minimal neutral"));
+    say("Opened full preview: " + (state.variant === "warm" ? "Warm modern" : "Implemented"));
   });
 
   // Keyboard: 1/2 switch variant, P/D/C modes — only when not typing in a field
@@ -407,7 +407,7 @@
     var t = ev.target;
     if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
     var k = ev.key.toLowerCase();
-    if (k === "1") { state.variant = "minimal"; render(false); say("Variant: Minimal neutral"); }
+    if (k === "1") { state.variant = "minimal"; render(false); say("Variant: Implemented"); }
     else if (k === "2") { state.variant = "warm"; render(false); say("Variant: Warm modern"); }
     else if (k === "p") { state.mode = "phone"; render(false); say("Mode: phone"); }
     else if (k === "d") { state.mode = "desktop"; render(false); say("Mode: desktop"); }
@@ -450,34 +450,4 @@
   upgradeRail();
   render(false);
   window.__postLoginReady = true;
-
-  if (location.hash === "#measure") {
-    var samples = [];
-    var take = function () {
-      var out = [];
-      var f = document.querySelector(".cmp-frame");
-      var sc = document.querySelector(".cmp-scale");
-      var ph = document.querySelector(".device");
-      var bev = document.querySelector(".device .bezel");
-      var vpw = document.getElementById("viewport");
-      var r = function (e) { return e ? Math.round(e.getBoundingClientRect().width) + "x" + Math.round(e.getBoundingClientRect().height) : "n/a"; };
-      out.push("t=" + Date.now() % 100000);
-      out.push("mode=" + state.mode);
-      out.push("device=" + r(ph) + " bezel=" + r(bev) + " viewport=" + r(vpw));
-      out.push("frame=" + r(f) + " scaleBox=" + r(sc) + " s=" + (sc ? sc.style.getPropertyValue("--s") : "-"));
-      samples.push(out.join(" | "));
-      if (samples.length > 6) samples.shift();
-      var p = document.getElementById("measure-out");
-      if (!p) {
-        p = document.createElement("pre");
-        p.id = "measure-out";
-        p.style.cssText = "position:fixed;left:8px;top:8px;z-index:9999;background:#000;color:#0f0;font-size:13px;padding:6px;margin:0;max-width:90vw;";
-        document.body.appendChild(p);
-      }
-      p.textContent = samples.join("\n");
-    };
-    take();
-    var n = 0;
-    var iv = setInterval(function () { take(); if (++n > 8) clearInterval(iv); }, 400);
-  }
 })();

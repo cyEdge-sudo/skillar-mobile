@@ -23,11 +23,11 @@
       <div class="variants" role="group" aria-label="Visual variant">
         <button class="variant is-on" type="button" data-variant="minimal" aria-pressed="true">
           <span class="sw sw-minimal" aria-hidden="true"></span>
-          <span class="vtext"><span class="vname">Minimal neutral <span class="tag-default">Default</span></span><span class="vdesc">Quiet mono · hairlines &amp; space</span></span>
+          <span class="vtext"><span class="vname">Implemented <span class="tag-default">Default</span></span><span class="vdesc">Matches auth · cream, ink borders, purple</span></span>
         </button>
         <button class="variant" type="button" data-variant="warm" aria-pressed="false">
           <span class="sw sw-warm" aria-hidden="true"></span>
-          <span class="vtext"><span class="vname">Warm modern</span><span class="vdesc">Editorial serif · cream &amp; clay</span></span>
+          <span class="vtext"><span class="vname">Warm modern</span><span class="vdesc">Warmer cream · serif headings</span></span>
         </button>
       </div>
     </section>
@@ -36,11 +36,11 @@
       <h3>Screen</h3>
       <ol class="screen-list" id="screen-list">
         <li><button type="button" class="screen-btn is-on" data-screen="dashboard" aria-current="page">1 · Dashboard <span class="now">Live</span></button></li>
-        <li><span class="screen-soon">2 · Explore — next pass</span></li>
-        <li><span class="screen-soon">3 · Roadmap detail — next pass</span></li>
-        <li><span class="screen-soon">4 · Learning step — next pass</span></li>
-        <li><span class="screen-soon">5 · My learning — next pass</span></li>
-        <li><span class="screen-soon">6 · Profile — next pass</span></li>
+        <li><button type="button" class="screen-btn" data-screen="explore">2 · Explore <span class="now">Live</span></button></li>
+        <li><button type="button" class="screen-btn" data-screen="roadmap">3 · Roadmap detail <span class="now">Live</span></button></li>
+        <li><button type="button" class="screen-btn" data-screen="step">4 · Learning step <span class="now">Live</span></button></li>
+        <li><button type="button" class="screen-btn" data-screen="learning">5 · My learning <span class="now">Live</span></button></li>
+        <li><button type="button" class="screen-btn" data-screen="profile">6 · Profile <span class="now">Live</span></button></li>
       </ol>
     </section>
 
@@ -62,7 +62,7 @@
         <li>Dashboard screen in the app is currently a placeholder.</li>
         <li><b>Video:</b> YouTube only · <b>SCORM:</b> opens on web · <b>Assessment:</b> answers read-only.</li>
         <li><b>Journeys</b> tab is flag-disabled — excluded here.</li>
-        <li>Fonts are stand-ins; production uses the system stack. Brand purple <code>#6C47FF</code> kept in both variants.</li>
+        <li>Fonts are stand-ins; production uses the system stack. Both variants share the auth identity — ink <code>#1E1A3D</code>, purple <code>#6C47FF</code>, hard shadows.</li>
         <li>Org label is illustrative: <b>Your workspace</b>.</li>
       </ul>
     </section>
@@ -99,13 +99,15 @@
 
       <div class="compare" id="compare" hidden>
         <div class="cmp" data-variant="minimal">
-          <div class="cmp-head"><span class="sw sw-minimal" aria-hidden="true"></span><span>Minimal neutral</span><span class="cmp-tag">Default</span></div>
+          <div class="cmp-head"><span class="sw sw-minimal" aria-hidden="true"></span><span>Implemented</span><span class="cmp-tag">Default</span></div>
           <div class="cmp-frame">
             <div class="cmp-scale">
-              <div class="cmp-bezel">
-                <div class="bezel-notch" aria-hidden="true"></div>
-                <div class="cmp-viewport" data-slot="minimal" aria-hidden="true"></div>
-                <button class="cmp-hit" type="button" data-open-variant="minimal"><span class="visually-hidden">Open full Minimal neutral preview</span></button>
+              <div class="cmp-inner">
+                <div class="cmp-bezel">
+                  <div class="bezel-notch" aria-hidden="true"></div>
+                  <div class="cmp-viewport" data-slot="minimal" aria-hidden="true"></div>
+                  <button class="cmp-hit" type="button" data-open-variant="minimal"><span class="visually-hidden">Open full Implemented preview</span></button>
+                </div>
               </div>
             </div>
           </div>
@@ -114,10 +116,12 @@
           <div class="cmp-head"><span class="sw sw-warm" aria-hidden="true"></span><span>Warm modern</span></div>
           <div class="cmp-frame">
             <div class="cmp-scale">
-              <div class="cmp-bezel">
-                <div class="bezel-notch" aria-hidden="true"></div>
-                <div class="cmp-viewport" data-slot="warm" aria-hidden="true"></div>
-                <button class="cmp-hit" type="button" data-open-variant="warm"><span class="visually-hidden">Open full Warm modern preview</span></button>
+              <div class="cmp-inner">
+                <div class="cmp-bezel">
+                  <div class="bezel-notch" aria-hidden="true"></div>
+                  <div class="cmp-viewport" data-slot="warm" aria-hidden="true"></div>
+                  <button class="cmp-hit" type="button" data-open-variant="warm"><span class="visually-hidden">Open full Warm modern preview</span></button>
+                </div>
               </div>
             </div>
           </div>

@@ -24,6 +24,36 @@ PORT=5000 node serve.js
 
 (On Windows PowerShell: `$env:PORT=5000; node serve.js`)
 
+## What's in the prototype
+
+Six post-login screens, review shell with variant switcher, screen rail,
+Phone / Desktop / Compare modes, and a populated + zero-assigned Dashboard:
+
+| # | Screen | Notes |
+|---|---|---|
+| 1 | Dashboard · Home | Continue + next step, assigned learning, deadlines/reminders |
+| 2 | Explore | Search, level filters, roadmap cards, load more |
+| 3 | Roadmap detail | Overview, milestones, step list, enrolment state |
+| 4 | Learning step | Content blocks, video, checklist, read-only assessment |
+| 5 | My learning | Enrolments with progress and last activity |
+| 6 | Profile | Account, preferences, sign out |
+
+Deep links: `?screen=explore|roadmap|step|learning|profile`, `?mode=phone|desktop|compare`,
+`?variant=minimal|warm`, `?state=populated|empty`.
+
+**Visual variants** (switcher in the rail):
+
+- **Implemented** (`?variant=minimal`, default) — matches the shipped auth
+  screens: cream canvas `#FFF8F0`, white cards, 2–2.5px ink `#1E1A3D` borders,
+  hard zero-blur shadows, purple `#6C47FF` accents, heavy 900 headings.
+- **Warm modern** (`?variant=warm`) — the same bold identity on warmer cream
+  surfaces (`#F7F1E8` / `#FFFBF5`) with serif headings. The two differ only in
+  surface warmth and heading typeface.
+
+**Honesty labels** — `Proposed` marks design-only fields (next step, due dates)
+that the mobile API does not return today. Assessments are read-only, video is
+YouTube-only, SCORM opens on the web, and Journeys is excluded (feature flag off).
+
 ## Refresh shows the latest saved edits
 
 The server reads every file from disk **on each HTTP request** and sends
