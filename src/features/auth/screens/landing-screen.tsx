@@ -27,12 +27,15 @@ export function LandingScreen({ onOpenLogin }: LandingScreenProps) {
   const chip1Scale = useRef(new Animated.Value(0.5)).current;
   const chip2Anim = useRef(new Animated.Value(0)).current;
   const chip2Scale = useRef(new Animated.Value(0.5)).current;
+  const chip3Anim = useRef(new Animated.Value(0)).current;
+  const chip3Scale = useRef(new Animated.Value(0.5)).current;
   const ctaFade = useRef(new Animated.Value(0)).current;
   const ctaTranslateY = useRef(new Animated.Value(24)).current;
   const progressAnim = useRef(new Animated.Value(0)).current;
+  const pulseDot = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    // Choreographed spring/timing sequence
+    // Choreographed spring/timing entrance sequence
     Animated.stagger(85, [
       // 1. Header bounce in
       Animated.parallel([
@@ -82,7 +85,7 @@ export function LandingScreen({ onOpenLogin }: LandingScreenProps) {
         }),
       ]),
 
-      // 4. Floating Streak Badge pop (Yellow 🔥 7 Day Streak)
+      // 4. Floating Streak Badge pop
       Animated.parallel([
         Animated.timing(chip1Anim, {
           toValue: 1,
@@ -98,7 +101,7 @@ export function LandingScreen({ onOpenLogin }: LandingScreenProps) {
         }),
       ]),
 
-      // 5. Floating XP Badge pop (Mint ⚡ +15 XP)
+      // 5. Floating XP Badge pop
       Animated.parallel([
         Animated.timing(chip2Anim, {
           toValue: 1,
@@ -114,7 +117,23 @@ export function LandingScreen({ onOpenLogin }: LandingScreenProps) {
         }),
       ]),
 
-      // 6. CTA Button slide into place
+      // 6. Floating Lessons Badge pop
+      Animated.parallel([
+        Animated.timing(chip3Anim, {
+          toValue: 1,
+          duration: 300,
+          easing: Easing.out(Easing.back(1.5)),
+          useNativeDriver: true,
+        }),
+        Animated.spring(chip3Scale, {
+          toValue: 1,
+          friction: 5,
+          tension: 80,
+          useNativeDriver: true,
+        }),
+      ]),
+
+      // 7. CTA Button slide into place
       Animated.parallel([
         Animated.timing(ctaFade, {
           toValue: 1,
@@ -130,13 +149,31 @@ export function LandingScreen({ onOpenLogin }: LandingScreenProps) {
         }),
       ]),
     ]).start(() => {
-      // Progress bar fill animation inside the art card
+      // Progress bar fill after entrance completes
       Animated.timing(progressAnim, {
         toValue: 1,
         duration: 700,
         easing: Easing.out(Easing.cubic),
         useNativeDriver: false,
       }).start();
+
+      // Looping pulse dot on the card
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(pulseDot, {
+            toValue: 1.6,
+            duration: 800,
+            easing: Easing.out(Easing.ease),
+            useNativeDriver: true,
+          }),
+          Animated.timing(pulseDot, {
+            toValue: 1,
+            duration: 800,
+            easing: Easing.in(Easing.ease),
+            useNativeDriver: true,
+          }),
+        ])
+      ).start();
     });
   }, [
     headerAnim,
@@ -149,9 +186,12 @@ export function LandingScreen({ onOpenLogin }: LandingScreenProps) {
     chip1Scale,
     chip2Anim,
     chip2Scale,
+    chip3Anim,
+    chip3Scale,
     ctaFade,
     ctaTranslateY,
     progressAnim,
+    pulseDot,
   ]);
 
   const progressWidth = progressAnim.interpolate({
@@ -166,7 +206,7 @@ export function LandingScreen({ onOpenLogin }: LandingScreenProps) {
         showsVerticalScrollIndicator={false}
         bounces={false}
       >
-        {/* Top Header: Clean Brand Logo with Bounce Pop */}
+        {/* ── Top Header: Brand Logo ── */}
         <Animated.View
           style={[
             styles.topHeader,
@@ -186,7 +226,7 @@ export function LandingScreen({ onOpenLogin }: LandingScreenProps) {
           </View>
         </Animated.View>
 
-        {/* Hero Headline & Lede Copy with Staggered Rise */}
+        {/* ── Hero Headline & Lede Copy ── */}
         <Animated.View
           style={[
             styles.copyBlock,
@@ -196,14 +236,13 @@ export function LandingScreen({ onOpenLogin }: LandingScreenProps) {
             },
           ]}
         >
-          <Text style={styles.heroTitle}>Keep learning moving.</Text>
+          <Text style={styles.heroTitle}>Keep learning{'\n'}moving.</Text>
           <Text style={styles.heroLede}>
-            Your organization&apos;s roadmap, turned into short guided sessions — so progress keeps
-            happening between meetings, not just at review time.
+            Your team's roadmap, turned into short guided sessions — progress between meetings, not just at review time.
           </Text>
         </Animated.View>
 
-        {/* Interactive Playful Art Illustration Card with Elastic Spring */}
+        {/* ── Playful Art Frame ── */}
         <Animated.View
           style={[
             styles.artFrame,
@@ -213,12 +252,12 @@ export function LandingScreen({ onOpenLogin }: LandingScreenProps) {
             },
           ]}
         >
-          {/* Background Decorative Playful Blobs */}
+          {/* Background Decorative Blobs */}
           <View style={[styles.artBlob, styles.blobPurple]} />
           <View style={[styles.artBlob, styles.blobYellow]} />
           <View style={[styles.artBlob, styles.blobMint]} />
 
-          {/* Floating Sticker 1: 🔥 7 Day Streak (Top-Right) */}
+          {/* Floating Sticker 1: Streak (Top-Right) */}
           <Animated.View
             style={[
               styles.floatingStickerStreak,
@@ -228,10 +267,13 @@ export function LandingScreen({ onOpenLogin }: LandingScreenProps) {
               },
             ]}
           >
-            <View style={styles.stickerInner}><Ionicons name="flame" size={12} color="#B85000" /><Text style={styles.stickerStreakText}> 7 Day Streak</Text></View>
+            <View style={styles.stickerInner}>
+              <Ionicons name="flame" size={12} color="#B85000" />
+              <Text style={styles.stickerStreakText}> 7 Day Streak</Text>
+            </View>
           </Animated.View>
 
-          {/* Floating Sticker 2: ⚡ +15 XP (Bottom-Left) */}
+          {/* Floating Sticker 2: XP (Bottom-Left) */}
           <Animated.View
             style={[
               styles.floatingStickerXp,
@@ -241,13 +283,33 @@ export function LandingScreen({ onOpenLogin }: LandingScreenProps) {
               },
             ]}
           >
-            <View style={styles.stickerInner}><Ionicons name="flash" size={12} color="#007A6A" /><Text style={styles.stickerXpText}> +15 XP</Text></View>
+            <View style={styles.stickerInner}>
+              <Ionicons name="flash" size={12} color="#007A6A" />
+              <Text style={styles.stickerXpText}> +15 XP</Text>
+            </View>
+          </Animated.View>
+
+          {/* Floating Sticker 3: Lessons (Bottom-Right) */}
+          <Animated.View
+            style={[
+              styles.floatingStickerLessons,
+              {
+                opacity: chip3Anim,
+                transform: [{ scale: chip3Scale }, { rotate: '5deg' }],
+              },
+            ]}
+          >
+            <View style={styles.stickerInner}>
+              <Ionicons name="library-outline" size={12} color="#3D2FA0" />
+              <Text style={styles.stickerLessonsText}> +3 Lessons</Text>
+            </View>
           </Animated.View>
 
           {/* Angled Hero Art Card */}
           <View style={styles.floatingCard}>
             <View style={styles.cardHeaderRow}>
-              <View style={styles.cardPulseDot} />
+              {/* Animated pulse dot */}
+              <Animated.View style={[styles.cardPulseDot, { transform: [{ scale: pulseDot }] }]} />
               <Text style={styles.cardHeaderLabel}>TODAY&apos;S JOURNEY</Text>
               <View style={styles.cardTagPill}>
                 <Text style={styles.cardTagText}>React 19</Text>
@@ -256,19 +318,22 @@ export function LandingScreen({ onOpenLogin }: LandingScreenProps) {
 
             <Text style={styles.cardTrackTitle}>React performance</Text>
 
-            {/* Chunky Animated Progress Track */}
+            {/* Animated Progress Bar */}
             <View style={styles.progressTrack}>
               <Animated.View style={[styles.progressFill, { width: progressWidth }]} />
             </View>
 
             <View style={styles.cardFooterRow}>
               <Text style={styles.cardMetaText}>7 of 11 steps</Text>
-              <Text style={styles.cardTimeText}>⏱ 12 min left</Text>
+              <View style={styles.cardTimeRow}>
+                <Ionicons name="time-outline" size={11} color="#8A84AC" />
+                <Text style={styles.cardTimeText}> 12 min left</Text>
+              </View>
             </View>
           </View>
         </Animated.View>
 
-        {/* Primary Call to Action Button with Smooth Spring */}
+        {/* ── CTA Button ── */}
         <Animated.View
           style={[
             styles.ctaWrapper,
@@ -287,13 +352,22 @@ export function LandingScreen({ onOpenLogin }: LandingScreenProps) {
               pressed && styles.btnPrimaryPressed,
             ]}
           >
-            <Text style={styles.btnPrimaryText}>Sign in</Text>
+            <Text style={styles.btnPrimaryText}>Sign in to your workspace</Text>
+            <Ionicons name="arrow-forward" size={18} color="#FFFFFF" style={{ marginLeft: 10 }} />
           </Pressable>
         </Animated.View>
 
-        {/* Footer Info */}
+        {/* ── Footer Trust Strip ── */}
         <View style={styles.footerRow}>
-          <Text style={styles.footerText}>Employee learning · Provisioned for your team</Text>
+          <View style={styles.footerPill}>
+            <Ionicons name="lock-closed-outline" size={12} color="#6A648F" />
+            <Text style={styles.footerText}> SSO secured</Text>
+          </View>
+          <View style={styles.footerDivider} />
+          <View style={styles.footerPill}>
+            <Ionicons name="people-outline" size={12} color="#6A648F" />
+            <Text style={styles.footerText}> Team provisioned</Text>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -303,7 +377,7 @@ export function LandingScreen({ onOpenLogin }: LandingScreenProps) {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#FFF8F0', // Canonical Playful warm vanilla canvas
+    backgroundColor: '#FFF8F0',
   },
   scrollContent: {
     flexGrow: 1,
@@ -348,17 +422,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 2.5,
   },
-  bar1: {
-    height: 10,
-    opacity: 0.75,
-  },
-  bar2: {
-    height: 17,
-    opacity: 0.9,
-  },
-  bar3: {
-    height: 24,
-  },
+  bar1: { height: 10, opacity: 0.75 },
+  bar2: { height: 17, opacity: 0.9 },
+  bar3: { height: 24 },
   brandTitle: {
     fontSize: 24,
     fontWeight: '900',
@@ -371,24 +437,24 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   heroTitle: {
-    fontSize: 36,
+    fontSize: 38,
     fontWeight: '900',
     color: '#1E1A3D',
-    lineHeight: 42,
-    letterSpacing: -1,
+    lineHeight: 44,
+    letterSpacing: -1.2,
     marginBottom: 12,
   },
   heroLede: {
-    fontSize: 15.5,
-    lineHeight: 23,
+    fontSize: 15,
+    lineHeight: 22,
     fontWeight: '600',
     color: '#6A648F',
   },
 
   /* ── Playful Art Frame ── */
   artFrame: {
-    height: 215,
-    backgroundColor: '#FFF0F5',
+    height: 220,
+    backgroundColor: '#F4F0FF',
     borderWidth: 2.5,
     borderColor: '#1E1A3D',
     borderRadius: 24,
@@ -450,16 +516,6 @@ const styles = StyleSheet.create({
     elevation: 6,
     zIndex: 10,
   },
-  stickerInner: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  stickerStreakText: {
-    fontSize: 11.5,
-    fontWeight: '900',
-    color: '#1E1A3D',
-    letterSpacing: 0.2,
-  },
   floatingStickerXp: {
     position: 'absolute',
     bottom: 14,
@@ -477,10 +533,43 @@ const styles = StyleSheet.create({
     elevation: 6,
     zIndex: 10,
   },
+  floatingStickerLessons: {
+    position: 'absolute',
+    bottom: 14,
+    right: 18,
+    backgroundColor: '#EDE8FF',
+    borderWidth: 2,
+    borderColor: '#1E1A3D',
+    borderRadius: 999,
+    paddingHorizontal: 12,
+    paddingVertical: 5,
+    shadowColor: '#1E1A3D',
+    shadowOffset: { width: 3, height: 3 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 6,
+    zIndex: 10,
+  },
+  stickerInner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  stickerStreakText: {
+    fontSize: 11.5,
+    fontWeight: '900',
+    color: '#1E1A3D',
+    letterSpacing: 0.2,
+  },
   stickerXpText: {
     fontSize: 11.5,
     fontWeight: '900',
     color: '#1E1A3D',
+    letterSpacing: 0.2,
+  },
+  stickerLessonsText: {
+    fontSize: 11.5,
+    fontWeight: '900',
+    color: '#3D2FA0',
     letterSpacing: 0.2,
   },
 
@@ -562,51 +651,67 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#6A648F',
   },
+  cardTimeRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   cardTimeText: {
     fontSize: 11,
     fontWeight: '700',
     color: '#8A84AC',
   },
 
-  /* ── Action CTA Button ── */
+  /* ── CTA Button ── */
   ctaWrapper: {
     marginTop: 18,
     marginBottom: 12,
   },
   btnPrimary: {
-    height: 52,
+    height: 56,
     backgroundColor: '#6C47FF',
     borderWidth: 2.5,
     borderColor: '#1E1A3D',
-    borderRadius: 16,
+    borderRadius: 18,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#1E1A3D',
-    shadowOffset: { width: 0, height: 4 },
+    shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 4,
+    elevation: 5,
   },
   btnPrimaryPressed: {
-    transform: [{ translateY: 3 }],
+    transform: [{ translateY: 4 }],
     shadowOffset: { width: 0, height: 1 },
   },
   btnPrimaryText: {
-    fontSize: 16.5,
+    fontSize: 16,
     fontWeight: '900',
     color: '#FFFFFF',
     letterSpacing: -0.2,
   },
 
-  /* ── Footer ── */
+  /* ── Footer Trust Strip ── */
   footerRow: {
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
     paddingVertical: 6,
+  },
+  footerPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  footerDivider: {
+    width: 1,
+    height: 12,
+    backgroundColor: '#C8C2E0',
   },
   footerText: {
     fontSize: 11.5,
     fontWeight: '600',
-    color: '#8A84AC',
-    textAlign: 'center',
+    color: '#6A648F',
   },
 });
