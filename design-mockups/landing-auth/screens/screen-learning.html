@@ -1,0 +1,832 @@
+<!doctype html>
+<html lang="en" data-variant="warm">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Skillar Mobile · My Learning &amp; Enrolled Courses</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600;700&family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../css/learning.css" />
+  <link rel="stylesheet" href="css/learning.css" />
+  <style>
+    /* Standalone Review Preview Chrome */
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      background: #0b0c0f;
+      padding: 24px 16px 40px;
+      margin: 0;
+      color: #e9eaee;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+    }
+    .preview-header {
+      width: 100%;
+      max-width: 440px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .preview-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: #fff;
+    }
+    .preview-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c5cff, #00d4b4);
+      box-shadow: 0 0 10px rgba(124, 92, 255, 0.7);
+    }
+    .preview-variants {
+      display: flex;
+      background: #16171d;
+      border: 1px solid #24262f;
+      border-radius: 8px;
+      padding: 2px;
+      gap: 2px;
+    }
+    .preview-variants button {
+      background: transparent;
+      border: 0;
+      color: #8a8fa1;
+      font-family: "IBM Plex Sans", sans-serif;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .preview-variants button.active {
+      background: #2b2e3a;
+      color: #fff;
+    }
+    .preview-device-wrap {
+      position: relative;
+      width: 390px;
+      height: 844px;
+      background: #050506;
+      border-radius: 46px;
+      padding: 11px;
+      box-shadow:
+        0 0 0 2px #26272f,
+        0 34px 80px -20px rgba(0, 0, 0, 0.85),
+        0 8px 26px -8px rgba(0, 0, 0, 0.6);
+      flex: none;
+    }
+    .preview-device-wrap .viewport {
+      position: absolute;
+      top: 11px;
+      left: 11px;
+      right: 11px;
+      bottom: 11px;
+      border-radius: 36px;
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .preview-device-wrap .statusbar {
+      position: absolute;
+      top: 11px;
+      left: 11px;
+      right: 11px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 26px;
+      z-index: 70;
+      pointer-events: none;
+      color: var(--ink);
+    }
+    .sb-time { font-size: 14.5px; font-weight: 700; letter-spacing: .01em; }
+    .sb-icons { display: flex; align-items: center; gap: 6px; fill: currentColor; }
+    .preview-footer-note {
+      margin-top: 16px;
+      font-size: 12px;
+      color: #6d7182;
+      font-family: "IBM Plex Sans", sans-serif;
+      text-align: center;
+      max-width: 400px;
+    }
+    /* Toast */
+    .preview-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #1e2028;
+      border: 1px solid #363949;
+      color: #f1f3f7;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s ease;
+      z-index: 9999;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    .preview-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Preview Toolbar -->
+  <header class="preview-header">
+    <div class="preview-brand">
+      <span class="preview-dot"></span>
+      <span>Skillar · My Learning Screen</span>
+    </div>
+    <div class="preview-variants" role="group" aria-label="Visual variant switcher">
+      <button type="button" class="variant-btn active" data-set-variant="warm">Warm</button>
+      <button type="button" class="variant-btn" data-set-variant="playful">Playful</button>
+      <button type="button" class="variant-btn" data-set-variant="minimal">Minimal</button>
+    </div>
+  </header>
+
+  <!-- Mobile Device Shell (390 x 844 iPhone dimensions) -->
+  <main class="preview-device-wrap">
+    
+    <!-- Native iOS Status Bar -->
+    <div class="statusbar" aria-hidden="true">
+      <span class="sb-time">9:41</span>
+      <span class="sb-icons">
+        <svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+        <svg width="15" height="11" viewBox="0 0 15 11"><path d="M7.5 9.6 9.7 7.3a3.1 3.1 0 0 0-4.4 0L7.5 9.6Zm0-4.4c1.7 0 3.3.6 4.5 1.8l1.4-1.4a8.4 8.4 0 0 0-11.8 0l1.4 1.4a6.3 6.3 0 0 1 4.5-1.8Z"/></svg>
+        <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="20" height="11" rx="3.2" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="15" height="8" rx="2"/><path d="M22.5 4v4a2.2 2.2 0 0 0 0-4Z" fill-opacity=".45"/></svg>
+      </span>
+    </div>
+
+    <!-- Viewport Container -->
+    <div class="viewport" id="viewport">
+
+      <!-- ═══════════════════════════════════════════════════════════════════
+           SCREEN: MY LEARNING (data-screen="learning")
+           ═══════════════════════════════════════════════════════════════════ -->
+      <section class="screen is-active" data-screen="learning" id="screen-learning" aria-label="My Learning Screen">
+        <div class="page page-learning">
+
+          <!-- ──────────────────────── 1. Top Header ──────────────────────── -->
+          <header class="learning-header anim">
+            <div class="learning-header-top">
+              <div class="learning-title-wrap">
+                <h1 class="learning-title">My Learning</h1>
+              </div>
+              <div class="learning-header-actions">
+                <button class="header-icon-btn" type="button" aria-label="Search my courses" data-mock="Search learning roadmaps">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                </button>
+                <button class="header-icon-btn" type="button" aria-label="Filter courses" data-mock="Filter by skill, category, or status">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Learning stats pill: 3 Active · 5 Completed · 42 hrs logged -->
+            <div class="learning-stats-pill" role="status" aria-label="Learning summary: 3 Active, 5 Completed, 42 hours logged">
+              <span class="stats-dot-indicator" aria-hidden="true"></span>
+              <span class="stats-item"><strong>3</strong> Active</span>
+              <span class="stats-sep" aria-hidden="true">·</span>
+              <span class="stats-item"><strong>5</strong> Completed</span>
+              <span class="stats-sep" aria-hidden="true">·</span>
+              <span class="stats-item"><strong>42 hrs</strong> logged</span>
+            </div>
+          </header>
+
+          <!-- ──────────────────────── 2. Segmented Tab Control ──────────────────────── -->
+          <nav class="learning-tabs-container anim" aria-label="Course status filter">
+            <div class="learning-segmented-tabs" role="tablist">
+              <!-- Tab 1: In Progress (Active) -->
+              <button class="segment-tab is-active" type="button" role="tab" id="tab-btn-inprogress" aria-selected="true" aria-controls="panel-inprogress" data-tab-target="panel-inprogress">
+                <span>In Progress</span>
+                <span class="segment-badge">3</span>
+              </button>
+
+              <!-- Tab 2: Completed -->
+              <button class="segment-tab" type="button" role="tab" id="tab-btn-completed" aria-selected="false" aria-controls="panel-completed" data-tab-target="panel-completed">
+                <span>Completed</span>
+                <span class="segment-badge">5</span>
+              </button>
+
+              <!-- Tab 3: Saved -->
+              <button class="segment-tab" type="button" role="tab" id="tab-btn-saved" aria-selected="false" aria-controls="panel-saved" data-tab-target="panel-saved">
+                <span>Saved</span>
+                <span class="segment-badge">2</span>
+              </button>
+            </div>
+          </nav>
+
+          <!-- ──────────────────────── 3. In Progress Tab Panel ──────────────────────── -->
+          <div class="learning-tab-panel is-active" id="panel-inprogress" role="tabpanel" aria-labelledby="tab-btn-inprogress">
+            
+            <div class="panel-filter-row anim">
+              <span class="panel-section-label">Enrolled Roadmaps (3)</span>
+              <button class="sort-select-btn" type="button" data-mock="Sorting options: Recently active, Most progress, Alphabetical">
+                <span>Sort: Recent</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Item 1: Modern React Native & Expo Architecture -->
+            <article class="roadmap-card anim" aria-labelledby="card-title-1">
+              <div class="card-header-row">
+                <div class="card-category-wrap">
+                  <span class="pill-badge pill-brand">Mobile Architecture</span>
+                  <span class="pill-badge pill-brand">Advanced</span>
+                </div>
+                <div class="card-last-active" title="Last study activity">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  <span>Today at 10:15 AM</span>
+                </div>
+              </div>
+
+              <div class="card-main-content">
+                <div class="card-text-col">
+                  <h2 class="roadmap-card-title" id="card-title-1">Modern React Native &amp; Expo Architecture</h2>
+                  <div class="roadmap-card-meta">
+                    <span class="meta-step-count">4 of 12 steps</span>
+                    <span class="meta-divider">·</span>
+                    <span>33% done</span>
+                    <span class="meta-divider">·</span>
+                    <span>4.5 hrs left</span>
+                  </div>
+                </div>
+
+                <!-- Circular Progress Ring (33%): r=22, Circumference=138.23, Dashoffset=92.6 -->
+                <div class="card-progress-col">
+                  <div class="progress-ring-wrap" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" aria-label="33 percent complete">
+                    <svg class="progress-ring-svg" viewBox="0 0 52 52" aria-hidden="true">
+                      <circle class="ring-track" cx="26" cy="26" r="22" stroke-width="4.5" fill="none"></circle>
+                      <circle class="ring-indicator brand-ring" cx="26" cy="26" r="22" stroke-width="4.5" fill="none"
+                        stroke-dasharray="138.23"
+                        stroke-dashoffset="92.61"></circle>
+                    </svg>
+                    <div class="progress-ring-center">
+                      <span class="progress-ring-pct">33%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Next step callout box -->
+              <div class="next-step-box">
+                <div class="next-step-left">
+                  <span class="next-step-label">
+                    <svg class="next-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    Next Step · Step 5
+                  </span>
+                  <div class="next-step-title">Offline-First State with TanStack Query</div>
+                  <span class="next-step-desc">18 min reading &amp; interactive sandbox</span>
+                </div>
+                <button class="btn-continue" type="button" data-goto="step-content" aria-label="Continue Offline-First State with TanStack Query">
+                  <span>Continue</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </article>
+
+            <!-- Item 2: Cloud Native Microservices with Kubernetes -->
+            <article class="roadmap-card anim" aria-labelledby="card-title-2">
+              <div class="card-header-row">
+                <div class="card-category-wrap">
+                  <span class="pill-badge pill-cloud">Cloud &amp; DevOps</span>
+                  <span class="pill-badge pill-cloud">Intermediate</span>
+                </div>
+                <div class="card-last-active" title="Last study activity">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  <span>2 days ago</span>
+                </div>
+              </div>
+
+              <div class="card-main-content">
+                <div class="card-text-col">
+                  <h2 class="roadmap-card-title" id="card-title-2">Cloud Native Microservices with Kubernetes</h2>
+                  <div class="roadmap-card-meta">
+                    <span class="meta-step-count">9 of 16 steps</span>
+                    <span class="meta-divider">·</span>
+                    <span>60% done</span>
+                    <span class="meta-divider">·</span>
+                    <span>3.2 hrs left</span>
+                  </div>
+                </div>
+
+                <!-- Circular Progress Ring (60%): r=22, Circumference=138.23, Dashoffset=55.3 -->
+                <div class="card-progress-col">
+                  <div class="progress-ring-wrap" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="60 percent complete">
+                    <svg class="progress-ring-svg" viewBox="0 0 52 52" aria-hidden="true">
+                      <circle class="ring-track" cx="26" cy="26" r="22" stroke-width="4.5" fill="none"></circle>
+                      <circle class="ring-indicator cloud-ring" cx="26" cy="26" r="22" stroke-width="4.5" fill="none"
+                        stroke-dasharray="138.23"
+                        stroke-dashoffset="55.29"></circle>
+                    </svg>
+                    <div class="progress-ring-center">
+                      <span class="progress-ring-pct">60%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Next step callout box -->
+              <div class="next-step-box">
+                <div class="next-step-left">
+                  <span class="next-step-label" style="color: #0284c7;">
+                    <svg class="next-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    Next Step · Step 10
+                  </span>
+                  <div class="next-step-title">Service Mesh with Istio &amp; Envoy Proxy</div>
+                  <span class="next-step-desc">25 min hands-on architecture lab</span>
+                </div>
+                <button class="btn-continue" type="button" data-goto="roadmap-detail" aria-label="Continue Cloud Native Microservices roadmap">
+                  <span>Continue</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </article>
+
+            <!-- Item 3: Staff Engineer Leadership & System Design -->
+            <article class="roadmap-card anim" aria-labelledby="card-title-3">
+              <div class="card-header-row">
+                <div class="card-category-wrap">
+                  <span class="pill-badge pill-leadership">Leadership &amp; Strategy</span>
+                  <span class="pill-badge pill-leadership">Executive</span>
+                </div>
+                <div class="card-last-active" title="Last study activity">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  <span>5 days ago</span>
+                </div>
+              </div>
+
+              <div class="card-main-content">
+                <div class="card-text-col">
+                  <h2 class="roadmap-card-title" id="card-title-3">Staff Engineer Leadership &amp; System Design</h2>
+                  <div class="roadmap-card-meta">
+                    <span class="meta-step-count">3 of 20 steps</span>
+                    <span class="meta-divider">·</span>
+                    <span>15% done</span>
+                    <span class="meta-divider">·</span>
+                    <span>11 hrs left</span>
+                  </div>
+                </div>
+
+                <!-- Circular Progress Ring (15%): r=22, Circumference=138.23, Dashoffset=117.5 -->
+                <div class="card-progress-col">
+                  <div class="progress-ring-wrap" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" aria-label="15 percent complete">
+                    <svg class="progress-ring-svg" viewBox="0 0 52 52" aria-hidden="true">
+                      <circle class="ring-track" cx="26" cy="26" r="22" stroke-width="4.5" fill="none"></circle>
+                      <circle class="ring-indicator leadership-ring" cx="26" cy="26" r="22" stroke-width="4.5" fill="none"
+                        stroke-dasharray="138.23"
+                        stroke-dashoffset="117.5"></circle>
+                    </svg>
+                    <div class="progress-ring-center">
+                      <span class="progress-ring-pct">15%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Next step callout box -->
+              <div class="next-step-box">
+                <div class="next-step-left">
+                  <span class="next-step-label" style="color: #d97706;">
+                    <svg class="next-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    Next Step · Step 4
+                  </span>
+                  <div class="next-step-title">Architecture Decision Records (ADRs) at Scale</div>
+                  <span class="next-step-desc">30 min executive case study</span>
+                </div>
+                <button class="btn-continue" type="button" data-goto="roadmap-detail" aria-label="Continue Staff Engineer Leadership roadmap">
+                  <span>Continue</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </article>
+
+            <!-- Bottom Teaser Box linking to Completed tab -->
+            <div class="completed-teaser-box anim" id="teaser-to-completed" role="button" tabindex="0" aria-label="View 5 completed courses and certificates">
+              <div class="teaser-left">
+                <div class="teaser-icon" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                </div>
+                <div class="teaser-copy">
+                  <span class="teaser-title">5 Completed Roadmaps · 42 hrs logged</span>
+                  <span class="teaser-desc">TypeScript 5.8 Masterclass (98%) &amp; 4 more</span>
+                </div>
+              </div>
+              <div class="teaser-arrow" aria-hidden="true">→</div>
+            </div>
+
+          </div>
+
+          <!-- ──────────────────────── 4. Completed Tab Panel ──────────────────────── -->
+          <div class="learning-tab-panel" id="panel-completed" role="tabpanel" aria-labelledby="tab-btn-completed">
+            
+            <!-- Summary Banner -->
+            <div class="completed-banner anim">
+              <div class="completed-banner-text">
+                <span class="completed-banner-title">5 Certificates Earned</span>
+                <span class="completed-banner-sub">42 total hours logged · 100% verification rate</span>
+              </div>
+              <div class="completed-banner-stamp" title="Verified Learner Credentials">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="8" r="7"></circle>
+                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Item 1 (Required): TypeScript 5.8 Masterclass -->
+            <article class="completed-card anim" aria-labelledby="completed-title-1">
+              <div class="completed-header-row">
+                <div class="completed-cert-badge">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span>Verified Certificate</span>
+                </div>
+                <span class="completed-score-pill">Score: 98%</span>
+              </div>
+
+              <div>
+                <h2 class="completed-card-title" id="completed-title-1">TypeScript 5.8 Masterclass</h2>
+                <div class="completed-details-row" style="margin-top: 4px;">
+                  <span>Completed Nov 12, 2026</span>
+                  <span class="meta-divider">·</span>
+                  <span>14 Modules</span>
+                  <span class="meta-divider">·</span>
+                  <span>Credential ID #SK-94821</span>
+                </div>
+              </div>
+
+              <div class="completed-actions-row">
+                <button class="btn-view-certificate" type="button" data-mock="Viewing Certificate #SK-94821: TypeScript 5.8 Masterclass — Issued Nov 12, 2026 to Alex Morgan (Score: 98%)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                  </svg>
+                  <span>View Certificate</span>
+                </button>
+                <button class="btn-share-cert" type="button" aria-label="Share certificate to LinkedIn" data-mock="Certificate share link copied to clipboard!">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="18" cy="5" r="3"></circle>
+                    <circle cx="6" cy="12" r="3"></circle>
+                    <circle cx="18" cy="19" r="3"></circle>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                  </svg>
+                </button>
+              </div>
+            </article>
+
+            <!-- Item 2: Advanced GraphQL Systems & Federation -->
+            <article class="completed-card anim" aria-labelledby="completed-title-2">
+              <div class="completed-header-row">
+                <div class="completed-cert-badge">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span>Verified Certificate</span>
+                </div>
+                <span class="completed-score-pill">Score: 95%</span>
+              </div>
+              <div>
+                <h2 class="completed-card-title" id="completed-title-2">Advanced GraphQL Systems &amp; Federation</h2>
+                <div class="completed-details-row" style="margin-top: 4px;">
+                  <span>Completed Oct 28, 2026</span>
+                  <span class="meta-divider">·</span>
+                  <span>10 Modules</span>
+                  <span class="meta-divider">·</span>
+                  <span>Credential ID #SK-91044</span>
+                </div>
+              </div>
+              <div class="completed-actions-row">
+                <button class="btn-view-certificate" type="button" data-mock="Viewing Certificate #SK-91044: Advanced GraphQL Systems & Federation — Issued Oct 28, 2026">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                  </svg>
+                  <span>View Certificate</span>
+                </button>
+                <button class="btn-share-cert" type="button" aria-label="Share certificate" data-mock="Certificate link copied!">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="18" cy="5" r="3"></circle>
+                    <circle cx="6" cy="12" r="3"></circle>
+                    <circle cx="18" cy="19" r="3"></circle>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                  </svg>
+                </button>
+              </div>
+            </article>
+
+            <!-- Item 3: Distributed Systems with Go -->
+            <article class="completed-card anim" aria-labelledby="completed-title-3">
+              <div class="completed-header-row">
+                <div class="completed-cert-badge">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span>Verified Certificate</span>
+                </div>
+                <span class="completed-score-pill">Score: 92%</span>
+              </div>
+              <div>
+                <h2 class="completed-card-title" id="completed-title-3">Distributed Systems with Go &amp; gRPC</h2>
+                <div class="completed-details-row" style="margin-top: 4px;">
+                  <span>Completed Sep 15, 2026</span>
+                  <span class="meta-divider">·</span>
+                  <span>12 Modules</span>
+                  <span class="meta-divider">·</span>
+                  <span>Credential ID #SK-88129</span>
+                </div>
+              </div>
+              <div class="completed-actions-row">
+                <button class="btn-view-certificate" type="button" data-mock="Viewing Certificate #SK-88129: Distributed Systems with Go">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                  </svg>
+                  <span>View Certificate</span>
+                </button>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- ──────────────────────── 5. Saved Tab Panel ──────────────────────── -->
+          <div class="learning-tab-panel" id="panel-saved" role="tabpanel" aria-labelledby="tab-btn-saved">
+            
+            <div class="panel-filter-row anim">
+              <span class="panel-section-label">Saved for Later (2)</span>
+            </div>
+
+            <!-- Saved Item 1: AI-Powered Mobile Apps with On-Device LLMs -->
+            <article class="saved-card anim" aria-labelledby="saved-title-1">
+              <div class="saved-card-header">
+                <span class="pill-badge pill-brand">AI &amp; Machine Learning</span>
+                <span class="card-last-active">Saved 3 days ago</span>
+              </div>
+              <div>
+                <h2 class="roadmap-card-title" id="saved-title-1">AI-Powered Mobile Apps with On-Device LLMs</h2>
+                <div class="roadmap-card-meta" style="margin-top: 4px;">
+                  <span class="meta-step-count">8 Modules</span>
+                  <span class="meta-divider">·</span>
+                  <span>14 Hours Estimated</span>
+                  <span class="meta-divider">·</span>
+                  <span>Intermediate</span>
+                </div>
+              </div>
+              <div class="completed-actions-row">
+                <button class="btn-continue" type="button" data-goto="roadmap-detail" aria-label="Start AI-Powered Mobile Apps roadmap">
+                  <span>Start Roadmap</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </article>
+
+            <!-- Saved Item 2: Production Design Systems for React Native -->
+            <article class="saved-card anim" aria-labelledby="saved-title-2">
+              <div class="saved-card-header">
+                <span class="pill-badge pill-brand">Design Systems</span>
+                <span class="card-last-active">Saved 1 week ago</span>
+              </div>
+              <div>
+                <h2 class="roadmap-card-title" id="saved-title-2">Production Design Systems for React Native</h2>
+                <div class="roadmap-card-meta" style="margin-top: 4px;">
+                  <span class="meta-step-count">6 Modules</span>
+                  <span class="meta-divider">·</span>
+                  <span>10 Hours Estimated</span>
+                  <span class="meta-divider">·</span>
+                  <span>Advanced</span>
+                </div>
+              </div>
+              <div class="completed-actions-row">
+                <button class="btn-continue" type="button" data-goto="roadmap-detail" aria-label="Start Production Design Systems roadmap">
+                  <span>Start Roadmap</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </article>
+
+          </div>
+
+        </div>
+
+        <!-- ──────────────────────── 6. Mobile Bottom Tab Bar ──────────────────────── -->
+        <nav class="learning-bottom-nav" aria-label="Main Navigation">
+          <div class="learning-tab-bar-inner" role="tablist">
+            
+            <!-- Tab 1: Dashboard -->
+            <button class="learning-nav-tab" type="button" role="tab" aria-selected="false" data-goto="dashboard" aria-label="Dashboard">
+              <div class="learning-tab-icon-wrap">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                  <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+              </div>
+              <span class="learning-tab-label">Dashboard</span>
+            </button>
+
+            <!-- Tab 2: Explore -->
+            <button class="learning-nav-tab" type="button" role="tab" aria-selected="false" data-goto="explore" aria-label="Explore learning modules">
+              <div class="learning-tab-icon-wrap">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                </svg>
+              </div>
+              <span class="learning-tab-label">Explore</span>
+            </button>
+
+            <!-- Tab 3: Learning (Active) -->
+            <button class="learning-nav-tab is-active" type="button" role="tab" aria-selected="true" aria-label="My Learning (active tab)">
+              <div class="learning-tab-icon-wrap">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                </svg>
+                <span class="learning-tab-active-dot" aria-hidden="true"></span>
+              </div>
+              <span class="learning-tab-label">Learning</span>
+            </button>
+
+            <!-- Tab 4: Journeys -->
+            <button class="learning-nav-tab" type="button" role="tab" aria-selected="false" data-goto="journeys" aria-label="Learning Journeys">
+              <div class="learning-tab-icon-wrap">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="2"/>
+                  <path d="M12 2v8M12 14v8M4.93 4.93l5.66 5.66M13.41 13.41l5.66 5.66M2 12h8M14 12h8M4.93 19.07l5.66-5.66M13.41 10.59l5.66-5.66"/>
+                </svg>
+              </div>
+              <span class="learning-tab-label">Journeys</span>
+            </button>
+
+            <!-- Tab 5: Profile -->
+            <button class="learning-nav-tab" type="button" role="tab" aria-selected="false" data-goto="profile" aria-label="Learner Profile and settings">
+              <div class="learning-tab-icon-wrap">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+              </div>
+              <span class="learning-tab-label">Profile</span>
+            </button>
+          </div>
+        </nav>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Interactive notification toast -->
+  <div class="preview-toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Interactive Controller Script (Standalone & Embedded Safe) -->
+  <script>
+    (function() {
+      // Toast notification helper
+      var toastEl = document.getElementById("toast");
+      var toastTimer = null;
+      function showToast(msg) {
+        if (!toastEl) return;
+        toastEl.textContent = msg;
+        toastEl.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function() {
+          toastEl.classList.remove("show");
+        }, 3000);
+      }
+
+      // Variant switcher (Warm / Playful / Minimal)
+      var variantBtns = document.querySelectorAll("[data-set-variant]");
+      variantBtns.forEach(function(btn) {
+        btn.addEventListener("click", function() {
+          var v = btn.getAttribute("data-set-variant");
+          document.documentElement.setAttribute("data-variant", v);
+          variantBtns.forEach(function(b) { b.classList.remove("active"); });
+          btn.classList.add("active");
+          showToast("Switched variant to " + v);
+        });
+      });
+
+      // Segmented Tab switcher
+      function switchTab(targetId) {
+        var tabs = document.querySelectorAll(".segment-tab");
+        var panels = document.querySelectorAll(".learning-tab-panel");
+        
+        tabs.forEach(function(tab) {
+          var isActive = tab.getAttribute("data-tab-target") === targetId;
+          tab.classList.toggle("is-active", isActive);
+          tab.setAttribute("aria-selected", isActive ? "true" : "false");
+        });
+
+        panels.forEach(function(panel) {
+          var isMatch = panel.id === targetId;
+          panel.classList.toggle("is-active", isMatch);
+        });
+      }
+
+      var segmentTabs = document.querySelectorAll(".segment-tab");
+      segmentTabs.forEach(function(tab) {
+        tab.addEventListener("click", function() {
+          var targetId = tab.getAttribute("data-tab-target");
+          if (targetId) switchTab(targetId);
+        });
+      });
+
+      // Teaser click handler: jump directly to completed tab
+      var teaser = document.getElementById("teaser-to-completed");
+      if (teaser) {
+        teaser.addEventListener("click", function() {
+          switchTab("panel-completed");
+        });
+        teaser.addEventListener("keydown", function(e) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            switchTab("panel-completed");
+          }
+        });
+      }
+
+      // Event delegation for mock actions & navigation
+      document.addEventListener("click", function(e) {
+        var mockBtn = e.target.closest("[data-mock]");
+        if (mockBtn) {
+          showToast(mockBtn.getAttribute("data-mock"));
+          return;
+        }
+
+        var gotoBtn = e.target.closest("[data-goto]");
+        if (gotoBtn) {
+          var dest = gotoBtn.getAttribute("data-goto");
+          // If prototype parent router goto() is defined:
+          if (typeof window.goto === "function") {
+            window.goto(dest);
+          } else {
+            showToast("Navigation → " + dest + " (Connected to prototype router)");
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

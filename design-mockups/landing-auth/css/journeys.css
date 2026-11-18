@@ -1,0 +1,3084 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Skillar Mobile · Journeys & Skills Mastery Styles
+   Aesthetic: Warm Minimal
+   Spec: Skillar Mobile Design System Spec v1.0
+   Brand: #6C47FF | Spacing Grid: 4px base | Min Touch Target: 44px
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  --journeys-font-display: var(--font-display, "Fraunces", Georgia, serif);
+  --journeys-font-body: var(--font-body, "Instrument Sans", system-ui, sans-serif);
+  --journeys-font-mono: var(--font-mono, "IBM Plex Mono", monospace);
+
+  --journeys-brand: #6c47ff;
+  --journeys-brand-press: #5835e8;
+  --journeys-brand-tint: #efeaff;
+  --journeys-brand-glow: rgba(108, 71, 255, 0.16);
+
+  --journeys-r-sm: 4px;
+  --journeys-r-md: 8px;
+  --journeys-r-lg: 12px;
+  --journeys-r-xl: 16px;
+  --journeys-r-pill: 9999px;
+
+  --journeys-tab-height: 64px;
+
+  /* Mastery Level Semantic Colors (WCAG AA Compliant) */
+  --mastery-advanced-fg: #15803d;
+  --mastery-advanced-bg: #f0fdf4;
+  --mastery-advanced-border: #bbf7d0;
+
+  --mastery-proficient-fg: #6c47ff;
+  --mastery-proficient-bg: #f4f1ff;
+  --mastery-proficient-border: #d8ccff;
+
+  --mastery-intermediate-fg: #b45309;
+  --mastery-intermediate-bg: #fffbeb;
+  --mastery-intermediate-border: #fde68a;
+
+  --mastery-emerging-fg: #475569;
+  --mastery-emerging-bg: #f1f5f9;
+  --mastery-emerging-border: #cbd5e1;
+}
+
+/* ──────────────────────── Page Container ──────────────────────── */
+
+.page-journeys {
+  padding: 52px 16px calc(var(--journeys-tab-height) + 28px) !important;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--bg);
+  min-height: 100%;
+  color: var(--ink);
+  font-family: var(--journeys-font-body);
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.page-journeys::-webkit-scrollbar {
+  width: 4px;
+}
+.page-journeys::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: var(--journeys-r-pill);
+}
+
+/* ──────────────────────── 1. Header Bar ──────────────────────── */
+
+.journeys-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 4px 0 4px;
+}
+
+.journeys-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.journeys-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.journeys-screen-eyebrow {
+  font-family: var(--journeys-font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--journeys-brand);
+}
+
+.journeys-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  line-height: 1.2;
+  font-family: var(--journeys-font-display);
+}
+
+.journeys-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.journeys-action-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--journeys-r-md);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  min-height: 44px; /* Accessible touch target */
+  min-width: 44px;
+}
+
+.journeys-action-btn:hover {
+  background: var(--surfaceElevated, var(--bg-2));
+  border-color: var(--journeys-brand);
+  color: var(--journeys-brand);
+}
+
+.journeys-action-btn:focus-visible {
+  outline: 2px solid var(--journeys-brand);
+  outline-offset: 2px;
+}
+
+/* Active Journey Tag: "Cohort Q4 · Engineering Career Growth" */
+.cohort-badge-wrap {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cohort-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--journeys-r-pill);
+  padding: 4px 12px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--ink);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.cohort-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+  flex-shrink: 0;
+}
+
+.cohort-icon {
+  color: var(--journeys-brand);
+  flex-shrink: 0;
+}
+
+.cohort-status-sub {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ──────────────────────── 2. Current Enrolled Journey Hero Card ──────────────────────── */
+
+.journey-hero-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--journeys-r-xl);
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: var(--shadow-card, 0 8px 24px -12px rgba(43, 33, 26, 0.08));
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.journey-hero-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--journeys-brand) 0%, #8b6cff 50%, #00d4b4 100%);
+}
+
+.journey-hero-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.journey-track-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.journey-enrolled-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--journeys-font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--journeys-brand);
+  background: var(--journeys-brand-tint);
+  border: 1px solid rgba(108, 71, 255, 0.2);
+  border-radius: var(--journeys-r-pill);
+  padding: 2px 8px;
+  width: fit-content;
+}
+
+.journey-track-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  font-family: var(--journeys-font-display);
+}
+
+.journey-milestone-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-2, #f5efe6);
+  border: 1px solid var(--line);
+  border-radius: var(--journeys-r-md);
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  width: fit-content;
+}
+
+.milestone-icon {
+  color: var(--journeys-brand);
+  flex-shrink: 0;
+}
+
+/* Overall Journey Progress: 64% complete */
+.journey-progress-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--surfaceElevated, rgba(255, 255, 255, 0.6));
+  border: 1px solid var(--line);
+  border-radius: var(--journeys-r-lg);
+  padding: 12px 14px;
+}
+
+.journey-progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12.5px;
+}
+
+.journey-progress-label {
+  font-weight: 600;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.journey-progress-pct {
+  font-family: var(--journeys-font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--journeys-brand);
+}
+
+.journey-progress-track {
+  height: 8px;
+  background: var(--line);
+  border-radius: var(--journeys-r-pill);
+  position: relative;
+  overflow: hidden;
+}
+
+.journey-progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, var(--journeys-brand), #8b6cff);
+  border-radius: var(--journeys-r-pill);
+  transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.journey-phase-markers {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 2px 0;
+}
+
+.phase-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.phase-step.is-done {
+  color: #15803d;
+  font-weight: 600;
+}
+
+.phase-step.is-current {
+  color: var(--journeys-brand);
+  font-weight: 700;
+}
+
+.phase-step-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--line);
+  border: 1.5px solid var(--surface);
+}
+
+.phase-step.is-done .phase-step-dot {
+  background: #10b981;
+}
+
+.phase-step.is-current .phase-step-dot {
+  background: var(--journeys-brand);
+  box-shadow: 0 0 0 3px rgba(108, 71, 255, 0.22);
+}
+
+/* Next checkpoint: "Capstone Design Review with Lead Evaluator — in 6 days" */
+.journey-checkpoint-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: var(--journeys-r-lg);
+  padding: 12px 14px;
+}
+
+.checkpoint-badge-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--journeys-r-md);
+  background: #fef3c7;
+  color: #92400e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.checkpoint-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.checkpoint-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.checkpoint-tag {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #92400e;
+}
+
+.checkpoint-days-pill {
+  background: #f59e0b;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: var(--journeys-r-pill);
+  padding: 1px 7px;
+  font-family: var(--journeys-font-mono);
+}
+
+.checkpoint-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #78350f;
+  line-height: 1.35;
+}
+
+.checkpoint-sub {
+  font-size: 11px;
+  color: #92400e;
+  opacity: 0.9;
+}
+
+/* Primary Action: "View Full Journey Breakdown →" */
+.btn-journey-breakdown {
+  width: 100%;
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--journeys-brand);
+  color: #ffffff;
+  border: var(--btn-border, none);
+  border-radius: var(--journeys-r-lg);
+  padding: 12px 18px;
+  font-size: 13.5px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 4px 14px -3px rgba(108, 71, 255, 0.4);
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.btn-journey-breakdown:hover {
+  background: var(--journeys-brand-press);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px -3px rgba(108, 71, 255, 0.5);
+}
+
+.btn-journey-breakdown:active {
+  transform: translateY(0);
+}
+
+.btn-journey-breakdown:focus-visible {
+  outline: 2px solid var(--journeys-brand);
+  outline-offset: 2px;
+}
+
+/* ──────────────────────── 3. Skills Competency Radar / Progress Breakdown ──────────────────────── */
+
+.skills-mastery-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--journeys-r-xl);
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: var(--shadow-card, 0 8px 24px -12px rgba(43, 33, 26, 0.08));
+}
+
+.skills-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.skills-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.skills-card-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  font-family: var(--journeys-font-display);
+}
+
+.skills-card-subtitle {
+  margin: 0;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.skills-view-toggle {
+  display: inline-flex;
+  background: var(--bg-2, #f5efe6);
+  border: 1px solid var(--line);
+  border-radius: var(--journeys-r-md);
+  padding: 2px;
+  gap: 2px;
+}
+
+.view-toggle-btn {
+  background: none;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 9px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 28px;
+}
+
+.view-toggle-btn.is-active {
+  background: var(--surface);
+  color: var(--journeys-brand);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Radar Chart Visualization */
+.radar-chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 0;
+  position: relative;
+  background: var(--surfaceElevated, rgba(255, 255, 255, 0.4));
+  border: 1px solid var(--line);
+  border-radius: var(--journeys-r-lg);
+  overflow: hidden;
+}
+
+.radar-chart-svg {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  aspect-ratio: 300 / 260;
+  overflow: visible;
+}
+
+.radar-grid-polygon {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 1;
+  stroke-dasharray: 2 3;
+}
+
+.radar-grid-polygon.outer {
+  stroke-dasharray: none;
+  stroke: var(--line);
+  stroke-width: 1.5;
+}
+
+.radar-axis {
+  stroke: var(--line);
+  stroke-width: 1;
+  stroke-dasharray: 2 2;
+}
+
+.radar-data-polygon {
+  fill: rgba(108, 71, 255, 0.16);
+  stroke: var(--journeys-brand);
+  stroke-width: 2.2;
+  stroke-linejoin: round;
+  transition: all 0.4s ease;
+}
+
+.radar-point {
+  fill: var(--surface);
+  stroke: var(--journeys-brand);
+  stroke-width: 2.5;
+  transition: r 0.2s ease, stroke-width 0.2s ease;
+  cursor: pointer;
+}
+
+.radar-point:hover {
+  r: 5.5;
+  stroke-width: 3.5;
+}
+
+.radar-label {
+  font-family: var(--journeys-font-body);
+  font-size: 9.5px;
+  font-weight: 600;
+  fill: var(--muted);
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.radar-score-badge {
+  font-family: var(--journeys-font-mono);
+  font-size: 8.5px;
+  font-weight: 700;
+  fill: var(--journeys-brand);
+}
+
+/* Skills Competency Progress List */
+.skills-progress-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skill-row-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--journeys-r-lg);
+  padding: 12px 14px;
+  transition: all 0.18s ease;
+}
+
+.skill-row-card:hover {
+  border-color: rgba(108, 71, 255, 0.35);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+}
+
+.skill-row-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.skill-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.skill-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.skill-tech-stack {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.skill-badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.mastery-pill {
+  font-size: 10.5px;
+  font-weight: 700;
+  border-radius: var(--journeys-r-pill);
+  padding: 2px 8px;
+  line-height: 1.2;
+}
+
+.mastery-pill.advanced {
+  background: var(--mastery-advanced-bg);
+  color: var(--mastery-advanced-fg);
+  border: 1px solid var(--mastery-advanced-border);
+}
+
+.mastery-pill.proficient {
+  background: var(--mastery-proficient-bg);
+  color: var(--mastery-proficient-fg);
+  border: 1px solid var(--mastery-proficient-border);
+}
+
+.mastery-pill.intermediate {
+  background: var(--mastery-intermediate-bg);
+  color: var(--mastery-intermediate-fg);
+  border: 1px solid var(--mastery-intermediate-border);
+}
+
+.mastery-pill.emerging {
+  background: var(--mastery-emerging-bg);
+  color: var(--mastery-emerging-fg);
+  border: 1px solid var(--mastery-emerging-border);
+}
+
+.skill-pct-val {
+  font-family: var(--journeys-font-mono);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink);
+  min-width: 32px;
+  text-align: right;
+}
+
+.skill-progress-bar-wrap {
+  height: 6px;
+  background: var(--line);
+  border-radius: var(--journeys-r-pill);
+  overflow: hidden;
+  position: relative;
+}
+
+.skill-progress-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  border-radius: var(--journeys-r-pill);
+  transition: width 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.skill-progress-bar-fill.fill-advanced {
+  background: linear-gradient(90deg, #10b981, #059669);
+}
+
+.skill-progress-bar-fill.fill-proficient {
+  background: linear-gradient(90deg, var(--journeys-brand), #8b6cff);
+}
+
+.skill-progress-bar-fill.fill-intermediate {
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+.skill-progress-bar-fill.fill-emerging {
+  background: linear-gradient(90deg, #64748b, #475569);
+}
+
+.skill-row-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10.5px;
+  color: var(--muted);
+  padding-top: 1px;
+}
+
+.validation-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #15803d;
+  font-weight: 500;
+}
+
+/* ──────────────────────── 4. Mentor & Feedback Card ──────────────────────── */
+
+.mentor-feedback-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--journeys-r-xl);
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: var(--shadow-card, 0 8px 24px -12px rgba(43, 33, 26, 0.08));
+  position: relative;
+}
+
+.mentor-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mentor-profile-lockup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.mentor-avatar-wrap {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.mentor-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f3e8ff 0%, #d8ccff 100%);
+  border: 2px solid var(--journeys-brand-tint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--journeys-brand);
+  font-family: var(--journeys-font-display);
+}
+
+.mentor-online-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #10b981;
+  border: 2px solid var(--surface);
+}
+
+.mentor-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.mentor-name {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+.mentor-role {
+  font-size: 11.5px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mentor-badge-assigned {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--journeys-brand-tint);
+  color: var(--journeys-brand);
+  border: 1px solid rgba(108, 71, 255, 0.2);
+  border-radius: var(--journeys-r-pill);
+  padding: 3px 8px;
+  font-size: 10.5px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* Recent Note bubble */
+.mentor-feedback-bubble {
+  background: var(--bg-2, #f7f1e8);
+  border: 1px solid var(--line);
+  border-radius: var(--journeys-r-lg);
+  padding: 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.feedback-bubble-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.feedback-step-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  color: var(--journeys-brand);
+}
+
+.feedback-time-tag {
+  font-family: var(--journeys-font-mono);
+  font-size: 10.5px;
+}
+
+.feedback-quote-text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink);
+  font-style: italic;
+  position: relative;
+  padding-left: 14px;
+  border-left: 3px solid var(--journeys-brand);
+}
+
+.mentor-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-mentor-action {
+  flex: 1;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: var(--journeys-r-md);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: inherit;
+}
+
+.btn-mentor-action.primary {
+  background: var(--journeys-brand-tint);
+  border: 1px solid rgba(108, 71, 255, 0.25);
+  color: var(--journeys-brand);
+}
+
+.btn-mentor-action.primary:hover {
+  background: rgba(108, 71, 255, 0.15);
+  border-color: var(--journeys-brand);
+}
+
+.btn-mentor-action.outline {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.btn-mentor-action.outline:hover {
+  background: var(--bg-2);
+  border-color: var(--ink);
+}
+
+/* ──────────────────────── 5. Structured Milestone Cards ──────────────────────── */
+
+.structured-milestones-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.milestones-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2px;
+}
+
+.milestones-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  font-family: var(--journeys-font-display);
+}
+
+.milestones-progress-summary {
+  font-family: var(--journeys-font-mono);
+  font-size: 11.5px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.milestone-cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.milestone-step-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--journeys-r-lg);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.18s ease;
+  position: relative;
+}
+
+.milestone-step-card.active {
+  border-color: var(--journeys-brand);
+  background: var(--surface);
+  box-shadow: 0 4px 14px -6px rgba(108, 71, 255, 0.25);
+}
+
+.milestone-step-card.locked {
+  opacity: 0.72;
+  background: var(--bg-2, #faf7f2);
+}
+
+.milestone-icon-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--journeys-r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.milestone-step-card.completed .milestone-icon-badge {
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+.milestone-step-card.active .milestone-icon-badge {
+  background: var(--journeys-brand);
+  color: #ffffff;
+}
+
+.milestone-step-card.locked .milestone-icon-badge {
+  background: var(--line);
+  color: var(--muted);
+}
+
+.milestone-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.milestone-phase-num {
+  font-family: var(--journeys-font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+
+.milestone-step-card.active .milestone-phase-num {
+  color: var(--journeys-brand);
+}
+
+.milestone-card-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.milestone-card-meta {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.milestone-status-pill {
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: var(--journeys-r-pill);
+  padding: 3px 8px;
+  flex-shrink: 0;
+}
+
+.milestone-status-pill.done {
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+.milestone-status-pill.active {
+  background: var(--journeys-brand-tint);
+  color: var(--journeys-brand);
+  border: 1px solid rgba(108, 71, 255, 0.2);
+}
+
+.milestone-status-pill.locked {
+  background: transparent;
+  color: var(--muted);
+}
+
+/* ──────────────────────── 6. Mobile Bottom Tab Bar ──────────────────────── */
+
+.journeys-bottom-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--journeys-tab-height);
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -4px 16px -4px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 35;
+  display: flex;
+  align-items: stretch;
+}
+
+.tab-bar-inner {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.nav-tab {
+  flex: 1;
+  min-height: 44px; /* Accessible min touch target */
+  height: 100%;
+  padding: 6px 4px 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: var(--muted);
+  font-family: var(--journeys-font-body);
+  transition: color 0.15s ease, transform 0.1s ease;
+  position: relative;
+}
+
+.nav-tab:hover {
+  color: var(--ink);
+}
+
+.nav-tab:focus-visible {
+  outline: 2px solid var(--journeys-brand);
+  outline-offset: -2px;
+}
+
+.nav-tab.is-active {
+  color: var(--journeys-brand);
+  font-weight: 700;
+}
+
+.tab-icon-wrap {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab-icon-wrap svg {
+  stroke-width: 2;
+}
+
+.tab-active-dot {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--journeys-brand);
+}
+
+.tab-label {
+  font-size: 10.5px;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+/* ──────────────────────── Responsive & Theme Modifiers ──────────────────────── */
+
+/* Desktop view support */
+.device.mode-desktop .page-journeys {
+  max-width: 680px;
+  margin: 0 auto;
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+}
+
+.device.mode-desktop .journeys-bottom-nav {
+  max-width: 680px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+}
+
+/* ═══════════════════════ Responsive & Theme Variants ═══════════════════════ */
+
+/* Desktop view support */
+.device.mode-desktop .page-journeys {
+  max-width: 680px;
+  margin: 0 auto;
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+}
+
+.device.mode-desktop .journeys-bottom-nav {
+  max-width: 680px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   1. [data-variant="playful"] — Neo-Brutalist Pop / Candy Neo-Grotesque
+   ═══════════════════════════════════════════════════════════════════ */
+
+[data-variant="playful"] .page-journeys {
+  background: var(--bg, #fff6f0);
+  color: #1e1a3d;
+}
+
+[data-variant="playful"] .journeys-screen-eyebrow {
+  color: #6c47ff;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+[data-variant="playful"] .journeys-title {
+  font-family: var(--font-display, "Baloo 2", system-ui, sans-serif);
+  color: #1e1a3d;
+  font-weight: 800;
+}
+
+[data-variant="playful"] .journeys-action-btn {
+  background: #ffffff;
+  border: 2px solid #1e1a3d;
+  border-radius: 14px;
+  box-shadow: 2px 2px 0 #1e1a3d;
+  color: #1e1a3d;
+}
+
+[data-variant="playful"] .journeys-action-btn:hover {
+  background: #ffc93c;
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 #1e1a3d;
+}
+
+[data-variant="playful"] .journeys-action-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 #1e1a3d;
+}
+
+/* Active Journey Tag: Candy Pill */
+[data-variant="playful"] .cohort-tag-pill {
+  background: #ffc93c;
+  border: 2px solid #1e1a3d;
+  color: #1e1a3d;
+  font-weight: 800;
+  box-shadow: 2px 2px 0 #1e1a3d;
+  border-radius: var(--journeys-r-pill);
+}
+
+[data-variant="playful"] .cohort-tag-pill .cohort-icon {
+  color: #1e1a3d;
+}
+
+[data-variant="playful"] .cohort-tag-pill .cohort-dot {
+  background: #1e1a3d;
+  box-shadow: none;
+}
+
+[data-variant="playful"] .cohort-status-sub {
+  color: #6a648f;
+  font-weight: 700;
+}
+
+/* Journey Hero Track Card: 2.5px solid #1E1A3D, 6px 6px shadow, 20px radius, white bg */
+[data-variant="playful"] .journey-hero-card {
+  border: 2.5px solid #1e1a3d;
+  box-shadow: 6px 6px 0 #1e1a3d;
+  border-radius: 20px;
+  background: #ffffff;
+  position: relative;
+}
+
+[data-variant="playful"] .journey-hero-card::before {
+  height: 5px;
+  background: linear-gradient(90deg, #6c47ff 0%, #ff5fa2 50%, #ffc93c 100%);
+}
+
+[data-variant="playful"] .journey-enrolled-pill {
+  background: #ff5fa2;
+  border: 2px solid #1e1a3d;
+  color: #ffffff;
+  font-weight: 800;
+  box-shadow: 2px 2px 0 #1e1a3d;
+  border-radius: var(--journeys-r-pill);
+}
+
+[data-variant="playful"] .journey-track-title {
+  font-family: var(--font-display, "Baloo 2", system-ui, sans-serif);
+  color: #1e1a3d;
+  font-weight: 800;
+}
+
+[data-variant="playful"] .journey-milestone-pill {
+  background: #f4efff;
+  border: 2px solid #1e1a3d;
+  box-shadow: 2px 2px 0 #1e1a3d;
+  border-radius: 12px;
+  color: #1e1a3d;
+  font-weight: 700;
+}
+
+[data-variant="playful"] .milestone-icon {
+  color: #6c47ff;
+}
+
+/* Overall Progress Section & Bar */
+[data-variant="playful"] .journey-progress-section {
+  background: #fbf9ff;
+  border: 2px solid #1e1a3d;
+  box-shadow: 3px 3px 0 #1e1a3d;
+  border-radius: 16px;
+}
+
+[data-variant="playful"] .journey-progress-label {
+  color: #1e1a3d;
+  font-weight: 800;
+}
+
+[data-variant="playful"] .journey-progress-pct {
+  color: #6c47ff;
+  font-weight: 800;
+}
+
+/* Overall Progress Bar: Thick 2px dark border, candy gradient fill (#6C47FF to #FF5FA2) */
+[data-variant="playful"] .journey-progress-track {
+  height: 12px;
+  background: #f4efff;
+  border: 2px solid #1e1a3d;
+  border-radius: var(--journeys-r-pill);
+  box-shadow: 1px 1px 0 rgba(30, 26, 61, 0.12);
+}
+
+[data-variant="playful"] .journey-progress-bar {
+  background: linear-gradient(90deg, #6c47ff 0%, #ff5fa2 100%);
+  border-radius: var(--journeys-r-pill);
+}
+
+[data-variant="playful"] .phase-step.is-done {
+  color: #00d4b4;
+  font-weight: 800;
+}
+
+[data-variant="playful"] .phase-step.is-done .phase-step-dot {
+  background: #00d4b4;
+  border: 1.5px solid #1e1a3d;
+}
+
+[data-variant="playful"] .phase-step.is-current {
+  color: #6c47ff;
+  font-weight: 800;
+}
+
+[data-variant="playful"] .phase-step.is-current .phase-step-dot {
+  background: #ff5fa2;
+  border: 1.5px solid #1e1a3d;
+  box-shadow: 0 0 0 2px #ffc93c;
+}
+
+/* Upcoming Checkpoint Banner */
+[data-variant="playful"] .journey-checkpoint-banner {
+  background: #fff9e6;
+  border: 2px solid #1e1a3d;
+  box-shadow: 3px 3px 0 #1e1a3d;
+  border-radius: 16px;
+}
+
+[data-variant="playful"] .checkpoint-badge-icon {
+  background: #ffc93c;
+  color: #1e1a3d;
+  border: 2px solid #1e1a3d;
+  box-shadow: 1.5px 1.5px 0 #1e1a3d;
+  border-radius: 10px;
+}
+
+[data-variant="playful"] .checkpoint-tag {
+  color: #1e1a3d;
+  font-weight: 800;
+}
+
+[data-variant="playful"] .checkpoint-days-pill {
+  background: #ff5fa2;
+  color: #ffffff;
+  border: 1.5px solid #1e1a3d;
+  font-weight: 800;
+  box-shadow: 1px 1px 0 #1e1a3d;
+}
+
+[data-variant="playful"] .checkpoint-title {
+  color: #1e1a3d;
+  font-weight: 800;
+}
+
+[data-variant="playful"] .checkpoint-sub {
+  color: #6a648f;
+  font-weight: 600;
+}
+
+/* "View Full Journey Breakdown →" CTA Button */
+[data-variant="playful"] .btn-journey-breakdown {
+  border: 2.5px solid #1e1a3d;
+  box-shadow: 4px 4px 0 #1e1a3d;
+  background: #6c47ff;
+  color: #ffffff;
+  font-weight: 800;
+  border-radius: 16px;
+}
+
+[data-variant="playful"] .btn-journey-breakdown:hover {
+  background: #5835e8;
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 #1e1a3d;
+}
+
+[data-variant="playful"] .btn-journey-breakdown:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #1e1a3d;
+}
+
+/* Skills Competency Radar Card */
+[data-variant="playful"] .skills-mastery-card {
+  border: 2.5px solid #1e1a3d;
+  box-shadow: 6px 6px 0 #1e1a3d;
+  border-radius: 20px;
+  background: #ffffff;
+}
+
+[data-variant="playful"] .skills-card-title {
+  font-family: var(--font-display, "Baloo 2", system-ui, sans-serif);
+  color: #1e1a3d;
+  font-weight: 800;
+}
+
+[data-variant="playful"] .skills-view-toggle {
+  background: #f4efff;
+  border: 2px solid #1e1a3d;
+  border-radius: 12px;
+}
+
+[data-variant="playful"] .view-toggle-btn.is-active {
+  background: #ffc93c;
+  color: #1e1a3d;
+  border: 2px solid #1e1a3d;
+  box-shadow: 2px 2px 0 #1e1a3d;
+  font-weight: 800;
+}
+
+[data-variant="playful"] .radar-chart-container {
+  background: #fffdf5;
+  border: 2px solid #1e1a3d;
+  box-shadow: 3px 3px 0 #1e1a3d;
+  border-radius: 16px;
+}
+
+[data-variant="playful"] .radar-grid-polygon {
+  stroke: #1e1a3d;
+  opacity: 0.25;
+}
+
+[data-variant="playful"] .radar-grid-polygon.outer {
+  stroke: #1e1a3d;
+  opacity: 0.6;
+  stroke-width: 2;
+}
+
+[data-variant="playful"] .radar-axis {
+  stroke: #1e1a3d;
+  opacity: 0.3;
+}
+
+[data-variant="playful"] .radar-data-polygon {
+  fill: rgba(108, 71, 255, 0.22);
+  stroke: #1e1a3d;
+  stroke-width: 2.8;
+}
+
+[data-variant="playful"] .radar-point {
+  fill: #ffc93c;
+  stroke: #1e1a3d;
+  stroke-width: 2.5;
+}
+
+[data-variant="playful"] .radar-label {
+  fill: #1e1a3d;
+  font-weight: 700;
+}
+
+[data-variant="playful"] .radar-score-badge {
+  fill: #6c47ff;
+  font-weight: 800;
+}
+
+/* Skills Competency Progress List */
+[data-variant="playful"] .skill-row-card {
+  border: 2px solid #1e1a3d;
+  box-shadow: 4px 4px 0 #1e1a3d;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+[data-variant="playful"] .skill-title {
+  color: #1e1a3d;
+  font-weight: 800;
+}
+
+[data-variant="playful"] .skill-progress-bar-wrap {
+  height: 10px;
+  background: #f4efff;
+  border: 2px solid #1e1a3d;
+  border-radius: var(--journeys-r-pill);
+  box-shadow: 1px 1px 0 rgba(30, 26, 61, 0.1);
+  overflow: hidden;
+}
+
+/* Chunky 2px Border & Distinct Candy Colors */
+/* Frontend: Mint green (#00D4B4) */
+[data-variant="playful"] .skills-progress-list .skill-row-card:nth-child(1) .skill-progress-bar-fill {
+  background: #00d4b4;
+  border-radius: var(--journeys-r-pill);
+}
+
+/* Distributed Systems: Electric purple (#6C47FF) */
+[data-variant="playful"] .skills-progress-list .skill-row-card:nth-child(2) .skill-progress-bar-fill {
+  background: #6c47ff;
+  border-radius: var(--journeys-r-pill);
+}
+
+/* Cloud Infra: Sunshine yellow (#FFC93C) */
+[data-variant="playful"] .skills-progress-list .skill-row-card:nth-child(3) .skill-progress-bar-fill {
+  background: #ffc93c;
+  border-radius: var(--journeys-r-pill);
+}
+
+/* Database: Coral pink (#FF5FA2) */
+[data-variant="playful"] .skills-progress-list .skill-row-card:nth-child(4) .skill-progress-bar-fill {
+  background: #ff5fa2;
+  border-radius: var(--journeys-r-pill);
+}
+
+/* Technical Leadership: Lavender punch */
+[data-variant="playful"] .skills-progress-list .skill-row-card:nth-child(5) .skill-progress-bar-fill {
+  background: #8b6cff;
+  border-radius: var(--journeys-r-pill);
+}
+
+[data-variant="playful"] .skill-pct-val {
+  color: #1e1a3d;
+  font-weight: 800;
+}
+
+/* Competency level badges: 2px dark borders and bold pills */
+[data-variant="playful"] .mastery-pill {
+  border: 2px solid #1e1a3d;
+  font-weight: 800;
+  border-radius: var(--journeys-r-pill);
+  box-shadow: 1.5px 1.5px 0 #1e1a3d;
+}
+
+[data-variant="playful"] .mastery-pill.advanced {
+  background: #00d4b4;
+  color: #1e1a3d;
+}
+
+[data-variant="playful"] .mastery-pill.proficient {
+  background: #c4b5fd;
+  color: #1e1a3d;
+}
+
+[data-variant="playful"] .mastery-pill.intermediate {
+  background: #ffc93c;
+  color: #1e1a3d;
+}
+
+[data-variant="playful"] .mastery-pill.emerging {
+  background: #ffd2e6;
+  color: #1e1a3d;
+}
+
+/* Mentor Feedback Card: Speech-bubble style card */
+[data-variant="playful"] .mentor-feedback-card {
+  border: 2.5px solid #1e1a3d;
+  box-shadow: 4px 4px 0 #1e1a3d;
+  background: #ffffff;
+  border-radius: 20px;
+}
+
+[data-variant="playful"] .mentor-avatar {
+  background: #ffc93c;
+  border: 2px solid #1e1a3d;
+  color: #1e1a3d;
+  font-weight: 800;
+  box-shadow: 2px 2px 0 #1e1a3d;
+}
+
+[data-variant="playful"] .mentor-online-badge {
+  background: #00d4b4;
+  border: 2px solid #1e1a3d;
+}
+
+[data-variant="playful"] .mentor-name {
+  color: #1e1a3d;
+  font-weight: 800;
+}
+
+[data-variant="playful"] .mentor-badge-assigned {
+  background: #ff5fa2;
+  border: 2px solid #1e1a3d;
+  color: #ffffff;
+  font-weight: 800;
+  box-shadow: 1.5px 1.5px 0 #1e1a3d;
+}
+
+/* Speech-bubble style inner bubble */
+[data-variant="playful"] .mentor-feedback-bubble {
+  background: #f4efff;
+  border: 2px solid #1e1a3d;
+  box-shadow: 3px 3px 0 #1e1a3d;
+  border-radius: 16px;
+  position: relative;
+}
+
+[data-variant="playful"] .mentor-feedback-bubble::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 20px;
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 8px solid #1e1a3d;
+}
+
+[data-variant="playful"] .mentor-feedback-bubble::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 21px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 7px solid #f4efff;
+}
+
+[data-variant="playful"] .feedback-step-tag {
+  color: #6c47ff;
+  font-weight: 800;
+}
+
+[data-variant="playful"] .feedback-quote-text {
+  border-left: 3px solid #1e1a3d;
+  color: #1e1a3d;
+  font-weight: 600;
+}
+
+[data-variant="playful"] .btn-mentor-action.primary {
+  background: #00d4b4;
+  border: 2px solid #1e1a3d;
+  box-shadow: 3px 3px 0 #1e1a3d;
+  color: #1e1a3d;
+  font-weight: 800;
+  border-radius: 12px;
+}
+
+[data-variant="playful"] .btn-mentor-action.outline {
+  background: #ffffff;
+  border: 2px solid #1e1a3d;
+  box-shadow: 3px 3px 0 #1e1a3d;
+  color: #1e1a3d;
+  font-weight: 800;
+  border-radius: 12px;
+}
+
+[data-variant="playful"] .btn-mentor-action:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 #1e1a3d;
+}
+
+[data-variant="playful"] .btn-mentor-action:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #1e1a3d;
+}
+
+/* Milestones Stack */
+[data-variant="playful"] .milestones-title {
+  font-family: var(--font-display, "Baloo 2", system-ui, sans-serif);
+  color: #1e1a3d;
+  font-weight: 800;
+}
+
+[data-variant="playful"] .milestone-step-card {
+  border: 2.5px solid #1e1a3d;
+  box-shadow: 4px 4px 0 #1e1a3d;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+[data-variant="playful"] .milestone-step-card.active {
+  background: #fffdf5;
+  border-color: #1e1a3d;
+  box-shadow: 5px 5px 0 #1e1a3d;
+}
+
+[data-variant="playful"] .milestone-icon-badge {
+  border: 2px solid #1e1a3d;
+  border-radius: 10px;
+  box-shadow: 1.5px 1.5px 0 #1e1a3d;
+  font-weight: 800;
+}
+
+[data-variant="playful"] .milestone-step-card.completed .milestone-icon-badge {
+  background: #00d4b4;
+  color: #1e1a3d;
+}
+
+[data-variant="playful"] .milestone-step-card.active .milestone-icon-badge {
+  background: #ffc93c;
+  color: #1e1a3d;
+}
+
+[data-variant="playful"] .milestone-card-title {
+  color: #1e1a3d;
+  font-weight: 800;
+}
+
+[data-variant="playful"] .milestone-status-pill {
+  border: 2px solid #1e1a3d;
+  font-weight: 800;
+  box-shadow: 1.5px 1.5px 0 #1e1a3d;
+}
+
+[data-variant="playful"] .milestone-status-pill.done {
+  background: #00d4b4;
+  color: #1e1a3d;
+}
+
+[data-variant="playful"] .milestone-status-pill.active {
+  background: #ffc93c;
+  color: #1e1a3d;
+}
+
+/* Playful Bottom Nav */
+[data-variant="playful"] .journeys-bottom-nav {
+  background: #ffffff;
+  border-top: 2.5px solid #1e1a3d;
+  box-shadow: 0 -4px 0 #1e1a3d;
+}
+
+[data-variant="playful"] .nav-tab.is-active {
+  color: #6c47ff;
+  font-weight: 800;
+}
+
+[data-variant="playful"] .tab-active-dot {
+  background: #6c47ff;
+  width: 6px;
+  height: 6px;
+  border: 1px solid #1e1a3d;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   2. [data-variant="cyber-neon"] — Dark Obsidian & Glowing Neon
+   ═══════════════════════════════════════════════════════════════════ */
+
+[data-variant="cyber-neon"] .page-journeys {
+  background: #0a0b12;
+  color: #e2e8f0;
+}
+
+[data-variant="cyber-neon"] .journeys-screen-eyebrow {
+  color: #00f0ff;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+  letter-spacing: 0.15em;
+}
+
+[data-variant="cyber-neon"] .journeys-title {
+  color: #ffffff;
+  text-shadow: 0 0 16px rgba(0, 240, 255, 0.35);
+}
+
+[data-variant="cyber-neon"] .journeys-action-btn {
+  background: #121422;
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  color: #00f0ff;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.15);
+}
+
+[data-variant="cyber-neon"] .journeys-action-btn:hover {
+  background: rgba(0, 240, 255, 0.2);
+  border-color: #00f0ff;
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.4);
+}
+
+/* Active Cohort Pill */
+[data-variant="cyber-neon"] .cohort-tag-pill {
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid #00f0ff;
+  color: #00f0ff;
+  font-weight: 700;
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.3);
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+}
+
+[data-variant="cyber-neon"] .cohort-dot {
+  background: #00f0ff;
+  box-shadow: 0 0 10px #00f0ff, 0 0 18px rgba(0, 240, 255, 0.8);
+}
+
+[data-variant="cyber-neon"] .cohort-icon {
+  color: #00f0ff;
+}
+
+[data-variant="cyber-neon"] .cohort-status-sub {
+  color: #94a3b8;
+}
+
+/* Obsidian Cards */
+[data-variant="cyber-neon"] .journey-hero-card,
+[data-variant="cyber-neon"] .skills-mastery-card,
+[data-variant="cyber-neon"] .mentor-feedback-card,
+[data-variant="cyber-neon"] .milestone-step-card {
+  background: #0f111a;
+  border: 1px solid rgba(0, 240, 255, 0.22);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.7), 0 0 20px -6px rgba(0, 240, 255, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+[data-variant="cyber-neon"] .journey-hero-card::before {
+  background: linear-gradient(90deg, #00f0ff 0%, #ff007a 50%, #ffe600 100%);
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.8);
+  height: 3px;
+}
+
+[data-variant="cyber-neon"] .journey-enrolled-pill {
+  background: rgba(255, 0, 122, 0.16);
+  border: 1px solid #ff007a;
+  color: #ff007a;
+  box-shadow: 0 0 10px rgba(255, 0, 122, 0.35);
+  text-shadow: 0 0 8px rgba(255, 0, 122, 0.6);
+}
+
+[data-variant="cyber-neon"] .journey-track-title,
+[data-variant="cyber-neon"] .skills-card-title,
+[data-variant="cyber-neon"] .mentor-name,
+[data-variant="cyber-neon"] .milestones-title,
+[data-variant="cyber-neon"] .milestone-card-title {
+  color: #ffffff;
+}
+
+[data-variant="cyber-neon"] .journey-milestone-pill {
+  background: #141724;
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  color: #e2e8f0;
+}
+
+[data-variant="cyber-neon"] .milestone-icon {
+  color: #00f0ff;
+}
+
+/* Overall Progress Section */
+[data-variant="cyber-neon"] .journey-progress-section {
+  background: #131622;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.5);
+}
+
+[data-variant="cyber-neon"] .journey-progress-label {
+  color: #cbd5e1;
+}
+
+[data-variant="cyber-neon"] .journey-progress-pct {
+  color: #00f0ff;
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.7);
+}
+
+[data-variant="cyber-neon"] .journey-progress-track {
+  height: 9px;
+  background: #090a10;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+[data-variant="cyber-neon"] .journey-progress-bar {
+  background: linear-gradient(90deg, #00f0ff 0%, #ff007a 100%);
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.8), 0 0 30px rgba(255, 0, 122, 0.5);
+}
+
+[data-variant="cyber-neon"] .phase-step.is-done {
+  color: #00ff88;
+}
+
+[data-variant="cyber-neon"] .phase-step.is-done .phase-step-dot {
+  background: #00ff88;
+  box-shadow: 0 0 8px #00ff88;
+}
+
+[data-variant="cyber-neon"] .phase-step.is-current {
+  color: #00f0ff;
+}
+
+[data-variant="cyber-neon"] .phase-step.is-current .phase-step-dot {
+  background: #00f0ff;
+  box-shadow: 0 0 10px #00f0ff;
+}
+
+/* Checkpoint Banner */
+[data-variant="cyber-neon"] .journey-checkpoint-banner {
+  background: rgba(255, 230, 0, 0.07);
+  border: 1px solid rgba(255, 230, 0, 0.35);
+  box-shadow: 0 0 18px rgba(255, 230, 0, 0.1);
+}
+
+[data-variant="cyber-neon"] .checkpoint-badge-icon {
+  background: rgba(255, 230, 0, 0.18);
+  color: #ffe600;
+  border: 1px solid rgba(255, 230, 0, 0.4);
+}
+
+[data-variant="cyber-neon"] .checkpoint-tag {
+  color: #ffe600;
+  text-shadow: 0 0 6px rgba(255, 230, 0, 0.5);
+}
+
+[data-variant="cyber-neon"] .checkpoint-days-pill {
+  background: #ffe600;
+  color: #0a0b12;
+  font-weight: 800;
+  box-shadow: 0 0 10px rgba(255, 230, 0, 0.6);
+}
+
+[data-variant="cyber-neon"] .checkpoint-title {
+  color: #ffffff;
+}
+
+[data-variant="cyber-neon"] .checkpoint-sub {
+  color: #94a3b8;
+}
+
+/* CTA Breakdown Button */
+[data-variant="cyber-neon"] .btn-journey-breakdown {
+  background: linear-gradient(135deg, #00f0ff 0%, #7928ca 100%);
+  color: #ffffff;
+  border: 1px solid rgba(0, 240, 255, 0.5);
+  box-shadow: 0 0 22px rgba(0, 240, 255, 0.35);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  font-weight: 700;
+}
+
+[data-variant="cyber-neon"] .btn-journey-breakdown:hover {
+  box-shadow: 0 0 32px rgba(0, 240, 255, 0.6);
+  transform: translateY(-1px);
+}
+
+/* Skills Competency Radar Chart */
+[data-variant="cyber-neon"] .radar-chart-container {
+  background: #0c0e17;
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+[data-variant="cyber-neon"] .radar-grid-polygon {
+  stroke: rgba(0, 240, 255, 0.2);
+}
+
+[data-variant="cyber-neon"] .radar-grid-polygon.outer {
+  stroke: rgba(0, 240, 255, 0.45);
+}
+
+[data-variant="cyber-neon"] .radar-axis {
+  stroke: rgba(0, 240, 255, 0.22);
+}
+
+[data-variant="cyber-neon"] .radar-data-polygon {
+  fill: rgba(0, 240, 255, 0.16);
+  stroke: #00f0ff;
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.7));
+}
+
+[data-variant="cyber-neon"] .radar-point {
+  fill: #ff007a;
+  stroke: #ffffff;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 6px #ff007a);
+}
+
+[data-variant="cyber-neon"] .radar-label {
+  fill: #94a3b8;
+}
+
+[data-variant="cyber-neon"] .radar-score-badge {
+  fill: #00f0ff;
+  font-weight: 800;
+  filter: drop-shadow(0 0 4px rgba(0, 240, 255, 0.8));
+}
+
+[data-variant="cyber-neon"] .skills-view-toggle {
+  background: #090a10;
+  border: 1px solid rgba(0, 240, 255, 0.25);
+}
+
+[data-variant="cyber-neon"] .view-toggle-btn.is-active {
+  background: rgba(0, 240, 255, 0.2);
+  color: #00f0ff;
+  border: 1px solid #00f0ff;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.35);
+}
+
+/* Glowing Neon Radar & Progress Bars (Cyan, Pink, Yellow) */
+[data-variant="cyber-neon"] .skill-row-card {
+  background: #111420;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-variant="cyber-neon"] .skill-row-card:hover {
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.15);
+}
+
+[data-variant="cyber-neon"] .skill-title {
+  color: #f1f5f9;
+}
+
+[data-variant="cyber-neon"] .skill-progress-bar-wrap {
+  background: #090a10;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  height: 8px;
+}
+
+/* Frontend: Glowing Cyan */
+[data-variant="cyber-neon"] .skills-progress-list .skill-row-card:nth-child(1) .skill-progress-bar-fill {
+  background: #00f0ff;
+  box-shadow: 0 0 12px #00f0ff, 0 0 24px rgba(0, 240, 255, 0.6);
+}
+
+/* Distributed Systems: Glowing Pink */
+[data-variant="cyber-neon"] .skills-progress-list .skill-row-card:nth-child(2) .skill-progress-bar-fill {
+  background: #ff007a;
+  box-shadow: 0 0 12px #ff007a, 0 0 24px rgba(255, 0, 122, 0.6);
+}
+
+/* Cloud Infra: Glowing Yellow */
+[data-variant="cyber-neon"] .skills-progress-list .skill-row-card:nth-child(3) .skill-progress-bar-fill {
+  background: #ffe600;
+  box-shadow: 0 0 12px #ffe600, 0 0 24px rgba(255, 230, 0, 0.6);
+}
+
+/* Database: Glowing Neon Violet */
+[data-variant="cyber-neon"] .skills-progress-list .skill-row-card:nth-child(4) .skill-progress-bar-fill {
+  background: #b026ff;
+  box-shadow: 0 0 12px #b026ff, 0 0 24px rgba(176, 38, 255, 0.6);
+}
+
+/* Leadership: Glowing Lime */
+[data-variant="cyber-neon"] .skills-progress-list .skill-row-card:nth-child(5) .skill-progress-bar-fill {
+  background: #00ff88;
+  box-shadow: 0 0 12px #00ff88, 0 0 24px rgba(0, 255, 136, 0.6);
+}
+
+[data-variant="cyber-neon"] .skill-pct-val {
+  color: #00f0ff;
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+}
+
+/* Badges */
+[data-variant="cyber-neon"] .mastery-pill.advanced {
+  background: rgba(0, 240, 255, 0.15);
+  color: #00f0ff;
+  border: 1px solid #00f0ff;
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+}
+
+[data-variant="cyber-neon"] .mastery-pill.proficient {
+  background: rgba(255, 0, 122, 0.15);
+  color: #ff007a;
+  border: 1px solid #ff007a;
+  box-shadow: 0 0 8px rgba(255, 0, 122, 0.3);
+}
+
+[data-variant="cyber-neon"] .mastery-pill.intermediate {
+  background: rgba(255, 230, 0, 0.15);
+  color: #ffe600;
+  border: 1px solid #ffe600;
+  box-shadow: 0 0 8px rgba(255, 230, 0, 0.3);
+}
+
+[data-variant="cyber-neon"] .mastery-pill.emerging {
+  background: rgba(176, 38, 255, 0.15);
+  color: #d880ff;
+  border: 1px solid #b026ff;
+  box-shadow: 0 0 8px rgba(176, 38, 255, 0.3);
+}
+
+/* Mentor Card */
+[data-variant="cyber-neon"] .mentor-feedback-card {
+  border-color: rgba(255, 0, 122, 0.28);
+  box-shadow: 0 0 22px -6px rgba(255, 0, 122, 0.2);
+}
+
+[data-variant="cyber-neon"] .mentor-avatar {
+  background: #181324;
+  border: 2px solid #ff007a;
+  color: #ff007a;
+  box-shadow: 0 0 12px rgba(255, 0, 122, 0.5);
+}
+
+[data-variant="cyber-neon"] .mentor-badge-assigned {
+  background: rgba(0, 240, 255, 0.12);
+  border: 1px solid #00f0ff;
+  color: #00f0ff;
+}
+
+[data-variant="cyber-neon"] .mentor-feedback-bubble {
+  background: #131624;
+  border: 1px solid rgba(255, 0, 122, 0.25);
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+[data-variant="cyber-neon"] .feedback-quote-text {
+  border-left-color: #ff007a;
+  color: #f1f5f9;
+}
+
+[data-variant="cyber-neon"] .btn-mentor-action.primary {
+  background: rgba(0, 240, 255, 0.15);
+  border: 1px solid #00f0ff;
+  color: #00f0ff;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+}
+
+[data-variant="cyber-neon"] .btn-mentor-action.outline {
+  background: #0f111a;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+}
+
+/* Milestones */
+[data-variant="cyber-neon"] .milestone-step-card.completed {
+  border-color: rgba(0, 255, 136, 0.35);
+}
+
+[data-variant="cyber-neon"] .milestone-step-card.completed .milestone-icon-badge {
+  background: rgba(0, 255, 136, 0.15);
+  color: #00ff88;
+  border: 1px solid #00ff88;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+}
+
+[data-variant="cyber-neon"] .milestone-step-card.active {
+  border-color: #00f0ff;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+}
+
+[data-variant="cyber-neon"] .milestone-step-card.active .milestone-icon-badge {
+  background: #00f0ff;
+  color: #0a0b12;
+  box-shadow: 0 0 12px #00f0ff;
+}
+
+[data-variant="cyber-neon"] .milestone-status-pill.done {
+  background: rgba(0, 255, 136, 0.15);
+  color: #00ff88;
+  border: 1px solid #00ff88;
+}
+
+[data-variant="cyber-neon"] .milestone-status-pill.active {
+  background: rgba(0, 240, 255, 0.15);
+  color: #00f0ff;
+  border: 1px solid #00f0ff;
+}
+
+/* Bottom Nav */
+[data-variant="cyber-neon"] .journeys-bottom-nav {
+  background: rgba(10, 11, 18, 0.94);
+  border-top: 1px solid rgba(0, 240, 255, 0.25);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.8);
+}
+
+[data-variant="cyber-neon"] .nav-tab.is-active {
+  color: #00f0ff;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.7);
+}
+
+[data-variant="cyber-neon"] .tab-active-dot {
+  background: #00f0ff;
+  box-shadow: 0 0 8px #00f0ff;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   3. [data-variant="neo-brutalist"] — Hard Contrast, 3px Black Borders, 5px Shadow
+   ═══════════════════════════════════════════════════════════════════ */
+
+[data-variant="neo-brutalist"] .page-journeys {
+  background: #fffdf0;
+  color: #000000;
+  font-family: var(--font-body, system-ui, sans-serif);
+}
+
+[data-variant="neo-brutalist"] .journeys-screen-eyebrow {
+  color: #000000;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+[data-variant="neo-brutalist"] .journeys-title {
+  color: #000000;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+[data-variant="neo-brutalist"] .journeys-action-btn {
+  background: #ffffff;
+  border: 3px solid #000000;
+  box-shadow: 3px 3px 0 #000000;
+  border-radius: 0;
+  color: #000000;
+}
+
+[data-variant="neo-brutalist"] .journeys-action-btn:hover {
+  background: #ffe600;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 #000000;
+}
+
+/* Active Cohort Pill */
+[data-variant="neo-brutalist"] .cohort-tag-pill {
+  background: #ffe600;
+  border: 3px solid #000000;
+  color: #000000;
+  font-weight: 900;
+  box-shadow: 3px 3px 0 #000000;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .cohort-dot {
+  background: #000000;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+[data-variant="neo-brutalist"] .cohort-icon {
+  color: #000000;
+}
+
+[data-variant="neo-brutalist"] .cohort-status-sub {
+  color: #000000;
+  font-weight: 700;
+}
+
+/* Brutalist Cards: 3px black borders, 5px black drop shadows */
+[data-variant="neo-brutalist"] .journey-hero-card,
+[data-variant="neo-brutalist"] .skills-mastery-card,
+[data-variant="neo-brutalist"] .mentor-feedback-card,
+[data-variant="neo-brutalist"] .milestone-step-card {
+  background: #ffffff;
+  border: 3px solid #000000;
+  box-shadow: 5px 5px 0 #000000;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .journey-hero-card::before {
+  display: none;
+}
+
+[data-variant="neo-brutalist"] .journey-enrolled-pill {
+  background: #ffe600;
+  border: 2px solid #000000;
+  color: #000000;
+  font-weight: 900;
+  box-shadow: 2px 2px 0 #000000;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .journey-track-title,
+[data-variant="neo-brutalist"] .skills-card-title,
+[data-variant="neo-brutalist"] .mentor-name,
+[data-variant="neo-brutalist"] .milestones-title,
+[data-variant="neo-brutalist"] .milestone-card-title {
+  color: #000000;
+  font-weight: 900;
+}
+
+[data-variant="neo-brutalist"] .journey-milestone-pill {
+  background: #ffffff;
+  border: 2px solid #000000;
+  color: #000000;
+  font-weight: 800;
+  box-shadow: 2px 2px 0 #000000;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .milestone-icon {
+  color: #000000;
+}
+
+/* Overall Progress Section */
+[data-variant="neo-brutalist"] .journey-progress-section {
+  background: #fffeea;
+  border: 2.5px solid #000000;
+  box-shadow: 3px 3px 0 #000000;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .journey-progress-label {
+  color: #000000;
+  font-weight: 800;
+}
+
+[data-variant="neo-brutalist"] .journey-progress-pct {
+  color: #000000;
+  font-weight: 900;
+}
+
+[data-variant="neo-brutalist"] .journey-progress-track {
+  height: 12px;
+  background: #ffffff;
+  border: 2.5px solid #000000;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .journey-progress-bar {
+  background: #000000;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .phase-step.is-done {
+  color: #000000;
+  font-weight: 800;
+}
+
+[data-variant="neo-brutalist"] .phase-step.is-done .phase-step-dot {
+  background: #00f0ff;
+  border: 2px solid #000000;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .phase-step.is-current {
+  color: #000000;
+  font-weight: 900;
+}
+
+[data-variant="neo-brutalist"] .phase-step.is-current .phase-step-dot {
+  background: #ffe600;
+  border: 2px solid #000000;
+  border-radius: 0;
+  box-shadow: 2px 2px 0 #000000;
+}
+
+/* Checkpoint Banner */
+[data-variant="neo-brutalist"] .journey-checkpoint-banner {
+  background: #fffeea;
+  border: 2.5px solid #000000;
+  box-shadow: 3px 3px 0 #000000;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .checkpoint-badge-icon {
+  background: #ffe600;
+  color: #000000;
+  border: 2px solid #000000;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .checkpoint-tag {
+  color: #000000;
+  font-weight: 900;
+}
+
+[data-variant="neo-brutalist"] .checkpoint-days-pill {
+  background: #000000;
+  color: #ffe600;
+  border: 2px solid #000000;
+  font-weight: 900;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .checkpoint-title {
+  color: #000000;
+  font-weight: 800;
+}
+
+[data-variant="neo-brutalist"] .checkpoint-sub {
+  color: #333333;
+  font-weight: 600;
+}
+
+/* CTA Breakdown Button: 3px border, 5px black drop shadow */
+[data-variant="neo-brutalist"] .btn-journey-breakdown {
+  background: #ffe600;
+  color: #000000;
+  border: 3px solid #000000;
+  box-shadow: 5px 5px 0 #000000;
+  border-radius: 0;
+  font-weight: 900;
+}
+
+[data-variant="neo-brutalist"] .btn-journey-breakdown:hover {
+  background: #fff066;
+  transform: translate(-1px, -1px);
+  box-shadow: 6px 6px 0 #000000;
+}
+
+[data-variant="neo-brutalist"] .btn-journey-breakdown:active {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 #000000;
+}
+
+/* Skills Competency Radar / Progress Breakdown */
+[data-variant="neo-brutalist"] .radar-chart-container {
+  background: #fffeea;
+  border: 2.5px solid #000000;
+  box-shadow: 3px 3px 0 #000000;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .radar-grid-polygon {
+  stroke: #000000;
+  stroke-width: 1.5;
+}
+
+[data-variant="neo-brutalist"] .radar-grid-polygon.outer {
+  stroke: #000000;
+  stroke-width: 2.5;
+}
+
+[data-variant="neo-brutalist"] .radar-axis {
+  stroke: #000000;
+  stroke-width: 1.5;
+}
+
+[data-variant="neo-brutalist"] .radar-data-polygon {
+  fill: rgba(0, 0, 0, 0.15);
+  stroke: #000000;
+  stroke-width: 3.5;
+}
+
+[data-variant="neo-brutalist"] .radar-point {
+  fill: #ffe600;
+  stroke: #000000;
+  stroke-width: 3;
+}
+
+[data-variant="neo-brutalist"] .radar-label {
+  fill: #000000;
+  font-weight: 800;
+}
+
+[data-variant="neo-brutalist"] .radar-score-badge {
+  fill: #000000;
+  font-weight: 900;
+}
+
+[data-variant="neo-brutalist"] .skills-view-toggle {
+  background: #ffffff;
+  border: 2.5px solid #000000;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .view-toggle-btn.is-active {
+  background: #ffe600;
+  color: #000000;
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0 #000000;
+  border-radius: 0;
+  font-weight: 900;
+}
+
+/* Competency Bars & Badges */
+[data-variant="neo-brutalist"] .skill-row-card {
+  background: #ffffff;
+  border: 2.5px solid #000000;
+  box-shadow: 4px 4px 0 #000000;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .skill-title {
+  color: #000000;
+  font-weight: 800;
+}
+
+[data-variant="neo-brutalist"] .skill-progress-bar-wrap {
+  height: 10px;
+  background: #ffffff;
+  border: 2.5px solid #000000;
+  border-radius: 0;
+}
+
+/* Distinct high-contrast fills with hard border separator */
+[data-variant="neo-brutalist"] .skills-progress-list .skill-row-card:nth-child(1) .skill-progress-bar-fill {
+  background: #00f0ff;
+  border-radius: 0;
+  border-right: 2px solid #000000;
+}
+
+[data-variant="neo-brutalist"] .skills-progress-list .skill-row-card:nth-child(2) .skill-progress-bar-fill {
+  background: #b388ff;
+  border-radius: 0;
+  border-right: 2px solid #000000;
+}
+
+[data-variant="neo-brutalist"] .skills-progress-list .skill-row-card:nth-child(3) .skill-progress-bar-fill {
+  background: #ffe600;
+  border-radius: 0;
+  border-right: 2px solid #000000;
+}
+
+[data-variant="neo-brutalist"] .skills-progress-list .skill-row-card:nth-child(4) .skill-progress-bar-fill {
+  background: #ff5252;
+  border-radius: 0;
+  border-right: 2px solid #000000;
+}
+
+[data-variant="neo-brutalist"] .skills-progress-list .skill-row-card:nth-child(5) .skill-progress-bar-fill {
+  background: #39ff14;
+  border-radius: 0;
+  border-right: 2px solid #000000;
+}
+
+[data-variant="neo-brutalist"] .skill-pct-val {
+  color: #000000;
+  font-weight: 900;
+}
+
+[data-variant="neo-brutalist"] .mastery-pill {
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0 #000000;
+  border-radius: 0;
+  font-weight: 900;
+  color: #000000;
+}
+
+[data-variant="neo-brutalist"] .mastery-pill.advanced {
+  background: #00f0ff;
+}
+
+[data-variant="neo-brutalist"] .mastery-pill.proficient {
+  background: #b388ff;
+}
+
+[data-variant="neo-brutalist"] .mastery-pill.intermediate {
+  background: #ffe600;
+}
+
+[data-variant="neo-brutalist"] .mastery-pill.emerging {
+  background: #ff8a80;
+}
+
+/* Mentor Card */
+[data-variant="neo-brutalist"] .mentor-feedback-card {
+  border: 3px solid #000000;
+  box-shadow: 5px 5px 0 #000000;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .mentor-avatar {
+  background: #ffe600;
+  border: 2.5px solid #000000;
+  color: #000000;
+  font-weight: 900;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .mentor-online-badge {
+  background: #00f0ff;
+  border: 2px solid #000000;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .mentor-badge-assigned {
+  background: #ffe600;
+  border: 2px solid #000000;
+  color: #000000;
+  font-weight: 800;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .mentor-feedback-bubble {
+  background: #fffeea;
+  border: 2.5px solid #000000;
+  box-shadow: 3px 3px 0 #000000;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .feedback-quote-text {
+  border-left: 4px solid #000000;
+  color: #000000;
+  font-weight: 700;
+  font-style: normal;
+}
+
+[data-variant="neo-brutalist"] .btn-mentor-action.primary {
+  background: #ffe600;
+  border: 2.5px solid #000000;
+  box-shadow: 3px 3px 0 #000000;
+  color: #000000;
+  font-weight: 900;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .btn-mentor-action.outline {
+  background: #ffffff;
+  border: 2.5px solid #000000;
+  box-shadow: 3px 3px 0 #000000;
+  color: #000000;
+  font-weight: 900;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .btn-mentor-action:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 #000000;
+}
+
+[data-variant="neo-brutalist"] .btn-mentor-action:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #000000;
+}
+
+/* Milestones */
+[data-variant="neo-brutalist"] .milestone-step-card {
+  border: 2.5px solid #000000;
+  box-shadow: 4px 4px 0 #000000;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .milestone-step-card.completed .milestone-icon-badge {
+  background: #00f0ff;
+  border: 2px solid #000000;
+  color: #000000;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .milestone-step-card.active {
+  background: #fffeea;
+  border: 3px solid #000000;
+  box-shadow: 5px 5px 0 #000000;
+}
+
+[data-variant="neo-brutalist"] .milestone-step-card.active .milestone-icon-badge {
+  background: #ffe600;
+  border: 2px solid #000000;
+  color: #000000;
+  border-radius: 0;
+}
+
+[data-variant="neo-brutalist"] .milestone-status-pill {
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0 #000000;
+  font-weight: 900;
+  border-radius: 0;
+  color: #000000;
+}
+
+[data-variant="neo-brutalist"] .milestone-status-pill.done {
+  background: #00f0ff;
+}
+
+[data-variant="neo-brutalist"] .milestone-status-pill.active {
+  background: #ffe600;
+}
+
+/* Bottom Nav */
+[data-variant="neo-brutalist"] .journeys-bottom-nav {
+  background: #ffffff;
+  border-top: 3px solid #000000;
+}
+
+[data-variant="neo-brutalist"] .nav-tab.is-active {
+  color: #000000;
+  font-weight: 900;
+}
+
+[data-variant="neo-brutalist"] .tab-active-dot {
+  background: #000000;
+  border-radius: 0;
+  width: 6px;
+  height: 6px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   4. [data-variant="warm"] — Editorial Serif Fraunces & Cream / Terracotta
+   ═══════════════════════════════════════════════════════════════════ */
+
+[data-variant="warm"] .page-journeys {
+  background: #f7f1e8;
+  color: #2b211a;
+  font-family: var(--font-body, "Instrument Sans", system-ui, sans-serif);
+}
+
+[data-variant="warm"] .journeys-screen-eyebrow {
+  font-family: var(--font-mono, "IBM Plex Mono", monospace);
+  color: #c0603a;
+  letter-spacing: 0.12em;
+}
+
+[data-variant="warm"] .journeys-title {
+  font-family: "Fraunces", Georgia, serif;
+  color: #2b211a;
+  font-weight: 700;
+}
+
+[data-variant="warm"] .journeys-action-btn {
+  background: #fffdf9;
+  border: 1px solid #e6d9c7;
+  color: #2b211a;
+  border-radius: 12px;
+}
+
+[data-variant="warm"] .journeys-action-btn:hover {
+  background: #f4ece0;
+  border-color: #c0603a;
+  color: #c0603a;
+}
+
+/* Active Cohort Tag */
+[data-variant="warm"] .cohort-tag-pill {
+  background: #fff8f2;
+  border: 1px solid #edd3c1;
+  color: #7a351a;
+  font-weight: 600;
+  border-radius: var(--journeys-r-pill);
+  box-shadow: 0 2px 6px rgba(192, 96, 58, 0.08);
+}
+
+[data-variant="warm"] .cohort-dot {
+  background: #c0603a;
+  box-shadow: 0 0 0 2px rgba(192, 96, 58, 0.2);
+}
+
+[data-variant="warm"] .cohort-icon {
+  color: #c0603a;
+}
+
+[data-variant="warm"] .cohort-status-sub {
+  color: #7d6f60;
+}
+
+/* Warm Cream Surfaces */
+[data-variant="warm"] .journey-hero-card,
+[data-variant="warm"] .skills-mastery-card,
+[data-variant="warm"] .mentor-feedback-card,
+[data-variant="warm"] .milestone-step-card {
+  background: #fffdf9;
+  border: 1px solid #e6d9c7;
+  border-radius: 20px;
+  box-shadow: 0 16px 36px -18px rgba(76, 47, 24, 0.16), 0 2px 6px rgba(76, 47, 24, 0.04);
+}
+
+[data-variant="warm"] .journey-hero-card::before {
+  background: linear-gradient(90deg, #c0603a 0%, #6c47ff 60%, #e08b64 100%);
+}
+
+[data-variant="warm"] .journey-enrolled-pill {
+  background: #fbf3ec;
+  border: 1px solid rgba(192, 96, 58, 0.3);
+  color: #c0603a;
+}
+
+[data-variant="warm"] .journey-track-title,
+[data-variant="warm"] .skills-card-title,
+[data-variant="warm"] .mentor-name,
+[data-variant="warm"] .milestones-title {
+  font-family: "Fraunces", Georgia, serif;
+  color: #2b211a;
+}
+
+[data-variant="warm"] .journey-milestone-pill {
+  background: #f4ece0;
+  border: 1px solid #e6d9c7;
+  color: #2b211a;
+}
+
+[data-variant="warm"] .milestone-icon {
+  color: #c0603a;
+}
+
+/* Progress Section */
+[data-variant="warm"] .journey-progress-section {
+  background: #faf4ec;
+  border: 1px solid #ebdccb;
+  border-radius: 14px;
+}
+
+[data-variant="warm"] .journey-progress-label {
+  color: #2b211a;
+}
+
+[data-variant="warm"] .journey-progress-pct {
+  color: #c0603a;
+}
+
+[data-variant="warm"] .journey-progress-track {
+  background: #e6d9c7;
+}
+
+[data-variant="warm"] .journey-progress-bar {
+  background: linear-gradient(90deg, #c0603a 0%, #d87c56 60%, #6c47ff 100%);
+}
+
+[data-variant="warm"] .phase-step.is-done {
+  color: #4f8553;
+}
+
+[data-variant="warm"] .phase-step.is-done .phase-step-dot {
+  background: #4f8553;
+}
+
+[data-variant="warm"] .phase-step.is-current {
+  color: #c0603a;
+}
+
+[data-variant="warm"] .phase-step.is-current .phase-step-dot {
+  background: #c0603a;
+  box-shadow: 0 0 0 3px rgba(192, 96, 58, 0.22);
+}
+
+/* Checkpoint Banner */
+[data-variant="warm"] .journey-checkpoint-banner {
+  background: #fff6ee;
+  border: 1px solid #f6d8c4;
+}
+
+[data-variant="warm"] .checkpoint-badge-icon {
+  background: #fde8d9;
+  color: #a24623;
+}
+
+[data-variant="warm"] .checkpoint-tag {
+  color: #a24623;
+}
+
+[data-variant="warm"] .checkpoint-days-pill {
+  background: #c0603a;
+  color: #ffffff;
+}
+
+[data-variant="warm"] .checkpoint-title {
+  color: #5c2410;
+}
+
+[data-variant="warm"] .checkpoint-sub {
+  color: #8c4224;
+}
+
+/* CTA Breakdown Button */
+[data-variant="warm"] .btn-journey-breakdown {
+  background: #c0603a;
+  color: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 10px 22px -8px rgba(192, 96, 58, 0.65);
+}
+
+[data-variant="warm"] .btn-journey-breakdown:hover {
+  background: #aa502d;
+  box-shadow: 0 14px 26px -8px rgba(192, 96, 58, 0.75);
+  transform: translateY(-1px);
+}
+
+/* Skills Radar */
+[data-variant="warm"] .radar-chart-container {
+  background: #fbf6ef;
+  border: 1px solid #ebdccb;
+  border-radius: 14px;
+}
+
+[data-variant="warm"] .radar-grid-polygon {
+  stroke: #dfd0be;
+}
+
+[data-variant="warm"] .radar-grid-polygon.outer {
+  stroke: #cfbda7;
+}
+
+[data-variant="warm"] .radar-axis {
+  stroke: #dfd0be;
+}
+
+[data-variant="warm"] .radar-data-polygon {
+  fill: rgba(192, 96, 58, 0.16);
+  stroke: #c0603a;
+  stroke-width: 2.2;
+}
+
+[data-variant="warm"] .radar-point {
+  fill: #fffdf9;
+  stroke: #c0603a;
+  stroke-width: 2.5;
+}
+
+[data-variant="warm"] .radar-label {
+  fill: #7d6f60;
+}
+
+[data-variant="warm"] .radar-score-badge {
+  fill: #c0603a;
+  font-weight: 700;
+}
+
+[data-variant="warm"] .skills-view-toggle {
+  background: #f4ece0;
+  border: 1px solid #e6d9c7;
+}
+
+[data-variant="warm"] .view-toggle-btn.is-active {
+  background: #fffdf9;
+  color: #c0603a;
+}
+
+/* Skill Row Cards & Mastery Pills */
+[data-variant="warm"] .skill-row-card {
+  background: #fffdf9;
+  border: 1px solid #ebdccb;
+  border-radius: 14px;
+}
+
+[data-variant="warm"] .skill-progress-bar-wrap {
+  background: #ebdccb;
+}
+
+[data-variant="warm"] .skills-progress-list .skill-row-card:nth-child(1) .skill-progress-bar-fill {
+  background: linear-gradient(90deg, #4f8553, #3c6e40);
+}
+
+[data-variant="warm"] .skills-progress-list .skill-row-card:nth-child(2) .skill-progress-bar-fill {
+  background: linear-gradient(90deg, #c0603a, #e0825c);
+}
+
+[data-variant="warm"] .skills-progress-list .skill-row-card:nth-child(3) .skill-progress-bar-fill {
+  background: linear-gradient(90deg, #d4932c, #b37719);
+}
+
+[data-variant="warm"] .skills-progress-list .skill-row-card:nth-child(4) .skill-progress-bar-fill {
+  background: linear-gradient(90deg, #b85a3c, #944227);
+}
+
+[data-variant="warm"] .skills-progress-list .skill-row-card:nth-child(5) .skill-progress-bar-fill {
+  background: linear-gradient(90deg, #877765, #695d4e);
+}
+
+[data-variant="warm"] .mastery-pill.advanced {
+  background: #edf7ed;
+  color: #2e6930;
+  border: 1px solid #c7e5c8;
+}
+
+[data-variant="warm"] .mastery-pill.proficient {
+  background: #fff4ec;
+  color: #c0603a;
+  border: 1px solid #f6d8c4;
+}
+
+[data-variant="warm"] .mastery-pill.intermediate {
+  background: #fef7e7;
+  color: #9c6800;
+  border: 1px solid #f9e2af;
+}
+
+[data-variant="warm"] .mastery-pill.emerging {
+  background: #f4f0ea;
+  color: #695e52;
+  border: 1px solid #ddd5c7;
+}
+
+/* Mentor Card */
+[data-variant="warm"] .mentor-feedback-card {
+  background: #fffdf9;
+  border: 1px solid #e6d9c7;
+}
+
+[data-variant="warm"] .mentor-avatar {
+  background: linear-gradient(135deg, #fbeee3 0%, #f6d8c4 100%);
+  color: #c0603a;
+  border: 2px solid #edd3c1;
+  font-family: "Fraunces", Georgia, serif;
+}
+
+[data-variant="warm"] .mentor-badge-assigned {
+  background: #fff4ec;
+  border: 1px solid #f6d8c4;
+  color: #c0603a;
+}
+
+[data-variant="warm"] .mentor-feedback-bubble {
+  background: #faf4ec;
+  border: 1px solid #ebdccb;
+  border-radius: 14px;
+}
+
+[data-variant="warm"] .feedback-quote-text {
+  border-left: 3px solid #c0603a;
+  color: #2b211a;
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+}
+
+[data-variant="warm"] .btn-mentor-action.primary {
+  background: #fff2e8;
+  color: #c0603a;
+  border: 1px solid #f3cfb7;
+}
+
+[data-variant="warm"] .btn-mentor-action.outline {
+  background: #fffdf9;
+  color: #2b211a;
+  border: 1px solid #e6d9c7;
+}
+
+/* Milestones */
+[data-variant="warm"] .milestone-step-card {
+  background: #fffdf9;
+  border: 1px solid #e6d9c7;
+  border-radius: 14px;
+}
+
+[data-variant="warm"] .milestone-step-card.active {
+  border-color: #c0603a;
+  box-shadow: 0 8px 22px -8px rgba(192, 96, 58, 0.25);
+}
+
+[data-variant="warm"] .milestone-step-card.active .milestone-icon-badge {
+  background: #c0603a;
+  color: #ffffff;
+}
+
+[data-variant="warm"] .milestone-status-pill.active {
+  background: #fff2e8;
+  color: #c0603a;
+  border: 1px solid #f3cfb7;
+}
+
+/* Bottom Nav */
+[data-variant="warm"] .journeys-bottom-nav {
+  background: rgba(255, 253, 249, 0.94);
+  border-top: 1px solid #e6d9c7;
+}
+
+[data-variant="warm"] .nav-tab.is-active {
+  color: #c0603a;
+}
+
+[data-variant="warm"] .tab-active-dot {
+  background: #c0603a;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   5. [data-variant="minimal"] — Clean Monochrome
+   ═══════════════════════════════════════════════════════════════════ */
+
+[data-variant="minimal"] .journey-hero-card,
+[data-variant="minimal"] .skills-mastery-card,
+[data-variant="minimal"] .mentor-feedback-card,
+[data-variant="minimal"] .milestone-step-card {
+  box-shadow: none;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+}
+
+[data-variant="minimal"] .btn-journey-breakdown {
+  box-shadow: none;
+  border-radius: 4px;
+}
+

@@ -1,19 +1,33 @@
 import { useNavigation, type NavigationProp } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { ForgotPasswordScreen, LoginScreen, SignupScreen } from '../../features/auth';
+import {
+  ForgotPasswordScreen,
+  LandingScreen,
+  LoginScreen,
+  SignupScreen,
+} from '../../features/auth';
 import { NAVIGATION_ROUTES, UI_COPY } from '../../core/constants/app.constants';
 import { useTheme } from '../../shared/theme';
 import type { AuthStackParamList } from './navigation-types';
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
+function LandingRouteScreen() {
+  const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
+  return (
+    <LandingScreen
+      onOpenLogin={() => navigation.navigate(NAVIGATION_ROUTES.auth.login)}
+    />
+  );
+}
+
 function LoginRouteScreen() {
   const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
   return (
     <LoginScreen
+      onGoBack={() => navigation.navigate(NAVIGATION_ROUTES.auth.landing)}
       onOpenForgotPassword={() => navigation.navigate(NAVIGATION_ROUTES.auth.forgotPassword)}
-      onOpenSignup={() => navigation.navigate(NAVIGATION_ROUTES.auth.signup)}
     />
   );
 }
@@ -34,7 +48,7 @@ export function AuthStack() {
   const { colors } = useTheme();
   return (
     <Stack.Navigator
-      initialRouteName={NAVIGATION_ROUTES.auth.login}
+      initialRouteName={NAVIGATION_ROUTES.auth.landing}
       screenOptions={{
         headerTitle: '',
         headerShadowVisible: false,
@@ -43,7 +57,16 @@ export function AuthStack() {
         headerTintColor: colors.primary,
       }}
     >
-      <Stack.Screen name={NAVIGATION_ROUTES.auth.login} component={LoginRouteScreen} />
+      <Stack.Screen
+        name={NAVIGATION_ROUTES.auth.landing}
+        component={LandingRouteScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={NAVIGATION_ROUTES.auth.login}
+        component={LoginRouteScreen}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name={NAVIGATION_ROUTES.auth.signup}
         component={SignupRouteScreen}
@@ -52,7 +75,7 @@ export function AuthStack() {
       <Stack.Screen
         name={NAVIGATION_ROUTES.auth.forgotPassword}
         component={ForgotPasswordRouteScreen}
-        options={{ title: UI_COPY.auth.resetTitle }}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

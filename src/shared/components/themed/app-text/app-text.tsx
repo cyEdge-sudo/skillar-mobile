@@ -4,6 +4,14 @@ import { Text, TextProps } from '../../primitives/text';
 
 export interface AppTextProps extends Omit<TextProps, 'variant' | 'color'> {
   variant?:
+    | 'display'
+    | 'h1'
+    | 'h2'
+    | 'h3'
+    | 'h4'
+    | 'bodyLg'
+    | 'body'
+    | 'sm'
     | 'displayLarge'
     | 'displayMedium'
     | 'displaySmall'
@@ -35,11 +43,12 @@ export interface AppTextProps extends Omit<TextProps, 'variant' | 'color'> {
     | 'black';
 }
 
-export const AppText = React.forwardRef<React.ComponentRef<typeof Text>, AppTextProps>(
+export const AppText = React.forwardRef<any, AppTextProps>(
   ({ variant = 'bodyMedium', color = 'text', style, ...rest }, ref) => {
     const { typography, colors } = useTheme();
-    const typoStyle = typography[variant as keyof typeof typography];
-    const textColor = colors[color as keyof typeof colors];
+    const typoStyle = typography[variant as keyof typeof typography] ?? typography.body;
+    const rawColor = colors[color as keyof typeof colors];
+    const textColor = typeof rawColor === 'string' ? rawColor : colors.text;
 
     return (
       <Text

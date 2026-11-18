@@ -1,4 +1,6 @@
-export { elevation } from './elevation';
+export { darkElevation, elevation, lightElevation } from './elevation';
+export { darkFeedback, lightFeedback } from './feedback';
+export type { FeedbackRamp, FeedbackTokens } from './feedback';
 export { fontFamilies } from './font-families';
 export { fontSizes } from './font-sizes';
 export { fontWeights } from './font-weights';
@@ -7,6 +9,7 @@ export { lineHeights } from './line-heights';
 export { motion } from './motion';
 export { opacity } from './opacity';
 export { palette } from './palette';
+export type { ColorRamp, ColorShade, Palette } from './palette';
 export { radius } from './radius';
 export { spacing } from './spacing';
 export { zIndex } from './z-index';

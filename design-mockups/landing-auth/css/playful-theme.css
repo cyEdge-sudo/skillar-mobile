@@ -1,0 +1,327 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Skillar Mobile · Playful Colorful Theme Engine (Hero Favorite ⭐)
+   Inspired by the Step Lessons & Quiz design language loved by the user:
+   Chunky 2.5px dark ink borders (#1E1A3D), 4px hard pop shadows,
+   cheerful candy pop palette (Sunshine yellow, Electric violet, Mint, Pink),
+   Baloo 2 bubbly display typography & 3D tactile push buttons.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Typography & Canvas ── */
+[data-variant="playful"] {
+  --font-display: "Baloo 2", cursive, sans-serif;
+  --font-body: "Nunito", system-ui, -apple-system, sans-serif;
+  --bg: #FFF8F0;
+  --bg-2: #F4EFFF;
+  --surface: #FFFFFF;
+  --ink: #1E1A3D;
+  --muted: #6A648F;
+  --line: #1E1A3D;
+  --brand: #6C47FF;
+  --brand-2: #5835E8;
+  --card-border: 2.5px solid #1E1A3D;
+  --card-shadow: 4px 4px 0 #1E1A3D;
+}
+
+[data-variant="playful"] .screen,
+[data-variant="playful"] .page-dashboard,
+[data-variant="playful"] .page-explore,
+[data-variant="playful"] .page-learning,
+[data-variant="playful"] .page-journeys,
+[data-variant="playful"] .page-profile,
+[data-variant="playful"] .page-roadmap-detail,
+[data-variant="playful"] .page-journey-detail {
+  background: #FFF8F0 !important;
+  color: #1E1A3D !important;
+  font-family: "Nunito", system-ui, sans-serif !important;
+}
+
+/* Headings in Baloo 2 */
+[data-variant="playful"] h1,
+[data-variant="playful"] h2,
+[data-variant="playful"] h3,
+[data-variant="playful"] h4,
+[data-variant="playful"] .dash-greeting,
+[data-variant="playful"] .hero-roadmap-title,
+[data-variant="playful"] .section-title,
+[data-variant="playful"] .card-title,
+[data-variant="playful"] .user-name,
+[data-variant="playful"] .stage-card-title,
+[data-variant="playful"] .roadmap-title,
+[data-variant="playful"] .lesson-title {
+  font-family: "Baloo 2", cursive, sans-serif !important;
+  font-weight: 800 !important;
+  color: #1E1A3D !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* ── Cards in Playful: Chunky 2.5px Ink Border + 4px Pop Shadow ── */
+[data-variant="playful"] .dash-card,
+[data-variant="playful"] .dash-focus-card,
+[data-variant="playful"] .dash-hero-card,
+[data-variant="playful"] .activity-card,
+[data-variant="playful"] .feed-item,
+[data-variant="playful"] .featured-pathway-banner,
+[data-variant="playful"] .roadmap-card,
+[data-variant="playful"] .node-card,
+[data-variant="playful"] .step-card,
+[data-variant="playful"] .quiz-card,
+[data-variant="playful"] .practice-card,
+[data-variant="playful"] .completed-card,
+[data-variant="playful"] .saved-card,
+[data-variant="playful"] .journey-hero-card,
+[data-variant="playful"] .skills-mastery-card,
+[data-variant="playful"] .pacing-comparison-card,
+[data-variant="playful"] .stage-card,
+[data-variant="playful"] .milestone-card,
+[data-variant="playful"] .profile-user-card,
+[data-variant="playful"] .stat-card,
+[data-variant="playful"] .badge-item-card,
+[data-variant="playful"] .settings-card {
+  background: #FFFFFF !important;
+  border: 2.5px solid #1E1A3D !important;
+  box-shadow: 4px 4px 0 #1E1A3D !important;
+  border-radius: 16px !important;
+  color: #1E1A3D !important;
+}
+
+/* ── 3D Push Buttons in Playful ── */
+[data-variant="playful"] .btn-resume-learning,
+[data-variant="playful"] .btn-journey-breakdown,
+[data-variant="playful"] .btn-continue-step,
+[data-variant="playful"] .btn-step-next {
+  background: #6C47FF !important;
+  color: #FFFFFF !important;
+  border: 2.5px solid #1E1A3D !important;
+  box-shadow: 0 4px 0 #4B27DF, 3px 5px 0 #1E1A3D !important;
+  border-radius: 14px !important;
+  font-family: "Baloo 2", cursive, sans-serif !important;
+  font-size: 15.5px !important;
+  font-weight: 800 !important;
+  transition: transform 0.1s ease, box-shadow 0.1s ease !important;
+}
+[data-variant="playful"] .btn-resume-learning:active,
+[data-variant="playful"] .btn-journey-breakdown:active,
+[data-variant="playful"] .btn-continue-step:active {
+  transform: translate(2px, 3px) !important;
+  box-shadow: 0 1px 0 #4B27DF, 1px 1px 0 #1E1A3D !important;
+}
+
+[data-variant="playful"] .btn-hero-secondary,
+[data-variant="playful"] .btn-view-roadmap,
+[data-variant="playful"] .btn-continue,
+[data-variant="playful"] .btn-signout {
+  background: #FFFFFF !important;
+  color: #1E1A3D !important;
+  border: 2px solid #1E1A3D !important;
+  box-shadow: 3px 3px 0 #1E1A3D !important;
+  border-radius: 12px !important;
+  font-family: "Baloo 2", cursive, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+}
+[data-variant="playful"] .btn-hero-secondary:active,
+[data-variant="playful"] .btn-continue:active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: 1px 1px 0 #1E1A3D !important;
+}
+
+/* ── Screen 1: Dashboard Details ── */
+[data-variant="playful"] .dash-focus-card {
+  background: linear-gradient(135deg, #FFF9E6 0%, #FFFFFF 65%, #FFF0D6 100%) !important;
+}
+
+[data-variant="playful"] .streak-badge {
+  background: #FFC024 !important;
+  border: 2px solid #1E1A3D !important;
+  box-shadow: 2px 2px 0 #1E1A3D !important;
+  color: #1E1A3D !important;
+  font-weight: 800 !important;
+  border-radius: 999px !important;
+}
+
+[data-variant="playful"] .day-pill.is-done .day-dot,
+[data-variant="playful"] .streak-day-item.is-completed {
+  background: #00D4B4 !important;
+  border: 2px solid #1E1A3D !important;
+  color: #1E1A3D !important;
+  font-weight: 800 !important;
+}
+
+[data-variant="playful"] .dash-org-badge {
+  background: #F4EFFF !important;
+  border: 1.5px solid #1E1A3D !important;
+  color: #1E1A3D !important;
+  font-weight: 700 !important;
+}
+
+[data-variant="playful"] .avatar-ring {
+  border: 2.5px solid #1E1A3D !important;
+  box-shadow: 2px 2px 0 #1E1A3D !important;
+  background: #6C47FF !important;
+}
+
+[data-variant="playful"] .step-progress-fill {
+  background: linear-gradient(90deg, #6C47FF, #FF5FA2) !important;
+  border-right: 2px solid #1E1A3D !important;
+}
+
+/* ── Screen 2: Explore Roadmaps ── */
+[data-variant="playful"] .explore-search-box {
+  background: #FFFFFF !important;
+  border: 2.5px solid #1E1A3D !important;
+  box-shadow: 3px 3px 0 #1E1A3D !important;
+  border-radius: 14px !important;
+}
+[data-variant="playful"] .explore-search-input {
+  color: #1E1A3D !important;
+  font-family: "Nunito", sans-serif !important;
+  font-weight: 600 !important;
+}
+
+[data-variant="playful"] .filter-pill {
+  background: #FFFFFF !important;
+  color: #1E1A3D !important;
+  border: 2px solid #1E1A3D !important;
+  box-shadow: 2px 2px 0 #1E1A3D !important;
+  border-radius: 999px !important;
+  font-family: "Baloo 2", cursive, sans-serif !important;
+  font-weight: 800 !important;
+}
+[data-variant="playful"] .filter-pill.active {
+  background: #6C47FF !important;
+  color: #FFFFFF !important;
+  box-shadow: 3px 3px 0 #1E1A3D !important;
+}
+
+[data-variant="playful"] .featured-pathway-banner {
+  background: linear-gradient(135deg, #FFF0F6 0%, #FFFFFF 50%, #EDE7F6 100%) !important;
+}
+[data-variant="playful"] .pathway-flag {
+  background: #FF5FA2 !important;
+  color: #FFFFFF !important;
+  border: 1.5px solid #1E1A3D !important;
+  box-shadow: 2px 2px 0 #1E1A3D !important;
+  border-radius: 6px !important;
+  font-weight: 800 !important;
+}
+[data-variant="playful"] .pathway-capstone-tag {
+  background: #00D4B4 !important;
+  color: #1E1A3D !important;
+  border: 1.5px solid #1E1A3D !important;
+  box-shadow: 2px 2px 0 #1E1A3D !important;
+  border-radius: 6px !important;
+  font-weight: 800 !important;
+}
+
+[data-variant="playful"] .tech-pill,
+[data-variant="playful"] .tag-pill {
+  background: #F4EFFF !important;
+  border: 1.5px solid #1E1A3D !important;
+  color: #1E1A3D !important;
+  font-weight: 700 !important;
+  border-radius: 6px !important;
+}
+
+/* ── Screen 3 & 4: Learning & Journeys ── */
+[data-variant="playful"] .checkpoint-badge,
+[data-variant="playful"] .status-pill-active {
+  background: #FFC024 !important;
+  border: 1.5px solid #1E1A3D !important;
+  box-shadow: 2px 2px 0 #1E1A3D !important;
+  color: #1E1A3D !important;
+  font-weight: 800 !important;
+}
+
+[data-variant="playful"] .radar-point {
+  fill: #6C47FF !important;
+  stroke: #1E1A3D !important;
+  stroke-width: 2.5px !important;
+}
+[data-variant="playful"] .radar-data-polygon {
+  fill: rgba(108, 71, 255, 0.25) !important;
+  stroke: #6C47FF !important;
+  stroke-width: 3px !important;
+}
+
+/* ── Screen 5: Profile & Settings ── */
+[data-variant="playful"] .user-avatar-wrap .avatar-img-circle {
+  border: 3px solid #1E1A3D !important;
+  box-shadow: 3px 3px 0 #1E1A3D !important;
+}
+[data-variant="playful"] .avatar-cam-badge {
+  background: #FF5FA2 !important;
+  border: 2px solid #1E1A3D !important;
+  box-shadow: 2px 2px 0 #1E1A3D !important;
+  color: #FFFFFF !important;
+}
+
+[data-variant="playful"] .stat-card {
+  background: #FFFFFF !important;
+  border: 2.5px solid #1E1A3D !important;
+  box-shadow: 3px 3px 0 #1E1A3D !important;
+  border-radius: 14px !important;
+}
+[data-variant="playful"] .stat-card:nth-child(1) { background: #FFF9E6 !important; }
+[data-variant="playful"] .stat-card:nth-child(2) { background: #F4EFFF !important; }
+[data-variant="playful"] .stat-card:nth-child(3) { background: #E6FAF6 !important; }
+[data-variant="playful"] .stat-card:nth-child(4) { background: #FFF0F6 !important; }
+
+[data-variant="playful"] .stat-badge-trend {
+  background: #FFFFFF !important;
+  border: 1.5px solid #1E1A3D !important;
+  color: #1E1A3D !important;
+  font-weight: 800 !important;
+}
+
+[data-variant="playful"] .badge-icon-box {
+  border: 2px solid #1E1A3D !important;
+  box-shadow: 2px 2px 0 #1E1A3D !important;
+  border-radius: 10px !important;
+}
+
+/* ── Screen 6: Roadmap Details Stepper ── */
+[data-variant="playful"] .step-node-col .node-circle {
+  width: 32px !important;
+  height: 32px !important;
+  border: 2.5px solid #1E1A3D !important;
+  box-shadow: 2px 2px 0 #1E1A3D !important;
+  background: #FFFFFF !important;
+  font-weight: 800 !important;
+}
+[data-variant="playful"] .step-node-col.is-completed .node-circle {
+  background: #00D4B4 !important;
+  color: #1E1A3D !important;
+}
+[data-variant="playful"] .step-node-col.is-current .node-circle {
+  background: #6C47FF !important;
+  color: #FFFFFF !important;
+}
+[data-variant="playful"] .step-connector-line {
+  background: #1E1A3D !important;
+  width: 2.5px !important;
+}
+
+/* ── Bottom Navigation Bar ── */
+[data-variant="playful"] .dash-bottom-nav,
+[data-variant="playful"] .explore-bottom-nav,
+[data-variant="playful"] .learning-bottom-nav,
+[data-variant="playful"] .journeys-bottom-nav,
+[data-variant="playful"] .profile-bottom-nav {
+  background: #FFFFFF !important;
+  border-top: 2.5px solid #1E1A3D !important;
+  box-shadow: 0 -4px 0 rgba(30, 26, 61, 0.08) !important;
+}
+[data-variant="playful"] .dash-tab.is-active,
+[data-variant="playful"] .explore-tab.is-active,
+[data-variant="playful"] .learning-tab.is-active,
+[data-variant="playful"] .journeys-tab.is-active,
+[data-variant="playful"] .profile-nav-tab.is-active {
+  color: #6C47FF !important;
+}
+[data-variant="playful"] .tab-active-dot,
+[data-variant="playful"] .profile-tab-active-dot {
+  background: #6C47FF !important;
+  border: 1.5px solid #1E1A3D !important;
+  width: 6px !important;
+  height: 6px !important;
+}

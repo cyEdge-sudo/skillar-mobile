@@ -155,6 +155,7 @@ export const NAVIGATION_ROUTES = {
     journeyDetail: 'JourneyDetail',
   },
   auth: {
+    landing: 'Landing',
     login: 'Login',
     signup: 'SignUp',
     forgotPassword: 'ForgotPassword',

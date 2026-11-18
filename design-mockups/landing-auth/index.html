@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en" data-variant="warm">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Skillar · Welcome &amp; Auth — UI Mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Instrum
+ent+Sans:wght@400;500;600;700&family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&family=Space+Grote
+sk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" 
+rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="shell">
+
+  <!-- ══════════ Review rail ══════════ -->
+  <aside class="rail">
+    <div class="rail-head">
+      <div class="brandline"><span class="brand-dot"></span> Skillar</div>
+      <p class="rail-sub">Welcome &amp; auth · UI review · v1</p>
+    </div>
+
+    <section class="rail-block">
+      <h3>Visual variant</h3>
+      <div class="variants" role="group" aria-label="Visual variant">
+        <button class="variant" data-variant="warm" type="button">
+          <span class="sw sw-warm"></span>
+          <span class="vtext"><span class="vname">Warm modern learning</span><span class="vdesc">Editorial serif · 
+cream &amp; clay</span></span>
+        </button>
+        <button class="variant" data-variant="playful" type="button">
+          <span class="sw sw-playful"></span>
+          <span class="vtext"><span class="vname">Playful colorful</span><span class="vdesc">Chunky · violet, pink 
+&amp; sunshine</span></span>
+        </button>
+        <button class="variant" data-variant="minimal" type="button">
+          <span class="sw sw-minimal"></span>
+          <span class="vtext"><span class="vname">Minimal neutral</span><span class="vdesc">Quiet mono · hairlines 
+&amp; space</span></span>
+        </button>
+      </div>
+    </section>
+
+    <section class="rail-block">
+      <h3>Screens <span class="count" id="screen-count">8</span></h3>
+      <ol class="screen-list" id="screen-list"><!-- rendered by app.js --></ol>
+    </section>
+
+    <section class="rail-block rail-notes">
+      <h3>Notes</h3>
+      <ul>
+        <li><b>Compare</b> shows all three variants side by side; pick a variant for the full clickthrough.</li>
+        <li>Mock data only — nothing is wired to a backend; exact API contracts are not asserted here.</li>
+        <li>No sign-up anywhere: admins provision employee accounts.</li>
+        <li>In the app today: <b>Login + Forgot Password</b> only. The OTP and reset-password screens are 
+prototype-only. Backend has related capability, but route matching is unverified.</li>
+        <li>Login → post-login is <b>out of scope</b> (next stage). The OTP screen is an alternate recovery path via 
+“Email not verified?”. </li>
+        <li>Landing = the branded in-app welcome screen shown before sign-in.</li>
+        <li>Fonts are review stand-ins — production uses the system font stack.</li>
+      </ul>
+    </section>
+  </aside>
+
+  <!-- ══════════ Stage ══════════ -->
+  <main class="stage">
+    <div class="stage-bar">
+      <div class="sb-left">
+        <span class="badge-mock">PROTOTYPE · MOCK DATA</span>
+        <h2 id="stage-title">Welcome screen</h2>
+      </div>
+      <div class="sb-right">
+        <div class="seg" role="group" aria-label="Preview mode">
+          <button type="button" data-mode="phone" class="on">Phone</button>
+          <button type="button" data-mode="desktop">Desktop</button>
+          <button type="button" data-mode="compare">Compare</button>
+        </div>
+        <button class="icon-btn" id="prev" type="button" title="Previous screen" aria-label="Previous 
+screen">‹</button>
+        <button class="icon-btn" id="next" type="button" title="Next screen" aria-label="Next screen">›</button>
+      </div>
+    </div>
+
+    <div class="canvas" id="canvas">
+      <!-- single-device view -->
+      <div class="fit" id="fit">
+        <div class="device mode-phone" id="device">
+
+          <div class="statusbar" aria-hidden="true">
+            <span class="sb-time">9:41</span>
+            <span class="sb-icons">
+              <svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1"/><rect 
+x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" 
+width="3" height="11" rx="1"/></svg>
+              <svg width="15" height="11" viewBox="0 0 15 11"><path d="M7.5 9.6 9.7 7.3a3.1 3.1 0 0 0-4.4 0L7.5 
+9.6Zm0-4.4c1.7 0 3.3.6 4.5 1.8l1.4-1.4a8.4 8.4 0 0 0-11.8 0l1.4 1.4a6.3 6.3 0 0 1 4.5-1.8Z"/></svg>
+              <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="20" height="11" rx="3.2" 
+fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="15" height="8" rx="2"/><path d="M22.5 
+4v4a2.2 2.2 0 0 0 0-4Z" fill-opacity=".45"/></svg>
+            </span>
+          </div>
+
+          <div class="browserbar" aria-hidden="true">
+            <span class="dots"><i></i><i></i><i></i></span>
+            <span class="urlpill"><span class="lock">🔒</span> app.skillar.com</span>
+          </div>
+
+          <!-- ══════════ Screens ══════════ -->
+          <div class="viewport" id="viewport">
+
+            <!-- 1 · WELCOME (in-app branded landing, before login) -->
+            <section class="screen" data-screen="landing">
+              <div class="page page-welcome">
+                <header class="welcome-top anim">
+                  <div class="logo"><span class="logo-mark"><i></i><i></i><i></i></span><span 
+class="logo-word">Skillar</span></div>
+                  <span class="org-chip">Northwind &amp; Co.</span>
+                </header>
+
+                <div class="welcome-main">
+                  <div class="welcome-copy">
+                    <span class="eyebrow anim">Welcome to Skillar</span>
+                    <h1 class="anim">Keep learning moving.</h1>
+                    <p class="lede anim">Your organization's roadmap, turned into short guided sessions — so progress 
+keeps happening between meetings, not just at review time.</p>
+                    <div class="welcome-cta anim">
+                      <button class="btn btn-primary btn-block" type="button" data-goto="login">Sign in</button>
+                      <span class="welcome-note">Your administrator has already set up your account — there's no self 
+sign-up. Sign in with your work email.</span>
+                    </div>
+                  </div>
+
+                  <div class="welcome-art anim" aria-hidden="true">
+                    <span class="art-shape s1"></span>
+                    <span class="art-shape s2"></span>
+                    <span class="art-shape s3"></span>
+                    <div class="art-card">
+                      <div class="ac-top"><span class="ac-dot"></span> Today's journey</div>
+                      <div class="ac-title">React performance</div>
+                      <div class="ac-bar"><i style="width:64%"></i></div>
+                      <div class="ac-meta">7 of 11 steps · 12 min left</div>
+                    </div>
+                  </div>
+                </div>
+
+                <footer class="welcome-foot anim">
+                  <span>Employee learning · Provisioned for your team</span>
+                  <span class="wf-dim">Prototype build — mock data</span>
+                </footer>
+              </div>
+            </section>
+
+            <!-- 2 · LOGIN -->
+            <section class="screen" data-screen="login">
+              <div class="page page-auth">
+                <div class="auth-top anim">
+                  <button class="icon-btn ghost" type="button" data-goto="landing" aria-label="Back to 
+welcome">‹</button>
+                  <div class="logo"><span class="logo-mark"><i></i><i></i><i></i></span><span 
+class="logo-word">Skillar</span></div>
+                  <span class="icon-btn ghost placeholder" aria-hidden="true">‹</span>
+                </div>
+
+                <div class="auth-card">
+                  <span class="eyebrow anim">Welcome back</span>
+                  <h1 class="anim">Sign in to continue</h1>
+                  <p class="sub anim">Use the work email your administrator provisioned for you.</p>
+
+                  <form class="form anim" id="login-form" novalidate>
+                    <label class="field">
+                      <span class="label">Email address</span>
+                      <input class="input" type="email" name="email" autocomplete="username" 
+placeholder="name@company.com" value="alex.morgan@northwind.com" />
+                    </label>
+                    <label class="field">
+                      <span class="label">Password</span>
+                      <span class="input-wrap">
+                        <input class="input" id="login-pw" type="password" autocomplete="current-password" 
+placeholder="Enter your password" value="demo-password" />
+                        <button class="peek" type="button" data-peek="login-pw">Show</button>
+                      </span>
+                    </label>
+                    <div class="row-end">
+                      <button class="link" type="button" data-goto="forgot">Forgot password?</button>
+                    </div>
+                    <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+                  </form>
+
+                  <div class="divider anim"><span>or</span></div>
+
+                  <button class="btn btn-secondary btn-block anim" type="button" data-mock="Google sign-in is mocked 
+in this prototype">Continue with Google</button>
+
+                  <div class="note anim">
+                    <strong>No self sign-up.</strong> Accounts are created and provisioned by your organization admin. 
+Need access? Contact your IT administrator.
+                  </div>
+
+                  <p class="fineprint anim">Prototype — mock data. Signing in succeeds and would continue to 
+post-login (out of scope for this round).</p>
+
+                  <div class="row-center anim" style="margin-top:8px">
+                    <button class="link" type="button" data-goto="verify">Email not verified? Verify your 
+email</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- 3 · EMAIL VERIFICATION (OTP) — alternate recovery path, prototype-only screen -->
+            <section class="screen" data-screen="verify">
+              <div class="page page-auth">
+                <div class="auth-top anim">
+                  <button class="icon-btn ghost" type="button" data-goto="login" aria-label="Back to sign 
+in">‹</button>
+                  <div class="logo"><span class="logo-mark"><i></i><i></i><i></i></span><span 
+class="logo-word">Skillar</span></div>
+                  <span class="icon-btn ghost placeholder" aria-hidden="true">‹</span>
+                </div>
+
+                <div class="auth-card">
+                  <span class="eyebrow anim">Email verification · alternate path</span>
+                  <h1 class="anim">Check your email</h1>
+                  <p class="sub anim">Your account email still needs verifying before you can sign in. Enter the 
+6-digit code we sent to <b>a•••@northwind.com</b> — it expires in 5 minutes.</p>
+
+                  <div class="otp anim" id="otp" role="group" aria-label="6-digit verification code">
+                    <input inputmode="numeric" maxlength="1" aria-label="Digit 1" />
+                    <input inputmode="numeric" maxlength="1" aria-label="Digit 2" />
+                    <input inputmode="numeric" maxlength="1" aria-label="Digit 3" />
+                    <input inputmode="numeric" maxlength="1" aria-label="Digit 4" />
+                    <input inputmode="numeric" maxlength="1" aria-label="Digit 5" />
+                    <input inputmode="numeric" maxlength="1" aria-label="Digit 6" />
+                  </div>
+
+                  <button class="btn btn-primary btn-block anim" type="button" id="verify-btn" 
+style="margin-top:22px">Verify and continue</button>
+
+                  <div class="resend anim">
+                    <span id="resend-timer">Resend code in 0:28</span>
+                    <button class="link" type="button" id="resend-btn" hidden>Resend code</button>
+                  </div>
+
+                  <div class="row-center anim">
+                    <button class="link" type="button" data-goto="login">Wrong email? Back to sign in</button>
+                  </div>
+
+                  <p class="fineprint anim">Prototype-only screen — not in the app yet. Any 6 digits will “verify”; no 
+email is sent.</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- 4 · EMAIL VERIFIED (success) -->
+            <section class="screen" data-screen="verified">
+              <div class="page page-auth page-success">
+                <div class="auth-top anim">
+                  <span class="icon-btn ghost placeholder" aria-hidden="true">‹</span>
+                  <div class="logo"><span class="logo-mark"><i></i><i></i><i></i></span><span 
+class="logo-word">Skillar</span></div>
+                  <span class="icon-btn ghost placeholder" aria-hidden="true">‹</span>
+                </div>
+
+                <div class="success">
+                  <div class="succ-icon icon-check anim" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="34" height="34"><path d="M5 12.5 10 17.5 19 7.5" fill="none" 
+stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <span class="eyebrow anim">All set</span>
+                  <h1 class="anim">Email verified</h1>
+                  <p class="sub anim">You're good to go, Alex — your email is verified. Sign in with your work email 
+to continue.</p>
+                  <div class="success-actions anim">
+                    <button class="btn btn-primary btn-block" type="button" data-goto="login">Back to sign in</button>
+                    <button class="btn btn-ghost btn-block" type="button" data-mock="Dashboard (continue + next step, 
+assigned learning, deadlines & reminders) is the next design round — out of scope here">Dashboard — next round</button>
+                  </div>
+                  <p class="fineprint anim">Prototype — recovery path complete. Post-login / dashboard is the next 
+design stage.</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- 5 · FORGOT PASSWORD (exists in the app today) -->
+            <section class="screen" data-screen="forgot">
+              <div class="page page-auth">
+                <div class="auth-top anim">
+                  <button class="icon-btn ghost" type="button" data-goto="login" aria-label="Back to sign 
+in">‹</button>
+                  <div class="logo"><span class="logo-mark"><i></i><i></i><i></i></span><span 
+class="logo-word">Skillar</span></div>
+                  <span class="icon-btn ghost placeholder" aria-hidden="true">‹</span>
+                </div>
+
+                <div class="auth-card">
+                  <span class="eyebrow anim">Password recovery</span>
+                  <h1 class="anim">Reset your password</h1>
+                  <p class="sub anim">Enter your email. We will send reset instructions if an account exists.</p>
+
+                  <form class="form anim" id="forgot-form" novalidate>
+                    <label class="field">
+                      <span class="label">Email address</span>
+                      <input class="input" type="email" autocomplete="username" placeholder="name@company.com" 
+value="alex.morgan@northwind.com" />
+                    </label>
+                    <button class="btn btn-primary btn-block" type="submit">Send reset instructions</button>
+                  </form>
+
+                  <div class="row-center anim" style="margin-top:18px">
+                    <button class="link" type="button" data-goto="login">Back to sign in</button>
+                  </div>
+
+                  <p class="fineprint anim">Mirrors the app's current screen — no email is sent from this mockup.</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- 6 · RESET EMAIL SENT (prototype-only continuation) -->
+            <section class="screen" data-screen="sent">
+              <div class="page page-auth page-success">
+                <div class="auth-top anim">
+                  <button class="icon-btn ghost" type="button" data-goto="login" aria-label="Back to sign 
+in">‹</button>
+                  <div class="logo"><span class="logo-mark"><i></i><i></i><i></i></span><span 
+class="logo-word">Skillar</span></div>
+                  <span class="icon-btn ghost placeholder" aria-hidden="true">‹</span>
+                </div>
+
+                <div class="success">
+                  <div class="succ-icon icon-mail anim" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="34" height="34"><rect x="3" y="5.5" width="18" height="13" 
+rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m4.5 7.5 7.5 5.5 7.5-5.5" fill="none" 
+stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  </div>
+                  <span class="eyebrow anim">Check your inbox</span>
+                  <h1 class="anim">Check your email</h1>
+                  <p class="sub anim">If <b>alex.morgan@northwind.com</b> is registered, we'll email a secure, 
+single-use link to set a new password.</p>
+
+                  <div class="note anim">Prototype only — no email is sent from this mockup. Use the button below to 
+jump straight to the reset screen.</div>
+
+                  <div class="success-actions anim">
+                    <button class="btn btn-primary btn-block" type="button" data-goto="reset">Open the reset link 
+<span class="btn-tag">demo</span></button>
+                    <button class="btn btn-ghost btn-block" type="button" data-goto="login">Back to sign in</button>
+                  </div>
+                  <p class="fineprint anim">Wrong address? <button class="link inline" type="button" 
+data-goto="forgot">Try another email</button></p>
+                </div>
+              </div>
+            </section>
+
+            <!-- 7 · RESET PASSWORD (prototype-only) -->
+            <section class="screen" data-screen="reset">
+              <div class="page page-auth">
+                <div class="auth-top anim">
+                  <button class="icon-btn ghost" type="button" data-goto="sent" aria-label="Back">‹</button>
+                  <div class="logo"><span class="logo-mark"><i></i><i></i><i></i></span><span 
+class="logo-word">Skillar</span></div>
+                  <span class="icon-btn ghost placeholder" aria-hidden="true">‹</span>
+                </div>
+
+                <div class="auth-card">
+                  <span class="eyebrow anim">New password</span>
+                  <h1 class="anim">Choose a new password</h1>
+                  <p class="sub anim">Pick something you haven't used on Skillar before.</p>
+
+                  <form class="form anim" id="reset-form" novalidate>
+                    <label class="field">
+                      <span class="label">New password</span>
+                      <span class="input-wrap">
+                        <input class="input" id="reset-new" type="password" autocomplete="new-password" 
+placeholder="At least 8 characters" />
+                        <button class="peek" type="button" data-peek="reset-new">Show</button>
+                      </span>
+                    </label>
+
+                    <div class="strength" id="strength" aria-hidden="true">
+                      <span class="s-bar"></span><span class="s-bar"></span><span class="s-bar"></span><span 
+class="s-bar"></span>
+                      <span class="s-label" id="strength-label">Too short</span>
+                    </div>
+
+                    <ul class="reqs" id="reqs">
+                      <li data-req="len">At least 8 characters</li>
+                      <li data-req="num">Contains a number</li>
+                      <li data-req="sym">Contains a symbol</li>
+                    </ul>
+
+                    <label class="field" style="margin-top:18px">
+                      <span class="label">Confirm new password</span>
+                      <span class="input-wrap">
+                        <input class="input" id="reset-confirm" type="password" autocomplete="new-password" 
+placeholder="Re-enter your password" />
+                        <button class="peek" type="button" data-peek="reset-confirm">Show</button>
+                      </span>
+                    </label>
+
+                    <button class="btn btn-primary btn-block" type="submit">Update password</button>
+                  </form>
+
+                  <div class="row-center anim" style="margin-top:18px">
+                    <button class="link" type="button" data-goto="login">Back to sign in</button>
+                  </div>
+
+                  <p class="fineprint anim">Prototype-only screen — the password is not changed anywhere.</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- 8 · PASSWORD UPDATED (success) -->
+            <section class="screen" data-screen="done">
+              <div class="page page-auth page-success">
+                <div class="auth-top anim">
+                  <span class="icon-btn ghost placeholder" aria-hidden="true">‹</span>
+                  <div class="logo"><span class="logo-mark"><i></i><i></i><i></i></span><span 
+class="logo-word">Skillar</span></div>
+                  <span class="icon-btn ghost placeholder" aria-hidden="true">‹</span>
+                </div>
+
+                <div class="success">
+                  <div class="succ-icon icon-shield anim" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="34" height="34"><path d="M12 3.2 19 6v5.4c0 4.3-2.9 7.6-7 
+9.4-4.1-1.8-7-5.1-7-9.4V6l7-2.8Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path 
+d="M8.7 12.2 11 14.5l4.4-4.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" 
+stroke-linejoin="round"/></svg>
+                  </div>
+                  <span class="eyebrow anim">Password reset</span>
+                  <h1 class="anim">Password updated</h1>
+                  <p class="sub anim">Your password has been changed. Sign in with your new password to keep 
+learning.</p>
+                  <div class="success-actions anim">
+                    <button class="btn btn-primary btn-block" type="button" data-goto="login">Back to sign in</button>
+                    <button class="btn btn-ghost btn-block" type="button" data-goto="landing">Back to welcome</button>
+                  </div>
+                  <p class="fineprint anim">Prototype — mock success state.</p>
+                </div>
+              </div>
+            </section>
+
+          </div><!-- /viewport -->
+        </div><!-- /device -->
+      </div><!-- /fit -->
+
+      <!-- side-by-side compare view -->
+      <div class="compare" id="compare">
+        <div class="cmp-frame" data-variant="warm">
+          <div class="cmp-label"><span class="cmp-dot dot-warm"></span> Warm modern learning</div>
+          <div class="cmp-stage"></div>
+        </div>
+        <div class="cmp-frame" data-variant="playful">
+          <div class="cmp-label"><span class="cmp-dot dot-playful"></span> Playful colorful</div>
+          <div class="cmp-stage"></div>
+        </div>
+        <div class="cmp-frame" data-variant="minimal">
+          <div class="cmp-label"><span class="cmp-dot dot-minimal"></span> Minimal neutral</div>
+          <div class="cmp-stage"></div>
+        </div>
+      </div>
+    </div><!-- /canvas -->
+
+    <div class="stage-foot">
+      <span id="flow-hint">Flow: Welcome → Sign in → (post-login: next round, out of scope)</span>
+      <span class="foot-dim" id="mode-hint">Compare shows all three variants at once · click a variant for the full 
+clickthrough</span>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,424 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Skillar Mobile · Editorial & Minimalist Theme Engines (v2.0)
+   Provides 3 distinctly non-overlapping visual identities:
+   1. [data-variant="warm"]          — Warm Modern Learning (Terracotta & Alabaster Editorial)
+   2. [data-variant="minimal"]       — Minimal Neutral (Architectural Swiss Monochrome)
+   3. [data-variant="neo-brutalist"] — Neo-Brutalist Electric (Stark 3px Black & Yellow Pop)
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────────
+   VARIANT 1: WARM MODERN LEARNING (Editorial Serif · Terracotta & Cream)
+   NO PURPLE! Genuine warm terracotta (#C0603A), roasted amber, and espresso.
+   ───────────────────────────────────────────────────────────────── */
+[data-variant="warm"] {
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Instrument Sans", system-ui, -apple-system, sans-serif;
+  --bg: #FDFBF7;
+  --surface: #FFFFFF;
+  --ink: #261C14;
+  --muted: #786C64;
+  --line: #E8E0D7;
+  --brand: #C0603A;
+  --card-border: 1px solid #E8E0D7;
+  --card-shadow: 0 4px 16px -2px rgba(44, 34, 30, 0.07);
+}
+
+[data-variant="warm"] .screen,
+[data-variant="warm"] .page-dashboard,
+[data-variant="warm"] .page-explore,
+[data-variant="warm"] .page-learning,
+[data-variant="warm"] .page-journeys,
+[data-variant="warm"] .page-profile,
+[data-variant="warm"] .page-roadmap-detail,
+[data-variant="warm"] .page-journey-detail {
+  background: #FDFBF7 !important;
+  color: #261C14 !important;
+  font-family: "Instrument Sans", system-ui, sans-serif !important;
+}
+
+[data-variant="warm"] h1,
+[data-variant="warm"] h2,
+[data-variant="warm"] h3,
+[data-variant="warm"] h4,
+[data-variant="warm"] .dash-greeting,
+[data-variant="warm"] .hero-roadmap-title,
+[data-variant="warm"] .section-title,
+[data-variant="warm"] .card-title,
+[data-variant="warm"] .user-name,
+[data-variant="warm"] .stage-card-title,
+[data-variant="warm"] .roadmap-title,
+[data-variant="warm"] .lesson-title {
+  font-family: "Fraunces", Georgia, serif !important;
+  font-weight: 600 !important;
+  color: #261C14 !important;
+  letter-spacing: -0.02em !important;
+}
+
+[data-variant="warm"] .dash-card,
+[data-variant="warm"] .dash-focus-card,
+[data-variant="warm"] .dash-hero-card,
+[data-variant="warm"] .activity-card,
+[data-variant="warm"] .feed-item,
+[data-variant="warm"] .featured-pathway-banner,
+[data-variant="warm"] .roadmap-card,
+[data-variant="warm"] .node-card,
+[data-variant="warm"] .step-card,
+[data-variant="warm"] .journey-hero-card,
+[data-variant="warm"] .skills-mastery-card,
+[data-variant="warm"] .pacing-comparison-card,
+[data-variant="warm"] .stage-card,
+[data-variant="warm"] .milestone-card,
+[data-variant="warm"] .profile-user-card,
+[data-variant="warm"] .stat-card,
+[data-variant="warm"] .badge-item-card,
+[data-variant="warm"] .settings-card {
+  background: #FFFFFF !important;
+  border: 1px solid #E8E0D7 !important;
+  box-shadow: 0 4px 16px -2px rgba(44, 34, 30, 0.07) !important;
+  border-radius: 16px !important;
+  color: #261C14 !important;
+}
+
+/* Warm Terracotta Buttons (NO PURPLE!) */
+[data-variant="warm"] .btn-resume-learning,
+[data-variant="warm"] .btn-journey-breakdown,
+[data-variant="warm"] .btn-continue-step,
+[data-variant="warm"] .btn-step-next {
+  background: #C0603A !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  box-shadow: 0 6px 18px -3px rgba(192, 96, 58, 0.4) !important;
+  border-radius: 12px !important;
+  font-family: "Instrument Sans", sans-serif !important;
+  font-weight: 700 !important;
+}
+[data-variant="warm"] .btn-resume-learning:hover,
+[data-variant="warm"] .btn-journey-breakdown:hover {
+  background: #A8512F !important;
+}
+
+[data-variant="warm"] .btn-hero-secondary,
+[data-variant="warm"] .btn-view-roadmap,
+[data-variant="warm"] .btn-continue,
+[data-variant="warm"] .btn-signout {
+  background: transparent !important;
+  color: #261C14 !important;
+  border: 1px solid #D5C9BD !important;
+  border-radius: 12px !important;
+  font-family: "Instrument Sans", sans-serif !important;
+  font-weight: 600 !important;
+}
+[data-variant="warm"] .btn-hero-secondary:hover {
+  background: #F4EFEB !important;
+}
+
+[data-variant="warm"] .dash-focus-card {
+  background: linear-gradient(135deg, #FFFDF9 0%, #FAF5EE 100%) !important;
+  border-color: #EBDDCF !important;
+}
+[data-variant="warm"] .streak-badge {
+  background: #FEF3C7 !important;
+  border: 1px solid #FDE68A !important;
+  color: #92400E !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+[data-variant="warm"] .day-pill.is-done .day-dot,
+[data-variant="warm"] .streak-day-item.is-completed {
+  background: #476655 !important;
+  color: #FFFFFF !important;
+}
+
+[data-variant="warm"] .filter-pill {
+  background: #FFFFFF !important;
+  color: #786C64 !important;
+  border: 1px solid #E8E0D7 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  font-family: "Instrument Sans", sans-serif !important;
+  font-weight: 600 !important;
+}
+[data-variant="warm"] .filter-pill.active {
+  background: #C0603A !important;
+  color: #FFFFFF !important;
+  border-color: #C0603A !important;
+}
+
+[data-variant="warm"] .dash-bottom-nav,
+[data-variant="warm"] .explore-bottom-nav,
+[data-variant="warm"] .learning-bottom-nav,
+[data-variant="warm"] .journeys-bottom-nav,
+[data-variant="warm"] .profile-bottom-nav {
+  background: #FDFBF7 !important;
+  border-top: 1px solid #E8E0D7 !important;
+  box-shadow: 0 -4px 16px rgba(44, 34, 30, 0.04) !important;
+}
+[data-variant="warm"] .dash-tab.is-active,
+[data-variant="warm"] .explore-tab.is-active,
+[data-variant="warm"] .learning-tab.is-active,
+[data-variant="warm"] .journeys-tab.is-active,
+[data-variant="warm"] .profile-nav-tab.is-active {
+  color: #C0603A !important;
+}
+[data-variant="warm"] .tab-active-dot,
+[data-variant="warm"] .profile-tab-active-dot {
+  background: #C0603A !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   VARIANT 2: MINIMAL NEUTRAL (Architectural Monochrome · Hairlines & Space)
+   High contrast Slate/Black (#0F172A), sharp clean hairlines, pure minimalism.
+   ───────────────────────────────────────────────────────────────── */
+[data-variant="minimal"] {
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  --bg: #F8F9FA;
+  --surface: #FFFFFF;
+  --ink: #0F172A;
+  --muted: #64748B;
+  --line: #E2E8F0;
+  --brand: #0F172A;
+  --card-border: 1px solid #E2E8F0;
+  --card-shadow: none;
+}
+
+[data-variant="minimal"] .screen,
+[data-variant="minimal"] .page-dashboard,
+[data-variant="minimal"] .page-explore,
+[data-variant="minimal"] .page-learning,
+[data-variant="minimal"] .page-journeys,
+[data-variant="minimal"] .page-profile,
+[data-variant="minimal"] .page-roadmap-detail,
+[data-variant="minimal"] .page-journey-detail {
+  background: #F8F9FA !important;
+  color: #0F172A !important;
+  font-family: "IBM Plex Sans", system-ui, sans-serif !important;
+}
+
+[data-variant="minimal"] h1,
+[data-variant="minimal"] h2,
+[data-variant="minimal"] h3,
+[data-variant="minimal"] h4,
+[data-variant="minimal"] .dash-greeting,
+[data-variant="minimal"] .hero-roadmap-title,
+[data-variant="minimal"] .section-title,
+[data-variant="minimal"] .card-title,
+[data-variant="minimal"] .user-name,
+[data-variant="minimal"] .stage-card-title,
+[data-variant="minimal"] .roadmap-title,
+[data-variant="minimal"] .lesson-title {
+  font-family: "Space Grotesk", system-ui, sans-serif !important;
+  font-weight: 700 !important;
+  color: #0F172A !important;
+  letter-spacing: -0.02em !important;
+}
+
+[data-variant="minimal"] .dash-card,
+[data-variant="minimal"] .dash-focus-card,
+[data-variant="minimal"] .dash-hero-card,
+[data-variant="minimal"] .activity-card,
+[data-variant="minimal"] .feed-item,
+[data-variant="minimal"] .featured-pathway-banner,
+[data-variant="minimal"] .roadmap-card,
+[data-variant="minimal"] .node-card,
+[data-variant="minimal"] .step-card,
+[data-variant="minimal"] .journey-hero-card,
+[data-variant="minimal"] .skills-mastery-card,
+[data-variant="minimal"] .pacing-comparison-card,
+[data-variant="minimal"] .stage-card,
+[data-variant="minimal"] .milestone-card,
+[data-variant="minimal"] .profile-user-card,
+[data-variant="minimal"] .stat-card,
+[data-variant="minimal"] .badge-item-card,
+[data-variant="minimal"] .settings-card {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+  border-radius: 8px !important;
+  color: #0F172A !important;
+}
+
+/* Minimal Obsidian Black Buttons */
+[data-variant="minimal"] .btn-resume-learning,
+[data-variant="minimal"] .btn-journey-breakdown,
+[data-variant="minimal"] .btn-continue-step,
+[data-variant="minimal"] .btn-step-next {
+  background: #0F172A !important;
+  color: #FFFFFF !important;
+  border: 1px solid #0F172A !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-weight: 600 !important;
+}
+[data-variant="minimal"] .btn-resume-learning:hover,
+[data-variant="minimal"] .btn-journey-breakdown:hover {
+  background: #1E293B !important;
+}
+
+[data-variant="minimal"] .btn-hero-secondary,
+[data-variant="minimal"] .btn-view-roadmap,
+[data-variant="minimal"] .btn-continue,
+[data-variant="minimal"] .btn-signout {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1px solid #CBD5E1 !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-weight: 600 !important;
+}
+
+[data-variant="minimal"] .streak-badge {
+  background: #F1F5F9 !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #0F172A !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  font-family: "IBM Plex Mono", monospace !important;
+  font-size: 11px !important;
+}
+[data-variant="minimal"] .day-pill.is-done .day-dot,
+[data-variant="minimal"] .streak-day-item.is-completed {
+  background: #0F172A !important;
+  color: #FFFFFF !important;
+  border-radius: 4px !important;
+}
+
+[data-variant="minimal"] .filter-pill {
+  background: #FFFFFF !important;
+  color: #64748B !important;
+  border: 1px solid #E2E8F0 !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  font-family: "Space Grotesk", sans-serif !important;
+}
+[data-variant="minimal"] .filter-pill.active {
+  background: #0F172A !important;
+  color: #FFFFFF !important;
+  border-color: #0F172A !important;
+}
+
+[data-variant="minimal"] .dash-bottom-nav,
+[data-variant="minimal"] .explore-bottom-nav,
+[data-variant="minimal"] .learning-bottom-nav,
+[data-variant="minimal"] .journeys-bottom-nav,
+[data-variant="minimal"] .profile-bottom-nav {
+  background: #FFFFFF !important;
+  border-top: 1px solid #E2E8F0 !important;
+  box-shadow: none !important;
+}
+[data-variant="minimal"] .dash-tab.is-active,
+[data-variant="minimal"] .explore-tab.is-active,
+[data-variant="minimal"] .learning-tab.is-active,
+[data-variant="minimal"] .journeys-tab.is-active,
+[data-variant="minimal"] .profile-nav-tab.is-active {
+  color: #0F172A !important;
+}
+[data-variant="minimal"] .tab-active-dot,
+[data-variant="minimal"] .profile-tab-active-dot {
+  background: #0F172A !important;
+  border-radius: 2px !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   VARIANT 3: NEO-BRUTALIST ELECTRIC (Stark 3px Black & Yellow Pop)
+   High energy stark yellow canvas, 3px pure black lines, 5px hard black shadows.
+   ───────────────────────────────────────────────────────────────── */
+[data-variant="neo-brutalist"] {
+  --bg: #FFEAA7;
+  --surface: #FFFFFF;
+  --ink: #000000;
+  --muted: #333333;
+  --line: #000000;
+  --brand: #6C47FF;
+  --card-border: 3px solid #000000;
+  --card-shadow: 5px 5px 0 #000000;
+}
+
+[data-variant="neo-brutalist"] .screen,
+[data-variant="neo-brutalist"] .page-dashboard,
+[data-variant="neo-brutalist"] .page-explore,
+[data-variant="neo-brutalist"] .page-learning,
+[data-variant="neo-brutalist"] .page-journeys,
+[data-variant="neo-brutalist"] .page-profile,
+[data-variant="neo-brutalist"] .page-roadmap-detail,
+[data-variant="neo-brutalist"] .page-journey-detail {
+  background: #FFEAA7 !important;
+  color: #000000 !important;
+  font-family: "Space Grotesk", sans-serif !important;
+}
+
+[data-variant="neo-brutalist"] .dash-card,
+[data-variant="neo-brutalist"] .dash-focus-card,
+[data-variant="neo-brutalist"] .dash-hero-card,
+[data-variant="neo-brutalist"] .activity-card,
+[data-variant="neo-brutalist"] .feed-item,
+[data-variant="neo-brutalist"] .featured-pathway-banner,
+[data-variant="neo-brutalist"] .roadmap-card,
+[data-variant="neo-brutalist"] .node-card,
+[data-variant="neo-brutalist"] .step-card,
+[data-variant="neo-brutalist"] .journey-hero-card,
+[data-variant="neo-brutalist"] .skills-mastery-card,
+[data-variant="neo-brutalist"] .pacing-comparison-card,
+[data-variant="neo-brutalist"] .stage-card,
+[data-variant="neo-brutalist"] .milestone-card,
+[data-variant="neo-brutalist"] .profile-user-card,
+[data-variant="neo-brutalist"] .stat-card,
+[data-variant="neo-brutalist"] .badge-item-card,
+[data-variant="neo-brutalist"] .settings-card {
+  background: #FFFFFF !important;
+  border: 3px solid #000000 !important;
+  box-shadow: 5px 5px 0 #000000 !important;
+  border-radius: 6px !important;
+  color: #000000 !important;
+}
+
+[data-variant="neo-brutalist"] .btn-resume-learning,
+[data-variant="neo-brutalist"] .btn-journey-breakdown,
+[data-variant="neo-brutalist"] .btn-continue-step,
+[data-variant="neo-brutalist"] .btn-step-next {
+  background: #FFEAA7 !important;
+  color: #000000 !important;
+  border: 3px solid #000000 !important;
+  box-shadow: 4px 4px 0 #000000 !important;
+  border-radius: 4px !important;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-weight: 800 !important;
+}
+[data-variant="neo-brutalist"] .btn-resume-learning:active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: 2px 2px 0 #000000 !important;
+}
+
+[data-variant="neo-brutalist"] .btn-hero-secondary,
+[data-variant="neo-brutalist"] .btn-view-roadmap,
+[data-variant="neo-brutalist"] .btn-continue,
+[data-variant="neo-brutalist"] .btn-signout {
+  background: #FFFFFF !important;
+  color: #000000 !important;
+  border: 2.5px solid #000000 !important;
+  box-shadow: 3px 3px 0 #000000 !important;
+  border-radius: 4px !important;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-weight: 700 !important;
+}
+
+[data-variant="neo-brutalist"] .dash-bottom-nav,
+[data-variant="neo-brutalist"] .explore-bottom-nav,
+[data-variant="neo-brutalist"] .learning-bottom-nav,
+[data-variant="neo-brutalist"] .journeys-bottom-nav,
+[data-variant="neo-brutalist"] .profile-bottom-nav {
+  background: #FFFFFF !important;
+  border-top: 3px solid #000000 !important;
+  box-shadow: 0 -4px 0 #000000 !important;
+}
+[data-variant="neo-brutalist"] .dash-tab.is-active,
+[data-variant="neo-brutalist"] .explore-tab.is-active,
+[data-variant="neo-brutalist"] .learning-tab.is-active,
+[data-variant="neo-brutalist"] .journeys-tab.is-active,
+[data-variant="neo-brutalist"] .profile-nav-tab.is-active {
+  color: #000000 !important;
+  font-weight: 800 !important;
+}

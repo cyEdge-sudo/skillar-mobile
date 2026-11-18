@@ -1,0 +1,1509 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Skillar Mobile · Master Variants Engine (v1.0)
+   Author: Agent 9 (Variants Engine Architect)
+   File: css/variants-master.css
+   
+   Provides master tokens and global rules for 4 radically distinct visual variants:
+   1. [data-variant="playful"]       — Playful Colorful (The User's Favorite!)
+   2. [data-variant="cyber-neon"]    — Cyber Neon Dark Gamified
+   3. [data-variant="neo-brutalist"] — Neo-Brutalist Electric
+   4. [data-variant="warm"]          — Warm Modern Learning
+   +  [data-variant="minimal"]       — Minimal Neutral (Architectural Mono)
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────────
+   SECTION 1: Typography Imports & Font Stacks
+   ───────────────────────────────────────────────────────────────── */
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+/* ─────────────────────────────────────────────────────────────────
+   SECTION 2: MASTER TOKENS BY VARIANT
+   ───────────────────────────────────────────────────────────────── */
+
+/* ═══════════════════════════════════════════════════════════════════
+   VARIANT 1: PLAYFUL COLORFUL — The User's Favorite!
+   Chunky borders (2.5px), hard crisp 4px drop shadows, cheerful pop palette
+   (Sunshine yellow, Electric violet, Hot pink, Mint, Coral), Baloo 2 + Nunito
+   ═══════════════════════════════════════════════════════════════════ */
+:root[data-variant="playful"],
+[data-variant="playful"] {
+  /* Canvas & Surfaces */
+  --bg: #FFF6F0;
+  --bg-2: #F4EFFF;
+  --surface: #FFFFFF;
+  --surface-elevated: #FFFFFF;
+  --surface-muted: #F8F4FF;
+
+  /* Typography & Ink */
+  --ink: #1E1A3D;
+  --muted: #6A648F;
+  --disabled: #A6A0C8;
+
+  /* Hairlines & Borders (Bold dark 2.5px line!) */
+  --line: #1E1A3D;
+  --line-strong: #1E1A3D;
+  --border-width: 2.5px;
+
+  /* Brand & Accents (Skillar Electric Violet) */
+  --brand: #6C47FF;
+  --brand-2: #5835E8;
+  --brand-tint: #ECE6FF;
+  --accent: #6C47FF;
+  --accent-hover: #5835E8;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #ECE6FF;
+
+  /* Vibrant Pop Palette */
+  --pop-yellow: #FFC93C;
+  --pop-pink: #FF5FA2;
+  --pop-mint: #00D4B4;
+  --pop-coral: #FF7675;
+  --pop-sky: #48DBFB;
+  --pop-purple: #A55EEA;
+
+  /* Semantic Feedback (Playful Pop with dark borders) */
+  --ok: #00D4B4;
+  --ok-surface: #E6FAF6;
+  --ok-border: #1E1A3D;
+  --ok-ink: #00876C;
+  --warn: #FFC93C;
+  --warn-surface: #FFF9E6;
+  --warn-border: #1E1A3D;
+  --warn-ink: #996A00;
+  --err: #FF5FA2;
+  --err-surface: #FFEBF3;
+  --err-border: #1E1A3D;
+  --err-ink: #B80053;
+  --info: #6C47FF;
+  --info-surface: #ECE6FF;
+  --info-border: #1E1A3D;
+  --info-ink: #4B27DF;
+
+  /* Card & Container Aesthetics */
+  --card-border: 2.5px solid #1E1A3D;
+  --card-shadow: 4px 4px 0 #1E1A3D;
+  --card-shadow-hover: 6px 6px 0 #1E1A3D;
+  --card-shadow-active: 2px 2px 0 #1E1A3D;
+  --shadow-card: 4px 4px 0 #1E1A3D;
+  --shadow-card-elevated: 6px 6px 0 #1E1A3D;
+  --shadow-sm: 2px 2px 0 #1E1A3D;
+
+  /* Button Aesthetics */
+  --btn-border: 2.5px solid #1E1A3D;
+  --btn-shadow: 4px 4px 0 #1E1A3D;
+  --btn-shadow-hover: 6px 6px 0 #1E1A3D;
+  --btn-shadow-active: 1px 1px 0 #1E1A3D;
+  --shadow-btn: 4px 4px 0 #1E1A3D;
+
+  /* Typography Stacks */
+  --font-display: "Baloo 2", cursive, sans-serif;
+  --font-body: "Nunito", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  /* Chunky Border-Radius Scale */
+  --r-lg: 20px;
+  --r-md: 14px;
+  --r-sm: 8px;
+  --r-pill: 999px;
+
+  --grain: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   VARIANT 2: CYBER NEON DARK GAMIFIED
+   Deep cosmos space (#0B0F19), luminous cyan (#00F2FE), hot pink (#FF007F),
+   radioactive lime (#00FF87), solar amber (#FEE140), ultraviolet glow,
+   Space Grotesk + IBM Plex Sans + IBM Plex Mono HUD readouts
+   ═══════════════════════════════════════════════════════════════════ */
+:root[data-variant="cyber-neon"],
+[data-variant="cyber-neon"] {
+  /* Canvas & Surfaces */
+  --bg: #0B0F19;
+  --bg-2: #111827;
+  --surface: #151D2E;
+  --surface-elevated: #1E293B;
+  --surface-muted: #101726;
+
+  /* Typography & Ink */
+  --ink: #F8FAFC;
+  --muted: #94A3B8;
+  --disabled: #475569;
+
+  /* Hairlines & Borders */
+  --line: #2A364F;
+  --line-strong: #3E4F6F;
+  --border-width: 1.5px;
+
+  /* Brand & Accents */
+  --brand: #7C5CFF;
+  --brand-2: #9378FF;
+  --brand-tint: rgba(124, 92, 255, 0.16);
+  --accent: #7C5CFF;
+  --accent-hover: #9378FF;
+  --accent-ink: #FFFFFF;
+  --accent-soft: rgba(124, 92, 255, 0.16);
+
+  /* Neon High-Luminance Palette */
+  --neon-cyan: #00F2FE;
+  --neon-pink: #FF007F;
+  --neon-green: #00FF87;
+  --neon-amber: #FEE140;
+  --neon-violet: #7C5CFF;
+  --neon-blue: #38B6FF;
+
+  /* Semantic Feedback (Cyber Luminescence) */
+  --ok: #00FF87;
+  --ok-surface: rgba(0, 255, 135, 0.08);
+  --ok-border: rgba(0, 255, 135, 0.35);
+  --ok-ink: #00FF87;
+  --warn: #FEE140;
+  --warn-surface: rgba(254, 225, 64, 0.08);
+  --warn-border: rgba(254, 225, 64, 0.35);
+  --warn-ink: #FEE140;
+  --err: #FF007F;
+  --err-surface: rgba(255, 0, 127, 0.08);
+  --err-border: rgba(255, 0, 127, 0.35);
+  --err-ink: #FF007F;
+  --info: #00F2FE;
+  --info-surface: rgba(0, 242, 254, 0.08);
+  --info-border: rgba(0, 242, 254, 0.35);
+  --info-ink: #00F2FE;
+
+  /* Card & Container Aesthetics */
+  --card-border: 1.5px solid #2A364F;
+  --card-shadow: 0 0 20px rgba(124, 92, 255, 0.18), 0 4px 16px rgba(0, 0, 0, 0.5);
+  --card-shadow-hover: 0 0 28px rgba(0, 242, 254, 0.28), 0 6px 20px rgba(0, 0, 0, 0.6);
+  --card-shadow-active: 0 0 14px rgba(124, 92, 255, 0.25), 0 2px 8px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 0 20px rgba(124, 92, 255, 0.18), 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-card-elevated: 0 0 32px rgba(124, 92, 255, 0.25), 0 8px 24px rgba(0, 0, 0, 0.7);
+  --shadow-sm: 0 0 10px rgba(0, 242, 254, 0.15);
+
+  /* Button Aesthetics */
+  --btn-border: 1.5px solid rgba(124, 92, 255, 0.5);
+  --btn-shadow: 0 0 16px rgba(124, 92, 255, 0.4), 0 2px 8px rgba(0, 0, 0, 0.4);
+  --btn-shadow-hover: 0 0 24px rgba(0, 242, 254, 0.65), 0 4px 14px rgba(0, 0, 0, 0.5);
+  --btn-shadow-active: 0 0 8px rgba(124, 92, 255, 0.4);
+  --shadow-btn: 0 0 16px rgba(124, 92, 255, 0.4);
+
+  /* Typography Stacks */
+  --font-display: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  /* Precision Tech Radii */
+  --r-lg: 14px;
+  --r-md: 10px;
+  --r-sm: 6px;
+  --r-pill: 9999px;
+
+  --grain: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   VARIANT 3: NEO-BRUTALIST ELECTRIC
+   High-energy pop yellow (#FFEAA7) or stark white, unapologetic pure black
+   lines (3px solid #000), 5px/4px hard black shadows, boxy angular radii,
+   Space Grotesk + IBM Plex Sans, raw architectural electric styling
+   ═══════════════════════════════════════════════════════════════════ */
+:root[data-variant="neo-brutalist"],
+[data-variant="neo-brutalist"] {
+  /* Canvas & Surfaces */
+  --bg: #FFEAA7;
+  --bg-2: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-elevated: #FFFFFF;
+  --surface-muted: #F8F8F8;
+
+  /* Typography & Ink */
+  --ink: #000000;
+  --muted: #4B4B4B;
+  --disabled: #8A8A8A;
+
+  /* Hairlines & Borders */
+  --line: #000000;
+  --line-strong: #000000;
+  --border-width: 3px;
+
+  /* Brand & Accents */
+  --brand: #6C47FF;
+  --brand-2: #5835E8;
+  --brand-tint: #ECE6FF;
+  --accent: #6C47FF;
+  --accent-hover: #5835E8;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #ECE6FF;
+
+  /* Electric Palette */
+  --brutal-yellow: #FFEAA7;
+  --brutal-cyan: #00F2FE;
+  --brutal-pink: #FF007F;
+  --brutal-green: #00FF87;
+  --brutal-orange: #FF7675;
+
+  /* Semantic Feedback */
+  --ok: #00FF87;
+  --ok-surface: #E6FFF2;
+  --ok-border: #000000;
+  --ok-ink: #006633;
+  --warn: #FFEAA7;
+  --warn-surface: #FFFCEB;
+  --warn-border: #000000;
+  --warn-ink: #8A6D00;
+  --err: #FF007F;
+  --err-surface: #FFE6F2;
+  --err-border: #000000;
+  --err-ink: #9E004F;
+  --info: #00F2FE;
+  --info-surface: #E6FEFF;
+  --info-border: #000000;
+  --info-ink: #006670;
+
+  /* Card & Container Aesthetics */
+  --card-border: 3px solid #000000;
+  --card-shadow: 5px 5px 0 #000000;
+  --card-shadow-hover: 7px 7px 0 #000000;
+  --card-shadow-active: 2px 2px 0 #000000;
+  --shadow-card: 5px 5px 0 #000000;
+  --shadow-card-elevated: 7px 7px 0 #000000;
+  --shadow-sm: 3px 3px 0 #000000;
+
+  /* Button Aesthetics */
+  --btn-border: 3px solid #000000;
+  --btn-shadow: 4px 4px 0 #000000;
+  --btn-shadow-hover: 6px 6px 0 #000000;
+  --btn-shadow-active: 1px 1px 0 #000000;
+  --shadow-btn: 4px 4px 0 #000000;
+
+  /* Typography Stacks */
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "IBM Plex Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  /* Angular Boxy Radii */
+  --r-lg: 10px;
+  --r-md: 6px;
+  --r-sm: 4px;
+  --r-pill: 4px; /* Boxy aesthetic by design */
+
+  --grain: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   VARIANT 4: WARM MODERN LEARNING
+   Editorial warm alabaster (#FDFBF7), sand (#F5EFEB), espresso ink (#2C221E),
+   clay stone (#786C64), warm terracotta/amber (#D97706), Fraunces serif display,
+   Instrument Sans body, soft tactile diffuse shadows, 12px/16px smooth radii
+   ═══════════════════════════════════════════════════════════════════ */
+:root,
+:root[data-variant="warm"],
+[data-variant="warm"] {
+  /* Canvas & Surfaces */
+  --bg: #FDFBF7;
+  --bg-2: #F5EFEB;
+  --surface: #FFFFFF;
+  --surface-elevated: #FFFDF9;
+  --surface-muted: #F4EFEB;
+
+  /* Typography & Ink */
+  --ink: #2C221E;
+  --muted: #786C64;
+  --disabled: #A89D95;
+
+  /* Hairlines & Borders */
+  --line: #E8E0D7;
+  --line-strong: #D5C9BD;
+  --border-width: 1px;
+
+  /* Brand & Accents */
+  --brand: #6C47FF;
+  --brand-2: #5835E8;
+  --brand-tint: #EFEAFF;
+  --accent: #D97706;
+  --accent-hover: #B45309;
+  --accent-ink: #FFFDF9;
+  --accent-soft: #FEF3C7;
+
+  /* Earthy Editorial Palette */
+  --warm-terracotta: #C0603A;
+  --warm-amber: #D97706;
+  --warm-clay: #786C64;
+  --warm-sage: #5E7D54;
+  --warm-sand: #E8E0D7;
+
+  /* Semantic Feedback */
+  --ok: #15803D;
+  --ok-surface: #F0FDF4;
+  --ok-border: #BBF7D0;
+  --ok-ink: #15803D;
+  --warn: #B45309;
+  --warn-surface: #FFFBEB;
+  --warn-border: #FDE68A;
+  --warn-ink: #B45309;
+  --err: #B91C1C;
+  --err-surface: #FEF2F2;
+  --err-border: #FECACA;
+  --err-ink: #B91C1C;
+  --info: #1D4ED8;
+  --info-surface: #EFF6FF;
+  --info-border: #BFDBFE;
+  --info-ink: #1D4ED8;
+
+  /* Card & Container Aesthetics */
+  --card-border: 1px solid #E8E0D7;
+  --card-shadow: 0 4px 16px -4px rgba(44, 34, 30, 0.07), 0 1px 3px rgba(44, 34, 30, 0.04);
+  --card-shadow-hover: 0 10px 28px -6px rgba(44, 34, 30, 0.12), 0 2px 6px rgba(44, 34, 30, 0.05);
+  --card-shadow-active: 0 2px 6px rgba(44, 34, 30, 0.08);
+  --shadow-card: 0 4px 16px -4px rgba(44, 34, 30, 0.07), 0 1px 3px rgba(44, 34, 30, 0.04);
+  --shadow-card-elevated: 0 12px 32px -8px rgba(44, 34, 30, 0.12), 0 4px 12px rgba(44, 34, 30, 0.06);
+  --shadow-sm: 0 1px 2px rgba(44, 34, 30, 0.05);
+
+  /* Button Aesthetics */
+  --btn-border: 1px solid transparent;
+  --btn-shadow: 0 6px 18px -4px rgba(217, 119, 6, 0.45);
+  --btn-shadow-hover: 0 10px 24px -4px rgba(217, 119, 6, 0.55);
+  --btn-shadow-active: 0 2px 8px -2px rgba(217, 119, 6, 0.4);
+  --shadow-btn: 0 6px 18px -4px rgba(217, 119, 6, 0.45);
+
+  /* Typography Stacks */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Instrument Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  /* Smooth Rounded Radii */
+  --r-lg: 16px;
+  --r-md: 12px;
+  --r-sm: 8px;
+  --r-pill: 9999px;
+
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   VARIANT 5: MINIMAL NEUTRAL (Clean Architectural Monochrome Support)
+   Quiet mono, Slate 900 ink, hairlines & space, 0 shadow, high contrast
+   ═══════════════════════════════════════════════════════════════════ */
+:root[data-variant="minimal"],
+[data-variant="minimal"] {
+  --bg: #FAFAF9;
+  --bg-2: #F2F2F0;
+  --surface: #FFFFFF;
+  --surface-elevated: #FFFFFF;
+  --surface-muted: #F1F5F9;
+
+  --ink: #0F172A;
+  --muted: #64748B;
+  --disabled: #94A3B8;
+
+  --line: #E2E8F0;
+  --line-strong: #CBD5E1;
+  --border-width: 1px;
+
+  --brand: #6C47FF;
+  --brand-2: #5835E8;
+  --brand-tint: #F4F1FF;
+  --accent: #0F172A;
+  --accent-hover: #1E293B;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #F1F5F9;
+
+  --ok: #15803D;
+  --ok-surface: #F0FDF4;
+  --ok-border: #BBF7D0;
+  --ok-ink: #15803D;
+  --warn: #A16207;
+  --warn-surface: #FEFCE8;
+  --warn-border: #FEF08A;
+  --warn-ink: #A16207;
+  --err: #B91C1C;
+  --err-surface: #FEF2F2;
+  --err-border: #FECACA;
+  --err-ink: #B91C1C;
+  --info: #1D4ED8;
+  --info-surface: #EFF6FF;
+  --info-border: #BFDBFE;
+  --info-ink: #1D4ED8;
+
+  --card-border: 1px solid #E2E8F0;
+  --card-shadow: none;
+  --card-shadow-hover: 0 2px 8px rgba(15, 23, 42, 0.06);
+  --shadow-card: none;
+  --shadow-card-elevated: 0 4px 12px rgba(15, 23, 42, 0.08);
+  --shadow-sm: none;
+
+  --btn-border: 1px solid #0F172A;
+  --btn-shadow: none;
+  --btn-shadow-hover: none;
+  --shadow-btn: none;
+
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  --r-lg: 8px;
+  --r-md: 6px;
+  --r-sm: 4px;
+  --r-pill: 4px;
+
+  --grain: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SECTION 3: SCREEN-SPECIFIC TOKEN BRIDGE
+   Seamlessly maps all 8 screen CSS variable families to active variant
+   ───────────────────────────────────────────────────────────────── */
+[data-variant] {
+  /* Dashboard tokens bridge */
+  --dash-font-display: var(--font-display);
+  --dash-font-body: var(--font-body);
+  --dash-font-mono: var(--font-mono);
+  --dash-r-sm: var(--r-sm);
+  --dash-r-md: var(--r-md);
+  --dash-r-lg: var(--r-lg);
+  --dash-r-pill: var(--r-pill);
+
+  /* Explore tokens bridge */
+  --explore-bg: var(--bg);
+  --explore-surface: var(--surface);
+  --explore-surface-warm: var(--bg-2);
+  --explore-surface-muted: var(--surface-muted);
+  --explore-ink: var(--ink);
+  --explore-muted: var(--muted);
+  --explore-border: var(--line);
+  --explore-brand: var(--accent);
+  --explore-brand-hover: var(--accent-hover);
+  --explore-brand-tint: var(--accent-soft);
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-xl: calc(var(--r-lg) + 4px);
+  --radius-pill: var(--r-pill);
+  --shadow-card: var(--card-shadow);
+  --shadow-card-hover: var(--card-shadow-hover);
+
+  /* Roadmap Detail tokens bridge */
+  --rm-brand: var(--accent);
+  --rm-font-display: var(--font-display);
+  --rm-font-body: var(--font-body);
+  --rm-font-mono: var(--font-mono);
+  --rm-r-sm: var(--r-sm);
+  --rm-r-md: var(--r-md);
+  --rm-r-lg: var(--r-lg);
+  --rm-r-pill: var(--r-pill);
+  --rm-shadow-card: var(--card-shadow);
+  --rm-shadow-elevated: var(--card-shadow-hover);
+
+  /* Learning tokens bridge */
+  --learn-brand: var(--accent);
+  --learn-font-display: var(--font-display);
+  --learn-font-body: var(--font-body);
+  --learn-font-mono: var(--font-mono);
+  --learn-r-sm: var(--r-sm);
+  --learn-r-md: var(--r-md);
+  --learn-r-lg: var(--r-lg);
+  --learn-r-pill: var(--r-pill);
+
+  /* Journeys tokens bridge */
+  --journeys-brand: var(--accent);
+  --journeys-font-display: var(--font-display);
+  --journeys-font-body: var(--font-body);
+  --journeys-font-mono: var(--font-mono);
+  --journeys-r-sm: var(--r-sm);
+  --journeys-r-md: var(--r-md);
+  --journeys-r-lg: var(--r-lg);
+  --journeys-r-pill: var(--r-pill);
+
+  /* Journey Detail tokens bridge */
+  --jd-brand: var(--accent);
+  --jd-font-display: var(--font-display);
+  --jd-font-body: var(--font-body);
+  --jd-font-mono: var(--font-mono);
+  --jd-r-sm: var(--r-sm);
+  --jd-r-md: var(--r-md);
+  --jd-r-lg: var(--r-lg);
+  --jd-r-pill: var(--r-pill);
+
+  /* Profile tokens bridge */
+  --pf-bg: var(--bg);
+  --pf-bg-alt: var(--bg-2);
+  --pf-surface: var(--surface);
+  --pf-surface-elevated: var(--surface-elevated);
+  --pf-surface-muted: var(--surface-muted);
+  --pf-ink: var(--ink);
+  --pf-muted: var(--muted);
+  --pf-line: var(--line);
+  --pf-brand: var(--accent);
+  --pf-font-display: var(--font-display);
+  --pf-font-body: var(--font-body);
+  --pf-font-mono: var(--font-mono);
+  --pf-r-sm: var(--r-sm);
+  --pf-r-md: var(--r-md);
+  --pf-r-lg: var(--r-lg);
+  --pf-r-pill: var(--r-pill);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SECTION 4: GLOBAL BASE PAGE & SURFACE RULES
+   ───────────────────────────────────────────────────────────────── */
+[data-variant] .screen,
+[data-variant] .viewport,
+[data-variant] .page-dashboard,
+[data-variant] .page-explore,
+[data-variant] .page-learning,
+[data-variant] .page-journeys,
+[data-variant] .page-profile,
+[data-variant] .page-roadmap-detail,
+[data-variant] .page-step-player,
+[data-variant] .page-journey-detail {
+  background-color: var(--bg) !important;
+  color: var(--ink) !important;
+  font-family: var(--font-body) !important;
+}
+
+/* Base typography enforcement */
+[data-variant] h1,
+[data-variant] h2,
+[data-variant] h3,
+[data-variant] h4,
+[data-variant] .dash-header h1,
+[data-variant] .learning-title,
+[data-variant] .journeys-title,
+[data-variant] .roadmap-detail-title,
+[data-variant] .user-name,
+[data-variant] .hero-roadmap-title,
+[data-variant] .section-title,
+[data-variant] .card-title,
+[data-variant] .stage-title,
+[data-variant] .lesson-title {
+  font-family: var(--font-display) !important;
+  color: var(--ink) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SECTION 5: CARDS & CONTAINERS ACROSS ALL SCREENS
+   ───────────────────────────────────────────────────────────────── */
+
+/* Common selector for every card across all 8 screens */
+[data-variant] .dash-card,
+[data-variant] .dash-focus-card,
+[data-variant] .dash-hero-card,
+[data-variant] .activity-card,
+[data-variant] .feed-item,
+[data-variant] .stat-tile,
+[data-variant] .quick-action-card,
+[data-variant] .roadmap-card,
+[data-variant] .category-card,
+[data-variant] .roadmap-hero-card,
+[data-variant] .stage-node-card,
+[data-variant] .step-item-card,
+[data-variant] .resource-card,
+[data-variant] .quiz-preview-card,
+[data-variant] .node-card,
+[data-variant] .step-card,
+[data-variant] .callout-principles,
+[data-variant] .code-card,
+[data-variant] .practice-card,
+[data-variant] .practice-item,
+[data-variant] .quiz-card,
+[data-variant] .completed-card,
+[data-variant] .saved-card,
+[data-variant] .completed-banner,
+[data-variant] .journey-hero-card,
+[data-variant] .skills-mastery-card,
+[data-variant] .mentor-feedback-card,
+[data-variant] .milestone-step-card,
+[data-variant] .journey-card,
+[data-variant] .stage-card,
+[data-variant] .milestone-card,
+[data-variant] .deliverable-card,
+[data-variant] .cohort-leaderboard-card,
+[data-variant] .peer-review-card,
+[data-variant] .profile-user-card,
+[data-variant] .stat-card,
+[data-variant] .badge-item-card,
+[data-variant] .settings-card {
+  border: var(--card-border) !important;
+  box-shadow: var(--card-shadow) !important;
+  border-radius: var(--r-md) !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+/* ═════════ Variant 1: Playful Card Rules ═════════ */
+[data-variant="playful"] .dash-card,
+[data-variant="playful"] .dash-focus-card,
+[data-variant="playful"] .dash-hero-card,
+[data-variant="playful"] .activity-card,
+[data-variant="playful"] .feed-item,
+[data-variant="playful"] .quick-action-card,
+[data-variant="playful"] .roadmap-card,
+[data-variant="playful"] .node-card,
+[data-variant="playful"] .step-card,
+[data-variant="playful"] .quiz-card,
+[data-variant="playful"] .code-card,
+[data-variant="playful"] .practice-card,
+[data-variant="playful"] .completed-card,
+[data-variant="playful"] .saved-card,
+[data-variant="playful"] .journey-hero-card,
+[data-variant="playful"] .skills-mastery-card,
+[data-variant="playful"] .mentor-feedback-card,
+[data-variant="playful"] .milestone-step-card,
+[data-variant="playful"] .journey-card,
+[data-variant="playful"] .stage-card,
+[data-variant="playful"] .milestone-card,
+[data-variant="playful"] .deliverable-card,
+[data-variant="playful"] .profile-user-card,
+[data-variant="playful"] .stat-card,
+[data-variant="playful"] .badge-item-card,
+[data-variant="playful"] .settings-card {
+  background: var(--surface) !important;
+  border: var(--card-border) !important;
+  box-shadow: var(--card-shadow) !important;
+  border-radius: var(--r-md) !important;
+}
+
+[data-variant="playful"] .dash-focus-card {
+  background: linear-gradient(135deg, #FFF6F0 0%, #FFFFFF 65%, #FFF0D6 100%) !important;
+}
+
+[data-variant="playful"] .dash-hero-card {
+  background: linear-gradient(135deg, #FFFFFF 0%, #F4EFFF 100%) !important;
+}
+
+[data-variant="playful"] .completed-banner {
+  background: linear-gradient(135deg, #E6FAF6 0%, #ECE6FF 100%) !important;
+  border: var(--card-border) !important;
+  box-shadow: var(--card-shadow) !important;
+}
+
+[data-variant="playful"] .callout-principles {
+  background: #FFFDF0 !important;
+  border: 2.5px solid #1E1A3D !important;
+  box-shadow: 4px 4px 0 #1E1A3D !important;
+}
+
+[data-variant="playful"] .activity-card:hover,
+[data-variant="playful"] .roadmap-card:hover,
+[data-variant="playful"] .node-card:hover,
+[data-variant="playful"] .quick-action-card:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: var(--card-shadow-hover) !important;
+}
+
+/* ═════════ Variant 2: Cyber Neon Card Rules ═════════ */
+[data-variant="cyber-neon"] .dash-card,
+[data-variant="cyber-neon"] .dash-focus-card,
+[data-variant="cyber-neon"] .dash-hero-card,
+[data-variant="cyber-neon"] .activity-card,
+[data-variant="cyber-neon"] .feed-item,
+[data-variant="cyber-neon"] .quick-action-card,
+[data-variant="cyber-neon"] .roadmap-card,
+[data-variant="cyber-neon"] .node-card,
+[data-variant="cyber-neon"] .step-card,
+[data-variant="cyber-neon"] .quiz-card,
+[data-variant="cyber-neon"] .code-card,
+[data-variant="cyber-neon"] .practice-card,
+[data-variant="cyber-neon"] .completed-card,
+[data-variant="cyber-neon"] .saved-card,
+[data-variant="cyber-neon"] .journey-hero-card,
+[data-variant="cyber-neon"] .skills-mastery-card,
+[data-variant="cyber-neon"] .mentor-feedback-card,
+[data-variant="cyber-neon"] .milestone-step-card,
+[data-variant="cyber-neon"] .journey-card,
+[data-variant="cyber-neon"] .stage-card,
+[data-variant="cyber-neon"] .milestone-card,
+[data-variant="cyber-neon"] .deliverable-card,
+[data-variant="cyber-neon"] .profile-user-card,
+[data-variant="cyber-neon"] .stat-card,
+[data-variant="cyber-neon"] .badge-item-card,
+[data-variant="cyber-neon"] .settings-card {
+  background: var(--surface) !important;
+  border: var(--card-border) !important;
+  box-shadow: var(--card-shadow) !important;
+  border-radius: var(--r-md) !important;
+  color: var(--ink) !important;
+}
+
+[data-variant="cyber-neon"] .dash-focus-card {
+  background: linear-gradient(145deg, #151D2E 0%, #1A263D 60%, rgba(254, 225, 64, 0.08) 100%) !important;
+  border-color: rgba(254, 225, 64, 0.3) !important;
+  box-shadow: 0 0 24px rgba(254, 225, 64, 0.15), 0 4px 16px rgba(0, 0, 0, 0.6) !important;
+}
+
+[data-variant="cyber-neon"] .dash-hero-card {
+  background: linear-gradient(145deg, #151D2E 0%, #1C193B 60%, rgba(124, 92, 255, 0.15) 100%) !important;
+  border-color: rgba(124, 92, 255, 0.4) !important;
+}
+
+[data-variant="cyber-neon"] .callout-principles {
+  background: rgba(0, 242, 254, 0.06) !important;
+  border: 1.5px solid rgba(0, 242, 254, 0.4) !important;
+  box-shadow: 0 0 16px rgba(0, 242, 254, 0.15) !important;
+}
+
+[data-variant="cyber-neon"] .code-card {
+  background: #080B12 !important;
+  border-color: #2A364F !important;
+}
+
+[data-variant="cyber-neon"] .activity-card:hover,
+[data-variant="cyber-neon"] .roadmap-card:hover,
+[data-variant="cyber-neon"] .node-card:hover,
+[data-variant="cyber-neon"] .quick-action-card:hover {
+  border-color: var(--neon-cyan) !important;
+  box-shadow: var(--card-shadow-hover) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* ═════════ Variant 3: Neo-Brutalist Card Rules ═════════ */
+[data-variant="neo-brutalist"] .dash-card,
+[data-variant="neo-brutalist"] .dash-focus-card,
+[data-variant="neo-brutalist"] .dash-hero-card,
+[data-variant="neo-brutalist"] .activity-card,
+[data-variant="neo-brutalist"] .feed-item,
+[data-variant="neo-brutalist"] .quick-action-card,
+[data-variant="neo-brutalist"] .roadmap-card,
+[data-variant="neo-brutalist"] .node-card,
+[data-variant="neo-brutalist"] .step-card,
+[data-variant="neo-brutalist"] .quiz-card,
+[data-variant="neo-brutalist"] .code-card,
+[data-variant="neo-brutalist"] .practice-card,
+[data-variant="neo-brutalist"] .completed-card,
+[data-variant="neo-brutalist"] .saved-card,
+[data-variant="neo-brutalist"] .journey-hero-card,
+[data-variant="neo-brutalist"] .skills-mastery-card,
+[data-variant="neo-brutalist"] .mentor-feedback-card,
+[data-variant="neo-brutalist"] .milestone-step-card,
+[data-variant="neo-brutalist"] .journey-card,
+[data-variant="neo-brutalist"] .stage-card,
+[data-variant="neo-brutalist"] .milestone-card,
+[data-variant="neo-brutalist"] .deliverable-card,
+[data-variant="neo-brutalist"] .profile-user-card,
+[data-variant="neo-brutalist"] .stat-card,
+[data-variant="neo-brutalist"] .badge-item-card,
+[data-variant="neo-brutalist"] .settings-card {
+  background: #FFFFFF !important;
+  border: var(--card-border) !important;
+  box-shadow: var(--card-shadow) !important;
+  border-radius: var(--r-md) !important;
+}
+
+[data-variant="neo-brutalist"] .dash-focus-card {
+  background: #FFFDF0 !important;
+}
+
+[data-variant="neo-brutalist"] .dash-hero-card {
+  background: #FFFFFF !important;
+}
+
+[data-variant="neo-brutalist"] .completed-banner {
+  background: #00FF87 !important;
+  border: 3px solid #000000 !important;
+  box-shadow: 5px 5px 0 #000000 !important;
+  color: #000000 !important;
+}
+
+[data-variant="neo-brutalist"] .callout-principles {
+  background: #FFEAA7 !important;
+  border: 3px solid #000000 !important;
+  box-shadow: 4px 4px 0 #000000 !important;
+}
+
+[data-variant="neo-brutalist"] .activity-card:hover,
+[data-variant="neo-brutalist"] .roadmap-card:hover,
+[data-variant="neo-brutalist"] .node-card:hover,
+[data-variant="neo-brutalist"] .quick-action-card:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: var(--card-shadow-hover) !important;
+}
+
+/* ═════════ Variant 4: Warm Modern Card Rules ═════════ */
+[data-variant="warm"] .dash-card,
+[data-variant="warm"] .dash-focus-card,
+[data-variant="warm"] .dash-hero-card,
+[data-variant="warm"] .activity-card,
+[data-variant="warm"] .feed-item,
+[data-variant="warm"] .quick-action-card,
+[data-variant="warm"] .roadmap-card,
+[data-variant="warm"] .node-card,
+[data-variant="warm"] .step-card,
+[data-variant="warm"] .quiz-card,
+[data-variant="warm"] .code-card,
+[data-variant="warm"] .practice-card,
+[data-variant="warm"] .completed-card,
+[data-variant="warm"] .saved-card,
+[data-variant="warm"] .journey-hero-card,
+[data-variant="warm"] .skills-mastery-card,
+[data-variant="warm"] .mentor-feedback-card,
+[data-variant="warm"] .milestone-step-card,
+[data-variant="warm"] .journey-card,
+[data-variant="warm"] .stage-card,
+[data-variant="warm"] .milestone-card,
+[data-variant="warm"] .deliverable-card,
+[data-variant="warm"] .profile-user-card,
+[data-variant="warm"] .stat-card,
+[data-variant="warm"] .badge-item-card,
+[data-variant="warm"] .settings-card {
+  background: var(--surface) !important;
+  border: var(--card-border) !important;
+  box-shadow: var(--card-shadow) !important;
+  border-radius: var(--r-md) !important;
+}
+
+[data-variant="warm"] .activity-card:hover,
+[data-variant="warm"] .roadmap-card:hover,
+[data-variant="warm"] .node-card:hover,
+[data-variant="warm"] .quick-action-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: var(--card-shadow-hover) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SECTION 6: BUTTONS & INTERACTIVE ELEMENTS
+   ───────────────────────────────────────────────────────────────── */
+
+/* Common Button Selectors */
+[data-variant] .btn,
+[data-variant] .btn-primary,
+[data-variant] .btn-resume-learning,
+[data-variant] .btn-continue,
+[data-variant] .btn-step-next,
+[data-variant] .btn-submit-deliverable,
+[data-variant] .btn-journey-breakdown,
+[data-variant] .btn-card-start,
+[data-variant] .btn-signout {
+  border: var(--btn-border) !important;
+  box-shadow: var(--btn-shadow) !important;
+  border-radius: var(--r-pill) !important;
+  font-family: var(--font-body) !important;
+  font-weight: 700 !important;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease, background 0.15s ease;
+  cursor: pointer;
+}
+
+/* ═════════ Variant 1: Playful Buttons ═════════ */
+[data-variant="playful"] .btn-primary,
+[data-variant="playful"] .btn-resume-learning,
+[data-variant="playful"] .btn-continue,
+[data-variant="playful"] .btn-step-next,
+[data-variant="playful"] .btn-submit-deliverable,
+[data-variant="playful"] .btn-journey-breakdown,
+[data-variant="playful"] .btn-card-start {
+  background: var(--accent) !important;
+  color: #FFFFFF !important;
+  border: 2.5px solid #1E1A3D !important;
+  box-shadow: 4px 4px 0 #1E1A3D !important;
+  border-radius: var(--r-pill) !important;
+  font-weight: 800 !important;
+}
+
+[data-variant="playful"] .btn-primary:hover,
+[data-variant="playful"] .btn-resume-learning:hover,
+[data-variant="playful"] .btn-continue:hover,
+[data-variant="playful"] .btn-step-next:hover,
+[data-variant="playful"] .btn-submit-deliverable:hover,
+[data-variant="playful"] .btn-journey-breakdown:hover,
+[data-variant="playful"] .btn-card-start:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0 #1E1A3D !important;
+}
+
+[data-variant="playful"] .btn-primary:active,
+[data-variant="playful"] .btn-resume-learning:active,
+[data-variant="playful"] .btn-continue:active,
+[data-variant="playful"] .btn-step-next:active,
+[data-variant="playful"] .btn-submit-deliverable:active,
+[data-variant="playful"] .btn-journey-breakdown:active,
+[data-variant="playful"] .btn-card-start:active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: 1px 1px 0 #1E1A3D !important;
+}
+
+[data-variant="playful"] .btn-secondary,
+[data-variant="playful"] .btn-step-prev,
+[data-variant="playful"] .btn-signout {
+  background: #FFFFFF !important;
+  color: #1E1A3D !important;
+  border: 2.5px solid #1E1A3D !important;
+  box-shadow: 3px 3px 0 #1E1A3D !important;
+  border-radius: var(--r-pill) !important;
+  font-weight: 800 !important;
+}
+
+[data-variant="playful"] .btn-secondary:hover,
+[data-variant="playful"] .btn-step-prev:hover,
+[data-variant="playful"] .btn-signout:hover {
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 4px 4px 0 #1E1A3D !important;
+  background: #FAF8FF !important;
+}
+
+/* ═════════ Variant 2: Cyber Neon Buttons ═════════ */
+[data-variant="cyber-neon"] .btn-primary,
+[data-variant="cyber-neon"] .btn-resume-learning,
+[data-variant="cyber-neon"] .btn-continue,
+[data-variant="cyber-neon"] .btn-step-next,
+[data-variant="cyber-neon"] .btn-submit-deliverable,
+[data-variant="cyber-neon"] .btn-journey-breakdown,
+[data-variant="cyber-neon"] .btn-card-start {
+  background: linear-gradient(135deg, #7C5CFF 0%, #00F2FE 100%) !important;
+  color: #0B0F19 !important;
+  border: 1px solid rgba(0, 242, 254, 0.6) !important;
+  box-shadow: 0 0 16px rgba(0, 242, 254, 0.45), 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+  border-radius: var(--r-sm) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.03em !important;
+  text-transform: uppercase !important;
+}
+
+[data-variant="cyber-neon"] .btn-primary:hover,
+[data-variant="cyber-neon"] .btn-resume-learning:hover,
+[data-variant="cyber-neon"] .btn-continue:hover,
+[data-variant="cyber-neon"] .btn-step-next:hover,
+[data-variant="cyber-neon"] .btn-submit-deliverable:hover,
+[data-variant="cyber-neon"] .btn-journey-breakdown:hover,
+[data-variant="cyber-neon"] .btn-card-start:hover {
+  box-shadow: 0 0 24px rgba(0, 242, 254, 0.7), 0 4px 14px rgba(0, 0, 0, 0.6) !important;
+  transform: translateY(-2px) !important;
+}
+
+[data-variant="cyber-neon"] .btn-primary:active,
+[data-variant="cyber-neon"] .btn-resume-learning:active,
+[data-variant="cyber-neon"] .btn-continue:active,
+[data-variant="cyber-neon"] .btn-step-next:active,
+[data-variant="cyber-neon"] .btn-submit-deliverable:active,
+[data-variant="cyber-neon"] .btn-journey-breakdown:active,
+[data-variant="cyber-neon"] .btn-card-start:active {
+  transform: translateY(1px) !important;
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.4) !important;
+}
+
+[data-variant="cyber-neon"] .btn-secondary,
+[data-variant="cyber-neon"] .btn-step-prev,
+[data-variant="cyber-neon"] .btn-signout {
+  background: rgba(21, 29, 46, 0.8) !important;
+  color: var(--neon-cyan) !important;
+  border: 1.5px solid var(--neon-cyan) !important;
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.25) !important;
+  border-radius: var(--r-sm) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* ═════════ Variant 3: Neo-Brutalist Buttons ═════════ */
+[data-variant="neo-brutalist"] .btn-primary,
+[data-variant="neo-brutalist"] .btn-resume-learning,
+[data-variant="neo-brutalist"] .btn-continue,
+[data-variant="neo-brutalist"] .btn-step-next,
+[data-variant="neo-brutalist"] .btn-submit-deliverable,
+[data-variant="neo-brutalist"] .btn-journey-breakdown,
+[data-variant="neo-brutalist"] .btn-card-start {
+  background: var(--accent) !important;
+  color: #FFFFFF !important;
+  border: 3px solid #000000 !important;
+  box-shadow: 4px 4px 0 #000000 !important;
+  border-radius: 4px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.02em !important;
+}
+
+[data-variant="neo-brutalist"] .btn-primary:hover,
+[data-variant="neo-brutalist"] .btn-resume-learning:hover,
+[data-variant="neo-brutalist"] .btn-continue:hover,
+[data-variant="neo-brutalist"] .btn-step-next:hover,
+[data-variant="neo-brutalist"] .btn-submit-deliverable:hover,
+[data-variant="neo-brutalist"] .btn-journey-breakdown:hover,
+[data-variant="neo-brutalist"] .btn-card-start:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0 #000000 !important;
+}
+
+[data-variant="neo-brutalist"] .btn-primary:active,
+[data-variant="neo-brutalist"] .btn-resume-learning:active,
+[data-variant="neo-brutalist"] .btn-continue:active,
+[data-variant="neo-brutalist"] .btn-step-next:active,
+[data-variant="neo-brutalist"] .btn-submit-deliverable:active,
+[data-variant="neo-brutalist"] .btn-journey-breakdown:active,
+[data-variant="neo-brutalist"] .btn-card-start:active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: 2px 2px 0 #000000 !important;
+}
+
+[data-variant="neo-brutalist"] .btn-secondary,
+[data-variant="neo-brutalist"] .btn-step-prev,
+[data-variant="neo-brutalist"] .btn-signout {
+  background: #FFEAA7 !important;
+  color: #000000 !important;
+  border: 3px solid #000000 !important;
+  box-shadow: 3px 3px 0 #000000 !important;
+  border-radius: 4px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+}
+
+/* ═════════ Variant 4: Warm Modern Buttons ═════════ */
+[data-variant="warm"] .btn-primary,
+[data-variant="warm"] .btn-resume-learning,
+[data-variant="warm"] .btn-continue,
+[data-variant="warm"] .btn-step-next,
+[data-variant="warm"] .btn-submit-deliverable,
+[data-variant="warm"] .btn-journey-breakdown,
+[data-variant="warm"] .btn-card-start {
+  background: var(--accent) !important;
+  color: #FFFDF9 !important;
+  border: 1px solid transparent !important;
+  box-shadow: var(--btn-shadow) !important;
+  border-radius: var(--r-md) !important;
+  font-weight: 600 !important;
+}
+
+[data-variant="warm"] .btn-primary:hover,
+[data-variant="warm"] .btn-resume-learning:hover,
+[data-variant="warm"] .btn-continue:hover,
+[data-variant="warm"] .btn-step-next:hover,
+[data-variant="warm"] .btn-submit-deliverable:hover,
+[data-variant="warm"] .btn-journey-breakdown:hover,
+[data-variant="warm"] .btn-card-start:hover {
+  background: var(--accent-hover) !important;
+  box-shadow: 0 10px 24px -4px rgba(217, 119, 6, 0.55) !important;
+  transform: translateY(-1px) !important;
+}
+
+[data-variant="warm"] .btn-secondary,
+[data-variant="warm"] .btn-step-prev,
+[data-variant="warm"] .btn-signout {
+  background: var(--bg-2) !important;
+  color: var(--ink) !important;
+  border: 1px solid var(--line) !important;
+  box-shadow: none !important;
+  border-radius: var(--r-md) !important;
+  font-weight: 600 !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SECTION 7: BADGES, PILLS, TAGS & STREAK INDICATORS
+   ───────────────────────────────────────────────────────────────── */
+[data-variant] .streak-badge,
+[data-variant] .tag-badge,
+[data-variant] .skill-pill,
+[data-variant] .difficulty-pill,
+[data-variant] .duration-pill,
+[data-variant] .cohort-tag-pill,
+[data-variant] .user-role-badge,
+[data-variant] .filter-chip,
+[data-variant] .topic-pill,
+[data-variant] .category-pill,
+[data-variant] .lesson-xp-badge,
+[data-variant] .mastery-badge,
+[data-variant] .stage-badge {
+  border-radius: var(--r-pill) !important;
+  font-family: var(--font-body) !important;
+  transition: all 0.15s ease;
+}
+
+/* ═════════ Variant 1: Playful Badges ═════════ */
+[data-variant="playful"] .streak-badge {
+  background: var(--pop-yellow) !important;
+  color: #1E1A3D !important;
+  border: 2px solid #1E1A3D !important;
+  box-shadow: 2px 2px 0 #1E1A3D !important;
+  font-weight: 800 !important;
+}
+
+[data-variant="playful"] .tag-badge,
+[data-variant="playful"] .skill-pill,
+[data-variant="playful"] .filter-chip {
+  background: #FFFFFF !important;
+  color: #1E1A3D !important;
+  border: 2px solid #1E1A3D !important;
+  box-shadow: 2px 2px 0 #1E1A3D !important;
+  font-weight: 700 !important;
+}
+
+[data-variant="playful"] .difficulty-pill,
+[data-variant="playful"] .lesson-xp-badge,
+[data-variant="playful"] .cohort-tag-pill {
+  border: 2px solid #1E1A3D !important;
+  box-shadow: 2px 2px 0 #1E1A3D !important;
+  font-weight: 800 !important;
+}
+
+/* ═════════ Variant 2: Cyber Neon Badges ═════════ */
+[data-variant="cyber-neon"] .streak-badge {
+  background: rgba(254, 225, 64, 0.12) !important;
+  color: var(--neon-amber) !important;
+  border: 1px solid rgba(254, 225, 64, 0.45) !important;
+  box-shadow: 0 0 10px rgba(254, 225, 64, 0.25) !important;
+  font-family: var(--font-mono) !important;
+}
+
+[data-variant="cyber-neon"] .tag-badge,
+[data-variant="cyber-neon"] .skill-pill,
+[data-variant="cyber-neon"] .filter-chip,
+[data-variant="cyber-neon"] .topic-pill {
+  background: rgba(15, 23, 42, 0.8) !important;
+  color: var(--neon-cyan) !important;
+  border: 1px solid rgba(0, 242, 254, 0.35) !important;
+  box-shadow: 0 0 8px rgba(0, 242, 254, 0.15) !important;
+  font-family: var(--font-mono) !important;
+  border-radius: var(--r-sm) !important;
+}
+
+[data-variant="cyber-neon"] .lesson-xp-badge {
+  background: rgba(124, 92, 255, 0.18) !important;
+  color: #A489FF !important;
+  border: 1px solid #7C5CFF !important;
+  box-shadow: 0 0 12px rgba(124, 92, 255, 0.35) !important;
+}
+
+/* ═════════ Variant 3: Neo-Brutalist Badges ═════════ */
+[data-variant="neo-brutalist"] .streak-badge,
+[data-variant="neo-brutalist"] .tag-badge,
+[data-variant="neo-brutalist"] .skill-pill,
+[data-variant="neo-brutalist"] .difficulty-pill,
+[data-variant="neo-brutalist"] .lesson-xp-badge,
+[data-variant="neo-brutalist"] .filter-chip {
+  border: 2px solid #000000 !important;
+  box-shadow: 2px 2px 0 #000000 !important;
+  border-radius: 2px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+}
+
+[data-variant="neo-brutalist"] .streak-badge {
+  background: #FFEAA7 !important;
+  color: #000000 !important;
+}
+
+[data-variant="neo-brutalist"] .lesson-xp-badge {
+  background: #00FF87 !important;
+  color: #000000 !important;
+}
+
+/* ═════════ Variant 4: Warm Modern Badges ═════════ */
+[data-variant="warm"] .streak-badge,
+[data-variant="warm"] .tag-badge,
+[data-variant="warm"] .skill-pill,
+[data-variant="warm"] .difficulty-pill,
+[data-variant="warm"] .filter-chip {
+  background: var(--bg-2) !important;
+  color: var(--muted) !important;
+  border: 1px solid var(--line) !important;
+  box-shadow: none !important;
+  border-radius: var(--r-pill) !important;
+  font-weight: 500 !important;
+}
+
+[data-variant="warm"] .streak-badge {
+  background: #FEF3C7 !important;
+  color: #92400E !important;
+  border-color: #FDE68A !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SECTION 8: PROGRESS BARS & STEP TIMELINES
+   ───────────────────────────────────────────────────────────────── */
+[data-variant] .progress-bar,
+[data-variant] .step-progress-bar,
+[data-variant] .progress-track {
+  border-radius: var(--r-pill) !important;
+  overflow: hidden;
+}
+
+/* ═════════ Variant 1: Playful Progress ═════════ */
+[data-variant="playful"] .progress-bar,
+[data-variant="playful"] .step-progress-bar,
+[data-variant="playful"] .progress-track {
+  background: #ECE6FF !important;
+  border: 2px solid #1E1A3D !important;
+}
+
+[data-variant="playful"] .progress-bar-fill,
+[data-variant="playful"] .step-progress-fill,
+[data-variant="playful"] .progress-fill {
+  background: linear-gradient(90deg, var(--pop-pink) 0%, var(--accent) 100%) !important;
+  border-radius: var(--r-pill) !important;
+}
+
+/* ═════════ Variant 2: Cyber Neon Progress ═════════ */
+[data-variant="cyber-neon"] .progress-bar,
+[data-variant="cyber-neon"] .step-progress-bar,
+[data-variant="cyber-neon"] .progress-track {
+  background: #111827 !important;
+  border: 1px solid #2A364F !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6) !important;
+}
+
+[data-variant="cyber-neon"] .progress-bar-fill,
+[data-variant="cyber-neon"] .step-progress-fill,
+[data-variant="cyber-neon"] .progress-fill {
+  background: linear-gradient(90deg, var(--neon-green) 0%, var(--neon-cyan) 50%, var(--neon-violet) 100%) !important;
+  box-shadow: 0 0 12px rgba(0, 242, 254, 0.65) !important;
+}
+
+/* ═════════ Variant 3: Neo-Brutalist Progress ═════════ */
+[data-variant="neo-brutalist"] .progress-bar,
+[data-variant="neo-brutalist"] .step-progress-bar,
+[data-variant="neo-brutalist"] .progress-track {
+  background: #FFFFFF !important;
+  border: 2.5px solid #000000 !important;
+  border-radius: 2px !important;
+}
+
+[data-variant="neo-brutalist"] .progress-bar-fill,
+[data-variant="neo-brutalist"] .step-progress-fill,
+[data-variant="neo-brutalist"] .progress-fill {
+  background: var(--accent) !important;
+  border-right: 2.5px solid #000000 !important;
+}
+
+/* ═════════ Variant 4: Warm Modern Progress ═════════ */
+[data-variant="warm"] .progress-bar,
+[data-variant="warm"] .step-progress-bar,
+[data-variant="warm"] .progress-track {
+  background: var(--line) !important;
+  border: none !important;
+}
+
+[data-variant="warm"] .progress-bar-fill,
+[data-variant="warm"] .step-progress-fill,
+[data-variant="warm"] .progress-fill {
+  background: var(--accent) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SECTION 9: BOTTOM NAVIGATION & TAB BARS
+   ───────────────────────────────────────────────────────────────── */
+[data-variant] .dash-tabs,
+[data-variant] .bottom-tabs,
+[data-variant] .bottom-tab-bar,
+[data-variant] .step-player-nav {
+  transition: all 0.2s ease;
+}
+
+/* ═════════ Variant 1: Playful Tab Bar ═════════ */
+[data-variant="playful"] .dash-tabs,
+[data-variant="playful"] .bottom-tabs,
+[data-variant="playful"] .bottom-tab-bar,
+[data-variant="playful"] .step-player-nav {
+  background: #FFFFFF !important;
+  border-top: 2.5px solid #1E1A3D !important;
+  box-shadow: 0 -4px 0 rgba(30, 26, 61, 0.08) !important;
+}
+
+[data-variant="playful"] .tab-item.is-active,
+[data-variant="playful"] .dash-tab.is-active,
+[data-variant="playful"] .nav-tab.is-active {
+  color: var(--accent) !important;
+  font-weight: 800 !important;
+}
+
+[data-variant="playful"] .tab-item.is-active svg,
+[data-variant="playful"] .dash-tab.is-active svg {
+  transform: scale(1.15);
+  filter: drop-shadow(2px 2px 0 var(--pop-yellow));
+}
+
+/* ═════════ Variant 2: Cyber Neon Tab Bar ═════════ */
+[data-variant="cyber-neon"] .dash-tabs,
+[data-variant="cyber-neon"] .bottom-tabs,
+[data-variant="cyber-neon"] .bottom-tab-bar,
+[data-variant="cyber-neon"] .step-player-nav {
+  background: rgba(15, 23, 42, 0.94) !important;
+  backdrop-filter: blur(16px) !important;
+  border-top: 1.5px solid #2A364F !important;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.7) !important;
+}
+
+[data-variant="cyber-neon"] .tab-item,
+[data-variant="cyber-neon"] .dash-tab,
+[data-variant="cyber-neon"] .nav-tab {
+  color: var(--muted) !important;
+}
+
+[data-variant="cyber-neon"] .tab-item.is-active,
+[data-variant="cyber-neon"] .dash-tab.is-active,
+[data-variant="cyber-neon"] .nav-tab.is-active {
+  color: var(--neon-cyan) !important;
+  text-shadow: 0 0 10px rgba(0, 242, 254, 0.6) !important;
+}
+
+[data-variant="cyber-neon"] .tab-item.is-active svg,
+[data-variant="cyber-neon"] .dash-tab.is-active svg {
+  filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.75));
+}
+
+/* ═════════ Variant 3: Neo-Brutalist Tab Bar ═════════ */
+[data-variant="neo-brutalist"] .dash-tabs,
+[data-variant="neo-brutalist"] .bottom-tabs,
+[data-variant="neo-brutalist"] .bottom-tab-bar,
+[data-variant="neo-brutalist"] .step-player-nav {
+  background: #FFFFFF !important;
+  border-top: 3px solid #000000 !important;
+  box-shadow: 0 -4px 0 #000000 !important;
+}
+
+[data-variant="neo-brutalist"] .tab-item.is-active,
+[data-variant="neo-brutalist"] .dash-tab.is-active,
+[data-variant="neo-brutalist"] .nav-tab.is-active {
+  background: #FFEAA7 !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 2px 2px 0 #000000 !important;
+  color: #000000 !important;
+  border-radius: 4px !important;
+  font-weight: 800 !important;
+}
+
+/* ═════════ Variant 4: Warm Modern Tab Bar ═════════ */
+[data-variant="warm"] .dash-tabs,
+[data-variant="warm"] .bottom-tabs,
+[data-variant="warm"] .bottom-tab-bar,
+[data-variant="warm"] .step-player-nav {
+  background: rgba(253, 251, 247, 0.94) !important;
+  backdrop-filter: blur(12px) !important;
+  border-top: 1px solid var(--line) !important;
+}
+
+[data-variant="warm"] .tab-item.is-active,
+[data-variant="warm"] .dash-tab.is-active,
+[data-variant="warm"] .nav-tab.is-active {
+  color: var(--accent) !important;
+  font-weight: 600 !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SECTION 10: INPUTS & SEARCH CONTROLS
+   ───────────────────────────────────────────────────────────────── */
+[data-variant] .search-bar,
+[data-variant] .search-input,
+[data-variant] .input,
+[data-variant] .form-input,
+[data-variant] .quiz-option {
+  font-family: var(--font-body) !important;
+  transition: all 0.15s ease;
+}
+
+/* ═════════ Variant 1: Playful Inputs ═════════ */
+[data-variant="playful"] .search-bar,
+[data-variant="playful"] .input,
+[data-variant="playful"] .form-input,
+[data-variant="playful"] .quiz-option {
+  border: 2.5px solid #1E1A3D !important;
+  border-radius: var(--r-md) !important;
+  background: #FFFFFF !important;
+  box-shadow: 3px 3px 0 #1E1A3D !important;
+  color: #1E1A3D !important;
+  font-weight: 700 !important;
+}
+
+[data-variant="playful"] .input:focus,
+[data-variant="playful"] .search-input:focus,
+[data-variant="playful"] .quiz-option:hover {
+  box-shadow: 5px 5px 0 #1E1A3D !important;
+  outline: none !important;
+}
+
+/* ═════════ Variant 2: Cyber Neon Inputs ═════════ */
+[data-variant="cyber-neon"] .search-bar,
+[data-variant="cyber-neon"] .input,
+[data-variant="cyber-neon"] .form-input,
+[data-variant="cyber-neon"] .quiz-option {
+  background: #111827 !important;
+  border: 1.5px solid #2A364F !important;
+  color: var(--ink) !important;
+  border-radius: var(--r-sm) !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-variant="cyber-neon"] .input:focus,
+[data-variant="cyber-neon"] .search-input:focus,
+[data-variant="cyber-neon"] .quiz-option:hover {
+  border-color: var(--neon-cyan) !important;
+  box-shadow: 0 0 12px rgba(0, 242, 254, 0.4), inset 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+  outline: none !important;
+}
+
+/* ═════════ Variant 3: Neo-Brutalist Inputs ═════════ */
+[data-variant="neo-brutalist"] .search-bar,
+[data-variant="neo-brutalist"] .input,
+[data-variant="neo-brutalist"] .form-input,
+[data-variant="neo-brutalist"] .quiz-option {
+  background: #FFFFFF !important;
+  border: 3px solid #000000 !important;
+  border-radius: 4px !important;
+  box-shadow: 3px 3px 0 #000000 !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+[data-variant="neo-brutalist"] .input:focus,
+[data-variant="neo-brutalist"] .search-input:focus,
+[data-variant="neo-brutalist"] .quiz-option:hover {
+  background: #FFEAA7 !important;
+  box-shadow: 5px 5px 0 #000000 !important;
+  outline: none !important;
+}
+
+/* ═════════ Variant 4: Warm Modern Inputs ═════════ */
+[data-variant="warm"] .search-bar,
+[data-variant="warm"] .input,
+[data-variant="warm"] .form-input,
+[data-variant="warm"] .quiz-option {
+  background: #FFFFFF !important;
+  border: 1px solid var(--line) !important;
+  border-radius: var(--r-md) !important;
+  box-shadow: var(--shadow-sm) !important;
+  color: var(--ink) !important;
+}
+
+[data-variant="warm"] .input:focus,
+[data-variant="warm"] .search-input:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15) !important;
+  outline: none !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SECTION 11: REVIEW RAIL SWATCHES & COMPARISON HELPERS
+   ───────────────────────────────────────────────────────────────── */
+.sw-playful {
+  background: linear-gradient(135deg, #FFF6F0 0%, #FF5FA2 45%, #6C47FF 100%) !important;
+  border: 2px solid #1E1A3D !important;
+}
+
+.sw-cyber-neon {
+  background: linear-gradient(135deg, #0B0F19 0%, #7C5CFF 50%, #00F2FE 100%) !important;
+  border: 1.5px solid #2A364F !important;
+  box-shadow: 0 0 8px rgba(0, 242, 254, 0.5);
+}
+
+.sw-neo-brutalist {
+  background: linear-gradient(135deg, #FFEAA7 0%, #FFFFFF 50%, #6C47FF 100%) !important;
+  border: 2px solid #000000 !important;
+}
+
+.sw-warm {
+  background: linear-gradient(135deg, #FDFBF7 0%, #F5EFEB 50%, #D97706 100%) !important;
+  border: 1px solid #E8E0D7 !important;
+}
+
+.sw-minimal {
+  background: linear-gradient(135deg, #FAFAF9 0%, #E2E8F0 50%, #0F172A 100%) !important;
+  border: 1px solid #CBD5E1 !important;
+}
+
+/* Compare Mode Frames */
+.cmp-frame[data-variant="playful"] {
+  border-color: #1E1A3D;
+}
+.cmp-frame[data-variant="cyber-neon"] {
+  border-color: #7C5CFF;
+  box-shadow: 0 0 20px rgba(124, 92, 255, 0.25);
+}
+.cmp-frame[data-variant="neo-brutalist"] {
+  border: 3px solid #000000;
+}
+.cmp-frame[data-variant="warm"] {
+  border-color: #E8E0D7;
+}
+
+/* End of Variants Engine Master */

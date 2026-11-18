@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="en" data-variant="warm">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Skillar · Explore Roadmaps Catalog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../css/explore.css" />
+</head>
+<body>
+
+<div class="shell">
+  <!-- ══════════ Review rail (For desktop/testing preview) ══════════ -->
+  <aside class="rail">
+    <div class="rail-head">
+      <div class="brandline"><span class="brand-dot"></span> Skillar</div>
+      <p class="rail-sub">Explore Catalog · UI Mockup</p>
+    </div>
+
+    <section class="rail-block">
+      <h3>Design System Specs</h3>
+      <div style="font-size: 12px; color: #9aa0b4; line-height: 1.6; display: flex; flex-direction: column; gap: 8px;">
+        <div><strong>Aesthetic:</strong> Warm Minimal</div>
+        <div><strong>Brand Accent:</strong> <code>#6C47FF</code> (Skillar Purple)</div>
+        <div><strong>Surfaces:</strong> Subtle warm off-white (<code>#F8F6F2</code>, <code>#FAF8F5</code>)</div>
+        <div><strong>Geometry:</strong> 8px / 12px / 16px radii &amp; 4px grid</div>
+        <div><strong>Touch Targets:</strong> &ge; 44 &times; 44 pt accessible</div>
+      </div>
+    </section>
+
+    <section class="rail-block">
+      <h3>Quick Filters</h3>
+      <div class="variants" role="group" aria-label="Category Filters preview">
+        <button class="variant active" type="button" data-rail-filter="all">
+          <span class="vtext"><span class="vname">All Roadmaps</span><span class="vdesc">4 curated pathways</span></span>
+        </button>
+        <button class="variant" type="button" data-rail-filter="frontend">
+          <span class="vtext"><span class="vname">Frontend &amp; Mobile</span><span class="vdesc">React Native &amp; Expo</span></span>
+        </button>
+        <button class="variant" type="button" data-rail-filter="cloud">
+          <span class="vtext"><span class="vname">Cloud &amp; DevOps</span><span class="vdesc">Kubernetes microservices</span></span>
+        </button>
+        <button class="variant" type="button" data-rail-filter="aiml">
+          <span class="vtext"><span class="vname">AI &amp; Machine Learning</span><span class="vdesc">GenAI &amp; LLM Engineering</span></span>
+        </button>
+      </div>
+    </section>
+
+    <section class="rail-block rail-notes">
+      <h3>Screen Notes</h3>
+      <ul>
+        <li><b>Warm Minimal:</b> Clean structured cards, warm background tint, Skillar brand purple highlights.</li>
+        <li><b>Interactive Filter Pills:</b> Tap any pill to filter cards dynamically in the mock.</li>
+        <li><b>Live Search:</b> Search by title, domain, or skills (e.g. "Kubernetes", "React", "LLM").</li>
+        <li><b>Bottom Tab Bar:</b> Standard 5-tab mobile navigation with Explore active.</li>
+      </ul>
+    </section>
+  </aside>
+
+  <!-- ══════════ Main Stage / Device Viewport ══════════ -->
+  <main class="stage">
+    <div class="stage-bar">
+      <div class="sb-left">
+        <span class="badge-mock">PROTOTYPE · EXPLORE</span>
+        <h2 id="stage-title">Explore Roadmaps Catalog</h2>
+      </div>
+      <div class="sb-right">
+        <span style="font-size: 12px; color: #8a8fa1;">Interactive Mobile Prototype</span>
+      </div>
+    </div>
+
+    <div class="canvas" id="canvas">
+      <div class="fit" id="fit">
+        <!-- Phone Device Shell -->
+        <div class="device mode-phone" id="device">
+
+          <!-- iOS Status Bar -->
+          <div class="statusbar" aria-hidden="true">
+            <span class="sb-time">9:41</span>
+            <span class="sb-icons">
+              <svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+              <svg width="15" height="11" viewBox="0 0 15 11"><path d="M7.5 9.6 9.7 7.3a3.1 3.1 0 0 0-4.4 0L7.5 9.6Zm0-4.4c1.7 0 3.3.6 4.5 1.8l1.4-1.4a8.4 8.4 0 0 0-11.8 0l1.4 1.4a6.3 6.3 0 0 1 4.5-1.8Z"/></svg>
+              <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="20" height="11" rx="3.2" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="15" height="8" rx="2"/><path d="M22.5 4v4a2.2 2.2 0 0 0 0-4Z" fill-opacity=".45"/></svg>
+            </span>
+          </div>
+
+          <!-- Viewport Container -->
+          <div class="viewport" id="viewport">
+
+            <!-- ══════════════════════════════════════════════ -->
+            <!-- EXPLORE ROADMAPS SCREEN                        -->
+            <!-- ══════════════════════════════════════════════ -->
+            <section class="screen is-active" data-screen="explore" aria-label="Explore Roadmaps">
+
+              <div class="page page-explore">
+
+                <!-- ── 1. HEADER BAR ── -->
+                <header class="explore-header anim" style="animation-delay: 0ms;">
+                  <div class="explore-top-meta">
+                    <span class="explore-brand-badge">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"/></svg>
+                      CAREER ROADMAPS
+                    </span>
+                    <div class="explore-user-quick">
+                      <div class="user-avatar-mini" title="Alex Morgan">AM</div>
+                    </div>
+                  </div>
+
+                  <div class="explore-titles">
+                    <h1 class="explore-title">Explore Roadmaps</h1>
+                    <p class="explore-subtitle">Curated learning paths aligned with your career growth</p>
+                  </div>
+
+                  <!-- Search Input with icon -->
+                  <div class="explore-search-wrap">
+                    <svg class="explore-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <circle cx="11" cy="11" r="8"></circle>
+                      <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <input
+                      id="explore-search"
+                      class="explore-search-input"
+                      type="search"
+                      placeholder="Search roadmaps, skills, or domains..."
+                      aria-label="Search roadmaps, skills, or domains"
+                      autocomplete="off"
+                    />
+                    <button id="search-clear-btn" class="explore-search-clear" type="button" aria-label="Clear search">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                    </button>
+                  </div>
+                </header>
+
+                <!-- ── 2. CATEGORY FILTER PILLS (Horizontal Scrollable) ── -->
+                <nav class="category-filter-section anim" style="animation-delay: 60ms;" aria-label="Roadmap Categories">
+                  <div class="category-scroll-container" role="tablist">
+                    <button class="filter-pill active" type="button" role="tab" aria-selected="true" data-category="all">
+                      All <span class="pill-count">4</span>
+                    </button>
+                    <button class="filter-pill" type="button" role="tab" aria-selected="false" data-category="frontend">
+                      Frontend
+                    </button>
+                    <button class="filter-pill" type="button" role="tab" aria-selected="false" data-category="backend">
+                      Backend
+                    </button>
+                    <button class="filter-pill" type="button" role="tab" aria-selected="false" data-category="cloud">
+                      Cloud &amp; DevOps
+                    </button>
+                    <button class="filter-pill" type="button" role="tab" aria-selected="false" data-category="aiml">
+                      AI &amp; ML
+                    </button>
+                    <button class="filter-pill" type="button" role="tab" aria-selected="false" data-category="system">
+                      System Design
+                    </button>
+                    <button class="filter-pill" type="button" role="tab" aria-selected="false" data-category="leadership">
+                      Leadership
+                    </button>
+                  </div>
+                </nav>
+
+                <!-- ── 3. FEATURED ROLE PATHWAY BANNER ── -->
+                <section
+                  class="featured-pathway-banner anim"
+                  style="animation-delay: 120ms;"
+                  data-goto="roadmap-detail"
+                  tabindex="0"
+                  role="region"
+                  aria-label="Featured Role Pathway"
+                >
+                  <div class="pathway-bg-glow" aria-hidden="true"></div>
+
+                  <div class="pathway-top-row">
+                    <span class="pathway-flag">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      Featured Role Pathway
+                    </span>
+                    <span class="pathway-capstone-tag">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+                      Capstone Included
+                    </span>
+                  </div>
+
+                  <div class="pathway-content">
+                    <h2 class="pathway-title">Staff Software Engineer Path</h2>
+                    <p class="pathway-summary">Strategic architectural ownership, distributed reliability at enterprise scale, and cross-team execution leadership.</p>
+
+                    <!-- 6-Phase visual track -->
+                    <div class="pathway-phases-track" title="6 Phases Pathway">
+                      <span class="phase-node done" title="Phase 1: Architecture &amp; Modular Boundaries"></span>
+                      <span class="phase-node" title="Phase 2: Distributed Data &amp; Resiliency"></span>
+                      <span class="phase-node" title="Phase 3: High Scale &amp; Performance"></span>
+                      <span class="phase-node" title="Phase 4: Cross-Team Influence &amp; RFCs"></span>
+                      <span class="phase-node" title="Phase 5: Strategic Tech Roadmap"></span>
+                      <span class="phase-node" title="Phase 6: Capstone Defense"></span>
+                    </div>
+                  </div>
+
+                  <div class="pathway-meta-row">
+                    <span class="pathway-meta-item">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                      6 Phases
+                    </span>
+                    <span class="pathway-meta-dot"></span>
+                    <span class="pathway-meta-item">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                      42 Steps
+                    </span>
+                    <span class="pathway-meta-dot"></span>
+                    <span class="pathway-meta-item">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                      Capstone Defense
+                    </span>
+                  </div>
+
+                  <div class="pathway-action-row">
+                    <div class="pathway-learners-peek">
+                      <div class="avatars-stack" aria-hidden="true">
+                        <span>JD</span>
+                        <span>SK</span>
+                        <span>AL</span>
+                      </div>
+                      <span>850+ engineers active</span>
+                    </div>
+
+                    <button class="btn-pathway-action" type="button" data-goto="roadmap-detail" aria-label="View Staff Software Engineer Pathway">
+                      View Pathway
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </button>
+                  </div>
+                </section>
+
+                <!-- ── 4. ROADMAP CARDS SECTION ── -->
+                <section class="roadmaps-section anim" style="animation-delay: 180ms;" aria-label="All Roadmaps Catalog">
+                  <div class="roadmaps-section-head">
+                    <h2 class="section-title">
+                      Curated Roadmaps
+                      <span class="section-count-badge" id="visible-count">4 available</span>
+                    </h2>
+                    <button class="roadmaps-sort-filter" type="button" id="sort-btn">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
+                      Recommended
+                    </button>
+                  </div>
+
+                  <div class="roadmap-cards-stack" id="roadmap-stack">
+
+                    <!-- CARD 1: Modern React Native & Expo Architecture -->
+                    <article
+                      class="roadmap-card"
+                      data-category="frontend"
+                      data-keywords="react native expo mobile architecture frontend typescript reanimated"
+                      data-goto="roadmap-detail"
+                      tabindex="0"
+                      aria-label="Modern React Native &amp; Expo Architecture roadmap"
+                    >
+                      <div class="card-header-row">
+                        <div class="card-tags-group">
+                          <span class="tag-difficulty advanced">
+                            <span class="tag-difficulty-dot"></span>
+                            Advanced
+                          </span>
+                          <span class="tag-enrolled">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            Enrolled
+                          </span>
+                        </div>
+                        <button class="card-bookmark-btn bookmarked" type="button" aria-label="Saved to bookmarks" title="Saved">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                        </button>
+                      </div>
+
+                      <div class="card-body">
+                        <h3 class="card-title">Modern React Native &amp; Expo Architecture</h3>
+                        <p class="card-desc">Production-grade mobile engineering with Expo Router, Turbomodules, offline SQLite caching, and fluid gesture animations.</p>
+
+                        <!-- Enrolled Progress Bar -->
+                        <div class="enrolled-progress-wrap">
+                          <div class="enrolled-progress-meta">
+                            <span class="enrolled-progress-label">
+                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                              In Progress · Step 4 of 12
+                            </span>
+                            <span style="font-weight: 600; color: #15803D;">33%</span>
+                          </div>
+                          <div class="enrolled-progress-track">
+                            <div class="enrolled-progress-fill" style="width: 33%;"></div>
+                          </div>
+                        </div>
+
+                        <div class="card-skills-row">
+                          <span class="skill-chip">Expo SDK 52</span>
+                          <span class="skill-chip">React 19</span>
+                          <span class="skill-chip">Reanimated 3</span>
+                          <span class="skill-chip">SQLite</span>
+                        </div>
+                      </div>
+
+                      <div class="card-meta-row">
+                        <span class="card-meta-item">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                          12 steps
+                        </span>
+                        <span class="card-meta-dot"></span>
+                        <span class="card-meta-item">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                          18 hrs
+                        </span>
+                        <span class="card-meta-dot"></span>
+                        <span class="card-meta-item">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                          4.9 (420)
+                        </span>
+                      </div>
+
+                      <div class="card-footer-row">
+                        <span class="card-learners-count">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                          1,420 enrolled
+                        </span>
+                        <button class="btn-card-explore enrolled-btn" type="button" data-goto="roadmap-detail" aria-label="Continue Modern React Native roadmap">
+                          Continue
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                      </div>
+                    </article>
+
+                    <!-- CARD 2: Cloud Native Microservices with Kubernetes -->
+                    <article
+                      class="roadmap-card"
+                      data-category="cloud backend"
+                      data-keywords="cloud devops kubernetes microservices docker grpc istio containers aws"
+                      data-goto="roadmap-detail"
+                      tabindex="0"
+                      aria-label="Cloud Native Microservices with Kubernetes roadmap"
+                    >
+                      <div class="card-header-row">
+                        <div class="card-tags-group">
+                          <span class="tag-difficulty intermediate">
+                            <span class="tag-difficulty-dot"></span>
+                            Intermediate
+                          </span>
+                        </div>
+                        <button class="card-bookmark-btn" type="button" aria-label="Bookmark this roadmap" title="Bookmark">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                        </button>
+                      </div>
+
+                      <div class="card-body">
+                        <h3 class="card-title">Cloud Native Microservices with Kubernetes</h3>
+                        <p class="card-desc">Architect scalable containerized clusters, ingress controllers, gRPC communication contracts, and automated zero-downtime Canary deployments.</p>
+
+                        <div class="card-skills-row">
+                          <span class="skill-chip">Kubernetes</span>
+                          <span class="skill-chip">gRPC</span>
+                          <span class="skill-chip">Docker</span>
+                          <span class="skill-chip">Istio Mesh</span>
+                        </div>
+                      </div>
+
+                      <div class="card-meta-row">
+                        <span class="card-meta-item">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                          16 steps
+                        </span>
+                        <span class="card-meta-dot"></span>
+                        <span class="card-meta-item">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                          24 hrs
+                        </span>
+                        <span class="card-meta-dot"></span>
+                        <span class="card-meta-item">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                          4.8 (810)
+                        </span>
+                      </div>
+
+                      <div class="card-footer-row">
+                        <span class="card-learners-count">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                          2,840 learners
+                        </span>
+                        <button class="btn-card-explore" type="button" data-goto="roadmap-detail" aria-label="Explore Cloud Native Microservices roadmap">
+                          Explore
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                      </div>
+                    </article>
+
+                    <!-- CARD 3: GenAI Application Engineering with LLMs -->
+                    <article
+                      class="roadmap-card"
+                      data-category="aiml"
+                      data-keywords="ai ml genai llm applications rag langchain embeddings vector openai agent"
+                      data-goto="roadmap-detail"
+                      tabindex="0"
+                      aria-label="GenAI Application Engineering with LLMs roadmap"
+                    >
+                      <div class="card-header-row">
+                        <div class="card-tags-group">
+                          <span class="tag-difficulty advanced">
+                            <span class="tag-difficulty-dot"></span>
+                            Advanced
+                          </span>
+                          <span class="tag-trending">
+                            🔥 Trending
+                          </span>
+                        </div>
+                        <button class="card-bookmark-btn" type="button" aria-label="Bookmark this roadmap" title="Bookmark">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                        </button>
+                      </div>
+
+                      <div class="card-body">
+                        <h3 class="card-title">GenAI Application Engineering with LLMs</h3>
+                        <p class="card-desc">Build deterministic production AI agents, hybrid vector-graph RAG retrieval, automated prompt evaluations, and streaming inference.</p>
+
+                        <div class="card-skills-row">
+                          <span class="skill-chip">LangChain</span>
+                          <span class="skill-chip">RAG Systems</span>
+                          <span class="skill-chip">Vector DBs</span>
+                          <span class="skill-chip">Evals</span>
+                        </div>
+                      </div>
+
+                      <div class="card-meta-row">
+                        <span class="card-meta-item">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                          10 steps
+                        </span>
+                        <span class="card-meta-dot"></span>
+                        <span class="card-meta-item">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                          14 hrs
+                        </span>
+                        <span class="card-meta-dot"></span>
+                        <span class="card-meta-item">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                          4.9 (1.1k)
+                        </span>
+                      </div>
+
+                      <div class="card-footer-row">
+                        <span class="card-learners-count">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                          3,190 learners
+                        </span>
+                        <button class="btn-card-explore" type="button" data-goto="roadmap-detail" aria-label="Explore GenAI Application Engineering roadmap">
+                          Explore
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                      </div>
+                    </article>
+
+                    <!-- CARD 4: PostgreSQL & Distributed Systems -->
+                    <article
+                      class="roadmap-card"
+                      data-category="backend system"
+                      data-keywords="postgresql database backend distributed systems replication acid sharding sql"
+                      data-goto="roadmap-detail"
+                      tabindex="0"
+                      aria-label="PostgreSQL &amp; Distributed Systems roadmap"
+                    >
+                      <div class="card-header-row">
+                        <div class="card-tags-group">
+                          <span class="tag-difficulty intermediate">
+                            <span class="tag-difficulty-dot"></span>
+                            Intermediate
+                          </span>
+                        </div>
+                        <button class="card-bookmark-btn" type="button" aria-label="Bookmark this roadmap" title="Bookmark">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                        </button>
+                      </div>
+
+                      <div class="card-body">
+                        <h3 class="card-title">PostgreSQL &amp; Distributed Systems</h3>
+                        <p class="card-desc">Deep dive into MVCC isolation levels, WAL replication topologies, high-throughput indexing strategies, and multi-tenant partitioning.</p>
+
+                        <div class="card-skills-row">
+                          <span class="skill-chip">Indexing</span>
+                          <span class="skill-chip">WAL Replication</span>
+                          <span class="skill-chip">Partitioning</span>
+                          <span class="skill-chip">ACID Models</span>
+                        </div>
+                      </div>
+
+                      <div class="card-meta-row">
+                        <span class="card-meta-item">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                          8 steps
+                        </span>
+                        <span class="card-meta-dot"></span>
+                        <span class="card-meta-item">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                          12 hrs
+                        </span>
+                        <span class="card-meta-dot"></span>
+                        <span class="card-meta-item">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                          4.8 (340)
+                        </span>
+                      </div>
+
+                      <div class="card-footer-row">
+                        <span class="card-learners-count">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                          980 learners
+                        </span>
+                        <button class="btn-card-explore" type="button" data-goto="roadmap-detail" aria-label="Explore PostgreSQL &amp; Distributed Systems roadmap">
+                          Explore
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                      </div>
+                    </article>
+
+                  </div><!-- /roadmap-cards-stack -->
+
+                  <!-- Empty Search/Filter State -->
+                  <div class="explore-empty-state" id="empty-state">
+                    <div class="empty-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
+                    <h3 class="empty-title">No roadmaps matched</h3>
+                    <p class="empty-desc">Try searching for other skills or select the "All" category pill above.</p>
+                    <button class="btn-reset-filters" type="button" id="reset-search-btn">Reset all filters</button>
+                  </div>
+
+                </section>
+
+              </div><!-- /page-explore -->
+
+              <!-- ── 5. MOBILE BOTTOM TAB BAR ── -->
+              <nav class="mobile-bottom-tabs" aria-label="Main App Navigation">
+                <!-- Tab 1: Dashboard -->
+                <button class="tab-btn" type="button" data-goto="dashboard" role="tab" aria-selected="false" aria-label="Dashboard">
+                  <div class="tab-icon-wrap">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                      <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                  </div>
+                  <span class="tab-label">Dashboard</span>
+                </button>
+
+                <!-- Tab 2: Explore (ACTIVE) -->
+                <button class="tab-btn active" type="button" data-goto="explore" role="tab" aria-selected="true" aria-label="Explore Roadmaps (Active Tab)">
+                  <span class="tab-active-dot"></span>
+                  <div class="tab-icon-wrap">
+                    <svg viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10"/>
+                      <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                    </svg>
+                  </div>
+                  <span class="tab-label">Explore</span>
+                </button>
+
+                <!-- Tab 3: Learning -->
+                <button class="tab-btn" type="button" data-goto="learning" role="tab" aria-selected="false" aria-label="Learning">
+                  <div class="tab-icon-wrap">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    </svg>
+                  </div>
+                  <span class="tab-label">Learning</span>
+                </button>
+
+                <!-- Tab 4: Journeys -->
+                <button class="tab-btn" type="button" data-goto="journeys" role="tab" aria-selected="false" aria-label="Journeys">
+                  <div class="tab-icon-wrap">
+                    <svg viewBox="0 0 24 24">
+                      <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+                      <line x1="8" y1="2" x2="8" y2="18"/>
+                      <line x1="16" y1="6" x2="16" y2="22"/>
+                    </svg>
+                  </div>
+                  <span class="tab-label">Journeys</span>
+                </button>
+
+                <!-- Tab 5: Profile -->
+                <button class="tab-btn" type="button" data-goto="profile" role="tab" aria-selected="false" aria-label="Profile">
+                  <div class="tab-icon-wrap">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                      <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                  </div>
+                  <span class="tab-label">Profile</span>
+                </button>
+              </nav>
+
+              <!-- Prototype notification toast -->
+              <div class="explore-proto-toast" id="explore-toast" role="status" aria-live="polite"></div>
+
+            </section>
+          </div><!-- /viewport -->
+        </div><!-- /device -->
+      </div><!-- /fit -->
+    </div><!-- /canvas -->
+
+    <div class="stage-foot">
+      <span>Screen: Explore &amp; Roadmaps Catalog (<code>data-screen="explore"</code>)</span>
+      <span class="foot-dim">Warm Minimal · #6C47FF Skillar Purple Accent</span>
+    </div>
+  </main>
+</div>
+
+<!-- ══════════ Screen Interactions Prototype Script ══════════ -->
+<script>
+(function () {
+  "use strict";
+
+  const searchInput = document.getElementById("explore-search");
+  const clearBtn = document.getElementById("search-clear-btn");
+  const filterPills = Array.from(document.querySelectorAll(".filter-pill"));
+  const railFilters = Array.from(document.querySelectorAll("[data-rail-filter]"));
+  const cards = Array.from(document.querySelectorAll(".roadmap-card"));
+  const visibleCountBadge = document.getElementById("visible-count");
+  const emptyState = document.getElementById("empty-state");
+  const resetBtn = document.getElementById("reset-search-btn");
+  const toast = document.getElementById("explore-toast");
+  let toastTimer = null;
+
+  let activeCategory = "all";
+  let searchQuery = "";
+
+  function showToast(message) {
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.classList.remove("show");
+    }, 2400);
+  }
+
+  function filterCards() {
+    let visibleCount = 0;
+    const query = searchQuery.trim().toLowerCase();
+
+    cards.forEach((card) => {
+      const cardCat = card.dataset.category || "";
+      const cardKeywords = (card.dataset.keywords || "").toLowerCase();
+      const cardText = card.textContent.toLowerCase();
+
+      const matchesCat = activeCategory === "all" || cardCat.includes(activeCategory);
+      const matchesSearch = !query || cardKeywords.includes(query) || cardText.includes(query);
+
+      if (matchesCat && matchesSearch) {
+        card.style.display = "flex";
+        visibleCount++;
+      } else {
+        card.style.display = "none";
+      }
+    });
+
+    if (visibleCountBadge) {
+      visibleCountBadge.textContent = visibleCount + (visibleCount === 1 ? " available" : " available");
+    }
+
+    if (emptyState) {
+      if (visibleCount === 0) {
+        emptyState.classList.add("visible");
+      } else {
+        emptyState.classList.remove("visible");
+      }
+    }
+  }
+
+  // Category pill click handler
+  filterPills.forEach((pill) => {
+    pill.addEventListener("click", () => {
+      filterPills.forEach((p) => {
+        p.classList.remove("active");
+        p.setAttribute("aria-selected", "false");
+      });
+      pill.classList.add("active");
+      pill.setAttribute("aria-selected", "true");
+
+      activeCategory = pill.dataset.category || "all";
+
+      // Sync rail filter buttons
+      railFilters.forEach((rf) => {
+        rf.classList.toggle("active", rf.dataset.railFilter === activeCategory);
+      });
+
+      filterCards();
+    });
+  });
+
+  // Rail category click handler
+  railFilters.forEach((rf) => {
+    rf.addEventListener("click", () => {
+      const cat = rf.dataset.railFilter;
+      const targetPill = filterPills.find((p) => p.dataset.category === cat);
+      if (targetPill) targetPill.click();
+    });
+  });
+
+  // Search input handler
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      searchQuery = e.target.value;
+      if (clearBtn) {
+        clearBtn.classList.toggle("visible", searchQuery.length > 0);
+      }
+      filterCards();
+    });
+  }
+
+  // Clear search
+  if (clearBtn) {
+    clearBtn.addEventListener("click", () => {
+      if (searchInput) {
+        searchInput.value = "";
+        searchQuery = "";
+        clearBtn.classList.remove("visible");
+        searchInput.focus();
+        filterCards();
+      }
+    });
+  }
+
+  // Reset filters button
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      if (searchInput) {
+        searchInput.value = "";
+        searchQuery = "";
+        if (clearBtn) clearBtn.classList.remove("visible");
+      }
+      const allPill = filterPills.find((p) => p.dataset.category === "all");
+      if (allPill) allPill.click();
+    });
+  }
+
+  // Bookmark toggle
+  document.querySelectorAll(".card-bookmark-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isBookmarked = btn.classList.toggle("bookmarked");
+      if (isBookmarked) {
+        btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
+        btn.title = "Saved";
+        showToast("Roadmap saved to bookmarks");
+      } else {
+        btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
+        btn.title = "Bookmark";
+        showToast("Removed from bookmarks");
+      }
+    });
+  });
+
+  // Navigation click handling (data-goto)
+  document.querySelectorAll("[data-goto]").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      const target = el.dataset.goto;
+      if (!target) return;
+
+      if (target === "explore") {
+        showToast("Already on Explore Roadmaps Catalog");
+        return;
+      }
+
+      if (target === "roadmap-detail") {
+        const title = el.closest(".roadmap-card")?.querySelector(".card-title")?.textContent
+          || (el.classList.contains("featured-pathway-banner") || el.closest(".featured-pathway-banner") ? "Staff Software Engineer Path" : "Roadmap Detail");
+        showToast(`Opening ${title} (data-goto="roadmap-detail")`);
+        return;
+      }
+
+      showToast(`Navigating to ${target.toUpperCase()} (data-goto="${target}")`);
+    });
+  });
+
+})();
+</script>
+</body>
+</html>

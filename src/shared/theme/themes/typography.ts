@@ -7,7 +7,67 @@ import type { Typography } from '../types';
 
 export const typography: Typography = {
   // -----------------------------------------------------------------------
-  // Display
+  // Mobile-Calibrated 8-Tier Typography Scale (Spec v1.0)
+  // -----------------------------------------------------------------------
+  display: {
+    fontFamily: fontFamilies.medium,
+    fontSize: 32,
+    lineHeight: 38,
+    fontWeight: '500',
+    letterSpacing: letterSpacing.tight,
+  },
+  h1: {
+    fontFamily: fontFamilies.semibold,
+    fontSize: 28,
+    lineHeight: 34,
+    fontWeight: '600',
+    letterSpacing: letterSpacing.tight,
+  },
+  h2: {
+    fontFamily: fontFamilies.semibold,
+    fontSize: 24,
+    lineHeight: 30,
+    fontWeight: '600',
+    letterSpacing: letterSpacing.normal,
+  },
+  h3: {
+    fontFamily: fontFamilies.semibold,
+    fontSize: 20,
+    lineHeight: 26,
+    fontWeight: '600',
+    letterSpacing: letterSpacing.normal,
+  },
+  h4: {
+    fontFamily: fontFamilies.semibold,
+    fontSize: 16,
+    lineHeight: 22,
+    fontWeight: '600',
+    letterSpacing: letterSpacing.normal,
+  },
+  bodyLg: {
+    fontFamily: fontFamilies.regular,
+    fontSize: 16,
+    lineHeight: 24,
+    fontWeight: '400',
+    letterSpacing: letterSpacing.normal,
+  },
+  body: {
+    fontFamily: fontFamilies.regular,
+    fontSize: 14,
+    lineHeight: 20,
+    fontWeight: '400',
+    letterSpacing: letterSpacing.normal,
+  },
+  sm: {
+    fontFamily: fontFamilies.regular,
+    fontSize: 12,
+    lineHeight: 16,
+    fontWeight: '400',
+    letterSpacing: letterSpacing.normal,
+  },
+
+  // -----------------------------------------------------------------------
+  // Extended Typography Styles (Backwards compatibility)
   // -----------------------------------------------------------------------
   displayLarge: {
     fontFamily: fontFamilies.bold,
@@ -31,9 +91,6 @@ export const typography: Typography = {
     letterSpacing: letterSpacing.tight,
   },
 
-  // -----------------------------------------------------------------------
-  // Headline
-  // -----------------------------------------------------------------------
   headlineLarge: {
     fontFamily: fontFamilies.semibold,
     fontSize: fontSizes[28],
@@ -56,9 +113,6 @@ export const typography: Typography = {
     letterSpacing: letterSpacing.normal,
   },
 
-  // -----------------------------------------------------------------------
-  // Title
-  // -----------------------------------------------------------------------
   titleLarge: {
     fontFamily: fontFamilies.medium,
     fontSize: fontSizes[18],
@@ -81,9 +135,6 @@ export const typography: Typography = {
     letterSpacing: letterSpacing.normal,
   },
 
-  // -----------------------------------------------------------------------
-  // Body
-  // -----------------------------------------------------------------------
   bodyLarge: {
     fontFamily: fontFamilies.regular,
     fontSize: fontSizes[16],
@@ -106,9 +157,6 @@ export const typography: Typography = {
     letterSpacing: letterSpacing.normal,
   },
 
-  // -----------------------------------------------------------------------
-  // Label
-  // -----------------------------------------------------------------------
   labelLarge: {
     fontFamily: fontFamilies.medium,
     fontSize: fontSizes[14],
@@ -131,9 +179,6 @@ export const typography: Typography = {
     letterSpacing: letterSpacing.wider,
   },
 
-  // -----------------------------------------------------------------------
-  // Caption / Overline
-  // -----------------------------------------------------------------------
   caption: {
     fontFamily: fontFamilies.regular,
     fontSize: fontSizes[12],

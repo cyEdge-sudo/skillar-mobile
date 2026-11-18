@@ -1,0 +1,569 @@
+<!-- ═══════════════════════════════════════════════════════════════════
+     Skillar Mobile Prototype · Roadmap Detail & Interactive Stepper
+     Screen ID: roadmap-detail (data-screen="roadmap-detail")
+     Aesthetic: Warm Minimal · Design Tokens Spec v1.0
+     ═══════════════════════════════════════════════════════════════════ -->
+
+<link rel="stylesheet" href="css/roadmap-detail.css" />
+<link rel="stylesheet" href="../css/roadmap-detail.css" />
+
+<section class="screen" data-screen="roadmap-detail" id="screen-roadmap-detail" aria-label="Roadmap Details &amp; Path">
+  <div class="page page-roadmap-detail">
+
+    <!-- ──────────────────────── 1. Top Bar ──────────────────────── -->
+    <header class="roadmap-top-bar anim" aria-label="Navigation and Roadmap Actions">
+      <button class="topbar-back-btn" type="button" data-goto="dashboard" aria-label="Go back to Dashboard">
+        <svg class="back-chevron-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        <span class="back-text">‹ Back</span>
+      </button>
+
+      <div class="topbar-title-wrap">
+        <h1 class="topbar-title">Roadmap Details</h1>
+      </div>
+
+      <div class="topbar-actions">
+        <!-- Share Action Button -->
+        <button class="topbar-icon-btn" type="button" id="btn-share-roadmap" aria-label="Share Roadmap" data-mock="Roadmap link copied to clipboard!">
+          <svg class="share-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+        </button>
+
+        <!-- Bookmark Action Button -->
+        <button class="topbar-icon-btn is-active" type="button" id="btn-bookmark-roadmap" aria-label="Bookmark Roadmap" data-bookmark-toggle="true">
+          <svg class="bookmark-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- ──────────────────────── 2. Hero Header Card ──────────────────────── -->
+    <section class="roadmap-hero-card anim" aria-labelledby="roadmap-hero-heading">
+      <div class="hero-meta-row">
+        <div class="hero-badges-left">
+          <span class="badge-domain">Mobile Engineering</span>
+          <span class="badge-level">Advanced</span>
+        </div>
+        <span class="badge-duration">
+          <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="8" cy="8" r="6"/>
+            <path d="M8 4.5V8l2.5 1.5"/>
+          </svg>
+          12 Steps · ~4.5 hrs
+        </span>
+      </div>
+
+      <div class="hero-title-section">
+        <h2 class="hero-roadmap-title" id="roadmap-hero-heading">Modern React Native &amp; Expo Architecture</h2>
+        <p class="hero-roadmap-desc">Master production-grade Expo 58, React 19 concurrent features, offline-first TanStack Query v5 state, and Hermes profiling.</p>
+      </div>
+
+      <!-- Progress Summary & Bar -->
+      <div class="hero-progress-box">
+        <div class="hero-progress-labels">
+          <span class="progress-summary-text">4 of 12 steps completed</span>
+          <span class="progress-pct-badge">33%</span>
+        </div>
+        <div class="hero-progress-track" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" aria-label="Roadmap progress: 4 of 12 steps completed (33%)">
+          <div class="hero-progress-fill" style="width: 33.3%;"></div>
+        </div>
+      </div>
+
+      <!-- Primary Continue Action -->
+      <button class="btn-hero-action" type="button" data-goto="step-content" aria-label="Continue to Step 5: Offline-First State &amp; TanStack Query v5">
+        <span>Continue to Step 5</span>
+        <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4"/>
+        </svg>
+      </button>
+    </section>
+
+    <!-- ──────────────────────── 3. Connected Node Stepper Timeline ──────────────────────── -->
+    <section class="roadmap-stepper-section anim" aria-labelledby="stepper-title">
+      <div class="stepper-section-head">
+        <h3 class="stepper-section-title" id="stepper-title">Interactive Learning Path</h3>
+        <div class="stepper-legend" aria-hidden="true">
+          <span class="legend-item"><span class="legend-dot completed"></span> Completed</span>
+          <span class="legend-item"><span class="legend-dot current"></span> Current</span>
+          <span class="legend-item"><span class="legend-dot locked"></span> Locked</span>
+        </div>
+      </div>
+
+      <!-- ══════════ PHASE 1: Foundations & Tooling (Completed) ══════════ -->
+      <div class="phase-group completed" aria-label="Phase 1: Foundations and Tooling">
+        <div class="phase-header-banner">
+          <div class="phase-header-left">
+            <span class="phase-pill">Phase 1</span>
+            <span class="phase-name">Foundations &amp; Tooling</span>
+          </div>
+          <span class="phase-status-tag">
+            <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 8.5l3.5 3.5 6.5-7"/>
+            </svg>
+            3 of 3 Completed
+          </span>
+        </div>
+
+        <div class="timeline-list" role="list">
+
+          <!-- Step 1: Completed -->
+          <div class="timeline-step completed" role="listitem" aria-label="Step 1: React 19 and Concurrent Features (Completed)">
+            <div class="step-node-col" aria-hidden="true">
+              <div class="step-node-marker">
+                <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 8.5l3.5 3.5 6.5-7"/>
+                </svg>
+              </div>
+              <div class="step-connector-rail"></div>
+            </div>
+
+            <article class="step-card" data-goto="step-content" tabindex="0" aria-label="React 19 &amp; Concurrent Features - Completed on Nov 12">
+              <div class="step-card-header">
+                <span class="step-num-tag">Step 01</span>
+                <span class="step-status-chip completed">Completed</span>
+              </div>
+              <h4 class="step-card-title">React 19 &amp; Concurrent Features</h4>
+              <p class="step-card-desc">useActionState, server components, optimistic hooks, and asset prefetching in React Native.</p>
+              <div class="step-card-footer">
+                <span class="step-completion-date">
+                  <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="8" cy="8" r="6"/>
+                    <path d="M8 4.5V8l2 1"/>
+                  </svg>
+                  Completed Nov 12
+                </span>
+                <button class="step-card-action-btn btn-review" type="button" data-goto="step-content" aria-label="Review Step 1 Lesson">
+                  Review
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Step 2: Completed -->
+          <div class="timeline-step completed" role="listitem" aria-label="Step 2: Expo 58 Architecture and Metro Bundler (Completed)">
+            <div class="step-node-col" aria-hidden="true">
+              <div class="step-node-marker">
+                <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 8.5l3.5 3.5 6.5-7"/>
+                </svg>
+              </div>
+              <div class="step-connector-rail"></div>
+            </div>
+
+            <article class="step-card" data-goto="step-content" tabindex="0" aria-label="Expo 58 Architecture &amp; Metro Bundler - Completed on Nov 14">
+              <div class="step-card-header">
+                <span class="step-num-tag">Step 02</span>
+                <span class="step-status-chip completed">Completed</span>
+              </div>
+              <h4 class="step-card-title">Expo 58 Architecture &amp; Metro Bundler</h4>
+              <p class="step-card-desc">New architecture enabled by default, bridgeless mode, package exports, and custom Metro config.</p>
+              <div class="step-card-footer">
+                <span class="step-completion-date">
+                  <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="8" cy="8" r="6"/>
+                    <path d="M8 4.5V8l2 1"/>
+                  </svg>
+                  Completed Nov 14
+                </span>
+                <button class="step-card-action-btn btn-review" type="button" data-goto="step-content" aria-label="Review Step 2 Lesson">
+                  Review
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Step 3: Completed -->
+          <div class="timeline-step completed" role="listitem" aria-label="Step 3: Enterprise Theme Engine and Tokens (Completed)">
+            <div class="step-node-col" aria-hidden="true">
+              <div class="step-node-marker">
+                <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 8.5l3.5 3.5 6.5-7"/>
+                </svg>
+              </div>
+              <div class="step-connector-rail"></div>
+            </div>
+
+            <article class="step-card" data-goto="step-content" tabindex="0" aria-label="Enterprise Theme Engine &amp; Tokens - Completed on Nov 16">
+              <div class="step-card-header">
+                <span class="step-num-tag">Step 03</span>
+                <span class="step-status-chip completed">Completed</span>
+              </div>
+              <h4 class="step-card-title">Enterprise Theme Engine &amp; Tokens</h4>
+              <p class="step-card-desc">Token hierarchy, WCAG AA semantic color tokens, and 8-tier typography scale contracts.</p>
+              <div class="step-card-footer">
+                <span class="step-completion-date">
+                  <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="8" cy="8" r="6"/>
+                    <path d="M8 4.5V8l2 1"/>
+                  </svg>
+                  Completed Nov 16
+                </span>
+                <button class="step-card-action-btn btn-review" type="button" data-goto="step-content" aria-label="Review Step 3 Lesson">
+                  Review
+                </button>
+              </div>
+            </article>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ══════════ PHASE 2: Core Components & State Management (In Progress) ══════════ -->
+      <div class="phase-group in-progress" aria-label="Phase 2: Core Components and State Management">
+        <div class="phase-header-banner">
+          <div class="phase-header-left">
+            <span class="phase-pill">Phase 2</span>
+            <span class="phase-name">Core Components &amp; State</span>
+          </div>
+          <span class="phase-status-tag">
+            <span class="step-status-pulse-dot" aria-hidden="true"></span>
+            1 of 3 Completed · Active
+          </span>
+        </div>
+
+        <div class="timeline-list" role="list">
+
+          <!-- Step 4: Completed -->
+          <div class="timeline-step completed" role="listitem" aria-label="Step 4: Zero-Overhead Themed Styling with useThemedStyles (Completed)">
+            <div class="step-node-col" aria-hidden="true">
+              <div class="step-node-marker">
+                <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 8.5l3.5 3.5 6.5-7"/>
+                </svg>
+              </div>
+              <div class="step-connector-rail"></div>
+            </div>
+
+            <article class="step-card" data-goto="step-content" tabindex="0" aria-label="Zero-Overhead Themed Styling with useThemedStyles - Completed Nov 18">
+              <div class="step-card-header">
+                <span class="step-num-tag">Step 04</span>
+                <span class="step-status-chip completed">Completed</span>
+              </div>
+              <h4 class="step-card-title">Zero-Overhead Themed Styling with useThemedStyles</h4>
+              <p class="step-card-desc">Memoized styles factory, eliminating in-render StyleSheet.create allocations and frame drops.</p>
+              <div class="step-card-footer">
+                <span class="step-completion-date">
+                  <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="8" cy="8" r="6"/>
+                    <path d="M8 4.5V8l2 1"/>
+                  </svg>
+                  Completed Nov 18
+                </span>
+                <button class="step-card-action-btn btn-review" type="button" data-goto="step-content" aria-label="Review Step 4 Lesson">
+                  Review
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Step 5: CURRENT (Glowing Active Node & Drawer Trigger) -->
+          <div class="timeline-step current" role="listitem" aria-current="step" aria-label="Step 5: Offline-First State &amp; TanStack Query v5 (Current Active Step)">
+            <div class="step-node-col">
+              <button class="step-node-marker btn-trigger-step5" type="button" aria-label="Open Step 5 Preview Drawer" title="Tap to preview Step 5">
+                5
+              </button>
+              <div class="step-connector-rail" aria-hidden="true"></div>
+            </div>
+
+            <article class="step-card btn-trigger-step5" tabindex="0" role="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Step 5: Offline-First State &amp; TanStack Query v5 - In Progress. Tap to view syllabus">
+              <div class="step-card-header">
+                <span class="step-num-tag">Step 05 · Current</span>
+                <span class="step-status-chip current">
+                  <span class="step-status-pulse-dot" aria-hidden="true"></span>
+                  In Progress
+                </span>
+              </div>
+              <h4 class="step-card-title">Offline-First State &amp; TanStack Query v5</h4>
+              <p class="step-card-desc">SQLite persistence, optimistic UI updates, background synchronization, and offline cache hydration.</p>
+              <div class="step-card-footer">
+                <span class="step-meta-left">
+                  <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                    <circle cx="8" cy="8" r="6"/>
+                    <path d="M8 4.5V8l2.5 1.5"/>
+                  </svg>
+                  25 mins · Tap for details
+                </span>
+                <button class="step-card-action-btn btn-resume" type="button" data-goto="step-content" aria-label="Resume Step 5 Lesson Now">
+                  Resume Now →
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Step 6: Locked (Prerequisite: Step 5) -->
+          <div class="timeline-step locked" role="listitem" aria-label="Step 6: Navigation State Persistence and Deep Linking (Locked)">
+            <div class="step-node-col" aria-hidden="true">
+              <div class="step-node-marker">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <div class="step-connector-rail"></div>
+            </div>
+
+            <article class="step-card" data-mock="Complete Step 5 to unlock this module" tabindex="0" aria-disabled="true" aria-label="Step 6: Navigation State Persistence &amp; Deep Linking (Locked. Prerequisite: Step 5)">
+              <div class="step-card-header">
+                <span class="step-num-tag">Step 06</span>
+                <span class="step-status-chip locked">
+                  <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  Locked
+                </span>
+              </div>
+              <h4 class="step-card-title">Navigation State Persistence &amp; Deep Linking</h4>
+              <p class="step-card-desc">React Navigation state restoration, universal linking schema, and deep link route dispatching.</p>
+              <div class="step-card-footer">
+                <span class="step-prereq-note">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  Prerequisite: Step 5
+                </span>
+                <span class="step-card-action-btn btn-locked">Locked</span>
+              </div>
+            </article>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ══════════ PHASE 3: Production Hardening & CI/CD (Locked) ══════════ -->
+      <div class="phase-group locked" aria-label="Phase 3: Production Hardening and CI/CD">
+        <div class="phase-header-banner">
+          <div class="phase-header-left">
+            <span class="phase-pill">Phase 3</span>
+            <span class="phase-name">Production Hardening &amp; CI/CD</span>
+          </div>
+          <span class="phase-status-tag">
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            Locked
+          </span>
+        </div>
+
+        <div class="timeline-list" role="list">
+
+          <!-- Step 7: Locked -->
+          <div class="timeline-step locked" role="listitem" aria-label="Step 7: Memory Leak Profiling and Hermes Engine (Locked)">
+            <div class="step-node-col" aria-hidden="true">
+              <div class="step-node-marker">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <div class="step-connector-rail"></div>
+            </div>
+
+            <article class="step-card" data-mock="Complete Phase 2 to unlock Production Hardening" tabindex="0" aria-disabled="true" aria-label="Step 7: Memory Leak Profiling &amp; Hermes Engine (Locked)">
+              <div class="step-card-header">
+                <span class="step-num-tag">Step 07</span>
+                <span class="step-status-chip locked">
+                  <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  Locked
+                </span>
+              </div>
+              <h4 class="step-card-title">Memory Leak Profiling &amp; Hermes Engine</h4>
+              <p class="step-card-desc">Hermes bytecode heap snapshots, closure leak detection, and Chrome DevTools flamechart profiling.</p>
+              <div class="step-card-footer">
+                <span class="step-prereq-note">Prerequisite: Phase 2</span>
+                <span class="step-card-action-btn btn-locked">Locked</span>
+              </div>
+            </article>
+          </div>
+
+          <!-- Step 8: Locked -->
+          <div class="timeline-step locked" role="listitem" aria-label="Step 8: EAS Build Automation and OTA Updates (Locked)">
+            <div class="step-node-col" aria-hidden="true">
+              <div class="step-node-marker">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <div class="step-connector-rail"></div>
+            </div>
+
+            <article class="step-card" data-mock="Complete Step 7 to unlock EAS workflows" tabindex="0" aria-disabled="true" aria-label="Step 8: EAS Build Automation &amp; OTA Updates (Locked)">
+              <div class="step-card-header">
+                <span class="step-num-tag">Step 08</span>
+                <span class="step-status-chip locked">
+                  <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  Locked
+                </span>
+              </div>
+              <h4 class="step-card-title">EAS Build Automation &amp; OTA Updates</h4>
+              <p class="step-card-desc">Continuous deployment with EAS workflows, semantic versioning, release channels, and runtime rollback.</p>
+              <div class="step-card-footer">
+                <span class="step-prereq-note">Prerequisite: Step 7</span>
+                <span class="step-card-action-btn btn-locked">Locked</span>
+              </div>
+            </article>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div><!-- /page-roadmap-detail -->
+
+  <!-- ──────────────────────── 4. Interactive Step Modal / Drawer Preview ──────────────────────── -->
+  <div class="step-drawer-container" id="step5-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-step-title" aria-hidden="true">
+    <div class="drawer-backdrop" id="drawer-backdrop" aria-label="Close preview"></div>
+
+    <div class="drawer-sheet">
+      <div class="drawer-handle-bar" aria-hidden="true">
+        <span class="drawer-handle-pill"></span>
+      </div>
+
+      <header class="drawer-header">
+        <div class="drawer-header-meta">
+          <span class="drawer-step-badge">Phase 2 · Step 05</span>
+          <span class="drawer-status-chip">
+            <span class="step-status-pulse-dot" aria-hidden="true"></span>
+            In Progress
+          </span>
+        </div>
+        <button class="drawer-close-btn" type="button" id="btn-close-drawer" aria-label="Close lesson preview">✕</button>
+      </header>
+
+      <div class="drawer-body">
+        <div class="drawer-title-wrap">
+          <h3 class="drawer-step-title" id="drawer-step-title">Offline-First State &amp; TanStack Query v5</h3>
+          <div class="drawer-meta-chips">
+            <span class="drawer-chip chip-time">
+              <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <circle cx="8" cy="8" r="6"/>
+                <path d="M8 4.5V8l2.5 1.5"/>
+              </svg>
+              25 mins
+            </span>
+            <span class="drawer-chip chip-xp">⚡ +150 XP</span>
+            <span class="drawer-chip chip-diff">Advanced Architecture</span>
+          </div>
+        </div>
+
+        <section class="drawer-section">
+          <h4 class="drawer-section-heading">Description</h4>
+          <p class="drawer-desc-p">Deep-dive into offline query caching, optimistic UI updates, SQLite persistence layer, and background sync strategies using TanStack Query v5 in React Native 0.88.</p>
+        </section>
+
+        <section class="drawer-section">
+          <h4 class="drawer-section-heading">Learning Objectives</h4>
+          <ol class="drawer-objectives-list">
+            <li class="drawer-obj-item">
+              <span class="drawer-obj-num">1</span>
+              <span>Configure TanStack Query v5 with AsyncStorage/MMKV persistence plugin for zero-flash cold boot recovery.</span>
+            </li>
+            <li class="drawer-obj-item">
+              <span class="drawer-obj-num">2</span>
+              <span>Implement optimistic mutations with automatic rollback on network failure and conflict resolution.</span>
+            </li>
+            <li class="drawer-obj-item">
+              <span class="drawer-obj-num">3</span>
+              <span>Orchestrate NetInfo event listeners for seamless offline-to-online queue reconciliation without duplicated calls.</span>
+            </li>
+          </ol>
+        </section>
+
+        <section class="drawer-section">
+          <h4 class="drawer-section-heading">Prerequisites &amp; Packages</h4>
+          <div class="drawer-tags-wrap">
+            <span class="drawer-tech-tag">@tanstack/react-query v5.50+</span>
+            <span class="drawer-tech-tag">react-native-mmkv</span>
+            <span class="drawer-tech-tag">@react-native-community/netinfo</span>
+            <span class="drawer-tech-tag">useThemedStyles</span>
+          </div>
+        </section>
+      </div>
+
+      <footer class="drawer-footer">
+        <button class="btn-drawer-start" type="button" data-goto="step-content" aria-label="Start Lesson: Offline-First State &amp; TanStack Query v5">
+          <span>Start Lesson →</span>
+        </button>
+        <button class="btn-drawer-secondary" type="button" id="btn-drawer-bookmark" data-mock="Lesson added to study queue">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+          </svg>
+          Save to Study Queue
+        </button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Interactive script for Step 5 Drawer and Screen Actions -->
+  <script>
+    (function () {
+      const drawer = document.getElementById("step5-drawer");
+      const backdrop = document.getElementById("drawer-backdrop");
+      const closeBtn = document.getElementById("btn-close-drawer");
+      const triggers = document.querySelectorAll(".btn-trigger-step5");
+      const bookmarkBtn = document.getElementById("btn-bookmark-roadmap");
+
+      function openDrawer(e) {
+        if (e && e.target && e.target.closest(".btn-resume")) {
+          // If the resume button specifically was clicked, allow standard data-goto navigation
+          return;
+        }
+        if (drawer) {
+          drawer.classList.add("is-open");
+          drawer.setAttribute("aria-hidden", "false");
+          document.body.style.overflow = "hidden";
+        }
+      }
+
+      function closeDrawer() {
+        if (drawer) {
+          drawer.classList.remove("is-open");
+          drawer.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = "";
+        }
+      }
+
+      triggers.forEach(function (trigger) {
+        trigger.addEventListener("click", openDrawer);
+      });
+
+      if (closeBtn) closeBtn.addEventListener("click", closeDrawer);
+      if (backdrop) backdrop.addEventListener("click", closeDrawer);
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && drawer && drawer.classList.contains("is-open")) {
+          closeDrawer();
+        }
+      });
+
+      if (bookmarkBtn) {
+        bookmarkBtn.addEventListener("click", function () {
+          const isActive = bookmarkBtn.classList.toggle("is-active");
+          const toastEl = document.getElementById("toast");
+          if (toastEl) {
+            toastEl.textContent = isActive ? "Roadmap saved to bookmarks!" : "Roadmap removed from bookmarks.";
+            toastEl.classList.add("show");
+            setTimeout(function () { toastEl.classList.remove("show"); }, 3000);
+          }
+        });
+      }
+    })();
+  </script>
+</section>

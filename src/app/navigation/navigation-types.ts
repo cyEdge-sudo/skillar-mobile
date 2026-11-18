@@ -4,6 +4,7 @@ import type { StepContentRouteParams } from '../../features/learning';
 import type { RoadmapDetailRouteParams } from '../../features/roadmaps';
 
 export type AuthStackParamList = {
+  [NAVIGATION_ROUTES.auth.landing]: undefined;
   [NAVIGATION_ROUTES.auth.login]: undefined;
   [NAVIGATION_ROUTES.auth.signup]: undefined;
   [NAVIGATION_ROUTES.auth.forgotPassword]: undefined;

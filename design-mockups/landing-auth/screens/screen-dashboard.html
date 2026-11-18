@@ -1,0 +1,362 @@
+<!-- ═══════════════════════════════════════════════════════════════════
+     Skillar Mobile Prototype · Learner Dashboard Screen
+     Screen ID: dashboard (data-screen="dashboard")
+     Aesthetic: Warm Minimal · Design Tokens Spec v1.0
+     ═══════════════════════════════════════════════════════════════════ -->
+
+<link rel="stylesheet" href="css/dashboard.css" />
+<link rel="stylesheet" href="../css/dashboard.css" />
+
+<section class="screen" data-screen="dashboard" id="screen-dashboard" aria-label="Learner Dashboard">
+  <div class="page page-dashboard">
+
+    <!-- ──────────────────────── 1. Header Bar ──────────────────────── -->
+    <header class="dash-header anim">
+      <div class="dash-header-left">
+        <div class="dash-greeting-row">
+          <h1 class="dash-greeting">Good morning, Alex 👋</h1>
+        </div>
+        <div class="dash-org-badge">
+          <svg class="org-icon" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path d="M2.5 14V3.5A1.5 1.5 0 0 1 4 2h8a1.5 1.5 0 0 1 1.5 1.5V14M1 14h14M5.5 5.5h1M9.5 5.5h1M5.5 8.5h1M9.5 8.5h1" stroke-linecap="round"/>
+          </svg>
+          <span class="org-name">Acme Corp Engineering</span>
+          <span class="org-dot">•</span>
+          <span class="org-role">Senior Engineer</span>
+        </div>
+      </div>
+      <div class="dash-header-right">
+        <button class="dash-avatar-btn" type="button" aria-label="Profile and notifications" data-goto="profile">
+          <span class="avatar-ring">
+            <span class="avatar-initials">AM</span>
+          </span>
+          <span class="avatar-notif-dot" aria-label="Unread notification indicator"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ──────────────────────── 2. Daily Focus & Streak Card ──────────────────────── -->
+    <section class="dash-card dash-focus-card anim" aria-labelledby="focus-card-heading">
+      <div class="focus-top">
+        <div class="streak-badge" role="status" aria-label="7 Day Streak, Top 10% this week">
+          <span class="streak-flame" aria-hidden="true">🔥</span>
+          <span class="streak-text"><strong>7 Day Streak</strong> · Top 10% this week</span>
+        </div>
+        <span class="focus-heading-label" id="focus-card-heading">Daily Focus</span>
+      </div>
+
+      <div class="focus-body">
+        <div class="focus-progress-wrapper">
+          <!-- Circular Progress Ring (75% completed: 45 of 60 mins) -->
+          <div class="circular-progress" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="60" aria-label="Daily goal: 45 of 60 minutes completed">
+            <svg viewBox="0 0 72 72" class="progress-ring" width="68" height="68" aria-hidden="true">
+              <circle class="ring-bg" cx="36" cy="36" r="30" stroke-width="6" fill="none" />
+              <circle class="ring-fill" cx="36" cy="36" r="30" stroke-width="6" fill="none"
+                stroke-dasharray="188.5"
+                stroke-dashoffset="47.1"
+                stroke-linecap="round" />
+            </svg>
+            <div class="progress-center">
+              <span class="progress-pct">75%</span>
+            </div>
+          </div>
+
+          <div class="focus-details">
+            <div class="focus-metric-title">Daily Goal Tracker</div>
+            <div class="focus-metric-stat">
+              <span class="stat-current">45</span>
+              <span class="stat-divider">/</span>
+              <span class="stat-target">60 mins</span>
+              <span class="stat-label">completed today</span>
+            </div>
+            <div class="focus-metric-remaining">
+              <span class="remaining-icon" aria-hidden="true">⏱</span>
+              <span>15 mins remaining to keep streak alive</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Past 7-day streak tracking bar -->
+        <div class="streak-weekdays" aria-label="7 day streak tracker">
+          <div class="weekday-item completed" title="Monday: Goal met">
+            <span class="day-lbl">M</span>
+            <span class="day-dot">✓</span>
+          </div>
+          <div class="weekday-item completed" title="Tuesday: Goal met">
+            <span class="day-lbl">T</span>
+            <span class="day-dot">✓</span>
+          </div>
+          <div class="weekday-item completed" title="Wednesday: Goal met">
+            <span class="day-lbl">W</span>
+            <span class="day-dot">✓</span>
+          </div>
+          <div class="weekday-item completed" title="Thursday: Goal met">
+            <span class="day-lbl">T</span>
+            <span class="day-dot">✓</span>
+          </div>
+          <div class="weekday-item completed" title="Friday: Goal met">
+            <span class="day-lbl">F</span>
+            <span class="day-dot">✓</span>
+          </div>
+          <div class="weekday-item completed" title="Saturday: Goal met">
+            <span class="day-lbl">S</span>
+            <span class="day-dot">✓</span>
+          </div>
+          <div class="weekday-item today" title="Sunday (Today): 75% completed">
+            <span class="day-lbl">S</span>
+            <span class="day-dot">75%</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────────────────── 3. Continue Learning Hero Card ──────────────────────── -->
+    <section class="dash-card dash-hero-card anim" aria-labelledby="hero-roadmap-title">
+      <div class="hero-card-header">
+        <div class="hero-badge-group">
+          <span class="badge-active-roadmap">Active Roadmap</span>
+          <span class="status-badge in-progress" role="status">
+            <span class="status-pulse-dot" aria-hidden="true"></span>
+            In Progress
+          </span>
+        </div>
+        <span class="hero-time-est">~28m left</span>
+      </div>
+
+      <h2 class="hero-roadmap-title" id="hero-roadmap-title">Full-Stack TypeScript &amp; Cloud Mastery</h2>
+
+      <div class="hero-step-info">
+        <div class="step-num-pill">Step 4 of 14</div>
+        <div class="step-title-text">Microservices Architecture &amp; Event Sourcing</div>
+      </div>
+
+      <div class="hero-progress-section">
+        <div class="hero-progress-header">
+          <span class="progress-label">Step Progress</span>
+          <span class="progress-val">72% complete</span>
+        </div>
+        <div class="hero-progress-bar" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" aria-label="Step progress: 72% complete">
+          <div class="hero-progress-fill" style="width: 72%;"></div>
+        </div>
+        <div class="hero-milestone-sub">
+          <span>Topic: Distributed Kafka logs &amp; CQRS patterns</span>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <button class="btn-resume-learning" type="button" data-goto="step-content" aria-label="Resume Learning: Step 4 Microservices Architecture &amp; Event Sourcing">
+          <span>Resume Learning</span>
+          <svg class="btn-arrow" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4"/>
+          </svg>
+        </button>
+        <button class="btn-hero-secondary" type="button" data-goto="roadmap-detail" aria-label="View Full-Stack TypeScript Roadmap Details">
+          <span>View Roadmap</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ──────────────────────── 4. Recommended Activities ──────────────────────── -->
+    <section class="dash-section anim" aria-labelledby="recommended-heading">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h3 class="section-title" id="recommended-heading">Recommended Activities</h3>
+          <span class="section-caption">Quick modules tailored to your engineering goals</span>
+        </div>
+        <button class="btn-link" type="button" data-goto="explore" aria-label="See all recommended activities">See all →</button>
+      </div>
+
+      <div class="card-stack-carousel" role="region" aria-label="Recommended modules list" tabindex="0">
+        <!-- Module 1: Cache Invalidation Strategies -->
+        <article class="activity-card" data-goto="activity-cache" tabindex="0" aria-label="Activity: System Design: Cache Invalidation Strategies">
+          <div class="activity-top">
+            <span class="activity-category">System Design</span>
+            <span class="activity-pill intermediate">Intermediate</span>
+          </div>
+          <h4 class="activity-title">System Design: Cache Invalidation Strategies</h4>
+          <p class="activity-summary">Cache-aside vs write-through, TTL jitter, thundering herd mitigation.</p>
+          <div class="activity-footer">
+            <div class="activity-meta">
+              <svg class="meta-icon" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <circle cx="8" cy="8" r="6"/>
+                <path d="M8 4.5V8l2.5 1.5"/>
+              </svg>
+              <span>15m</span>
+              <span class="meta-dot">·</span>
+              <span>Hands-on Lab</span>
+            </div>
+            <button class="btn-card-start" type="button" data-goto="activity-cache" aria-label="Start System Design: Cache Invalidation Strategies">
+              Start →
+            </button>
+          </div>
+        </article>
+
+        <!-- Module 2: PostgreSQL Indexing Deep Dive -->
+        <article class="activity-card" data-goto="activity-postgres" tabindex="0" aria-label="Activity: PostgreSQL Indexing Deep Dive">
+          <div class="activity-top">
+            <span class="activity-category">Databases</span>
+            <span class="activity-pill advanced">Advanced</span>
+          </div>
+          <h4 class="activity-title">PostgreSQL Indexing Deep Dive</h4>
+          <p class="activity-summary">B-Tree, GIN, BRIN indexes, EXPLAIN ANALYZE execution plan tuning.</p>
+          <div class="activity-footer">
+            <div class="activity-meta">
+              <svg class="meta-icon" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <circle cx="8" cy="8" r="6"/>
+                <path d="M8 4.5V8l2.5 1.5"/>
+              </svg>
+              <span>20m</span>
+              <span class="meta-dot">·</span>
+              <span>Deep Dive</span>
+            </div>
+            <button class="btn-card-start" type="button" data-goto="activity-postgres" aria-label="Start PostgreSQL Indexing Deep Dive">
+              Start →
+            </button>
+          </div>
+        </article>
+
+        <!-- Module 3: Resilient Async Pipelines with BullMQ -->
+        <article class="activity-card" data-goto="activity-queues" tabindex="0" aria-label="Activity: Resilient Message Queues with BullMQ">
+          <div class="activity-top">
+            <span class="activity-category">Architecture</span>
+            <span class="activity-pill intermediate">Intermediate</span>
+          </div>
+          <h4 class="activity-title">Resilient Message Queues with BullMQ</h4>
+          <p class="activity-summary">Dead letter queues, backpressure handling, delayed jobs in Node.js.</p>
+          <div class="activity-footer">
+            <div class="activity-meta">
+              <svg class="meta-icon" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <circle cx="8" cy="8" r="6"/>
+                <path d="M8 4.5V8l2.5 1.5"/>
+              </svg>
+              <span>15m</span>
+              <span class="meta-dot">·</span>
+              <span>Interactive</span>
+            </div>
+            <button class="btn-card-start" type="button" data-goto="activity-queues" aria-label="Start Resilient Message Queues with BullMQ">
+              Start →
+            </button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ──────────────────────── 5. Recent Milestones & Activity Feed ──────────────────────── -->
+    <section class="dash-section anim" aria-labelledby="milestones-heading">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h3 class="section-title" id="milestones-heading">Recent Milestones &amp; Activity</h3>
+          <span class="section-caption">Verified engineering skills &amp; achievements</span>
+        </div>
+      </div>
+
+      <div class="activity-feed">
+        <!-- Milestone 1: API Security Fundamentals Completed -->
+        <div class="feed-item">
+          <div class="feed-icon-wrap completed" aria-hidden="true">
+            <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 8.5l3.5 3.5 6.5-7"/>
+            </svg>
+          </div>
+          <div class="feed-content">
+            <div class="feed-header-row">
+              <span class="feed-event">Completed Module</span>
+              <span class="feed-time">Yesterday</span>
+            </div>
+            <div class="feed-item-title">API Security Fundamentals</div>
+            <p class="feed-item-desc">Passed assessment with 100% score covering OAuth 2.0 PKCE, JWT signature validation, and API rate limiting.</p>
+            <div class="feed-tags">
+              <span class="feed-tag">OAuth 2.0</span>
+              <span class="feed-tag">Security</span>
+              <span class="feed-tag success-badge">Score: 100% Passed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Milestone 2: Clean Code Specialist Badge Earned -->
+        <div class="feed-item">
+          <div class="feed-icon-wrap badge-earned" aria-hidden="true">
+            <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 1.5l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9-3.6 1.9.7-4-2.9-2.8 4-.6L8 1.5z"/>
+            </svg>
+          </div>
+          <div class="feed-content">
+            <div class="feed-header-row">
+              <span class="feed-event">Badge Earned</span>
+              <span class="feed-time">3 days ago</span>
+            </div>
+            <div class="feed-item-title">Clean Code Specialist</div>
+            <p class="feed-item-desc">Demonstrated practical mastery in refactoring legacy codebases, SOLID architecture, and automated test coverage.</p>
+            <div class="badge-pill-callout">
+              <span class="badge-callout-icon" aria-hidden="true">🏆</span>
+              <span class="badge-callout-text">Unlocked Level 2 Acme Peer Code Reviewer status</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page-dashboard -->
+
+  <!-- ──────────────────────── 6. Mobile Bottom Tab Bar ──────────────────────── -->
+  <nav class="dash-bottom-nav" aria-label="Main Navigation">
+    <div class="tab-bar-inner" role="tablist">
+      <!-- Tab 1: Dashboard (Active) -->
+      <button class="nav-tab is-active" type="button" role="tab" aria-selected="true" aria-label="Dashboard (active tab)">
+        <div class="tab-icon-wrap">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span class="tab-active-dot" aria-hidden="true"></span>
+        </div>
+        <span class="tab-label">Dashboard</span>
+      </button>
+
+      <!-- Tab 2: Explore -->
+      <button class="nav-tab" type="button" role="tab" aria-selected="false" data-goto="explore" aria-label="Explore learning modules">
+        <div class="tab-icon-wrap">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+          </svg>
+        </div>
+        <span class="tab-label">Explore</span>
+      </button>
+
+      <!-- Tab 3: Learning -->
+      <button class="nav-tab" type="button" role="tab" aria-selected="false" data-goto="learning" aria-label="My Learning roadmaps">
+        <div class="tab-icon-wrap">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+        </div>
+        <span class="tab-label">Learning</span>
+      </button>
+
+      <!-- Tab 4: Journeys -->
+      <button class="nav-tab" type="button" role="tab" aria-selected="false" data-goto="journeys" aria-label="Learning Journeys">
+        <div class="tab-icon-wrap">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="2"/>
+            <path d="M12 2v8M12 14v8M4.93 4.93l5.66 5.66M13.41 13.41l5.66 5.66M2 12h8M14 12h8M4.93 19.07l5.66-5.66M13.41 10.59l5.66-5.66"/>
+          </svg>
+        </div>
+        <span class="tab-label">Journeys</span>
+      </button>
+
+      <!-- Tab 5: Profile -->
+      <button class="nav-tab" type="button" role="tab" aria-selected="false" data-goto="profile" aria-label="Learner Profile and settings">
+        <div class="tab-icon-wrap">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+        <span class="tab-label">Profile</span>
+      </button>
+    </div>
+  </nav>
+
+</section>

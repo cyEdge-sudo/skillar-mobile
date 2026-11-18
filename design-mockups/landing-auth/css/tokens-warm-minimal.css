@@ -1,0 +1,126 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Skillar Mobile · Warm Minimal Theme Tokens (Canonical Spec v1.0)
+   Quiet mono & hairlines · warm stone (#fafaf9) & Skillar purple (#6c47ff)
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root,
+[data-variant="warm-minimal"] {
+  /* Canvas & Surfaces */
+  --bg: #fafaf9;
+  --bg-2: #f5f5f4;
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+  --surface-muted: #f1f5f9;
+
+  /* Typography & Ink */
+  --ink: #0f172a;       /* Slate 900 */
+  --muted: #64748b;     /* Slate 500 */
+  --disabled: #94a3b8;  /* Slate 400 */
+
+  /* Hairlines & Borders */
+  --line: #e2e8f0;       /* Slate 200 hairline */
+  --line-strong: #cbd5e1;/* Slate 300 active/focus */
+
+  /* Brand & Accents */
+  --brand: #6c47ff;          /* Skillar Brand Purple */
+  --brand-2: #5835e8;        /* Pressed/Darker Brand */
+  --brand-tint: #f4f1ff;     /* Tinted purple fill */
+  --accent: #6c47ff;         /* Primary interactive */
+  --accent-pressed: #5835e8; /* Active state */
+  --accent-ink: #ffffff;     /* Contrast text on accent */
+  --accent-soft: #f4f1ff;    /* Tinted purple surface */
+
+  /* Semantic Feedback (WCAG AA Compliant >= 4.5:1) */
+  --ok: #15803d;             /* Green 700 */
+  --ok-surface: #f0fdf4;
+  --ok-border: #bbf7d0;
+  --warn: #a16207;           /* Amber 700 */
+  --warn-surface: #fefce8;
+  --warn-border: #fef08a;
+  --err: #b91c1c;            /* Red 700 */
+  --err-surface: #fef2f2;
+  --err-border: #fecaca;
+  --info: #1d4ed8;           /* Blue 700 */
+  --info-surface: #eff6ff;
+  --info-border: #bfdbfe;
+
+  /* Typography Stacks */
+  --font-display: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  /* Radii Scale */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+  --r-pill: 9999px;
+
+  /* Elevation & Shadows */
+  --shadow-card: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.05);
+  --shadow-card-elevated: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+  --shadow-btn: 0 1px 2px 0 rgba(15, 23, 42, 0.06);
+  --btn-border: 1px solid transparent;
+  --grain: none;
+}
+
+/* ──────────────── Dark Mode Ramps ──────────────── */
+[data-theme="dark"],
+[data-variant="warm-minimal-dark"],
+[data-variant="warm-minimal"][data-theme="dark"] {
+  /* Canvas & Surfaces */
+  --bg: #0b1120;
+  --bg-2: #111827;
+  --surface: #1e293b;
+  --surface-elevated: #1e293b;
+  --surface-muted: #172033;
+
+  /* Typography & Ink */
+  --ink: #f8fafc;
+  --muted: #94a3b8;
+  --disabled: #475569;
+
+  /* Hairlines & Borders */
+  --line: #293548;
+  --line-strong: #475569;
+
+  /* Brand & Accents */
+  --brand: #7c5cff;
+  --brand-2: #6c47ff;
+  --brand-tint: #2a1f66;
+  --accent: #7c5cff;
+  --accent-pressed: #9378ff;
+  --accent-ink: #0b1120;
+  --accent-soft: #2a1f66;
+
+  /* Semantic Feedback (Dark WCAG AA) */
+  --ok: #4ade80;
+  --ok-surface: #052e16;
+  --ok-border: #14532d;
+  --warn: #facc15;
+  --warn-surface: #422006;
+  --warn-border: #713f12;
+  --err: #f87171;
+  --err-surface: #450a0a;
+  --err-border: #7f1d1d;
+  --info: #60a5fa;
+  --info-surface: #172554;
+  --info-border: #1e3a8a;
+
+  /* Shadows & Borders */
+  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.35);
+  --shadow-card-elevated: 0 4px 12px 0 rgba(0, 0, 0, 0.5);
+  --shadow-btn: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --btn-border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Swatch & Dot helper styles for the review shell */
+.sw-warm-minimal {
+  background: linear-gradient(135deg, #fafaf9 0%, #f4f1ff 45%, #6c47ff 100%);
+  border: 1px solid #cbd5e1;
+}
+
+.dot-warm-minimal {
+  background: #6c47ff;
+  box-shadow: 0 0 8px rgba(108, 71, 255, 0.6);
+}

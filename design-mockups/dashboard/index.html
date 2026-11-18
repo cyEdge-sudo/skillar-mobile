@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="en" data-variant="minimal">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Skillar · Dashboard &amp; Core Learning — UI Mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600;700&family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="shell">
+
+  <!-- ══════════ Review rail ══════════ -->
+  <aside class="rail">
+    <div class="rail-head">
+      <div class="brandline"><span class="brand-dot"></span> Skillar</div>
+      <p class="rail-sub">Dashboard &amp; core learning · UI review · v1</p>
+    </div>
+
+    <section class="rail-block">
+      <h3>Visual variant <span class="hint">default first</span></h3>
+      <div class="variants" role="group" aria-label="Visual variant">
+        <button class="variant" data-variant="minimal" type="button">
+          <span class="sw sw-minimal"></span>
+          <span class="vtext"><span class="vname">Minimal neutral <span class="tag-default">Default</span></span><span class="vdesc">Quiet mono · hairlines &amp; space</span></span>
+        </button>
+        <button class="variant" data-variant="warm" type="button">
+          <span class="sw sw-warm"></span>
+          <span class="vtext"><span class="vname">Warm modern learning</span><span class="vdesc">Editorial serif · cream &amp; clay</span></span>
+        </button>
+        <button class="variant" data-variant="playful" type="button">
+          <span class="sw sw-playful"></span>
+          <span class="vtext"><span class="vname">Playful colorful</span><span class="vdesc">Chunky · violet, pink &amp; sunshine</span></span>
+        </button>
+      </div>
+    </section>
+
+    <section class="rail-block">
+      <h3>Screens <span class="count" id="screen-count">6</span></h3>
+      <ol class="screen-list" id="screen-list"></ol>
+    </section>
+
+    <section class="rail-block" id="state-block">
+      <h3>Home state</h3>
+      <div class="seg seg-rail" role="group" aria-label="Home state">
+        <button type="button" data-state="populated" class="on">Populated</button>
+        <button type="button" data-state="empty">Zero assigned</button>
+      </div>
+      <p class="rail-hint">Applies to the Home screen only.</p>
+    </section>
+
+    <section class="rail-block rail-notes">
+      <h3>Honesty labels</h3>
+      <ul>
+        <li><b>Prototype · mock data</b> — nothing is wired to a backend.</li>
+        <li><span class="chip chip-proposed">Proposed</span> fields (<b>next step</b>, <b>due dates</b>) are design proposals — <b>not in the mobile API today</b>.</li>
+        <li>Roadmap/enrollment APIs are treated as <b>ready</b> for detail + progress.</li>
+        <li><b>Video:</b> YouTube only · <b>SCORM:</b> opens on web · <b>Assessment answers:</b> read-only.</li>
+        <li><b>Journeys</b> tab is flag-disabled — excluded from this prototype.</li>
+        <li>Fonts are review stand-ins; production uses the system font stack. Skillar purple <code>#6C47FF</code> kept in every variant.</li>
+        <li>Org label is illustrative: <b>Your workspace</b>.</li>
+      </ul>
+    </section>
+  </aside>
+
+  <!-- ══════════ Stage ══════════ -->
+  <main class="stage">
+    <div class="stage-bar">
+      <div class="sb-left">
+        <span class="badge-mock">PROTOTYPE · MOCK DATA</span>
+        <h2 id="stage-title">Dashboard · Home</h2>
+      </div>
+      <div class="sb-right">
+        <div class="seg" role="group" aria-label="Preview mode">
+          <button type="button" data-mode="phone">Phone</button>
+          <button type="button" data-mode="desktop">Desktop</button>
+          <button type="button" data-mode="compare" class="on">Compare</button>
+        </div>
+        <button class="icon-btn" id="prev" type="button" title="Previous screen" aria-label="Previous screen">‹</button>
+        <button class="icon-btn" id="next" type="button" title="Next screen" aria-label="Next screen">›</button>
+      </div>
+    </div>
+
+    <div class="stage-note" id="stage-note">
+      Compare shows the same screen in all three variants. Click a card (or a rail variant) for the full phone/desktop preview.
+    </div>
+
+    <div class="canvas" id="canvas">
+      <div class="fit is-hidden" id="fit">
+        <div class="device mode-phone" id="device">
+          <div class="bezel">
+            <div class="bezel-notch" aria-hidden="true"></div>
+            <div class="viewport" id="viewport"></div>
+          </div>
+        </div>
+        <div class="fit-label" id="fit-label">Phone · 390 × 844</div>
+      </div>
+      <div class="compare" id="compare">
+        <div class="cmp" data-variant="minimal" role="button" tabindex="0" title="Open Minimal neutral preview">
+          <div class="cmp-head"><span class="sw sw-minimal"></span><span>Minimal neutral</span><span class="cmp-tag">Default</span></div>
+          <div class="cmp-frame"><div class="viewport cmp-viewport" data-slot="minimal"></div></div>
+        </div>
+        <div class="cmp" data-variant="warm" role="button" tabindex="0" title="Open Warm modern preview">
+          <div class="cmp-head"><span class="sw sw-warm"></span><span>Warm modern</span></div>
+          <div class="cmp-frame"><div class="viewport cmp-viewport" data-slot="warm"></div></div>
+        </div>
+        <div class="cmp" data-variant="playful" role="button" tabindex="0" title="Open Playful preview">
+          <div class="cmp-head"><span class="sw sw-playful"></span><span>Playful colorful</span></div>
+          <div class="cmp-frame"><div class="viewport cmp-viewport" data-slot="playful"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </main>
+</div>
+
+<!-- ══════════ Screen templates (same markup, themed by data-variant) ══════════ -->
+
+<template id="tpl-home">
+  <div class="app" data-screen="home">
+    <header class="app-top">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div class="brand-meta">
+          <span class="brand-name">Skillar</span>
+          <span class="brand-org">Your workspace</span>
+        </div>
+      </div>
+      <button class="icon-btn app-bell" type="button" data-demo="Notifications are a prototype stub." aria-label="Notifications">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9a6 6 0 0 1 12 0c0 4 1.5 5 1.5 5h-15S6 13 6 9Z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+        <span class="bell-dot" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <div class="app-body">
+      <section class="greet">
+        <p class="greet-kicker">Tuesday · Nov 18</p>
+        <h1 class="greet-title">Good morning, Alex</h1>
+        <p class="greet-sub">You’re on a <strong>4-day streak</strong> — keep learning moving.</p>
+      </section>
+
+      <section class="card continue-card" aria-labelledby="continue-label">
+        <div class="card-head">
+          <span class="eyebrow" id="continue-label">Continue</span>
+          <span class="chip chip-proposed" title="Proposed field — not available from the API today">Proposed</span>
+        </div>
+        <h2 class="continue-title">Product Analytics Pathway</h2>
+        <p class="continue-step">Module 3 · Funnels that convert</p>
+        <div class="next-step">
+          <span class="next-label">Next step</span>
+          <span class="next-value">Design a funnel report</span>
+          <span class="chip chip-proposed chip-inline">Proposed</span>
+        </div>
+        <div class="progress-row">
+          <div class="progress" role="progressbar" aria-valuenow="42" aria-valuemin="0" aria-valuemax="100" aria-label="42 percent complete">
+            <span style="width:42%"></span>
+          </div>
+          <span class="progress-meta">42% · 8 of 19 steps</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-primary" type="button" data-demo="Prototype: would open the current learning step (designed in this round).">Continue</button>
+          <button class="btn btn-ghost" type="button" data-goto="detail">Roadmap details</button>
+        </div>
+      </section>
+
+      <section class="card section-card" aria-labelledby="assigned-label">
+        <div class="section-head">
+          <h2 class="section-title" id="assigned-label">Assigned learning</h2>
+          <button class="link-btn" type="button" data-goto="explore">See all</button>
+        </div>
+        <ul class="learn-list">
+          <li class="learn-item">
+            <span class="learn-status is-done" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            </span>
+            <div class="learn-main">
+              <p class="learn-title">Data Literacy Basics</p>
+              <p class="learn-meta">Complete · 12 steps</p>
+            </div>
+            <button class="btn btn-small" type="button" data-demo="Prototype: would open review for a completed roadmap.">Review</button>
+          </li>
+          <li class="learn-item">
+            <span class="learn-ring" style="--p:15" aria-hidden="true"></span>
+            <div class="learn-main">
+              <p class="learn-title">Security Awareness 2026</p>
+              <p class="learn-meta">15% · 3 steps left</p>
+            </div>
+            <button class="btn btn-small btn-primary" type="button" data-demo="Prototype: would open the next security learning step.">Resume</button>
+          </li>
+          <li class="learn-item">
+            <span class="learn-ring" style="--p:0" aria-hidden="true"></span>
+            <div class="learn-main">
+              <p class="learn-title">Onboarding: How we work</p>
+              <p class="learn-meta">Not started · 8 steps</p>
+            </div>
+            <button class="btn btn-small" type="button" data-demo="Prototype: would start this assigned roadmap.">Start</button>
+          </li>
+        </ul>
+      </section>
+
+      <section class="card section-card" aria-labelledby="due-label">
+        <div class="section-head">
+          <h2 class="section-title" id="due-label">Deadlines &amp; reminders</h2>
+          <span class="chip chip-proposed" title="Due dates are not exposed on the mobile API today">Proposed</span>
+        </div>
+        <ul class="due-list">
+          <li class="due-item is-urgent">
+            <span class="due-date"><strong>21</strong><span>Nov</span></span>
+            <div class="due-main">
+              <p class="due-title">Security Awareness quiz</p>
+              <p class="due-meta">Due Fri · <span class="chip chip-proposed chip-inline">Proposed</span></p>
+            </div>
+            <button class="icon-btn icon-btn-plain" type="button" data-demo="Prototype: would open the quiz step." aria-label="Open quiz">›</button>
+          </li>
+          <li class="due-item">
+            <span class="due-date is-soft"><strong>19</strong><span>Nov</span></span>
+            <div class="due-main">
+              <p class="due-title">Learning check-in</p>
+              <p class="due-meta">Tomorrow · 10:00 · Reminder</p>
+            </div>
+            <button class="icon-btn icon-btn-plain" type="button" data-demo="Prototype: reminder details would open here." aria-label="Open reminder">›</button>
+          </li>
+          <li class="due-item">
+            <span class="due-date is-soft"><strong>02</strong><span>Dec</span></span>
+            <div class="due-main">
+              <p class="due-title">Pathway milestone review</p>
+              <p class="due-meta">Dec 2 · <span class="chip chip-proposed chip-inline">Proposed</span></p>
+            </div>
+            <button class="icon-btn icon-btn-plain" type="button" data-demo="Prototype: would open milestone details." aria-label="Open milestone">›</button>
+          </li>
+        </ul>
+      </section>
+
+      <p class="sample-note">Sample data for review only · next-step &amp; due-date fields are proposed, not API-backed.</p>
+    </div>
+
+    <nav class="app-nav" aria-label="Primary">
+      <button type="button" class="nav-item is-active" data-goto="home" aria-current="page">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5Z"/></svg>
+        <span>Home</span>
+      </button>
+      <button type="button" class="nav-item" data-goto="explore">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="m14.5 9.5-1.6 4.4-4.4 1.6 1.6-4.4 4.4-1.6Z"/></svg>
+        <span>Explore</span>
+      </button>
+      <button type="button" class="nav-item" data-demo="Learning hub is part of this prototype’s next pass; use Explore for now.">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5.5A1.5 1.5 0 0 1 6.5 4H19v14H6.5A1.5 1.5 0 0 0 5 19.5v-14Z"/><path d="M5 19.5A1.5 1.5 0 0 1 6.5 18H19v2H6.5A1.5 1.5 0 0 1 5 19.5Z"/></svg>
+        <span>Learn</span>
+      </button>
+      <button type="button" class="nav-item" data-goto="profile">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.5"/><path d="M5.5 19.5c1.5-3.2 3.8-4.8 6.5-4.8s5 1.6 6.5 4.8"/></svg>
+        <span>Profile</span>
+      </button>
+    </nav>
+  </div>
+</template>
+
+<template id="tpl-home-empty">
+  <div class="app" data-screen="home">
+    <header class="app-top">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div class="brand-meta">
+          <span class="brand-name">Skillar</span>
+          <span class="brand-org">Your workspace</span>
+        </div>
+      </div>
+      <button class="icon-btn app-bell" type="button" data-demo="No new notifications in this prototype." aria-label="Notifications">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9a6 6 0 0 1 12 0c0 4 1.5 5 1.5 5h-15S6 13 6 9Z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+      </button>
+    </header>
+
+    <div class="app-body">
+      <section class="greet">
+        <p class="greet-kicker">Tuesday · Nov 18</p>
+        <h1 class="greet-title">Good morning, Alex</h1>
+        <p class="greet-sub">Nothing assigned yet — you can still explore on your own.</p>
+      </section>
+
+      <section class="card empty-hero">
+        <div class="empty-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V6.2c0-.7.5-1.3 1.2-1.4L12 3.5l6.8 1.3c.7.1 1.2.7 1.2 1.4v13.3L12 17.2 4 19.5Z"/><path d="M12 5v12.2"/></svg>
+        </div>
+        <h2 class="empty-title">No assigned learning yet</h2>
+        <p class="empty-copy">When your team shares roadmaps with you, they’ll show up here with progress and next steps.</p>
+        <div class="card-actions">
+          <button class="btn btn-primary" type="button" data-goto="explore">Explore roadmaps</button>
+        </div>
+      </section>
+
+      <section class="card section-card" aria-labelledby="assigned-empty-label">
+        <div class="section-head">
+          <h2 class="section-title" id="assigned-empty-label">Assigned learning</h2>
+        </div>
+        <p class="empty-inline">Zero assignments · nothing to resume right now.</p>
+      </section>
+
+      <section class="card section-card" aria-labelledby="due-empty-label">
+        <div class="section-head">
+          <h2 class="section-title" id="due-empty-label">Deadlines &amp; reminders</h2>
+          <span class="chip chip-proposed">Proposed</span>
+        </div>
+        <p class="empty-inline">You’re clear — no deadlines or reminders.</p>
+      </section>
+
+      <p class="sample-note">Sample empty state · proposed fields are design-only.</p>
+    </div>
+
+    <nav class="app-nav" aria-label="Primary">
+      <button type="button" class="nav-item is-active" data-goto="home" aria-current="page">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5Z"/></svg>
+        <span>Home</span>
+      </button>
+      <button type="button" class="nav-item" data-goto="explore">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="m14.5 9.5-1.6 4.4-4.4 1.6 1.6-4.4 4.4-1.6Z"/></svg>
+        <span>Explore</span>
+      </button>
+      <button type="button" class="nav-item" data-demo="Learning hub is part of this prototype’s next pass; use Explore for now.">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5.5A1.5 1.5 0 0 1 6.5 4H19v14H6.5A1.5 1.5 0 0 0 5 19.5v-14Z"/><path d="M5 19.5A1.5 1.5 0 0 1 6.5 18H19v2H6.5A1.5 1.5 0 0 1 5 19.5Z"/></svg>
+        <span>Learn</span>
+      </button>
+      <button type="button" class="nav-item" data-goto="profile">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.5"/><path d="M5.5 19.5c1.5-3.2 3.8-4.8 6.5-4.8s5 1.6 6.5 4.8"/></svg>
+        <span>Profile</span>
+      </button>
+    </nav>
+  </div>
+</template>
+
+<template id="tpl-explore">
+  <div class="app" data-screen="explore">
+    <header class="app-top">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div class="brand-meta">
+          <span class="brand-name">Skillar</span>
+          <span class="brand-org">Your workspace</span>
+        </div>
+      </div>
+      <button class="icon-btn app-bell" type="button" data-demo="Notifications are a prototype stub." aria-label="Notifications">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9a6 6 0 0 1 12 0c0 4 1.5 5 1.5 5h-15S6 13 6 9Z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+        <span class="bell-dot" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <div class="app-body">
+      <section class="greet">
+        <p class="greet-kicker">Catalog</p>
+        <h1 class="greet-title">Explore</h1>
+        <p class="greet-sub">Assigned paths and self-serve roadmaps from your workspace.</p>
+      </section>
+
+      <label class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+        <input type="search" placeholder="Search roadmaps" data-demo="Search is a prototype stub in this mockup." />
+      </label>
+
+      <div class="chips-row" role="group" aria-label="Filters">
+        <button type="button" class="filter-chip is-on">All</button>
+        <button type="button" class="filter-chip" data-demo="Filter chips are visual only in this prototype.">Assigned</button>
+        <button type="button" class="filter-chip" data-demo="Filter chips are visual only in this prototype.">In progress</button>
+        <button type="button" class="filter-chip" data-demo="Filter chips are visual only in this prototype.">New</button>
+      </div>
+
+      <ul class="catalog">
+        <li>
+          <button class="catalog-card" type="button" data-goto="detail">
+            <div class="catalog-top">
+              <span class="tag tag-assigned">Assigned</span>
+              <span class="catalog-progress">42%</span>
+            </div>
+            <h2 class="catalog-title">Product Analytics Pathway</h2>
+            <p class="catalog-meta">19 steps · ~4 hr · Analytics</p>
+            <div class="progress progress-thin" aria-hidden="true"><span style="width:42%"></span></div>
+          </button>
+        </li>
+        <li>
+          <button class="catalog-card" type="button" data-goto="detail">
+            <div class="catalog-top">
+              <span class="tag tag-assigned">Assigned</span>
+              <span class="catalog-progress">15%</span>
+            </div>
+            <h2 class="catalog-title">Security Awareness 2026</h2>
+            <p class="catalog-meta">20 steps · ~90 min · Compliance</p>
+            <div class="progress progress-thin" aria-hidden="true"><span style="width:15%"></span></div>
+          </button>
+        </li>
+        <li>
+          <button class="catalog-card" type="button" data-goto="detail">
+            <div class="catalog-top">
+              <span class="tag">Self-serve</span>
+              <span class="catalog-progress catalog-progress-muted">Not started</span>
+            </div>
+            <h2 class="catalog-title">Design Systems 101</h2>
+            <p class="catalog-meta">14 steps · ~3 hr · Design</p>
+            <div class="progress progress-thin" aria-hidden="true"><span style="width:0%"></span></div>
+          </button>
+        </li>
+        <li>
+          <button class="catalog-card" type="button" data-goto="detail">
+            <div class="catalog-top">
+              <span class="tag">Self-serve</span>
+              <span class="catalog-progress catalog-progress-muted">Not started</span>
+            </div>
+            <h2 class="catalog-title">Writing for Product Teams</h2>
+            <p class="catalog-meta">10 steps · ~2 hr · Communication</p>
+            <div class="progress progress-thin" aria-hidden="true"><span style="width:0%"></span></div>
+          </button>
+        </li>
+      </ul>
+
+      <p class="sample-note">Journeys tab is flag-disabled in the app and intentionally excluded here.</p>
+    </div>
+
+    <nav class="app-nav" aria-label="Primary">
+      <button type="button" class="nav-item" data-goto="home">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5Z"/></svg>
+        <span>Home</span>
+      </button>
+      <button type="button" class="nav-item is-active" data-goto="explore" aria-current="page">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="m14.5 9.5-1.6 4.4-4.4 1.6 1.6-4.4 4.4-1.6Z"/></svg>
+        <span>Explore</span>
+      </button>
+      <button type="button" class="nav-item" data-demo="Learning hub is part of this prototype’s next pass; use Explore for now.">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5.5A1.5 1.5 0 0 1 6.5 4H19v14H6.5A1.5 1.5 0 0 0 5 19.5v-14Z"/><path d="M5 19.5A1.5 1.5 0 0 1 6.5 18H19v2H6.5A1.5 1.5 0 0 1 5 19.5Z"/></svg>
+        <span>Learn</span>
+      </button>
+      <button type="button" class="nav-item" data-goto="profile">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.5"/><path d="M5.5 19.5c1.5-3.2 3.8-4.8 6.5-4.8s5 1.6 6.5 4.8"/></svg>
+        <span>Profile</span>
+      </button>
+    </nav>
+  </div>
+</template>
+
+<template id="tpl-detail">
+  <div class="app" data-screen="detail">
+    <header class="app-top app-top-sub">
+      <button class="icon-btn" type="button" data-goto="explore" aria-label="Back to Explore">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6 9 12l6 6"/></svg>
+      </button>
+      <span class="top-title">Roadmap</span>
+      <button class="icon-btn" type="button" data-demo="Share is a prototype stub." aria-label="Share">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m8 8 4-4 4 4"/><path d="M5 14v4.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V14"/></svg>
+      </button>
+    </header>
+
+    <div class="app-body">
+      <section class="detail-hero">
+        <div class="catalog-top">
+          <span class="tag tag-assigned">Assigned</span>
+          <span class="catalog-progress">42%</span>
+        </div>
+        <h1 class="detail-title">Product Analytics Pathway</h1>
+        <p class="detail-desc">Learn to frame questions, build funnels, and tell a clear story with product data — one short step at a time.</p>
+        <div class="progress-row">
+          <div class="progress" role="progressbar" aria-valuenow="42" aria-valuemin="0" aria-valuemax="100" aria-label="42 percent complete"><span style="width:42%"></span></div>
+          <span class="progress-meta">8 of 19 steps</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-primary" type="button" data-goto="step">Continue · Step 8</button>
+          <button class="btn btn-ghost" type="button" data-demo="Prototype: syllabus outline would expand here.">View syllabus</button>
+        </div>
+      </section>
+
+      <section class="card section-card" aria-label="Milestones">
+        <div class="section-head">
+          <h2 class="section-title">Milestones</h2>
+          <span class="section-meta">From roadmap detail API</span>
+        </div>
+        <ol class="milestones">
+          <li class="milestone is-done">
+            <span class="ms-dot" aria-hidden="true"></span>
+            <div class="ms-main">
+              <p class="ms-title">1 · Foundations</p>
+              <p class="ms-meta">5 of 5 steps</p>
+            </div>
+            <span class="ms-state">Done</span>
+          </li>
+          <li class="milestone is-active">
+            <span class="ms-dot" aria-hidden="true"></span>
+            <div class="ms-main">
+              <p class="ms-title">2 · Funnels &amp; retention</p>
+              <p class="ms-meta">3 of 7 steps · current</p>
+            </div>
+            <span class="ms-state">Now</span>
+          </li>
+          <li class="milestone">
+            <span class="ms-dot" aria-hidden="true"></span>
+            <div class="ms-main">
+              <p class="ms-title">3 · Storytelling</p>
+              <p class="ms-meta">0 of 7 steps</p>
+            </div>
+            <span class="ms-state">Next</span>
+          </li>
+        </ol>
+      </section>
+
+      <section class="card section-card" aria-label="Content types in this roadmap">
+        <div class="section-head">
+          <h2 class="section-title">In this roadmap</h2>
+        </div>
+        <ul class="type-list">
+          <li><span class="type-dot"></span><span>Article lessons</span></li>
+          <li><span class="type-dot"></span><span>YouTube video <span class="muted-inline">· only video source supported</span></span></li>
+          <li><span class="type-dot"></span><span>Quizzes <span class="muted-inline">· answers read-only after submit</span></span></li>
+          <li><span class="type-dot"></span><span>SCORM packages <span class="muted-inline">· open on web only</span></span></li>
+        </ul>
+      </section>
+
+      <p class="sample-note">Detail + progress treat enrollment/roadmap APIs as ready. Next-step callout on Home remains proposed.</p>
+    </div>
+
+    <nav class="app-nav" aria-label="Primary">
+      <button type="button" class="nav-item" data-goto="home">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5Z"/></svg>
+        <span>Home</span>
+      </button>
+      <button type="button" class="nav-item is-active" data-goto="explore" aria-current="page">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="m14.5 9.5-1.6 4.4-4.4 1.6 1.6-4.4 4.4-1.6Z"/></svg>
+        <span>Explore</span>
+      </button>
+      <button type="button" class="nav-item" data-demo="Learning hub is part of this prototype’s next pass; use Explore for now.">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5.5A1.5 1.5 0 0 1 6.5 4H19v14H6.5A1.5 1.5 0 0 0 5 19.5v-14Z"/><path d="M5 19.5A1.5 1.5 0 0 1 6.5 18H19v2H6.5A1.5 1.5 0 0 1 5 19.5Z"/></svg>
+        <span>Learn</span>
+      </button>
+      <button type="button" class="nav-item" data-goto="profile">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.5"/><path d="M5.5 19.5c1.5-3.2 3.8-4.8 6.5-4.8s5 1.6 6.5 4.8"/></svg>
+        <span>Profile</span>
+      </button>
+    </nav>
+  </div>
+</template>
+
+<template id="tpl-step">
+  <div class="app" data-screen="step">
+    <header class="app-top app-top-sub">
+      <button class="icon-btn" type="button" data-goto="detail" aria-label="Back to roadmap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6 9 12l6 6"/></svg>
+      </button>
+      <span class="top-title">Step 8 of 19</span>
+      <button class="icon-btn" type="button" data-demo="Bookmark is a prototype stub." aria-label="Bookmark step">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 5h10v15l-5-3.2L7 20V5Z"/></svg>
+      </button>
+    </header>
+
+    <div class="app-body">
+      <div class="step-progress" aria-hidden="true"><span style="width:42%"></span></div>
+
+      <section class="step-head">
+        <div class="chips-row chips-static">
+          <span class="filter-chip is-on">Video</span>
+          <span class="filter-chip">Article</span>
+          <span class="filter-chip">Quiz</span>
+          <span class="filter-chip">SCORM</span>
+        </div>
+        <p class="step-kicker">Module 3 · Funnels that convert</p>
+        <h1 class="step-title">Design a funnel report</h1>
+        <p class="step-lede">Watch how a weekly funnel report is structured, then mark the step complete.</p>
+      </section>
+
+      <section class="card media-card" aria-label="Video lesson">
+        <div class="media-frame">
+          <div class="media-play" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M9 7.5v9l8-4.5-8-4.5Z"/></svg>
+          </div>
+          <span class="media-badge">YouTube</span>
+          <span class="media-time">6:42</span>
+        </div>
+        <p class="media-caption">Only YouTube video is supported in the app today. Embed is illustrative.</p>
+      </section>
+
+      <section class="card section-card">
+        <div class="section-head">
+          <h2 class="section-title">Transcript notes</h2>
+        </div>
+        <div class="prose">
+          <p>Start with the question your team is asking — not the chart type. A good funnel report names the entry event, the drop-off you care about, and the decision the report should unlock.</p>
+          <p>Keep one primary funnel per view. If you need a second cut (by platform or cohort), add it as a follow-up section rather than stacking competing charts.</p>
+        </div>
+      </section>
+
+      <section class="card type-note">
+        <div class="type-note-row"><span class="type-dot"></span><p><strong>Quiz steps:</strong> answers are read-only after submit — learners review results, they don’t re-edit responses.</p></div>
+        <div class="type-note-row"><span class="type-dot"></span><p><strong>SCORM steps:</strong> open in a browser on web; mobile shows a handoff message.</p></div>
+      </section>
+
+      <div class="card-actions card-actions-stack">
+        <button class="btn btn-primary btn-block" type="button" data-demo="Prototype: would mark step 8 complete and advance.">Mark complete &amp; continue</button>
+        <button class="btn btn-ghost btn-block" type="button" data-goto="detail">Back to roadmap</button>
+      </div>
+
+      <p class="sample-note">Step content is mock. Roadmap step progress is treated as API-ready.</p>
+    </div>
+
+    <nav class="app-nav" aria-label="Primary">
+      <button type="button" class="nav-item" data-goto="home">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5Z"/></svg>
+        <span>Home</span>
+      </button>
+      <button type="button" class="nav-item is-active" data-goto="explore" aria-current="page">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="m14.5 9.5-1.6 4.4-4.4 1.6 1.6-4.4 4.4-1.6Z"/></svg>
+        <span>Explore</span>
+      </button>
+      <button type="button" class="nav-item" data-demo="Learning hub is part of this prototype’s next pass; use Explore for now.">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5.5A1.5 1.5 0 0 1 6.5 4H19v14H6.5A1.5 1.5 0 0 0 5 19.5v-14Z"/><path d="M5 19.5A1.5 1.5 0 0 1 6.5 18H19v2H6.5A1.5 1.5 0 0 1 5 19.5Z"/></svg>
+        <span>Learn</span>
+      </button>
+      <button type="button" class="nav-item" data-goto="profile">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.5"/><path d="M5.5 19.5c1.5-3.2 3.8-4.8 6.5-4.8s5 1.6 6.5 4.8"/></svg>
+        <span>Profile</span>
+      </button>
+    </nav>
+  </div>
+</template>
+
+<template id="tpl-profile">
+  <div class="app" data-screen="profile">
+    <header class="app-top">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div class="brand-meta">
+          <span class="brand-name">Skillar</span>
+          <span class="brand-org">Your workspace</span>
+        </div>
+      </div>
+      <button class="icon-btn app-bell" type="button" data-demo="Notifications are a prototype stub." aria-label="Notifications">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9a6 6 0 0 1 12 0c0 4 1.5 5 1.5 5h-15S6 13 6 9Z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+      </button>
+    </header>
+
+    <div class="app-body">
+      <section class="profile-hero">
+        <div class="avatar" aria-hidden="true">AR</div>
+        <h1 class="profile-name">Alex Rivera</h1>
+        <p class="profile-org">Your workspace · Employee</p>
+        <p class="profile-note">Accounts are admin-provisioned — no self sign-up.</p>
+      </section>
+
+      <section class="stats" aria-label="Learning stats">
+        <div class="stat">
+          <strong>4</strong>
+          <span>Day streak</span>
+        </div>
+        <div class="stat">
+          <strong>3</strong>
+          <span>Completed</span>
+        </div>
+        <div class="stat">
+          <strong>2</strong>
+          <span>In progress</span>
+        </div>
+      </section>
+
+      <section class="card section-card">
+        <div class="section-head">
+          <h2 class="section-title">Account</h2>
+        </div>
+        <ul class="menu-list">
+          <li><button type="button" data-demo="Notification preferences are a prototype stub."><span>Notifications</span><span class="menu-chev">›</span></button></li>
+          <li><button type="button" data-demo="Learning history would list enrollments + last activity."><span>Learning history</span><span class="menu-chev">›</span></button></li>
+          <li><button type="button" data-demo="Accessibility settings are a prototype stub."><span>Accessibility</span><span class="menu-chev">›</span></button></li>
+          <li><button type="button" data-demo="Help would open workspace support."><span>Help &amp; support</span><span class="menu-chev">›</span></button></li>
+        </ul>
+      </section>
+
+      <section class="card section-card">
+        <ul class="menu-list">
+          <li><button type="button" class="menu-danger" data-demo="Prototype: would return to the sign-in screen."><span>Sign out</span><span class="menu-chev">›</span></button></li>
+        </ul>
+      </section>
+
+      <p class="sample-note">Profile uses mock stats only. No production identity data.</p>
+    </div>
+
+    <nav class="app-nav" aria-label="Primary">
+      <button type="button" class="nav-item" data-goto="home">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5Z"/></svg>
+        <span>Home</span>
+      </button>
+      <button type="button" class="nav-item" data-goto="explore">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="m14.5 9.5-1.6 4.4-4.4 1.6 1.6-4.4 4.4-1.6Z"/></svg>
+        <span>Explore</span>
+      </button>
+      <button type="button" class="nav-item" data-demo="Learning hub is part of this prototype’s next pass; use Explore for now.">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5.5A1.5 1.5 0 0 1 6.5 4H19v14H6.5A1.5 1.5 0 0 0 5 19.5v-14Z"/><path d="M5 19.5A1.5 1.5 0 0 1 6.5 18H19v2H6.5A1.5 1.5 0 0 1 5 19.5Z"/></svg>
+        <span>Learn</span>
+      </button>
+      <button type="button" class="nav-item is-active" data-goto="profile" aria-current="page">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.5"/><path d="M5.5 19.5c1.5-3.2 3.8-4.8 6.5-4.8s5 1.6 6.5 4.8"/></svg>
+        <span>Profile</span>
+      </button>
+    </nav>
+  </div>
+</template>
+
+<script src="app.js"></script>
+</body>
+</html>

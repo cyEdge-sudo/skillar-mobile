@@ -1,0 +1,865 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Skillar Mobile · Auth & Welcome Refined ("Warm Minimal" Direction)
+   - Strict 4px spacing scale (8px, 12px, 16px, 20px, 24px)
+   - Zero-scroll Welcome screen vertical rhythm
+   - Elevated input label typography (Slate 700 #334155, 13px, 600, mb 8px)
+   - 8px button & input corner radii (--r-md)
+   - Minimum 44x44pt touch targets
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── 1. Tokens Override: Warm Minimal Hybrid ── */
+:root,
+[data-variant="warm"],
+[data-variant="minimal"] {
+  /* Skillar Brand Violet */
+  --brand: #6c47ff;
+  --brand-pressed: #5835e8;
+  --brand-tint: #f0edff;
+  --brand-fg: #ffffff;
+
+  /* Warm Minimal Canvas & Surface */
+  --bg: #fbf9f5;
+  --bg-subtle: #f4f0e8;
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+  --surface-muted: #f8fafc;
+
+  /* Typography Colors */
+  --ink: #0f172a;           /* Slate 900 */
+  --label-color: #334155;   /* Slate 700 */
+  --muted: #475569;         /* Slate 600 */
+  --subtle: #64748b;        /* Slate 500 */
+  --disabled: #94a3b8;      /* Slate 400 */
+
+  /* Hairlines & Borders */
+  --line: #e2e8f0;          /* Clean Slate 200 */
+  --line-strong: #cbd5e1;   /* Slate 300 */
+  --line-focus: #6c47ff;
+
+  /* Semantic Feedback Ramps (WCAG AA Compliant) */
+  --ok: #15803d;
+  --ok-bg: #f0fdf4;
+  --ok-border: #bbf7d0;
+
+  --warn: #a16207;
+  --warn-bg: #fefce8;
+  --warn-border: #fef08a;
+
+  --err: #b91c1c;
+  --err-bg: #fef2f2;
+  --err-border: #fecaca;
+
+  --info: #1d4ed8;
+  --info-bg: #eff6ff;
+  --info-border: #bfdbfe;
+
+  /* Radii - 8px md standard */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+  --r-pill: 9999px;
+
+  /* 4px Spacing Grid */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+  --shadow-btn: 0 1px 2px rgba(108, 71, 255, 0.18);
+  --shadow-focus: 0 0 0 3px rgba(108, 71, 255, 0.18);
+
+  /* Fonts */
+  --font-display: "Space Grotesk", "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Instrument Sans", "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --accent: #6c47ff;
+  --accent-ink: #ffffff;
+  --accent-soft: #f0edff;
+}
+
+/* ── 2. Welcome Screen: Zero-Scroll Vertical Rhythm ── */
+.page-welcome {
+  padding: 44px 16px 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  height: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  background: var(--bg) !important;
+}
+
+.welcome-top {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: 32px !important;
+  margin-bottom: 12px !important;
+  flex: none !important;
+}
+
+.welcome-top .logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.welcome-top .logo-mark {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: var(--r-md) !important;
+  background: linear-gradient(135deg, #6c47ff, #5835e8) !important;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2.5px;
+  padding-bottom: 6px;
+}
+
+.welcome-top .logo-word {
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important;
+  font-size: 19px !important;
+  letter-spacing: -0.02em !important;
+  color: var(--ink) !important;
+}
+
+.org-chip {
+  font-family: var(--font-body) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: var(--muted) !important;
+  background: var(--surface) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: var(--r-md) !important;
+  padding: 4px 10px !important;
+  white-space: nowrap !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+}
+
+.org-chip::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand);
+}
+
+.welcome-main {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: 14px !important;
+  padding: 0 !important;
+  min-height: 0 !important;
+}
+
+.welcome-copy {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 2px !important;
+}
+
+.welcome-copy .eyebrow {
+  font-family: var(--font-mono) !important;
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: var(--brand) !important;
+  margin-bottom: 2px !important;
+  background: none !important;
+  border: 0 !important;
+  padding: 0 !important;
+}
+
+.welcome-copy h1 {
+  margin: 0 !important;
+  font-size: 22px !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.025em !important;
+  font-weight: 700 !important;
+  color: var(--ink) !important;
+}
+
+.welcome-copy .lede {
+  margin: 4px 0 0 !important;
+  font-size: 12.5px !important;
+  line-height: 1.4 !important;
+  color: var(--muted) !important;
+  max-width: 38ch !important;
+}
+
+/* 3 Value-Prop Cards */
+.welcome-props {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.prop-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 10px 12px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.prop-card:hover {
+  border-color: var(--line-strong);
+  transform: translateY(-1px);
+}
+
+.prop-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-md);
+  background: var(--brand-tint);
+  color: var(--brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.prop-icon.icon-amber {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.prop-icon.icon-emerald {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.prop-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.prop-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+
+.prop-desc {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+/* Welcome Screen CTA block */
+.welcome-cta {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  width: 100% !important;
+  margin-top: 12px !important;
+  flex: none !important;
+}
+
+.welcome-note {
+  font-size: 11px !important;
+  color: var(--subtle) !important;
+  line-height: 1.35 !important;
+  text-align: center !important;
+  padding-left: 0 !important;
+  border-left: 0 !important;
+}
+
+.welcome-foot {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding-top: 8px !important;
+  margin-top: 8px !important;
+  border-top: 1px solid var(--line) !important;
+  font-size: 10.5px !important;
+  color: var(--subtle) !important;
+  flex: none !important;
+}
+
+/* ── 3. Standardized Auth Form & Screen Layout ── */
+.page-auth {
+  padding: 44px 16px 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  box-sizing: border-box !important;
+  background: var(--bg) !important;
+}
+
+.auth-top {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: 44px !important;
+  margin-bottom: 16px !important;
+  flex: none !important;
+}
+
+/* Min 44x44 touch targets */
+.icon-btn {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  border-radius: var(--r-md) !important;
+  border: 1px solid var(--line) !important;
+  background: var(--surface) !important;
+  color: var(--ink) !important;
+  font-size: 20px !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease !important;
+}
+
+.icon-btn:hover {
+  background: var(--surface-muted) !important;
+  border-color: var(--line-strong) !important;
+}
+
+.icon-btn:active {
+  transform: scale(0.96) !important;
+}
+
+.icon-btn.ghost {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: var(--ink) !important;
+}
+
+.icon-btn.ghost:hover {
+  background: var(--surface-muted) !important;
+  border-color: var(--line) !important;
+}
+
+.icon-btn.placeholder {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.auth-card {
+  width: 100% !important;
+  max-width: 390px !important;
+  margin: 0 auto !important;
+}
+
+.auth-card .eyebrow {
+  font-family: var(--font-mono) !important;
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: var(--brand) !important;
+  display: inline-block !important;
+  background: none !important;
+  border: 0 !important;
+  padding: 0 !important;
+}
+
+.auth-card h1 {
+  margin: 8px 0 0 !important;
+  font-size: 22px !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.025em !important;
+  font-weight: 700 !important;
+  color: var(--ink) !important;
+}
+
+.sub {
+  margin: 8px 0 16px !important;
+  font-size: 13.5px !important;
+  line-height: 1.45 !important;
+  color: var(--muted) !important;
+}
+
+.sub b {
+  color: var(--ink) !important;
+  font-weight: 600 !important;
+}
+
+/* ── 4. Form Fields & Elevated Label Typography ── */
+.form {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.field {
+  display: block !important;
+  margin-bottom: 16px !important;
+}
+
+/* Elevate input label typography: Slate 700 (#334155), font-size 13px, font-weight 600, margin-bottom 8px */
+.label {
+  display: block !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #334155 !important;
+  margin-bottom: 8px !important;
+  line-height: 16px !important;
+  letter-spacing: -0.01em !important;
+  text-transform: none !important;
+}
+
+.input-wrap {
+  position: relative !important;
+  display: block !important;
+}
+
+/* Corner radius 8px (--r-md) and inputs to 8px (--r-md), min 44pt touch targets */
+.input {
+  width: 100% !important;
+  height: 46px !important;
+  min-height: 44px !important;
+  font-family: var(--font-body) !important;
+  font-size: 15px !important;
+  color: var(--ink) !important;
+  background: var(--surface) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: var(--r-md) !important;
+  padding: 12px 14px !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.input::placeholder {
+  color: var(--disabled) !important;
+  opacity: 0.9 !important;
+}
+
+.input:focus {
+  border-color: var(--brand) !important;
+  box-shadow: var(--shadow-focus) !important;
+}
+
+.input-wrap .input {
+  padding-right: 64px !important;
+}
+
+.peek {
+  position: absolute !important;
+  right: 4px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background: none !important;
+  border: 0 !important;
+  font-family: var(--font-body) !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  color: var(--subtle) !important;
+  cursor: pointer !important;
+  padding: 10px 12px !important;
+  min-height: 44px !important;
+  min-width: 44px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: var(--r-md) !important;
+  transition: color 0.15s ease, background 0.15s ease !important;
+}
+
+.peek:hover {
+  color: var(--brand) !important;
+  background: var(--brand-tint) !important;
+}
+
+.row-end {
+  display: flex !important;
+  justify-content: flex-end !important;
+  margin: -4px 0 16px !important;
+}
+
+.row-center {
+  display: flex !important;
+  justify-content: center !important;
+  text-align: center !important;
+  margin-top: 16px !important;
+}
+
+.link {
+  background: none !important;
+  border: 0 !important;
+  padding: 8px 4px !important;
+  font-family: var(--font-body) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: var(--brand) !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  min-height: 44px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  transition: color 0.15s ease !important;
+}
+
+.link:hover {
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+  color: var(--brand-pressed) !important;
+}
+
+.link.inline {
+  display: inline !important;
+  padding: 0 !important;
+  min-height: auto !important;
+  font-size: inherit !important;
+}
+
+/* ── 5. Buttons (8px corner radius, min 44pt target) ── */
+.btn {
+  font-family: var(--font-body) !important;
+  font-size: 14.5px !important;
+  font-weight: 600 !important;
+  height: 46px !important;
+  min-height: 44px !important;
+  border: 1px solid transparent !important;
+  border-radius: var(--r-md) !important;
+  padding: 12px 20px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  line-height: 1.2 !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
+  transition: transform 0.12s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease !important;
+}
+
+.btn:active {
+  transform: translateY(1px) !important;
+}
+
+.btn-primary {
+  background: var(--brand) !important;
+  color: var(--brand-fg) !important;
+  box-shadow: var(--shadow-btn) !important;
+}
+
+.btn-primary:hover {
+  background: var(--brand-pressed) !important;
+  box-shadow: 0 2px 6px rgba(108, 71, 255, 0.25) !important;
+  transform: none !important;
+}
+
+.btn-secondary {
+  background: var(--surface) !important;
+  color: var(--ink) !important;
+  border: 1px solid var(--line) !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+}
+
+.btn-secondary:hover {
+  background: var(--surface-muted) !important;
+  border-color: var(--line-strong) !important;
+  transform: none !important;
+}
+
+.btn-ghost {
+  background: transparent !important;
+  color: var(--muted) !important;
+  border: 1px solid transparent !important;
+}
+
+.btn-ghost:hover {
+  color: var(--ink) !important;
+  background: var(--surface-muted) !important;
+}
+
+.btn-block {
+  width: 100% !important;
+}
+
+.btn-tag {
+  font-family: var(--font-mono) !important;
+  font-size: 9.5px !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  background: rgba(255, 255, 255, 0.24) !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+}
+
+/* ── 6. Dividers, Notes, OTP, Strength ── */
+.divider {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin: 16px 0 !important;
+  color: var(--subtle) !important;
+  font-size: 12px !important;
+}
+
+.divider::before, .divider::after {
+  content: "" !important;
+  flex: 1 !important;
+  height: 1px !important;
+  background: var(--line) !important;
+}
+
+.note {
+  background: #f8fafc !important;
+  border: 1px solid var(--line) !important;
+  border-radius: var(--r-md) !important;
+  padding: 12px 14px !important;
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+  color: var(--muted) !important;
+  margin-top: 16px !important;
+}
+
+.note strong {
+  color: var(--ink) !important;
+  font-weight: 600 !important;
+}
+
+.fineprint {
+  margin: 16px 0 0 !important;
+  font-size: 11px !important;
+  color: var(--subtle) !important;
+  text-align: center !important;
+  line-height: 1.45 !important;
+}
+
+/* OTP 6-digit code */
+.otp {
+  display: flex !important;
+  gap: 8px !important;
+  justify-content: space-between !important;
+}
+
+.otp input {
+  width: 100% !important;
+  height: 50px !important;
+  min-height: 44px !important;
+  text-align: center !important;
+  font-family: var(--font-display) !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  color: var(--ink) !important;
+  background: var(--surface) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: var(--r-md) !important;
+  outline: none !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.12s ease !important;
+}
+
+.otp input:focus {
+  border-color: var(--brand) !important;
+  box-shadow: var(--shadow-focus) !important;
+  transform: translateY(-2px) !important;
+}
+
+.otp input.filled {
+  background: var(--brand-tint) !important;
+  border-color: var(--brand) !important;
+}
+
+.resend {
+  margin-top: 16px !important;
+  text-align: center !important;
+  font-size: 13px !important;
+  color: var(--muted) !important;
+}
+
+#resend-timer {
+  font-family: var(--font-mono) !important;
+  font-size: 12px !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* Password Strength Meter */
+.strength {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin: 2px 0 12px !important;
+}
+
+.s-bar {
+  height: 4px !important;
+  flex: 1 !important;
+  background: var(--line) !important;
+  border-radius: 2px !important;
+  transition: background 0.25s ease !important;
+}
+
+.strength.s1 .s-bar:nth-child(-n+1) { background: #ef4444 !important; }
+.strength.s2 .s-bar:nth-child(-n+2) { background: #f59e0b !important; }
+.strength.s3 .s-bar:nth-child(-n+3) { background: #10b981 !important; }
+.strength.s4 .s-bar:nth-child(-n+4) { background: #15803d !important; }
+
+.s-label {
+  font-family: var(--font-mono) !important;
+  font-size: 10px !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  color: var(--subtle) !important;
+  width: 72px !important;
+  text-align: right !important;
+}
+
+.reqs {
+  list-style: none !important;
+  margin: 0 0 16px !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+
+.reqs li {
+  font-size: 12.5px !important;
+  color: var(--muted) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  transition: color 0.15s ease !important;
+}
+
+.reqs li::before {
+  content: "" !important;
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: 50% !important;
+  border: 1px solid var(--line-strong) !important;
+  flex: none !important;
+  background: no-repeat center/9px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6.4 4.8 9.2 10 3.4' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+  transition: background-color 0.2s, border-color 0.2s !important;
+}
+
+.reqs li.met {
+  color: var(--ink) !important;
+  font-weight: 600 !important;
+}
+
+.reqs li.met::before {
+  background-color: var(--ok) !important;
+  border-color: var(--ok) !important;
+}
+
+/* ── 7. Success Screens ── */
+.page-success {
+  justify-content: flex-start !important;
+}
+
+.success {
+  width: 100% !important;
+  max-width: 390px !important;
+  margin: 16px auto 0 !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.succ-icon {
+  width: 68px !important;
+  height: 68px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: 16px !important;
+  background: var(--ok-bg) !important;
+  color: var(--ok) !important;
+  border: 1px solid var(--ok-border) !important;
+  box-shadow: 0 4px 12px rgba(21, 128, 61, 0.1) !important;
+}
+
+.succ-icon.icon-mail {
+  background: var(--brand-tint) !important;
+  color: var(--brand) !important;
+  border-color: rgba(108, 71, 255, 0.2) !important;
+  box-shadow: 0 4px 12px rgba(108, 71, 255, 0.1) !important;
+}
+
+.succ-icon.icon-shield {
+  background: #eff6ff !important;
+  color: #1d4ed8 !important;
+  border-color: #bfdbfe !important;
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.1) !important;
+}
+
+.success h1 {
+  margin: 8px 0 0 !important;
+  font-size: 22px !important;
+  letter-spacing: -0.025em !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  color: var(--ink) !important;
+}
+
+.success .sub {
+  margin: 8px 0 20px !important;
+  max-width: 34ch !important;
+}
+
+.success-actions {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+/* ── 8. Desktop Container Queries ── */
+@container (min-width: 700px) {
+  .page-welcome {
+    padding: 32px 48px 24px !important;
+  }
+  .welcome-main {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 36px !important;
+    align-items: center !important;
+  }
+  .welcome-copy h1 {
+    font-size: 32px !important;
+  }
+  .welcome-copy .lede {
+    font-size: 14px !important;
+  }
+  .welcome-props {
+    gap: 12px !important;
+  }
+  .welcome-cta {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 16px !important;
+  }
+  .welcome-cta .btn-block {
+    width: auto !important;
+    padding-left: 28px !important;
+    padding-right: 28px !important;
+  }
+}

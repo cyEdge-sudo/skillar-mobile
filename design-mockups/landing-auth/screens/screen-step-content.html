@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="en" data-variant="warm">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Skillar · Step Content &amp; Activity Player</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600;700&family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../css/step-content.css" />
+  <style>
+    /* Standalone review stage helpers */
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      background: #0b0c0f;
+      padding: 24px 16px;
+      margin: 0;
+    }
+    .preview-header {
+      width: 100%;
+      max-width: 440px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .preview-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: #fff;
+    }
+    .preview-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c5cff, #00d4b4);
+      box-shadow: 0 0 10px rgba(124, 92, 255, 0.7);
+    }
+    .preview-variants {
+      display: flex;
+      background: #16171d;
+      border: 1px solid #24262f;
+      border-radius: 8px;
+      padding: 2px;
+      gap: 2px;
+    }
+    .preview-variants button {
+      background: transparent;
+      border: 0;
+      color: #8a8fa1;
+      font-family: "IBM Plex Sans", sans-serif;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .preview-variants button.active {
+      background: #2b2e3a;
+      color: #fff;
+    }
+    .preview-device-wrap {
+      position: relative;
+      width: 390px;
+      height: 844px;
+      background: #050506;
+      border-radius: 46px;
+      padding: 11px;
+      box-shadow:
+        0 0 0 2px #26272f,
+        0 34px 80px -20px rgba(0, 0, 0, 0.85),
+        0 8px 26px -8px rgba(0, 0, 0, 0.6);
+      flex: none;
+    }
+    .preview-device-wrap .viewport {
+      position: absolute;
+      top: 11px;
+      left: 11px;
+      right: 11px;
+      bottom: 11px;
+      border-radius: 36px;
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .preview-device-wrap .statusbar {
+      position: absolute;
+      top: 11px;
+      left: 11px;
+      right: 11px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 26px;
+      z-index: 70;
+      pointer-events: none;
+      color: var(--ink);
+    }
+    .preview-footer-note {
+      margin-top: 16px;
+      font-size: 12px;
+      color: #6d7182;
+      font-family: "IBM Plex Sans", sans-serif;
+      text-align: center;
+      max-width: 400px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Preview Toolbar (Variant switch & context) -->
+  <header class="preview-header">
+    <div class="preview-brand">
+      <span class="preview-dot"></span>
+      <span>Skillar · Step Player</span>
+    </div>
+    <div class="preview-variants" role="group" aria-label="Visual variant switcher">
+      <button type="button" class="variant-btn active" data-set-variant="warm">Warm</button>
+      <button type="button" class="variant-btn" data-set-variant="playful">Playful</button>
+      <button type="button" class="variant-btn" data-set-variant="minimal">Minimal</button>
+    </div>
+  </header>
+
+  <!-- Mobile Device Shell (390 x 844 iPhone dimensions) -->
+  <main class="preview-device-wrap">
+    
+    <!-- Native iOS Status Bar -->
+    <div class="statusbar" aria-hidden="true">
+      <span class="sb-time">9:41</span>
+      <span class="sb-icons">
+        <svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+        <svg width="15" height="11" viewBox="0 0 15 11"><path d="M7.5 9.6 9.7 7.3a3.1 3.1 0 0 0-4.4 0L7.5 9.6Zm0-4.4c1.7 0 3.3.6 4.5 1.8l1.4-1.4a8.4 8.4 0 0 0-11.8 0l1.4 1.4a6.3 6.3 0 0 1 4.5-1.8Z"/></svg>
+        <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="20" height="11" rx="3.2" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="15" height="8" rx="2"/><path d="M22.5 4v4a2.2 2.2 0 0 0 0-4Z" fill-opacity=".45"/></svg>
+      </span>
+    </div>
+
+    <!-- Screen Viewport Container -->
+    <div class="viewport" id="viewport">
+
+      <!-- ═══════════════════════════════════════════════════════════════════
+           STEP CONTENT / LESSON PLAYER SCREEN
+           `data-screen="step-content"`
+           ═══════════════════════════════════════════════════════════════════ -->
+      <section class="screen is-active" data-screen="step-content" aria-label="Step Content &amp; Activity Player">
+        <div class="page-step-player">
+
+          <!-- 1 · TOP NAVIGATION & PROGRESS BAR -->
+          <header class="step-topbar" role="banner">
+            <!-- Progress Track at the very top edge -->
+            <div class="step-progress-track" role="progressbar" aria-valuenow="41" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson progress">
+              <div class="step-progress-fill" id="progress-fill" style="width: 41.6%;"></div>
+            </div>
+
+            <!-- Top bar items: Close/Back, Step Counter, Bookmark, Text Size -->
+            <div class="step-topbar-inner">
+              <div class="step-topbar-left">
+                <button class="step-icon-btn step-close-btn" type="button" data-goto="roadmap-detail" aria-label="Close and return to roadmap" title="Back to roadmap">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="step-topbar-center">
+                <span class="step-progress-label">Step 5 of 12 <span class="step-progress-percent">(41%)</span></span>
+              </div>
+
+              <div class="step-topbar-actions">
+                <!-- Text size toggle button -->
+                <button class="step-icon-btn" type="button" id="btn-text-size" aria-label="Adjust font size" title="Cycle font size (Normal / Large / Compact)">
+                  <span class="text-size-pill">Aa</span>
+                </button>
+
+                <!-- Bookmark lesson button -->
+                <button class="step-icon-btn" type="button" id="btn-bookmark" aria-label="Bookmark this lesson" title="Save lesson for later">
+                  <svg class="bm-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </header>
+
+          <!-- 2 · SCROLLABLE LESSON READER -->
+          <div class="step-scroll-body" id="reader-scroll-area">
+            
+            <!-- Lesson Metadata Header -->
+            <div class="lesson-meta-header anim">
+              <div class="lesson-eyebrow-row">
+                <span class="lesson-eyebrow">
+                  <span>Phase 2</span>
+                  <span class="dot-sep">·</span>
+                  <span>Step 5</span>
+                  <span class="dot-sep">·</span>
+                  <span>25 Mins</span>
+                </span>
+                <span class="lesson-xp-badge" title="XP reward for completion">
+                  <span>✨</span> +50 XP
+                </span>
+              </div>
+
+              <h1 class="lesson-title anim">Offline-First State &amp; TanStack Query v5</h1>
+
+              <!-- Tag Chips -->
+              <div class="lesson-tags-row anim" role="list" aria-label="Lesson topics">
+                <span class="lesson-tag" role="listitem">
+                  <span class="lesson-tag-dot" aria-hidden="true"></span>
+                  TanStack Query
+                </span>
+                <span class="lesson-tag" role="listitem">
+                  <span class="lesson-tag-dot" aria-hidden="true"></span>
+                  AsyncStorage
+                </span>
+                <span class="lesson-tag" role="listitem">
+                  <span class="lesson-tag-dot" aria-hidden="true"></span>
+                  React 19
+                </span>
+              </div>
+            </div>
+
+            <!-- Rich Formatted Learning Content (Reader Body) -->
+            <article class="reading-content size-md" id="reading-content">
+
+              <!-- Introduction Paragraph -->
+              <p class="lead-paragraph anim">
+                Mobile networks are inherently unpredictable. Devices frequently encounter edge-cell handoffs, underground subway dead-zones, and sudden packet loss. In modern React Native development, your application state architecture must treat the network as an asynchronous enhancement rather than a prerequisite for rendering.
+              </p>
+
+              <p class="anim">
+                TanStack Query v5 bridges this gap by decoupling <strong>network fetching</strong> from <strong>local memory cache management</strong>. With deterministic stale-while-revalidate cycles, fine-grained garbage collection (<code style="font-family:var(--font-mono);font-size:0.9em;background:var(--accent-soft);padding:1px 5px;border-radius:4px;">gcTime</code>), and auto-paused queries during disconnected states, client UIs can render instantly from storage before cellular radios even begin negotiating TLS handshakes.
+              </p>
+
+              <!-- Key Architecture Principles Callout Box -->
+              <aside class="callout-principles anim" aria-labelledby="principles-title">
+                <div class="callout-header">
+                  <span class="callout-badge-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                    </svg>
+                  </span>
+                  <h3 class="callout-title" id="principles-title">Key Architecture Principles</h3>
+                </div>
+
+                <ul class="principles-list">
+                  <li class="principle-item">
+                    <span class="principle-check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </span>
+                    <span class="principle-text">
+                      <b>Zero Stale Flashes:</b> Hydrate queries synchronously from persistent cache (<code style="font-family:var(--font-mono);">AsyncStorage</code> or MMKV) before firing background network requests.
+                    </span>
+                  </li>
+                  <li class="principle-item">
+                    <span class="principle-check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </span>
+                    <span class="principle-text">
+                      <b>Hermes GC Protection:</b> Calibrate <code style="font-family:var(--font-mono);">gcTime</code> to 24 hours to prevent memory churn while preserving instant app-resume navigation.
+                    </span>
+                  </li>
+                  <li class="principle-item">
+                    <span class="principle-check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </span>
+                    <span class="principle-text">
+                      <b>Capped Exponential Backoff:</b> Mandate jittered exponential retries with a strict attempt ceiling to protect backend gateways from thundering herds upon device reconnection.
+                    </span>
+                  </li>
+                </ul>
+              </aside>
+
+              <!-- Section: Code Block -->
+              <h2 class="anim">Deterministic Query Implementation</h2>
+
+              <p class="anim">
+                When configuring custom domain hooks for mobile screens, wrap TanStack’s <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--accent-soft);padding:1px 5px;border-radius:4px;">useQuery</code> with domain-safe retry boundaries:
+              </p>
+
+              <!-- Syntax-Highlighted Code Block -->
+              <div class="code-card anim" role="region" aria-label="Code example: useRoadmaps hook">
+                <div class="code-card-header">
+                  <div class="code-header-left">
+                    <div class="code-mac-dots" aria-hidden="true">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <span class="code-lang-pill">TypeScript</span>
+                  </div>
+                  <button class="code-copy-btn" type="button" id="btn-copy-code" aria-label="Copy code to clipboard">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    <span id="copy-btn-text">Copy</span>
+                  </button>
+                </div>
+                <pre class="code-pre"><code><span class="syn-kw">export const</span> <span class="syn-fn">useRoadmaps</span> = <span class="syn-pun">() =&gt;</span> {
+  <span class="syn-kw">return</span> <span class="syn-fn">useQuery</span>({
+    <span class="syn-prop">queryKey</span>: [<span class="syn-str">'roadmaps'</span>],
+    <span class="syn-prop">queryFn</span>: <span class="syn-fn">fetchRoadmaps</span>,
+    <span class="syn-prop">staleTime</span>: <span class="syn-num">1000</span> * <span class="syn-num">60</span> * <span class="syn-num">5</span>, <span class="syn-com">// 5 minutes</span>
+    <span class="syn-prop">retry</span>: <span class="syn-prop">queryRetryPolicy</span>,
+  });
+};</code></pre>
+              </div>
+
+              <!-- Section: Best Practices -->
+              <h2 class="anim">Best Practices for Mobile Fetching</h2>
+
+              <div class="best-practices-stack anim" role="list">
+                <div class="practice-item" role="listitem">
+                  <div class="practice-number" aria-hidden="true">1</div>
+                  <div class="practice-text">
+                    <b>Decouple Stale Time from Garbage Collection</b>
+                    Keep <code style="font-family:var(--font-mono);">staleTime</code> short (e.g., 5 min) for active views, but maintain a high <code style="font-family:var(--font-mono);">gcTime</code> (24h) so offline screen transitions are latency-free.
+                  </div>
+                </div>
+
+                <div class="practice-item" role="listitem">
+                  <div class="practice-number" aria-hidden="true">2</div>
+                  <div class="practice-text">
+                    <b>Online Manager NetInfo Synchronization</b>
+                    Bind TanStack’s <code style="font-family:var(--font-mono);">onlineManager</code> directly to NetInfo. When the device regains Wi-Fi or cellular service, stalled mutations and active queries flush automatically.
+                  </div>
+                </div>
+
+                <div class="practice-item" role="listitem">
+                  <div class="practice-number" aria-hidden="true">3</div>
+                  <div class="practice-text">
+                    <b>Optimistic Mutations with Rollback Snapshots</b>
+                    Always snapshot current cache states inside <code style="font-family:var(--font-mono);">onMutate</code>. If the device disconnects before the API validates, you can roll back seamlessly without loss of user confidence.
+                  </div>
+                </div>
+              </div>
+
+              <!-- 4 · INTERACTIVE KNOWLEDGE CHECK (QUIZ COMPONENT) -->
+              <section class="quiz-card anim" id="quiz-section" aria-labelledby="quiz-question-heading">
+                <div class="quiz-card-head">
+                  <span class="quiz-eyebrow">
+                    <span class="quiz-eyebrow-icon" aria-hidden="true">💡</span>
+                    <span>Knowledge Check</span>
+                  </span>
+                  <span class="quiz-reward-chip">
+                    <span>⭐</span> +15 XP
+                  </span>
+                </div>
+
+                <h3 class="quiz-question" id="quiz-question-heading">
+                  Why should mobile applications configure a capped exponential backoff for network retries?
+                </h3>
+
+                <div class="quiz-options" role="radiogroup" aria-labelledby="quiz-question-heading">
+                  <!-- Option A (Correct) -->
+                  <button class="quiz-option" type="button" role="radio" aria-checked="false" data-quiz-choice="A" data-quiz-correct="true">
+                    <span class="quiz-radio" aria-hidden="true">A</span>
+                    <span class="quiz-option-text">To prevent overwhelming backend services and conserving device battery</span>
+                  </button>
+
+                  <!-- Option B (Wrong) -->
+                  <button class="quiz-option" type="button" role="radio" aria-checked="false" data-quiz-choice="B" data-quiz-correct="false">
+                    <span class="quiz-radio" aria-hidden="true">B</span>
+                    <span class="quiz-option-text">To force the user to restart the application immediately</span>
+                  </button>
+
+                  <!-- Option C (Wrong) -->
+                  <button class="quiz-option" type="button" role="radio" aria-checked="false" data-quiz-choice="C" data-quiz-correct="false">
+                    <span class="quiz-radio" aria-hidden="true">C</span>
+                    <span class="quiz-option-text">To disable garbage collection in Hermes</span>
+                  </button>
+                </div>
+
+                <!-- Interactive Feedback Message (Revealed on choice) -->
+                <div class="quiz-feedback" id="quiz-feedback-box" role="alert" aria-live="polite">
+                  <span class="feedback-icon" id="feedback-icon">✓</span>
+                  <div class="feedback-body">
+                    <b id="feedback-title">Correct!</b>
+                    <span id="feedback-message">
+                      Exponential backoff with randomized jitter spreads reconnection spikes across a wider time window, preventing server gateway crashes while avoiding continuous battery-draining cellular radio power states.
+                    </span>
+                    <div>
+                      <button type="button" class="quiz-retry-btn" id="btn-quiz-retry" style="display:none;">Try again</button>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+            </article>
+          </div>
+
+          <!-- 5 · STICKY BOTTOM ACTION BAR -->
+          <footer class="step-action-bar" role="contentinfo">
+            <button class="btn-step-prev" type="button" data-goto="roadmap-detail" aria-label="Go to previous step">
+              <span>‹</span> Previous
+            </button>
+            <button class="btn-step-next" type="button" id="btn-step-complete" data-action="complete-step" aria-label="Mark step as complete and proceed to next step">
+              <span id="btn-complete-label">Mark Step Complete &amp; Next →</span>
+            </button>
+          </footer>
+
+          <!-- Confetti Particle Overlay -->
+          <div class="confetti-container" id="confetti-container" aria-hidden="true"></div>
+
+        </div>
+      </section>
+
+    </div><!-- /viewport -->
+  </main>
+
+  <footer class="preview-footer-note">
+    Skillar Mobile · Step Content &amp; Reader Prototype · Warm Minimal Aesthetic
+  </footer>
+
+  <!-- Toast Container -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Interactive Logic for Mockup -->
+  <script>
+    (function () {
+      "use strict";
+
+      const toastEl = document.getElementById("toast");
+      let toastTimer = null;
+
+      function showToast(message) {
+        if (!toastEl) return;
+        toastEl.textContent = message;
+        toastEl.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          toastEl.classList.remove("show");
+        }, 3200);
+      }
+
+      /* ── Variant Switcher for Standalone Review ── */
+      const variantButtons = document.querySelectorAll(".variant-btn");
+      variantButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const v = btn.dataset.setVariant;
+          document.documentElement.dataset.variant = v;
+          variantButtons.forEach(b => b.classList.toggle("active", b === btn));
+          showToast("Switched variant: " + (v === "warm" ? "Warm Minimal" : v === "playful" ? "Playful Colorful" : "Minimal Neutral"));
+        });
+      });
+
+      /* ── Text Size Adjuster (Aa) ── */
+      const btnTextSize = document.getElementById("btn-text-size");
+      const readingContent = document.getElementById("reading-content");
+      const sizes = ["size-sm", "size-md", "size-lg"];
+      const sizeNames = { "size-sm": "Compact (14px)", "size-md": "Default (15.5px)", "size-lg": "Large (17.5px)" };
+      let currentSizeIdx = 1; // size-md
+
+      if (btnTextSize && readingContent) {
+        btnTextSize.addEventListener("click", () => {
+          readingContent.classList.remove(sizes[currentSizeIdx]);
+          currentSizeIdx = (currentSizeIdx + 1) % sizes.length;
+          const nextSize = sizes[currentSizeIdx];
+          readingContent.classList.add(nextSize);
+          showToast("Text size: " + sizeNames[nextSize]);
+        });
+      }
+
+      /* ── Bookmark Toggle ── */
+      const btnBookmark = document.getElementById("btn-bookmark");
+      let isBookmarked = false;
+      if (btnBookmark) {
+        btnBookmark.addEventListener("click", () => {
+          isBookmarked = !isBookmarked;
+          btnBookmark.classList.toggle("is-bookmarked", isBookmarked);
+          showToast(isBookmarked ? "📌 Lesson bookmarked for quick review" : "Bookmark removed");
+        });
+      }
+
+      /* ── Copy Code Snippet ── */
+      const btnCopyCode = document.getElementById("btn-copy-code");
+      const copyBtnText = document.getElementById("copy-btn-text");
+      const codeSnippet = `export const useRoadmaps = () => {
+  return useQuery({
+    queryKey: ['roadmaps'],
+    queryFn: fetchRoadmaps,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    retry: queryRetryPolicy,
+  });
+};`;
+
+      if (btnCopyCode) {
+        btnCopyCode.addEventListener("click", () => {
+          navigator.clipboard?.writeText(codeSnippet).then(() => {
+            copyBtnText.textContent = "Copied!";
+            showToast("Code snippet copied to clipboard");
+            setTimeout(() => { copyBtnText.textContent = "Copy"; }, 2000);
+          }).catch(() => {
+            copyBtnText.textContent = "Copied!";
+            showToast("Code snippet copied (mock)");
+            setTimeout(() => { copyBtnText.textContent = "Copy"; }, 2000);
+          });
+        });
+      }
+
+      /* ── Interactive Knowledge Check (Quiz Component) ── */
+      const quizOptions = document.querySelectorAll(".quiz-option");
+      const feedbackBox = document.getElementById("quiz-feedback-box");
+      const feedbackIcon = document.getElementById("feedback-icon");
+      const feedbackTitle = document.getElementById("feedback-title");
+      const feedbackMessage = document.getElementById("feedback-message");
+      const retryBtn = document.getElementById("btn-quiz-retry");
+      let quizAnswered = false;
+
+      function resetQuiz() {
+        quizAnswered = false;
+        quizOptions.forEach(opt => {
+          opt.classList.remove("is-correct", "is-wrong");
+          opt.setAttribute("aria-checked", "false");
+          opt.disabled = false;
+        });
+        feedbackBox.classList.remove("is-visible", "feedback-success", "feedback-error");
+        retryBtn.style.display = "none";
+      }
+
+      quizOptions.forEach(opt => {
+        opt.addEventListener("click", () => {
+          if (quizAnswered) return;
+          const isCorrect = opt.dataset.quizCorrect === "true";
+          const choice = opt.dataset.quizChoice;
+
+          // Clear previous styles
+          quizOptions.forEach(o => {
+            o.classList.remove("is-correct", "is-wrong");
+            o.setAttribute("aria-checked", "false");
+          });
+
+          opt.setAttribute("aria-checked", "true");
+
+          if (isCorrect) {
+            quizAnswered = true;
+            opt.classList.add("is-correct");
+            feedbackBox.className = "quiz-feedback is-visible feedback-success";
+            feedbackIcon.textContent = "✓";
+            feedbackTitle.textContent = "Correct! (+15 XP)";
+            feedbackMessage.textContent = "Exponential backoff with randomized jitter prevents traffic spikes from crushing backend servers during reconnection storms, while keeping the mobile device radio in low-power idle states.";
+            retryBtn.style.display = "none";
+            showToast("🎯 Knowledge Check Passed! +15 XP added");
+          } else {
+            opt.classList.add("is-wrong");
+            feedbackBox.className = "quiz-feedback is-visible feedback-error";
+            feedbackIcon.textContent = "✕";
+            feedbackTitle.textContent = "Not quite right";
+            if (choice === "B") {
+              feedbackMessage.textContent = "Forcing app restarts degrades user trust and exacerbates connection churn. Backoff policies operate silently under the hood without interrupting user flow.";
+            } else {
+              feedbackMessage.textContent = "Hermes garbage collection manages JavaScript heap allocations independently of network protocols and HTTP retry headers.";
+            }
+            retryBtn.style.display = "inline-block";
+            showToast("Try another answer to master this concept");
+          }
+        });
+      });
+
+      if (retryBtn) {
+        retryBtn.addEventListener("click", resetQuiz);
+      }
+
+      /* ── Confetti Animation Generator ── */
+      function fireConfetti() {
+        const container = document.getElementById("confetti-container");
+        if (!container) return;
+        container.innerHTML = "";
+        container.classList.add("active");
+
+        const colors = ["#6c47ff", "#c0603a", "#5e7d54", "#ffc93c", "#00d4b4", "#ffffff"];
+        for (let i = 0; i < 40; i++) {
+          const bit = document.createElement("div");
+          bit.className = "confetti-bit";
+          bit.style.left = Math.random() * 100 + "%";
+          bit.style.background = colors[Math.floor(Math.random() * colors.length)];
+          bit.style.borderRadius = Math.random() > 0.5 ? "50%" : "2px";
+          bit.style.width = (Math.random() * 6 + 5) + "px";
+          bit.style.height = (Math.random() * 6 + 5) + "px";
+          bit.style.animationDelay = (Math.random() * 0.4) + "s";
+          bit.style.animationDuration = (Math.random() * 0.8 + 1) + "s";
+          container.appendChild(bit);
+        }
+
+        setTimeout(() => {
+          container.classList.remove("active");
+          container.innerHTML = "";
+        }, 1800);
+      }
+
+      /* ── Sticky Bottom Action Bar Celebration ── */
+      const btnStepComplete = document.getElementById("btn-step-complete");
+      const btnCompleteLabel = document.getElementById("btn-complete-label");
+      const progressFill = document.getElementById("progress-fill");
+      let isCompleted = false;
+
+      if (btnStepComplete) {
+        btnStepComplete.addEventListener("click", () => {
+          if (!isCompleted) {
+            isCompleted = true;
+            btnStepComplete.classList.add("is-completed");
+            btnCompleteLabel.textContent = "Step 5 Completed! ✓";
+            if (progressFill) progressFill.style.width = "50%"; // visual bump
+            fireConfetti();
+            showToast("🎉 Step 5 Completed! +50 XP awarded");
+          } else {
+            showToast("Navigating to next step (mock)...");
+          }
+        });
+      }
+
+      /* ── Navigation Handler for [data-goto] ── */
+      document.addEventListener("click", e => {
+        const gotoBtn = e.target.closest("[data-goto]");
+        if (gotoBtn) {
+          const target = gotoBtn.dataset.goto;
+          showToast("Navigation trigger: → " + target + " (prototype transition)");
+        }
+      });
+
+    })();
+  </script>
+</body>
+</html>

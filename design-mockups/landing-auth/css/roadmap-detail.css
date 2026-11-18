@@ -1,0 +1,3108 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Skillar Mobile · Roadmap Detail & Interactive Stepper Styles
+   Screen ID: roadmap-detail (data-screen="roadmap-detail")
+   Aesthetic: Warm Minimal · Design Tokens Spec v1.0
+   Clean connected node graph/timeline, #6C47FF brand purple accent,
+   8px/12px corner radii, WCAG AA contrast, >=44px touch targets.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Skillar Mobile Design System Tokens */
+  --rm-brand: #6c47ff;
+  --rm-brand-pressed: #5835e8;
+  --rm-brand-tint: #efeaff;
+  --rm-brand-tint-2: #f4f1ff;
+  --rm-brand-glow: rgba(108, 71, 255, 0.45);
+
+  --rm-font-display: var(--font-display, "Fraunces", Georgia, serif);
+  --rm-font-body: var(--font-body, "Instrument Sans", system-ui, sans-serif);
+  --rm-font-mono: var(--font-mono, "IBM Plex Mono", monospace);
+
+  /* Corner Radii */
+  --rm-r-sm: 4px;
+  --rm-r-md: 8px;
+  --rm-r-lg: 12px;
+  --rm-r-xl: 16px;
+  --rm-r-pill: 9999px;
+
+  /* Semantic Feedback Ramps (WCAG AA Compliant) */
+  --rm-success-text: #15803d;
+  --rm-success-bg: #f0fdf4;
+  --rm-success-border: #bbf7d0;
+
+  --rm-warning-text: #a16207;
+  --rm-warning-bg: #fefce8;
+  --rm-warning-border: #fef08a;
+
+  --rm-error-text: #b91c1c;
+  --rm-error-bg: #fef2f2;
+  --rm-error-border: #fecaca;
+
+  --rm-info-text: #1d4ed8;
+  --rm-info-bg: #eff6ff;
+  --rm-info-border: #bfdbfe;
+
+  --rm-locked-text: #64748b;
+  --rm-locked-bg: #f1f5f9;
+  --rm-locked-border: #cbd5e1;
+
+  --rm-shadow-card: 0 4px 16px -4px rgba(30, 24, 18, 0.08), 0 1px 3px rgba(30, 24, 18, 0.04);
+  --rm-shadow-elevated: 0 12px 32px -8px rgba(30, 24, 18, 0.16), 0 4px 12px rgba(30, 24, 18, 0.06);
+  --rm-shadow-pulse: 0 0 0 0 rgba(108, 71, 255, 0.7);
+
+  --rm-topbar-height: 56px;
+}
+
+/* Note: Comprehensive design variant overrides (Playful, Cyber-Neon, Neo-Brutalist, Warm, Minimal)
+   are declared in Section 6 below for optimal cascade and strict specificity. */
+
+/* ──────────────────────── Page Container ──────────────────────── */
+
+.page-roadmap-detail {
+  padding: 48px 16px 84px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: var(--bg);
+  min-height: 100%;
+  color: var(--ink);
+  font-family: var(--rm-font-body);
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.page-roadmap-detail::-webkit-scrollbar {
+  width: 4px;
+}
+.page-roadmap-detail::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: var(--rm-r-pill);
+}
+
+/* ──────────────────────── 1. Top Bar ──────────────────────── */
+
+.roadmap-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 0 8px;
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 25;
+}
+
+.topbar-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 8px 12px 8px 6px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--rm-r-md);
+  color: var(--rm-brand);
+  font-family: var(--rm-font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, transform 0.15s;
+}
+.topbar-back-btn:hover {
+  background: var(--rm-brand-tint);
+  transform: translateX(-1px);
+}
+.topbar-back-btn:active {
+  transform: scale(0.97);
+}
+
+.back-chevron-icon {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.4;
+}
+
+.topbar-title-wrap {
+  flex: 1;
+  text-align: center;
+}
+
+.topbar-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  line-height: 1.25;
+  font-family: var(--rm-font-display);
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.topbar-icon-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--rm-r-md);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  position: relative;
+}
+.topbar-icon-btn:hover {
+  border-color: var(--rm-brand);
+  color: var(--rm-brand);
+  background: var(--rm-brand-tint-2);
+  transform: translateY(-1px);
+}
+.topbar-icon-btn:active {
+  transform: scale(0.94);
+}
+
+.topbar-icon-btn.is-active {
+  background: var(--rm-brand-tint);
+  border-color: var(--rm-brand);
+  color: var(--rm-brand);
+}
+
+.topbar-icon-btn svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.18s ease, fill 0.18s ease;
+}
+
+.topbar-icon-btn.is-active svg.bookmark-icon {
+  fill: var(--rm-brand);
+}
+
+/* ──────────────────────── 2. Hero Header Card ──────────────────────── */
+
+.roadmap-hero-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--rm-r-xl);
+  padding: 20px;
+  box-shadow: var(--rm-shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.roadmap-hero-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--rm-brand), #9d7bff 60%, #00d4b4 100%);
+}
+
+.hero-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hero-badges-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.badge-domain {
+  background: var(--rm-brand-tint);
+  color: var(--rm-brand);
+  font-family: var(--rm-font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--rm-r-pill);
+  border: 1px solid rgba(108, 71, 255, 0.2);
+}
+
+.badge-level {
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 4px 10px;
+  border-radius: var(--rm-r-pill);
+  border: 1px solid #fde68a;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.badge-level::before {
+  content: "★";
+  font-size: 10px;
+  color: #d97706;
+}
+
+.badge-duration {
+  font-size: 12px;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+}
+
+.hero-title-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hero-roadmap-title {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  font-family: var(--rm-font-display);
+}
+
+.hero-roadmap-desc {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* Progress Section */
+.hero-progress-box {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--rm-r-lg);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hero-progress-labels {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12.5px;
+}
+
+.progress-summary-text {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.progress-pct-badge {
+  font-family: var(--rm-font-mono);
+  font-weight: 700;
+  font-size: 12.5px;
+  color: var(--rm-brand);
+  background: var(--rm-brand-tint);
+  padding: 2px 8px;
+  border-radius: var(--rm-r-pill);
+}
+
+.hero-progress-track {
+  width: 100%;
+  height: 8px;
+  background: var(--line);
+  border-radius: var(--rm-r-pill);
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #15803d 0%, #10b981 70%, var(--rm-brand) 100%);
+  border-radius: var(--rm-r-pill);
+  transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Primary Hero Action */
+.btn-hero-action {
+  min-height: 48px;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--rm-brand);
+  color: #ffffff;
+  border: 1px solid var(--rm-brand-pressed);
+  border-radius: var(--rm-r-lg);
+  padding: 12px 20px;
+  font-family: var(--rm-font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 4px 14px rgba(108, 71, 255, 0.35);
+}
+.btn-hero-action:hover {
+  background: var(--rm-brand-pressed);
+  box-shadow: 0 6px 18px rgba(108, 71, 255, 0.45);
+  transform: translateY(-1px);
+}
+.btn-hero-action:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(108, 71, 255, 0.3);
+}
+
+.btn-hero-action svg {
+  width: 17px;
+  height: 17px;
+  transition: transform 0.2s ease;
+}
+.btn-hero-action:hover svg {
+  transform: translateX(3px);
+}
+
+/* ──────────────────────── 3. Connected Node Stepper Timeline ──────────────────────── */
+
+.roadmap-stepper-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.stepper-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.stepper-section-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  font-family: var(--rm-font-display);
+}
+
+.stepper-legend {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.legend-dot.completed { background: #15803d; }
+.legend-dot.current { background: var(--rm-brand); box-shadow: 0 0 6px var(--rm-brand); }
+.legend-dot.locked { background: var(--rm-locked-text); }
+
+/* ── Phase Group ── */
+
+.phase-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.phase-header-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--rm-r-lg);
+  box-shadow: 0 1px 3px rgba(30, 24, 18, 0.03);
+}
+
+.phase-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.phase-pill {
+  font-family: var(--rm-font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: var(--rm-r-sm);
+  background: var(--rm-brand-tint);
+  color: var(--rm-brand);
+}
+
+.phase-group.completed .phase-pill {
+  background: var(--rm-success-bg);
+  color: var(--rm-success-text);
+  border: 1px solid var(--rm-success-border);
+}
+
+.phase-group.in-progress .phase-pill {
+  background: var(--rm-brand-tint);
+  color: var(--rm-brand);
+  border: 1px solid rgba(108, 71, 255, 0.3);
+}
+
+.phase-group.locked .phase-pill {
+  background: var(--rm-locked-bg);
+  color: var(--rm-locked-text);
+  border: 1px solid var(--rm-locked-border);
+}
+
+.phase-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.phase-status-tag {
+  font-size: 11.5px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.phase-group.completed .phase-status-tag { color: var(--rm-success-text); }
+.phase-group.in-progress .phase-status-tag { color: var(--rm-brand); }
+.phase-group.locked .phase-status-tag { color: var(--rm-locked-text); }
+
+/* ── Timeline Nodes & Stepper List ── */
+
+.timeline-list {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-left: 2px;
+}
+
+/* Single Step Row */
+.timeline-step {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  column-gap: 12px;
+  position: relative;
+  padding-bottom: 16px;
+}
+.timeline-step:last-child {
+  padding-bottom: 4px;
+}
+
+/* Node Column & Connector Line */
+.step-node-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.step-node-marker {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  transition: all 0.22s ease;
+  flex: none;
+  background: var(--surface);
+  border: 2px solid var(--line);
+}
+
+/* Connector Line downward */
+.step-connector-rail {
+  width: 2.5px;
+  flex: 1;
+  background: var(--line);
+  margin: 6px 0;
+  position: relative;
+  border-radius: var(--rm-r-pill);
+}
+
+/* Status variants for Node Marker & Connector */
+
+/* 1) Completed Step */
+.timeline-step.completed .step-node-marker {
+  background: #15803d;
+  border-color: #15803d;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(21, 128, 61, 0.28);
+}
+.timeline-step.completed .step-node-marker svg {
+  stroke: #ffffff;
+  stroke-width: 2.6;
+}
+.timeline-step.completed .step-connector-rail {
+  background: #15803d;
+}
+
+/* 2) Current / Active Step */
+.timeline-step.current .step-node-marker {
+  background: var(--rm-brand);
+  border-color: #ffffff;
+  color: #ffffff;
+  font-family: var(--rm-font-mono);
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 0 0 4px var(--rm-brand-tint), 0 0 16px var(--rm-brand-glow);
+  animation: pulse-node 2.2s infinite ease-in-out;
+}
+
+@keyframes pulse-node {
+  0% {
+    box-shadow: 0 0 0 0 rgba(108, 71, 255, 0.7), 0 0 10px rgba(108, 71, 255, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(108, 71, 255, 0), 0 0 16px rgba(108, 71, 255, 0.25);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(108, 71, 255, 0), 0 0 10px rgba(108, 71, 255, 0.5);
+  }
+}
+
+.timeline-step.current .step-connector-rail {
+  background: linear-gradient(180deg, var(--rm-brand) 0%, var(--line) 100%);
+}
+
+/* 3) Locked Step */
+.timeline-step.locked .step-node-marker {
+  background: var(--rm-locked-bg);
+  border-color: var(--rm-locked-border);
+  color: var(--rm-locked-text);
+}
+.timeline-step.locked .step-connector-rail {
+  background: var(--line);
+  border-style: dashed;
+}
+
+/* ── Step Content Card ── */
+
+.step-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--rm-r-lg);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.2s ease;
+  position: relative;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.step-card:hover {
+  border-color: var(--rm-brand);
+  transform: translateY(-1px);
+  box-shadow: var(--rm-shadow-card);
+}
+.step-card:active {
+  transform: scale(0.99);
+}
+
+/* Current Step Card Highlight */
+.timeline-step.current .step-card {
+  border: 1.5px solid var(--rm-brand);
+  background: var(--surface);
+  box-shadow: 0 6px 20px -6px rgba(108, 71, 255, 0.22);
+}
+
+.timeline-step.current .step-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: var(--rm-r-lg) 0 0 var(--rm-r-lg);
+  background: var(--rm-brand);
+}
+
+/* Locked Step Card */
+.timeline-step.locked .step-card {
+  background: var(--rm-locked-bg);
+  border-color: var(--line);
+  opacity: 0.85;
+  cursor: default;
+}
+.timeline-step.locked .step-card:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--rm-locked-border);
+}
+
+/* Card Header */
+.step-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.step-num-tag {
+  font-family: var(--rm-font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.timeline-step.current .step-num-tag {
+  color: var(--rm-brand);
+}
+
+.step-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--rm-r-pill);
+}
+
+.step-status-chip.completed {
+  background: var(--rm-success-bg);
+  color: var(--rm-success-text);
+  border: 1px solid var(--rm-success-border);
+}
+
+.step-status-chip.current {
+  background: var(--rm-brand-tint);
+  color: var(--rm-brand);
+  border: 1px solid rgba(108, 71, 255, 0.25);
+  font-weight: 700;
+}
+
+.step-status-chip.locked {
+  background: var(--surface);
+  color: var(--rm-locked-text);
+  border: 1px solid var(--rm-locked-border);
+}
+
+.step-status-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rm-brand);
+  animation: pulse-dot 1.4s infinite ease-in-out;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.4); }
+}
+
+/* Card Body */
+.step-card-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+}
+
+.step-card-desc {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* Card Footer */
+.step-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  font-size: 12px;
+}
+
+.step-meta-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+}
+
+.step-completion-date {
+  color: var(--rm-success-text);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.step-prereq-note {
+  color: var(--rm-locked-text);
+  font-size: 11.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.step-card-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  min-height: 36px;
+  border-radius: var(--rm-r-md);
+  font-family: var(--rm-font-body);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  border: 1px solid transparent;
+}
+
+.step-card-action-btn.btn-resume {
+  background: var(--rm-brand);
+  color: #ffffff;
+  border-color: var(--rm-brand-pressed);
+  box-shadow: 0 2px 8px rgba(108, 71, 255, 0.3);
+}
+.step-card-action-btn.btn-resume:hover {
+  background: var(--rm-brand-pressed);
+  transform: translateY(-1px);
+}
+
+.step-card-action-btn.btn-review {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--line);
+}
+.step-card-action-btn.btn-review:hover {
+  border-color: var(--rm-brand);
+  color: var(--rm-brand);
+}
+
+.step-card-action-btn.btn-locked {
+  background: transparent;
+  color: var(--rm-locked-text);
+  cursor: not-allowed;
+}
+
+/* ──────────────────────── 4. Interactive Step Modal / Drawer ──────────────────────── */
+
+.step-drawer-container {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0.28s ease;
+}
+
+.step-drawer-container.is-open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 17, 32, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.step-drawer-container.is-open .drawer-backdrop {
+  opacity: 1;
+}
+
+.drawer-sheet {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-height: 88%;
+  background: var(--surface);
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  border-top: 1px solid var(--line);
+  box-shadow: var(--rm-shadow-elevated);
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100%);
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  z-index: 2;
+}
+
+.step-drawer-container.is-open .drawer-sheet {
+  transform: translateY(0);
+}
+
+/* Drawer Handle Bar */
+.drawer-handle-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 0 4px;
+  cursor: grab;
+}
+
+.drawer-handle-pill {
+  width: 40px;
+  height: 5px;
+  border-radius: var(--rm-r-pill);
+  background: var(--line);
+}
+
+/* Drawer Header */
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 20px 14px;
+  border-bottom: 1px solid var(--line);
+  gap: 12px;
+}
+
+.drawer-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.drawer-step-badge {
+  font-family: var(--rm-font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--rm-brand);
+  background: var(--rm-brand-tint);
+  padding: 3px 8px;
+  border-radius: var(--rm-r-sm);
+}
+
+.drawer-status-chip {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--rm-brand);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.drawer-close-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.16s ease;
+}
+.drawer-close-btn:hover {
+  background: var(--line);
+  color: var(--ink);
+}
+.drawer-close-btn:active {
+  transform: scale(0.92);
+}
+
+/* Drawer Scrollable Body */
+.drawer-body {
+  padding: 18px 20px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.drawer-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.drawer-step-title {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  font-family: var(--rm-font-display);
+}
+
+.drawer-meta-chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.drawer-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--rm-r-pill);
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.drawer-chip.chip-time {
+  color: var(--ink);
+}
+.drawer-chip.chip-xp {
+  background: #fef3c7;
+  color: #92400e;
+  border-color: #fde68a;
+}
+.drawer-chip.chip-diff {
+  background: var(--rm-brand-tint);
+  color: var(--rm-brand);
+  border-color: rgba(108, 71, 255, 0.2);
+}
+
+/* Drawer Section Blocks */
+.drawer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.drawer-section-heading {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-family: var(--rm-font-mono);
+}
+
+.drawer-desc-p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+/* Objectives List */
+.drawer-objectives-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.drawer-obj-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink);
+  background: var(--bg);
+  padding: 10px 12px;
+  border-radius: var(--rm-r-md);
+  border: 1px solid var(--line);
+}
+
+.drawer-obj-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--rm-brand);
+  color: #ffffff;
+  font-family: var(--rm-font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  margin-top: 1px;
+}
+
+/* Tool Tags */
+.drawer-tags-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.drawer-tech-tag {
+  font-family: var(--rm-font-mono);
+  font-size: 11.5px;
+  padding: 3px 8px;
+  border-radius: var(--rm-r-sm);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+
+/* Drawer Footer */
+.drawer-footer {
+  padding: 14px 20px 20px;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-drawer-start {
+  min-height: 48px;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--rm-brand);
+  color: #ffffff;
+  border: 1px solid var(--rm-brand-pressed);
+  border-radius: var(--rm-r-lg);
+  font-family: var(--rm-font-body);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  box-shadow: 0 4px 14px rgba(108, 71, 255, 0.4);
+}
+.btn-drawer-start:hover {
+  background: var(--rm-brand-pressed);
+  box-shadow: 0 6px 18px rgba(108, 71, 255, 0.5);
+  transform: translateY(-1px);
+}
+.btn-drawer-start:active {
+  transform: scale(0.98);
+}
+
+.btn-drawer-secondary {
+  min-height: 42px;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid transparent;
+  border-radius: var(--rm-r-lg);
+  font-family: var(--rm-font-body);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+.btn-drawer-secondary:hover {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+/* ──────────────────────── 5. Responsive / Desktop Viewport Adjustments ──────────────────────── */
+
+.device.mode-desktop .page-roadmap-detail {
+  padding: 32px 48px 64px !important;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.device.mode-desktop .roadmap-hero-card {
+  padding: 28px;
+}
+
+.device.mode-desktop .drawer-sheet {
+  max-width: 580px;
+  left: 50%;
+  right: auto;
+  border-radius: 20px;
+  bottom: 30px;
+  transform: translate(-50%, calc(100% + 40px));
+}
+
+.device.mode-desktop .step-drawer-container.is-open .drawer-sheet {
+  transform: translate(-50%, 0);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   6. Comprehensive Design System Variant Overrides
+   Playful · Cyber-Neon · Neo-Brutalist · Warm · Minimal
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ───────────────────────────────────────────────────────────────────
+   6.1 VARIANT: PLAYFUL ([data-variant="playful"])
+   Hero card: 2.5px ink border, 5px drop shadow, 18px radius.
+   Progress bar: thick 2px outline, candy purple fill (#6C47FF).
+   CTA: 2.5px border, 4px shadow, font-weight 800, #6C47FF background.
+   Completed nodes: chunky circle, 2.5px dark border, mint green (#00D4B4).
+   Active node: electric purple, yellow/violet pulse ring, bold XP chip.
+   Locked nodes: soft gray/cream fill, 2px border, dark padlock icon.
+   Connected line: 3px solid ink line (or chunky dashed for locked).
+   Step cards: 2px solid #1E1A3D, 3px shadow, 14px radius, white background.
+   ─────────────────────────────────────────────────────────────────── */
+
+[data-variant="playful"] {
+  --rm-font-display: "Baloo 2", system-ui, sans-serif;
+  --rm-font-body: "Nunito", system-ui, sans-serif;
+  --rm-font-mono: "IBM Plex Mono", monospace;
+  --rm-brand: #6c47ff;
+  --rm-brand-pressed: #5835e8;
+  --rm-r-xl: 18px;
+  --rm-r-lg: 14px;
+  --rm-r-md: 10px;
+  --rm-r-sm: 6px;
+}
+
+[data-variant="playful"] .page-roadmap-detail {
+  background: #fff6f0;
+  color: #1e1a3d;
+  font-family: "Nunito", system-ui, sans-serif;
+}
+
+[data-variant="playful"] .roadmap-top-bar {
+  background: #fff6f0;
+  border-bottom: 2px solid #1e1a3d;
+}
+
+[data-variant="playful"] .topbar-back-btn {
+  color: #6c47ff;
+  font-weight: 800;
+  border-radius: 12px;
+}
+[data-variant="playful"] .topbar-back-btn:hover {
+  background: #f4efff;
+}
+
+[data-variant="playful"] .topbar-title {
+  font-family: "Baloo 2", system-ui, sans-serif;
+  font-weight: 800;
+  color: #1e1a3d;
+  font-size: 19px;
+}
+
+[data-variant="playful"] .topbar-icon-btn {
+  border: 2px solid #1e1a3d;
+  box-shadow: 2px 2px 0 #1e1a3d;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #1e1a3d;
+}
+[data-variant="playful"] .topbar-icon-btn:hover {
+  background: #f4efff;
+  border-color: #6c47ff;
+  color: #6c47ff;
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 #1e1a3d;
+}
+[data-variant="playful"] .topbar-icon-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 #1e1a3d;
+}
+[data-variant="playful"] .topbar-icon-btn.is-active {
+  background: #ece6ff;
+  border-color: #1e1a3d;
+  color: #6c47ff;
+}
+
+/* Playful Hero Card: 2.5px solid #1E1A3D, 5px shadow, 18px radius */
+[data-variant="playful"] .roadmap-hero-card {
+  border: 2.5px solid #1e1a3d;
+  box-shadow: 5px 5px 0 #1e1a3d;
+  border-radius: 18px;
+  background: #ffffff;
+}
+[data-variant="playful"] .roadmap-hero-card::before {
+  display: none;
+}
+
+[data-variant="playful"] .badge-domain {
+  background: #ece6ff;
+  color: #6c47ff;
+  border: 2px solid #1e1a3d;
+  box-shadow: 2px 2px 0 #1e1a3d;
+  font-weight: 800;
+  border-radius: 999px;
+}
+
+[data-variant="playful"] .badge-level {
+  background: #ffe853;
+  color: #1e1a3d;
+  border: 2px solid #1e1a3d;
+  box-shadow: 2px 2px 0 #1e1a3d;
+  font-weight: 800;
+  border-radius: 999px;
+}
+[data-variant="playful"] .badge-level::before {
+  color: #1e1a3d;
+}
+
+[data-variant="playful"] .badge-duration {
+  color: #6a648f;
+  font-weight: 700;
+}
+
+[data-variant="playful"] .hero-roadmap-title {
+  font-family: "Baloo 2", system-ui, sans-serif;
+  font-weight: 800;
+  color: #1e1a3d;
+  font-size: 24px;
+}
+
+[data-variant="playful"] .hero-roadmap-desc {
+  color: #6a648f;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* Playful Progress Bar: thick 2px outline, candy purple fill (#6C47FF) */
+[data-variant="playful"] .hero-progress-box {
+  background: #fff6f0;
+  border: 2px solid #1e1a3d;
+  border-radius: 14px;
+  box-shadow: 2px 2px 0 #1e1a3d;
+}
+
+[data-variant="playful"] .progress-summary-text {
+  color: #1e1a3d;
+  font-weight: 800;
+}
+
+[data-variant="playful"] .progress-pct-badge {
+  background: #ffe853;
+  color: #1e1a3d;
+  border: 2px solid #1e1a3d;
+  box-shadow: 2px 2px 0 #1e1a3d;
+  font-weight: 800;
+  border-radius: 999px;
+}
+
+[data-variant="playful"] .hero-progress-track {
+  height: 14px;
+  border: 2px solid #1e1a3d;
+  background: #f4efff;
+  border-radius: 999px;
+  box-shadow: inset 0 2px 0 rgba(30, 26, 61, 0.08);
+  overflow: hidden;
+}
+
+[data-variant="playful"] .hero-progress-fill {
+  background: #6c47ff;
+  border-radius: 999px;
+}
+
+/* Playful "Continue to Step 5" CTA Button:
+   border: 2.5px solid #1E1A3D; box-shadow: 4px 4px 0 #1E1A3D; font-weight: 800; background: #6C47FF; color: #FFF; */
+[data-variant="playful"] .btn-hero-action {
+  border: 2.5px solid #1e1a3d;
+  box-shadow: 4px 4px 0 #1e1a3d;
+  font-weight: 800;
+  background: #6c47ff;
+  color: #ffffff;
+  border-radius: 14px;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+}
+[data-variant="playful"] .btn-hero-action:hover {
+  background: #5835e8;
+  box-shadow: 6px 6px 0 #1e1a3d;
+  transform: translate(-2px, -2px);
+}
+[data-variant="playful"] .btn-hero-action:active {
+  box-shadow: 1px 1px 0 #1e1a3d;
+  transform: translate(3px, 3px);
+}
+
+/* Playful Stepper Head & Legend */
+[data-variant="playful"] .stepper-section-title {
+  font-family: "Baloo 2", system-ui, sans-serif;
+  font-weight: 800;
+  color: #1e1a3d;
+  font-size: 19px;
+}
+
+[data-variant="playful"] .legend-dot.completed {
+  background: #00d4b4;
+  border: 1.5px solid #1e1a3d;
+}
+[data-variant="playful"] .legend-dot.current {
+  background: #6c47ff;
+  border: 1.5px solid #1e1a3d;
+  box-shadow: 0 0 6px #6c47ff;
+}
+[data-variant="playful"] .legend-dot.locked {
+  background: #f4efeb;
+  border: 1.5px solid #1e1a3d;
+}
+
+/* Playful Phase Header */
+[data-variant="playful"] .phase-header-banner {
+  border: 2px solid #1e1a3d;
+  box-shadow: 3px 3px 0 #1e1a3d;
+  border-radius: 14px;
+  background: #ffffff;
+}
+[data-variant="playful"] .phase-pill {
+  border: 1.5px solid #1e1a3d;
+  font-weight: 800;
+  border-radius: 8px;
+}
+[data-variant="playful"] .phase-group.completed .phase-pill {
+  background: #00d4b4;
+  color: #1e1a3d;
+  border-color: #1e1a3d;
+}
+[data-variant="playful"] .phase-group.in-progress .phase-pill {
+  background: #ffe853;
+  color: #1e1a3d;
+  border-color: #1e1a3d;
+}
+[data-variant="playful"] .phase-group.locked .phase-pill {
+  background: #f4efeb;
+  color: #6a648f;
+  border-color: #1e1a3d;
+}
+[data-variant="playful"] .phase-name {
+  font-family: "Baloo 2", system-ui, sans-serif;
+  font-weight: 800;
+  color: #1e1a3d;
+}
+
+/* Playful Connected Timeline Line: 3px solid ink line (or chunky dashed for locked) */
+[data-variant="playful"] .step-connector-rail {
+  width: 3px;
+  background: #1e1a3d;
+  border: none;
+  margin: 4px 0;
+  border-radius: 2px;
+}
+[data-variant="playful"] .timeline-step.completed .step-connector-rail {
+  width: 3px;
+  background: #1e1a3d;
+}
+[data-variant="playful"] .timeline-step.current .step-connector-rail {
+  width: 3px;
+  background: #1e1a3d;
+}
+[data-variant="playful"] .timeline-step.locked .step-connector-rail {
+  width: 0;
+  background: transparent;
+  border-left: 3px dashed #1e1a3d;
+  margin: 4px 0;
+}
+
+/* Playful Completed Nodes: chunky circle with 2.5px dark border, vibrant mint green fill (#00D4B4), white checkmark */
+[data-variant="playful"] .timeline-step.completed .step-node-marker {
+  width: 38px;
+  height: 38px;
+  border: 2.5px solid #1e1a3d;
+  background: #00d4b4;
+  color: #ffffff;
+  box-shadow: 2px 2px 0 #1e1a3d;
+}
+[data-variant="playful"] .timeline-step.completed .step-node-marker svg {
+  stroke: #ffffff;
+  stroke-width: 3;
+}
+
+/* Playful Active Pulsing Node (Step 5):
+   electric purple background with yellow/violet pulse ring, 2.5px border, bold XP chip */
+[data-variant="playful"] .timeline-step.current .step-node-marker {
+  width: 40px;
+  height: 40px;
+  background: #6c47ff;
+  border: 2.5px solid #1e1a3d;
+  color: #ffffff;
+  font-weight: 800;
+  font-family: var(--rm-font-mono);
+  box-shadow: 2px 2px 0 #1e1a3d;
+  animation: playful-pulse-node 2s infinite ease-in-out;
+}
+
+@keyframes playful-pulse-node {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 201, 60, 0.9), 2px 2px 0 #1e1a3d;
+  }
+  40% {
+    box-shadow: 0 0 0 6px rgba(108, 71, 255, 0.4), 0 0 0 11px rgba(255, 201, 60, 0.6), 2px 2px 0 #1e1a3d;
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(108, 71, 255, 0), 0 0 0 16px rgba(255, 201, 60, 0), 2px 2px 0 #1e1a3d;
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 201, 60, 0), 2px 2px 0 #1e1a3d;
+  }
+}
+
+/* Playful Bold XP Chip on current step card header */
+[data-variant="playful"] .timeline-step.current .step-card-header::after {
+  content: "⚡ +150 XP";
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--rm-font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #ffe853;
+  color: #1e1a3d;
+  border: 2px solid #1e1a3d;
+  box-shadow: 2px 2px 0 #1e1a3d;
+  letter-spacing: 0.02em;
+}
+
+/* Playful Locked Nodes: soft gray/cream fill, 2px border, dark padlock icon */
+[data-variant="playful"] .timeline-step.locked .step-node-marker {
+  width: 36px;
+  height: 36px;
+  background: #f4efeb;
+  border: 2px solid #1e1a3d;
+  color: #1e1a3d;
+  box-shadow: 2px 2px 0 #1e1a3d;
+}
+[data-variant="playful"] .timeline-step.locked .step-node-marker svg {
+  stroke: #1e1a3d;
+  stroke-width: 2.4;
+}
+
+/* Playful Step Cards: border: 2px solid #1E1A3D; box-shadow: 3px 3px 0 #1E1A3D; border-radius: 14px; background: #FFF; */
+[data-variant="playful"] .step-card {
+  border: 2px solid #1e1a3d;
+  box-shadow: 3px 3px 0 #1e1a3d;
+  border-radius: 14px;
+  background: #ffffff;
+}
+[data-variant="playful"] .step-card:hover {
+  border-color: #1e1a3d;
+  box-shadow: 5px 5px 0 #1e1a3d;
+  transform: translate(-1px, -1px);
+}
+[data-variant="playful"] .step-card:active {
+  box-shadow: 1px 1px 0 #1e1a3d;
+  transform: translate(2px, 2px);
+}
+
+[data-variant="playful"] .timeline-step.current .step-card {
+  border: 2.5px solid #1e1a3d;
+  box-shadow: 4px 4px 0 #1e1a3d;
+  background: #ffffff;
+}
+[data-variant="playful"] .timeline-step.current .step-card::before {
+  background: #6c47ff;
+  width: 6px;
+  border-radius: 11px 0 0 11px;
+}
+
+[data-variant="playful"] .timeline-step.locked .step-card {
+  background: #fdf9f5;
+  border: 2px solid rgba(30, 26, 61, 0.4);
+  box-shadow: 2px 2px 0 rgba(30, 26, 61, 0.2);
+  opacity: 0.88;
+}
+
+[data-variant="playful"] .step-card-title {
+  font-family: "Baloo 2", system-ui, sans-serif;
+  font-weight: 800;
+  color: #1e1a3d;
+  font-size: 16px;
+}
+[data-variant="playful"] .step-card-desc {
+  color: #6a648f;
+  font-weight: 600;
+}
+
+[data-variant="playful"] .step-card-action-btn.btn-resume {
+  background: #6c47ff;
+  color: #ffffff;
+  border: 2px solid #1e1a3d;
+  box-shadow: 2px 2px 0 #1e1a3d;
+  font-weight: 800;
+  border-radius: 10px;
+}
+[data-variant="playful"] .step-card-action-btn.btn-resume:hover {
+  background: #5835e8;
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 #1e1a3d;
+}
+[data-variant="playful"] .step-card-action-btn.btn-review {
+  background: #ffffff;
+  color: #1e1a3d;
+  border: 2px solid #1e1a3d;
+  box-shadow: 2px 2px 0 #1e1a3d;
+  font-weight: 800;
+  border-radius: 10px;
+}
+[data-variant="playful"] .step-card-action-btn.btn-locked {
+  color: #6a648f;
+  font-weight: 700;
+}
+
+[data-variant="playful"] .step-status-chip.completed {
+  border: 1.5px solid #1e1a3d;
+  background: #e6fbf7;
+  color: #007f6c;
+  font-weight: 800;
+}
+[data-variant="playful"] .step-status-chip.current {
+  border: 1.5px solid #1e1a3d;
+  background: #ece6ff;
+  color: #6c47ff;
+  font-weight: 800;
+}
+[data-variant="playful"] .step-status-chip.locked {
+  border: 1.5px solid #1e1a3d;
+  background: #f4efeb;
+  color: #6a648f;
+  font-weight: 700;
+}
+
+/* Playful Drawer Sheet */
+[data-variant="playful"] .drawer-sheet {
+  border-top: 3px solid #1e1a3d;
+  box-shadow: 0 -8px 0 #1e1a3d;
+  border-radius: 24px 24px 0 0;
+  background: #ffffff;
+}
+[data-variant="playful"] .drawer-handle-pill {
+  background: #1e1a3d;
+  height: 6px;
+  border-radius: 999px;
+}
+[data-variant="playful"] .drawer-header {
+  border-bottom: 2px solid #1e1a3d;
+}
+[data-variant="playful"] .drawer-step-badge {
+  border: 2px solid #1e1a3d;
+  box-shadow: 2px 2px 0 #1e1a3d;
+  background: #ffe853;
+  color: #1e1a3d;
+  font-weight: 800;
+  border-radius: 8px;
+}
+[data-variant="playful"] .drawer-close-btn {
+  border: 2px solid #1e1a3d;
+  box-shadow: 2px 2px 0 #1e1a3d;
+  background: #ffffff;
+  color: #1e1a3d;
+  font-weight: 900;
+}
+[data-variant="playful"] .drawer-step-title {
+  font-family: "Baloo 2", system-ui, sans-serif;
+  font-weight: 800;
+  color: #1e1a3d;
+}
+[data-variant="playful"] .drawer-chip {
+  border: 2px solid #1e1a3d;
+  box-shadow: 2px 2px 0 #1e1a3d;
+  border-radius: 10px;
+  font-weight: 800;
+}
+[data-variant="playful"] .drawer-chip.chip-xp {
+  background: #ffe853;
+  color: #1e1a3d;
+  border-color: #1e1a3d;
+}
+[data-variant="playful"] .drawer-obj-item {
+  border: 2px solid #1e1a3d;
+  box-shadow: 2px 2px 0 #1e1a3d;
+  border-radius: 12px;
+  background: #ffffff;
+}
+[data-variant="playful"] .drawer-obj-num {
+  border: 2px solid #1e1a3d;
+  background: #6c47ff;
+  color: #ffffff;
+  font-weight: 800;
+}
+[data-variant="playful"] .drawer-tech-tag {
+  border: 2px solid #1e1a3d;
+  box-shadow: 2px 2px 0 #1e1a3d;
+  border-radius: 8px;
+  font-weight: 700;
+  background: #fff6f0;
+  color: #1e1a3d;
+}
+[data-variant="playful"] .btn-drawer-start {
+  border: 2.5px solid #1e1a3d;
+  box-shadow: 4px 4px 0 #1e1a3d;
+  font-weight: 800;
+  background: #6c47ff;
+  color: #ffffff;
+  border-radius: 14px;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   6.2 VARIANT: CYBER-NEON ([data-variant="cyber-neon"])
+   Dark obsidian cards (#0E121E / #0A0D14), glowing neon node lines,
+   electric cyan (#00F0FF) & purple (#A855F7) status nodes.
+   ─────────────────────────────────────────────────────────────────── */
+
+[data-variant="cyber-neon"] {
+  --rm-font-display: "Space Grotesk", system-ui, sans-serif;
+  --rm-font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --rm-font-mono: "IBM Plex Mono", monospace;
+  --rm-brand: #00f0ff;
+  --rm-brand-pressed: #a855f7;
+}
+
+[data-variant="cyber-neon"] .page-roadmap-detail {
+  background: #0a0d14;
+  color: #e2e8f0;
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+}
+
+[data-variant="cyber-neon"] .roadmap-top-bar {
+  background: #0a0d14;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.22);
+}
+
+[data-variant="cyber-neon"] .topbar-back-btn {
+  color: #00f0ff;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+[data-variant="cyber-neon"] .topbar-back-btn:hover {
+  background: rgba(0, 240, 255, 0.12);
+}
+
+[data-variant="cyber-neon"] .topbar-title {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-weight: 700;
+  color: #f8fafc;
+  text-shadow: 0 0 14px rgba(0, 240, 255, 0.4);
+}
+
+[data-variant="cyber-neon"] .topbar-icon-btn {
+  background: #111625;
+  border-color: rgba(0, 240, 255, 0.28);
+  color: #00f0ff;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.15);
+}
+[data-variant="cyber-neon"] .topbar-icon-btn:hover {
+  background: #18223c;
+  border-color: #00f0ff;
+  color: #00f0ff;
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.4);
+}
+[data-variant="cyber-neon"] .topbar-icon-btn.is-active {
+  background: rgba(0, 240, 255, 0.18);
+  border-color: #00f0ff;
+  color: #00f0ff;
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.4);
+}
+[data-variant="cyber-neon"] .topbar-icon-btn.is-active svg.bookmark-icon {
+  fill: #00f0ff;
+  filter: drop-shadow(0 0 6px #00f0ff);
+}
+
+/* Cyber-Neon Dark Obsidian Hero Card */
+[data-variant="cyber-neon"] .roadmap-hero-card {
+  background: #0e121e;
+  border: 1.5px solid rgba(0, 240, 255, 0.35);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.75), 0 0 24px rgba(0, 240, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+[data-variant="cyber-neon"] .roadmap-hero-card::before {
+  background: linear-gradient(90deg, #00f0ff 0%, #a855f7 60%, #ec4899 100%);
+  box-shadow: 0 0 14px #00f0ff;
+  height: 3px;
+}
+
+[data-variant="cyber-neon"] .badge-domain {
+  background: rgba(0, 240, 255, 0.12);
+  color: #00f0ff;
+  border: 1px solid rgba(0, 240, 255, 0.5);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
+  font-weight: 700;
+}
+
+[data-variant="cyber-neon"] .badge-level {
+  background: rgba(168, 85, 247, 0.15);
+  color: #d8b4fe;
+  border: 1px solid rgba(168, 85, 247, 0.5);
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.25);
+  font-weight: 700;
+}
+[data-variant="cyber-neon"] .badge-level::before {
+  color: #c084fc;
+}
+
+[data-variant="cyber-neon"] .badge-duration {
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+[data-variant="cyber-neon"] .hero-roadmap-title {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-weight: 700;
+  color: #f8fafc;
+  text-shadow: 0 0 18px rgba(0, 240, 255, 0.35);
+  font-size: 22px;
+}
+
+[data-variant="cyber-neon"] .hero-roadmap-desc {
+  color: #94a3b8;
+  font-size: 13.5px;
+}
+
+/* Cyber-Neon Progress Bar */
+[data-variant="cyber-neon"] .hero-progress-box {
+  background: #080b12;
+  border: 1px solid rgba(0, 240, 255, 0.22);
+  border-radius: 12px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+[data-variant="cyber-neon"] .progress-summary-text {
+  color: #f1f5f9;
+  font-weight: 700;
+}
+
+[data-variant="cyber-neon"] .progress-pct-badge {
+  background: rgba(168, 85, 247, 0.22);
+  color: #e9d5ff;
+  border: 1px solid #a855f7;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.45);
+  font-weight: 800;
+}
+
+[data-variant="cyber-neon"] .hero-progress-track {
+  height: 10px;
+  background: #141b2c;
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+[data-variant="cyber-neon"] .hero-progress-fill {
+  background: linear-gradient(90deg, #00f0ff 0%, #a855f7 100%);
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.85);
+  border-radius: 999px;
+}
+
+/* Cyber-Neon CTA Button */
+[data-variant="cyber-neon"] .btn-hero-action {
+  background: linear-gradient(135deg, #00f0ff 0%, #7928ca 100%);
+  color: #050814;
+  font-weight: 800;
+  border: 1px solid #00f0ff;
+  box-shadow: 0 0 22px rgba(0, 240, 255, 0.55), inset 0 0 10px rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+  font-size: 15px;
+}
+[data-variant="cyber-neon"] .btn-hero-action:hover {
+  box-shadow: 0 0 32px rgba(0, 240, 255, 0.85);
+  transform: translateY(-2px);
+}
+[data-variant="cyber-neon"] .btn-hero-action:active {
+  transform: scale(0.98);
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.4);
+}
+
+/* Cyber-Neon Stepper Title & Legend */
+[data-variant="cyber-neon"] .stepper-section-title {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-weight: 700;
+  color: #f8fafc;
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+}
+
+[data-variant="cyber-neon"] .legend-dot.completed {
+  background: #00f0ff;
+  box-shadow: 0 0 8px #00f0ff;
+}
+[data-variant="cyber-neon"] .legend-dot.current {
+  background: #a855f7;
+  box-shadow: 0 0 10px #a855f7;
+}
+[data-variant="cyber-neon"] .legend-dot.locked {
+  background: #475569;
+}
+
+/* Cyber-Neon Phase Header */
+[data-variant="cyber-neon"] .phase-header-banner {
+  background: #0e121e;
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55);
+  border-radius: 12px;
+}
+[data-variant="cyber-neon"] .phase-pill {
+  border: 1px solid rgba(0, 240, 255, 0.45);
+  font-weight: 700;
+  background: rgba(0, 240, 255, 0.12);
+  color: #00f0ff;
+}
+[data-variant="cyber-neon"] .phase-group.completed .phase-pill {
+  background: rgba(0, 240, 255, 0.15);
+  color: #00f0ff;
+  border-color: #00f0ff;
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.35);
+}
+[data-variant="cyber-neon"] .phase-group.in-progress .phase-pill {
+  background: rgba(168, 85, 247, 0.2);
+  color: #d8b4fe;
+  border-color: #a855f7;
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.4);
+}
+[data-variant="cyber-neon"] .phase-group.locked .phase-pill {
+  background: #101625;
+  color: #64748b;
+  border-color: #293548;
+}
+[data-variant="cyber-neon"] .phase-name {
+  color: #f1f5f9;
+  font-weight: 700;
+}
+
+/* Cyber-Neon Glowing Neon Node Lines */
+[data-variant="cyber-neon"] .step-connector-rail {
+  width: 3px;
+  background: linear-gradient(180deg, #00f0ff 0%, #a855f7 100%);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.8);
+  border-radius: 999px;
+}
+[data-variant="cyber-neon"] .timeline-step.completed .step-connector-rail {
+  width: 3px;
+  background: #00f0ff;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.85);
+}
+[data-variant="cyber-neon"] .timeline-step.current .step-connector-rail {
+  width: 3px;
+  background: linear-gradient(180deg, #a855f7 0%, rgba(0, 240, 255, 0.3) 100%);
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.8);
+}
+[data-variant="cyber-neon"] .timeline-step.locked .step-connector-rail {
+  width: 0;
+  background: transparent;
+  border-left: 2px dashed rgba(100, 116, 139, 0.4);
+  box-shadow: none;
+}
+
+/* Cyber-Neon Electric Cyan & Purple Status Nodes */
+[data-variant="cyber-neon"] .timeline-step.completed .step-node-marker {
+  width: 38px;
+  height: 38px;
+  background: #041e1c;
+  border: 2px solid #00f0ff;
+  color: #00f0ff;
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.85);
+}
+[data-variant="cyber-neon"] .timeline-step.completed .step-node-marker svg {
+  stroke: #00f0ff;
+  filter: drop-shadow(0 0 4px #00f0ff);
+  stroke-width: 2.6;
+}
+
+/* Cyber-Neon Active Pulsing Node (Step 5) */
+[data-variant="cyber-neon"] .timeline-step.current .step-node-marker {
+  width: 40px;
+  height: 40px;
+  background: #1b0e2e;
+  border: 2.5px solid #a855f7;
+  color: #f5d0fe;
+  font-weight: 800;
+  font-family: var(--rm-font-mono);
+  font-size: 15px;
+  animation: cyber-neon-pulse 2s infinite ease-in-out;
+}
+
+@keyframes cyber-neon-pulse {
+  0% {
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.9), 0 0 20px rgba(0, 240, 255, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 24px rgba(168, 85, 247, 1), 0 0 40px rgba(0, 240, 255, 0.9), 0 0 0 6px rgba(168, 85, 247, 0.25);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.9), 0 0 20px rgba(0, 240, 255, 0.6);
+  }
+}
+
+/* Cyber-Neon Bold XP Chip on current step card header */
+[data-variant="cyber-neon"] .timeline-step.current .step-card-header::after {
+  content: "⚡ +150 XP";
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--rm-font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(168, 85, 247, 0.25);
+  color: #e9d5ff;
+  border: 1px solid #a855f7;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+  letter-spacing: 0.02em;
+}
+
+/* Cyber-Neon Locked Nodes */
+[data-variant="cyber-neon"] .timeline-step.locked .step-node-marker {
+  width: 36px;
+  height: 36px;
+  background: #0a0e18;
+  border: 1.5px solid #1e293b;
+  color: #475569;
+  box-shadow: none;
+}
+[data-variant="cyber-neon"] .timeline-step.locked .step-node-marker svg {
+  stroke: #475569;
+  stroke-width: 2;
+}
+
+/* Cyber-Neon Dark Obsidian Step Cards */
+[data-variant="cyber-neon"] .step-card {
+  background: #0e121e;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+}
+[data-variant="cyber-neon"] .step-card:hover {
+  border-color: #00f0ff;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.3), 0 8px 24px rgba(0, 0, 0, 0.8);
+  transform: translateY(-2px);
+}
+[data-variant="cyber-neon"] .step-card:active {
+  transform: scale(0.99);
+}
+
+[data-variant="cyber-neon"] .timeline-step.current .step-card {
+  border: 1.5px solid #a855f7;
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.3), inset 0 0 15px rgba(168, 85, 247, 0.1);
+  background: #121526;
+}
+[data-variant="cyber-neon"] .timeline-step.current .step-card::before {
+  background: linear-gradient(180deg, #a855f7, #00f0ff);
+  width: 4px;
+  box-shadow: 0 0 10px #a855f7;
+}
+
+[data-variant="cyber-neon"] .timeline-step.locked .step-card {
+  background: #090c15;
+  border: 1px solid rgba(30, 41, 59, 0.8);
+  opacity: 0.68;
+  box-shadow: none;
+}
+
+[data-variant="cyber-neon"] .step-card-title {
+  color: #f8fafc;
+  font-weight: 700;
+}
+[data-variant="cyber-neon"] .step-card-desc {
+  color: #94a3b8;
+}
+
+[data-variant="cyber-neon"] .step-card-action-btn.btn-resume {
+  background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  color: #ffffff;
+  border: 1px solid #c084fc;
+  box-shadow: 0 0 14px rgba(168, 85, 247, 0.6);
+  font-weight: 700;
+  border-radius: 8px;
+}
+[data-variant="cyber-neon"] .step-card-action-btn.btn-resume:hover {
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.9);
+  transform: translateY(-1px);
+}
+[data-variant="cyber-neon"] .step-card-action-btn.btn-review {
+  background: #111625;
+  color: #00f0ff;
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  font-weight: 600;
+  border-radius: 8px;
+}
+[data-variant="cyber-neon"] .step-card-action-btn.btn-review:hover {
+  border-color: #00f0ff;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+}
+[data-variant="cyber-neon"] .step-card-action-btn.btn-locked {
+  color: #475569;
+}
+
+[data-variant="cyber-neon"] .step-status-chip.completed {
+  background: rgba(0, 240, 255, 0.12);
+  color: #00f0ff;
+  border: 1px solid rgba(0, 240, 255, 0.45);
+}
+[data-variant="cyber-neon"] .step-status-chip.current {
+  background: rgba(168, 85, 247, 0.2);
+  color: #d8b4fe;
+  border: 1px solid rgba(168, 85, 247, 0.5);
+}
+[data-variant="cyber-neon"] .step-status-chip.locked {
+  background: #0b0f19;
+  color: #64748b;
+  border: 1px solid #1e293b;
+}
+
+/* Cyber-Neon Drawer Sheet */
+[data-variant="cyber-neon"] .drawer-sheet {
+  background: #0b0e18;
+  border-top: 1.5px solid #00f0ff;
+  box-shadow: 0 -15px 40px rgba(0, 240, 255, 0.25);
+}
+[data-variant="cyber-neon"] .drawer-handle-pill {
+  background: #00f0ff;
+  box-shadow: 0 0 8px #00f0ff;
+}
+[data-variant="cyber-neon"] .drawer-header {
+  border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+}
+[data-variant="cyber-neon"] .drawer-step-badge {
+  background: rgba(0, 240, 255, 0.15);
+  color: #00f0ff;
+  border: 1px solid rgba(0, 240, 255, 0.45);
+}
+[data-variant="cyber-neon"] .drawer-close-btn {
+  background: #111625;
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  color: #00f0ff;
+}
+[data-variant="cyber-neon"] .drawer-step-title {
+  color: #f8fafc;
+  text-shadow: 0 0 14px rgba(0, 240, 255, 0.4);
+}
+[data-variant="cyber-neon"] .drawer-desc-p {
+  color: #94a3b8;
+}
+[data-variant="cyber-neon"] .drawer-chip {
+  background: #111625;
+  color: #e2e8f0;
+  border: 1px solid rgba(0, 240, 255, 0.25);
+}
+[data-variant="cyber-neon"] .drawer-chip.chip-xp {
+  background: rgba(168, 85, 247, 0.2);
+  color: #e9d5ff;
+  border-color: #a855f7;
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.4);
+}
+[data-variant="cyber-neon"] .drawer-obj-item {
+  background: #0e1322;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  color: #e2e8f0;
+}
+[data-variant="cyber-neon"] .drawer-obj-num {
+  background: #a855f7;
+  color: #ffffff;
+  box-shadow: 0 0 8px #a855f7;
+}
+[data-variant="cyber-neon"] .drawer-tech-tag {
+  background: #111625;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  color: #94a3b8;
+}
+[data-variant="cyber-neon"] .btn-drawer-start {
+  background: linear-gradient(135deg, #00f0ff 0%, #a855f7 100%);
+  color: #050814;
+  font-weight: 800;
+  border: 1px solid #00f0ff;
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.6);
+  border-radius: 12px;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   6.3 VARIANT: NEO-BRUTALIST ([data-variant="neo-brutalist"])
+   3px solid black borders, 5px black drop shadows, hard geometry
+   (border-radius: 0), stark monochrome with vivid yellow (#FFE600).
+   ─────────────────────────────────────────────────────────────────── */
+
+[data-variant="neo-brutalist"] {
+  --rm-font-display: "Space Grotesk", system-ui, sans-serif;
+  --rm-font-body: "Space Grotesk", system-ui, sans-serif;
+  --rm-font-mono: "IBM Plex Mono", monospace;
+  --rm-r-xl: 0px;
+  --rm-r-lg: 0px;
+  --rm-r-md: 0px;
+  --rm-r-sm: 0px;
+  --rm-r-pill: 0px;
+}
+
+[data-variant="neo-brutalist"] .page-roadmap-detail {
+  background: #fffeea;
+  color: #000000;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+}
+
+[data-variant="neo-brutalist"] .roadmap-top-bar {
+  background: #fffeea;
+  border-bottom: 3px solid #000000;
+}
+
+[data-variant="neo-brutalist"] .topbar-back-btn {
+  border: 2.5px solid #000000;
+  box-shadow: 3px 3px 0 #000000;
+  border-radius: 0px;
+  background: #ffffff;
+  color: #000000;
+  font-weight: 900;
+}
+[data-variant="neo-brutalist"] .topbar-back-btn:hover {
+  background: #ffe600;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 #000000;
+}
+
+[data-variant="neo-brutalist"] .topbar-title {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-weight: 900;
+  color: #000000;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+[data-variant="neo-brutalist"] .topbar-icon-btn {
+  border: 2.5px solid #000000;
+  box-shadow: 3px 3px 0 #000000;
+  border-radius: 0px;
+  background: #ffffff;
+  color: #000000;
+}
+[data-variant="neo-brutalist"] .topbar-icon-btn:hover {
+  background: #ffe600;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 #000000;
+}
+[data-variant="neo-brutalist"] .topbar-icon-btn.is-active {
+  background: #ffe600;
+  color: #000000;
+}
+
+/* Neo-Brutalist Hero Card: 3px border, 5px shadow, hard geometry */
+[data-variant="neo-brutalist"] .roadmap-hero-card {
+  border: 3px solid #000000 !important;
+  box-shadow: 5px 5px 0 #000000 !important;
+  border-radius: 0px !important;
+  background: #ffffff;
+}
+[data-variant="neo-brutalist"] .roadmap-hero-card::before {
+  display: none;
+}
+
+[data-variant="neo-brutalist"] .badge-domain {
+  background: #ffe600;
+  color: #000000;
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0 #000000;
+  border-radius: 0px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+[data-variant="neo-brutalist"] .badge-level {
+  background: #ff9900;
+  color: #000000;
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0 #000000;
+  border-radius: 0px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+[data-variant="neo-brutalist"] .badge-level::before {
+  color: #000000;
+}
+
+[data-variant="neo-brutalist"] .badge-duration {
+  color: #000000;
+  font-weight: 800;
+}
+
+[data-variant="neo-brutalist"] .hero-roadmap-title {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-weight: 900;
+  color: #000000;
+  letter-spacing: -0.03em;
+  font-size: 22px;
+}
+
+[data-variant="neo-brutalist"] .hero-roadmap-desc {
+  color: #333333;
+  font-weight: 600;
+}
+
+/* Neo-Brutalist Progress Bar */
+[data-variant="neo-brutalist"] .hero-progress-box {
+  background: #fffeea;
+  border: 2.5px solid #000000;
+  border-radius: 0px;
+  box-shadow: 2px 2px 0 #000000;
+}
+
+[data-variant="neo-brutalist"] .progress-summary-text {
+  color: #000000;
+  font-weight: 900;
+}
+
+[data-variant="neo-brutalist"] .progress-pct-badge {
+  background: #ffe600;
+  color: #000000;
+  border: 2px solid #000000;
+  box-shadow: 1.5px 1.5px 0 #000000;
+  border-radius: 0px;
+  font-weight: 900;
+}
+
+[data-variant="neo-brutalist"] .hero-progress-track {
+  height: 14px;
+  border: 2.5px solid #000000;
+  border-radius: 0px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+[data-variant="neo-brutalist"] .hero-progress-fill {
+  background: #000000;
+  border-radius: 0px;
+}
+
+/* Neo-Brutalist CTA Button: 3px solid, 5px shadow, hard geometry */
+[data-variant="neo-brutalist"] .btn-hero-action {
+  border: 3px solid #000000 !important;
+  box-shadow: 5px 5px 0 #000000 !important;
+  border-radius: 0px !important;
+  font-weight: 900 !important;
+  background: #ffe600 !important;
+  color: #000000 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 15px;
+}
+[data-variant="neo-brutalist"] .btn-hero-action:hover {
+  background: #ffd600 !important;
+  box-shadow: 7px 7px 0 #000000 !important;
+  transform: translate(-2px, -2px);
+}
+[data-variant="neo-brutalist"] .btn-hero-action:active {
+  box-shadow: 1px 1px 0 #000000 !important;
+  transform: translate(4px, 4px);
+}
+
+/* Neo-Brutalist Stepper Title & Legend */
+[data-variant="neo-brutalist"] .stepper-section-title {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-weight: 900;
+  color: #000000;
+  text-transform: uppercase;
+}
+
+[data-variant="neo-brutalist"] .legend-dot.completed {
+  background: #00e676;
+  border: 1.5px solid #000000;
+  border-radius: 0px;
+}
+[data-variant="neo-brutalist"] .legend-dot.current {
+  background: #ffe600;
+  border: 1.5px solid #000000;
+  border-radius: 0px;
+  box-shadow: none;
+}
+[data-variant="neo-brutalist"] .legend-dot.locked {
+  background: #e2e2dc;
+  border: 1.5px solid #000000;
+  border-radius: 0px;
+}
+
+/* Neo-Brutalist Phase Header */
+[data-variant="neo-brutalist"] .phase-header-banner {
+  border: 3px solid #000000 !important;
+  box-shadow: 4px 4px 0 #000000 !important;
+  border-radius: 0px !important;
+  background: #ffffff;
+}
+[data-variant="neo-brutalist"] .phase-pill {
+  border: 2px solid #000000;
+  border-radius: 0px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+[data-variant="neo-brutalist"] .phase-group.completed .phase-pill {
+  background: #00e676;
+  color: #000000;
+}
+[data-variant="neo-brutalist"] .phase-group.in-progress .phase-pill {
+  background: #ffe600;
+  color: #000000;
+}
+[data-variant="neo-brutalist"] .phase-group.locked .phase-pill {
+  background: #e2e2dc;
+  color: #000000;
+}
+[data-variant="neo-brutalist"] .phase-name {
+  color: #000000;
+  font-weight: 900;
+}
+
+/* Neo-Brutalist Timeline Rail */
+[data-variant="neo-brutalist"] .step-connector-rail {
+  width: 4px;
+  background: #000000;
+  border-radius: 0px;
+}
+[data-variant="neo-brutalist"] .timeline-step.completed .step-connector-rail {
+  width: 4px;
+  background: #000000;
+}
+[data-variant="neo-brutalist"] .timeline-step.current .step-connector-rail {
+  width: 4px;
+  background: #000000;
+}
+[data-variant="neo-brutalist"] .timeline-step.locked .step-connector-rail {
+  width: 0;
+  background: transparent;
+  border-left: 4px dashed #000000;
+}
+
+/* Neo-Brutalist Nodes */
+[data-variant="neo-brutalist"] .timeline-step.completed .step-node-marker {
+  width: 38px;
+  height: 38px;
+  border: 3px solid #000000 !important;
+  background: #00e676 !important;
+  color: #000000 !important;
+  box-shadow: 3px 3px 0 #000000 !important;
+  border-radius: 0px !important;
+  font-weight: 900;
+}
+[data-variant="neo-brutalist"] .timeline-step.completed .step-node-marker svg {
+  stroke: #000000;
+  stroke-width: 3.5;
+}
+
+/* Neo-Brutalist Current Node (Step 5) */
+[data-variant="neo-brutalist"] .timeline-step.current .step-node-marker {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #000000 !important;
+  background: #ffe600 !important;
+  color: #000000 !important;
+  box-shadow: 4px 4px 0 #000000 !important;
+  border-radius: 0px !important;
+  font-weight: 900;
+  font-family: var(--rm-font-mono);
+  font-size: 15px;
+  animation: brutal-node-pulse 1.8s infinite ease-in-out;
+}
+
+@keyframes brutal-node-pulse {
+  0%, 100% {
+    box-shadow: 4px 4px 0 #000000;
+    transform: translate(0, 0);
+  }
+  50% {
+    box-shadow: 7px 7px 0 #000000;
+    transform: translate(-2px, -2px);
+  }
+}
+
+/* Neo-Brutalist Bold XP Chip on current step card header */
+[data-variant="neo-brutalist"] .timeline-step.current .step-card-header::after {
+  content: "⚡ +150 XP";
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--rm-font-mono);
+  font-size: 11px;
+  font-weight: 900;
+  padding: 2px 8px;
+  border-radius: 0px;
+  background: #ffe600;
+  color: #000000;
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0 #000000;
+}
+
+/* Neo-Brutalist Locked Nodes */
+[data-variant="neo-brutalist"] .timeline-step.locked .step-node-marker {
+  width: 36px;
+  height: 36px;
+  border: 2.5px solid #000000 !important;
+  background: #e2e2dc !important;
+  color: #000000 !important;
+  box-shadow: 2px 2px 0 #000000 !important;
+  border-radius: 0px !important;
+}
+[data-variant="neo-brutalist"] .timeline-step.locked .step-node-marker svg {
+  stroke: #000000;
+  stroke-width: 2.5;
+}
+
+/* Neo-Brutalist Step Cards: 3px solid, 5px shadow, hard geometry */
+[data-variant="neo-brutalist"] .step-card {
+  border: 3px solid #000000 !important;
+  box-shadow: 5px 5px 0 #000000 !important;
+  border-radius: 0px !important;
+  background: #ffffff;
+}
+[data-variant="neo-brutalist"] .step-card:hover {
+  box-shadow: 7px 7px 0 #000000 !important;
+  transform: translate(-2px, -2px);
+}
+[data-variant="neo-brutalist"] .step-card:active {
+  box-shadow: 2px 2px 0 #000000 !important;
+  transform: translate(3px, 3px);
+}
+
+[data-variant="neo-brutalist"] .timeline-step.current .step-card {
+  border: 3px solid #000000 !important;
+  box-shadow: 6px 6px 0 #000000 !important;
+  background: #fffeea !important;
+}
+[data-variant="neo-brutalist"] .timeline-step.current .step-card::before {
+  background: #000000;
+  width: 6px;
+  border-radius: 0px;
+}
+
+[data-variant="neo-brutalist"] .timeline-step.locked .step-card {
+  background: #eaeae4 !important;
+  border: 2.5px solid #000000 !important;
+  box-shadow: 3px 3px 0 #000000 !important;
+  opacity: 0.88;
+}
+
+[data-variant="neo-brutalist"] .step-card-title {
+  color: #000000;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+[data-variant="neo-brutalist"] .step-card-desc {
+  color: #222222;
+  font-weight: 500;
+}
+
+[data-variant="neo-brutalist"] .step-card-action-btn.btn-resume {
+  border: 2.5px solid #000000 !important;
+  box-shadow: 3px 3px 0 #000000 !important;
+  background: #ffe600 !important;
+  color: #000000 !important;
+  font-weight: 900 !important;
+  border-radius: 0px !important;
+  text-transform: uppercase;
+}
+[data-variant="neo-brutalist"] .step-card-action-btn.btn-resume:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 #000000 !important;
+}
+[data-variant="neo-brutalist"] .step-card-action-btn.btn-review {
+  border: 2.5px solid #000000 !important;
+  box-shadow: 2px 2px 0 #000000 !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  font-weight: 900 !important;
+  border-radius: 0px !important;
+}
+[data-variant="neo-brutalist"] .step-card-action-btn.btn-locked {
+  color: #000000;
+  font-weight: 800;
+}
+
+[data-variant="neo-brutalist"] .step-status-chip.completed {
+  border: 1.5px solid #000000;
+  background: #00e676;
+  color: #000000;
+  border-radius: 0px;
+  font-weight: 900;
+}
+[data-variant="neo-brutalist"] .step-status-chip.current {
+  border: 1.5px solid #000000;
+  background: #ffe600;
+  color: #000000;
+  border-radius: 0px;
+  font-weight: 900;
+}
+[data-variant="neo-brutalist"] .step-status-chip.locked {
+  border: 1.5px solid #000000;
+  background: #e2e2dc;
+  color: #000000;
+  border-radius: 0px;
+  font-weight: 800;
+}
+
+/* Neo-Brutalist Drawer Sheet */
+[data-variant="neo-brutalist"] .drawer-sheet {
+  border-top: 4px solid #000000 !important;
+  box-shadow: 0 -8px 0 #000000 !important;
+  border-radius: 0px !important;
+  background: #ffffff;
+}
+[data-variant="neo-brutalist"] .drawer-handle-pill {
+  border: 2px solid #000000;
+  border-radius: 0px;
+  height: 6px;
+  width: 48px;
+  background: #000000;
+}
+[data-variant="neo-brutalist"] .drawer-header {
+  border-bottom: 2.5px solid #000000;
+}
+[data-variant="neo-brutalist"] .drawer-step-badge {
+  border: 2px solid #000000;
+  border-radius: 0px;
+  background: #ffe600;
+  color: #000000;
+  font-weight: 900;
+}
+[data-variant="neo-brutalist"] .drawer-close-btn {
+  border: 2.5px solid #000000;
+  box-shadow: 2px 2px 0 #000000;
+  border-radius: 0px;
+  background: #ffe600;
+  color: #000000;
+  font-weight: 900;
+}
+[data-variant="neo-brutalist"] .drawer-step-title {
+  color: #000000;
+  font-weight: 900;
+}
+[data-variant="neo-brutalist"] .drawer-chip {
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0 #000000;
+  border-radius: 0px;
+  font-weight: 900;
+  background: #ffffff;
+}
+[data-variant="neo-brutalist"] .drawer-chip.chip-xp {
+  background: #ffe600;
+  color: #000000;
+}
+[data-variant="neo-brutalist"] .drawer-obj-item {
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0 #000000;
+  border-radius: 0px;
+  background: #ffffff;
+}
+[data-variant="neo-brutalist"] .drawer-obj-num {
+  border: 2px solid #000000;
+  border-radius: 0px;
+  background: #ffe600;
+  color: #000000;
+  font-weight: 900;
+}
+[data-variant="neo-brutalist"] .drawer-tech-tag {
+  border: 2px solid #000000;
+  border-radius: 0px;
+  background: #fffeea;
+  color: #000000;
+  font-weight: 800;
+}
+[data-variant="neo-brutalist"] .btn-drawer-start {
+  border: 3px solid #000000 !important;
+  box-shadow: 5px 5px 0 #000000 !important;
+  border-radius: 0px !important;
+  background: #ffe600 !important;
+  color: #000000 !important;
+  font-weight: 900 !important;
+  text-transform: uppercase;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   6.4 VARIANT: WARM ([data-variant="warm"])
+   Editorial serif "Fraunces", warm cream / terracotta nodes (#C0603A),
+   warm canvas (#F7F1E8), sage success (#5E7D54), refined editorial tone.
+   ─────────────────────────────────────────────────────────────────── */
+
+[data-variant="warm"] {
+  --rm-font-display: "Fraunces", Georgia, serif;
+  --rm-font-body: "Instrument Sans", system-ui, sans-serif;
+  --rm-font-mono: "IBM Plex Mono", monospace;
+  --rm-brand: #c0603a;
+  --rm-brand-pressed: #a64724;
+  --rm-brand-tint: #f3e2d3;
+  --rm-brand-glow: rgba(192, 96, 58, 0.4);
+}
+
+[data-variant="warm"] .page-roadmap-detail {
+  background: #f7f1e8;
+  color: #2b211a;
+  font-family: "Instrument Sans", system-ui, sans-serif;
+}
+
+[data-variant="warm"] .roadmap-top-bar {
+  background: #f7f1e8;
+  border-bottom: 1px solid #e6d9c7;
+}
+
+[data-variant="warm"] .topbar-back-btn {
+  color: #c0603a;
+  font-weight: 600;
+}
+[data-variant="warm"] .topbar-back-btn:hover {
+  background: #f3e2d3;
+}
+
+[data-variant="warm"] .topbar-title {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  color: #2b211a;
+  font-size: 18px;
+}
+
+[data-variant="warm"] .topbar-icon-btn {
+  background: #fffdf9;
+  border-color: #e6d9c7;
+  color: #2b211a;
+}
+[data-variant="warm"] .topbar-icon-btn:hover {
+  border-color: #c0603a;
+  color: #c0603a;
+  background: #f3e2d3;
+}
+[data-variant="warm"] .topbar-icon-btn.is-active {
+  background: #f3e2d3;
+  border-color: #c0603a;
+  color: #c0603a;
+}
+[data-variant="warm"] .topbar-icon-btn.is-active svg.bookmark-icon {
+  fill: #c0603a;
+}
+
+/* Warm Hero Card */
+[data-variant="warm"] .roadmap-hero-card {
+  background: #fffdf9;
+  border: 1px solid #e6d9c7;
+  border-radius: 20px;
+  box-shadow: 0 12px 32px -12px rgba(76, 47, 24, 0.16);
+}
+[data-variant="warm"] .roadmap-hero-card::before {
+  background: linear-gradient(90deg, #c0603a 0%, #d98b5f 50%, #5e7d54 100%);
+  height: 4px;
+}
+
+[data-variant="warm"] .badge-domain {
+  background: #f3e2d3;
+  color: #a64724;
+  border: 1px solid #e6cca9;
+  font-weight: 700;
+}
+
+[data-variant="warm"] .badge-level {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+  font-weight: 700;
+}
+
+[data-variant="warm"] .badge-duration {
+  color: #7d6f60;
+}
+
+[data-variant="warm"] .hero-roadmap-title {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  color: #2b211a;
+  letter-spacing: -0.02em;
+  font-size: 23px;
+}
+
+[data-variant="warm"] .hero-roadmap-desc {
+  color: #7d6f60;
+  line-height: 1.55;
+}
+
+/* Warm Progress Bar */
+[data-variant="warm"] .hero-progress-box {
+  background: #f7f1e8;
+  border: 1px solid #e6d9c7;
+  border-radius: 14px;
+}
+
+[data-variant="warm"] .progress-summary-text {
+  color: #2b211a;
+  font-weight: 600;
+}
+
+[data-variant="warm"] .progress-pct-badge {
+  background: #f3e2d3;
+  color: #a64724;
+  border: 1px solid #e6cca9;
+  font-weight: 700;
+}
+
+[data-variant="warm"] .hero-progress-track {
+  height: 9px;
+  background: #e8dccf;
+  border-radius: 999px;
+}
+
+[data-variant="warm"] .hero-progress-fill {
+  background: linear-gradient(90deg, #5e7d54 0%, #c0603a 100%);
+  border-radius: 999px;
+}
+
+/* Warm Continue to Step 5 CTA Button */
+[data-variant="warm"] .btn-hero-action {
+  background: #c0603a;
+  color: #fff8f2;
+  border: 1px solid #a64724;
+  border-radius: 14px;
+  box-shadow: 0 8px 22px -6px rgba(192, 96, 58, 0.45);
+  font-family: "Instrument Sans", system-ui, sans-serif;
+  font-weight: 600;
+}
+[data-variant="warm"] .btn-hero-action:hover {
+  background: #a64724;
+  box-shadow: 0 10px 26px -6px rgba(192, 96, 58, 0.55);
+  transform: translateY(-1px);
+}
+
+/* Warm Stepper Title & Legend */
+[data-variant="warm"] .stepper-section-title {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  color: #2b211a;
+}
+
+[data-variant="warm"] .legend-dot.completed {
+  background: #5e7d54;
+}
+[data-variant="warm"] .legend-dot.current {
+  background: #c0603a;
+  box-shadow: 0 0 6px rgba(192, 96, 58, 0.6);
+}
+[data-variant="warm"] .legend-dot.locked {
+  background: #8c7c6d;
+}
+
+/* Warm Phase Header */
+[data-variant="warm"] .phase-header-banner {
+  background: #fffdf9;
+  border: 1px solid #e6d9c7;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(76, 47, 24, 0.04);
+}
+[data-variant="warm"] .phase-pill {
+  font-weight: 700;
+  border-radius: 6px;
+}
+[data-variant="warm"] .phase-group.completed .phase-pill {
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+[data-variant="warm"] .phase-group.in-progress .phase-pill {
+  background: #f3e2d3;
+  color: #a64724;
+  border: 1px solid #e6cca9;
+}
+[data-variant="warm"] .phase-group.locked .phase-pill {
+  background: #efe8dd;
+  color: #8c7c6d;
+  border: 1px solid #dacbb9;
+}
+[data-variant="warm"] .phase-name {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  color: #2b211a;
+}
+
+/* Warm Connected Timeline Rail */
+[data-variant="warm"] .step-connector-rail {
+  width: 2.5px;
+  background: #d8c7b5;
+  border-radius: 999px;
+}
+[data-variant="warm"] .timeline-step.completed .step-connector-rail {
+  background: #5e7d54;
+}
+[data-variant="warm"] .timeline-step.current .step-connector-rail {
+  background: linear-gradient(180deg, #c0603a 0%, #d8c7b5 100%);
+}
+[data-variant="warm"] .timeline-step.locked .step-connector-rail {
+  background: transparent;
+  border-left: 2px dashed #c8b7a5;
+}
+
+/* Warm Completed Nodes */
+[data-variant="warm"] .timeline-step.completed .step-node-marker {
+  background: #5e7d54;
+  border: 2px solid #486141;
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(94, 125, 84, 0.25);
+}
+[data-variant="warm"] .timeline-step.completed .step-node-marker svg {
+  stroke: #ffffff;
+  stroke-width: 2.6;
+}
+
+/* Warm Active Pulsing Terracotta Node (Step 5) */
+[data-variant="warm"] .timeline-step.current .step-node-marker {
+  background: #c0603a;
+  border: 2.5px solid #fffdf9;
+  color: #fff8f2;
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 700;
+  font-size: 15px;
+  animation: warm-terracotta-pulse 2.2s infinite ease-in-out;
+}
+
+@keyframes warm-terracotta-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(192, 96, 58, 0.7), 0 3px 10px rgba(192, 96, 58, 0.35);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(192, 96, 58, 0), 0 6px 18px rgba(192, 96, 58, 0.15);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(192, 96, 58, 0), 0 3px 10px rgba(192, 96, 58, 0.35);
+  }
+}
+
+/* Warm Bold XP Chip on current step card header */
+[data-variant="warm"] .timeline-step.current .step-card-header::after {
+  content: "⚡ +150 XP";
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--rm-font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+  letter-spacing: 0.02em;
+}
+
+/* Warm Locked Nodes */
+[data-variant="warm"] .timeline-step.locked .step-node-marker {
+  background: #efe8dd;
+  border: 2px solid #dacbb9;
+  color: #8c7c6d;
+  box-shadow: none;
+}
+[data-variant="warm"] .timeline-step.locked .step-node-marker svg {
+  stroke: #8c7c6d;
+  stroke-width: 2;
+}
+
+/* Warm Step Cards */
+[data-variant="warm"] .step-card {
+  background: #fffdf9;
+  border: 1px solid #e6d9c7;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px -4px rgba(76, 47, 24, 0.08);
+}
+[data-variant="warm"] .step-card:hover {
+  border-color: #c0603a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -6px rgba(76, 47, 24, 0.14);
+}
+
+[data-variant="warm"] .timeline-step.current .step-card {
+  background: #fffdf9;
+  border: 1.5px solid #c0603a;
+  box-shadow: 0 8px 28px -6px rgba(192, 96, 58, 0.22);
+}
+[data-variant="warm"] .timeline-step.current .step-card::before {
+  background: #c0603a;
+  width: 4px;
+  border-radius: 16px 0 0 16px;
+}
+
+[data-variant="warm"] .timeline-step.locked .step-card {
+  background: #f5efe6;
+  border: 1px solid #e2d4c2;
+  opacity: 0.85;
+  box-shadow: none;
+}
+
+[data-variant="warm"] .step-card-title {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  color: #2b211a;
+  letter-spacing: -0.015em;
+}
+[data-variant="warm"] .step-card-desc {
+  color: #7d6f60;
+}
+
+[data-variant="warm"] .step-card-action-btn.btn-resume {
+  background: #c0603a;
+  color: #fff8f2;
+  border: 1px solid #a64724;
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(192, 96, 58, 0.3);
+}
+[data-variant="warm"] .step-card-action-btn.btn-resume:hover {
+  background: #a64724;
+  transform: translateY(-1px);
+}
+[data-variant="warm"] .step-card-action-btn.btn-review {
+  background: #fffdf9;
+  color: #2b211a;
+  border: 1px solid #e6d9c7;
+  border-radius: 10px;
+  font-weight: 600;
+}
+[data-variant="warm"] .step-card-action-btn.btn-locked {
+  color: #8c7c6d;
+}
+
+[data-variant="warm"] .step-status-chip.completed {
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+[data-variant="warm"] .step-status-chip.current {
+  background: #f3e2d3;
+  color: #a64724;
+  border: 1px solid #e6cca9;
+}
+[data-variant="warm"] .step-status-chip.locked {
+  background: #efe8dd;
+  color: #8c7c6d;
+  border: 1px solid #dacbb9;
+}
+
+/* Warm Drawer Sheet */
+[data-variant="warm"] .drawer-sheet {
+  background: #fffdf9;
+  border-top: 1px solid #e6d9c7;
+  box-shadow: 0 -12px 36px rgba(43, 33, 26, 0.15);
+  border-radius: 24px 24px 0 0;
+}
+[data-variant="warm"] .drawer-handle-pill {
+  background: #d8c7b5;
+}
+[data-variant="warm"] .drawer-header {
+  border-bottom: 1px solid #e6d9c7;
+}
+[data-variant="warm"] .drawer-step-badge {
+  background: #f3e2d3;
+  color: #a64724;
+  border: 1px solid #e6cca9;
+}
+[data-variant="warm"] .drawer-step-title {
+  font-family: "Fraunces", Georgia, serif;
+  color: #2b211a;
+  font-weight: 600;
+}
+[data-variant="warm"] .drawer-chip {
+  background: #f7f1e8;
+  color: #2b211a;
+  border: 1px solid #e6d9c7;
+}
+[data-variant="warm"] .drawer-chip.chip-xp {
+  background: #fef3c7;
+  color: #92400e;
+  border-color: #fde68a;
+}
+[data-variant="warm"] .drawer-obj-item {
+  background: #f7f1e8;
+  border: 1px solid #e6d9c7;
+}
+[data-variant="warm"] .drawer-obj-num {
+  background: #c0603a;
+  color: #fff8f2;
+}
+[data-variant="warm"] .drawer-tech-tag {
+  background: #f7f1e8;
+  border: 1px solid #e6d9c7;
+  color: #7d6f60;
+}
+[data-variant="warm"] .btn-drawer-start {
+  background: #c0603a;
+  color: #fff8f2;
+  border: 1px solid #a64724;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(192, 96, 58, 0.4);
+  font-family: "Instrument Sans", system-ui, sans-serif;
+  font-weight: 600;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   6.5 VARIANT: MINIMAL ([data-variant="minimal"])
+   Monochrome, thin borders, zero box shadows, clean modern typography.
+   ─────────────────────────────────────────────────────────────────── */
+
+[data-variant="minimal"] {
+  --rm-font-display: "Space Grotesk", system-ui, sans-serif;
+  --rm-font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --rm-font-mono: "IBM Plex Mono", monospace;
+  --rm-r-xl: 10px;
+  --rm-r-lg: 8px;
+  --rm-r-md: 6px;
+  --rm-r-sm: 4px;
+  --rm-r-pill: 4px;
+}
+
+[data-variant="minimal"] .roadmap-hero-card {
+  box-shadow: none;
+  border-radius: 8px;
+}
+[data-variant="minimal"] .roadmap-hero-card::before {
+  display: none;
+}
+[data-variant="minimal"] .btn-hero-action {
+  box-shadow: none;
+  border-radius: 6px;
+}
+[data-variant="minimal"] .step-card {
+  box-shadow: none;
+  border-radius: 8px;
+}
+[data-variant="minimal"] .timeline-step.current .step-card {
+  box-shadow: none;
+}
+[data-variant="minimal"] .step-card-action-btn.btn-resume {
+  box-shadow: none;
+  border-radius: 4px;
+}
+[data-variant="minimal"] .drawer-sheet {
+  border-radius: 12px 12px 0 0;
+}
+[data-variant="minimal"] .btn-drawer-start {
+  box-shadow: none;
+  border-radius: 6px;
+}
+

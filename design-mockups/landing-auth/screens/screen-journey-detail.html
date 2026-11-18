@@ -1,0 +1,771 @@
+<!-- ═══════════════════════════════════════════════════════════════════
+     Skillar Mobile Prototype · Journey Detail & Cohort Progress
+     Screen ID: journey-detail (data-screen="journey-detail")
+     Aesthetic: Warm Minimal · Design Tokens Spec v1.0
+     ═══════════════════════════════════════════════════════════════════ -->
+
+<link rel="stylesheet" href="css/journey-detail.css" />
+<link rel="stylesheet" href="../css/journey-detail.css" />
+
+<section class="screen" data-screen="journey-detail" id="screen-journey-detail" aria-label="Journey Roadmap & Cohort Progress">
+  <div class="page page-journey-detail">
+
+    <!-- ──────────────────────── 1. Top Navigation Bar ──────────────────────── -->
+    <header class="journey-nav-bar anim">
+      <button class="nav-back-btn" type="button" data-goto="journeys" aria-label="Back to Journeys">
+        <svg class="back-chevron" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        <span class="back-text">‹ Back</span>
+      </button>
+
+      <div class="nav-title-group">
+        <h1 class="nav-title">Journey Roadmap</h1>
+        <span class="nav-subtitle">Senior Architect Track</span>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Cohort Chat Action -->
+        <button class="nav-action-btn btn-cohort-chat" type="button" aria-label="Cohort Chat (3 new discussions)" title="Cohort Chat" id="btn-open-cohort-chat">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+          </svg>
+          <span class="chat-badge-pulse" aria-hidden="true">3</span>
+        </button>
+
+        <!-- Journey Syllabus Download Action -->
+        <button class="nav-action-btn btn-syllabus-dl" type="button" aria-label="Download Journey Syllabus (PDF)" title="Download Syllabus" id="btn-download-syllabus">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- ──────────────────────── 2. Journey Overview Header Card ──────────────────────── -->
+    <section class="journey-card journey-overview-card anim" aria-labelledby="journey-overview-heading">
+      <div class="overview-top-badge-row">
+        <span class="track-tag">ARCHITECT TRACK</span>
+        <span class="journey-status-pill">
+          <span class="pill-dot"></span> Active Journey
+        </span>
+      </div>
+
+      <div class="overview-heading-block">
+        <h2 class="overview-track-title" id="journey-overview-heading">Senior Full-Stack Architect Track</h2>
+        <div class="overview-cohort-meta">
+          <div class="cohort-avatars-cluster" aria-hidden="true">
+            <span class="avatar-mini a1" title="Elena M.">EM</span>
+            <span class="avatar-mini a2" title="Sarah L.">SL</span>
+            <span class="avatar-mini a3" title="Devon R.">DR</span>
+            <span class="avatar-mini-count">+29</span>
+          </div>
+          <span class="cohort-name">Alpha 2026 Cohort</span>
+          <span class="cohort-dot">•</span>
+          <span class="cohort-size">32 Learners</span>
+        </div>
+      </div>
+
+      <div class="overview-progress-block">
+        <div class="progress-meta-row">
+          <div class="progress-left">
+            <span class="progress-percent-big">64%</span>
+            <span class="progress-percent-label">Complete</span>
+          </div>
+          <div class="progress-right">
+            <div class="est-completion-chip">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              <span>Est. completion: <strong>Dec 15, 2026</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="overview-progress-bar-track" role="progressbar" aria-valuenow="64" aria-valuemin="0" aria-valuemax="100" aria-label="Journey Progress: 64% complete">
+          <div class="overview-progress-bar-fill" style="width: 64%">
+            <span class="progress-shimmer"></span>
+          </div>
+        </div>
+
+        <div class="overview-metrics-grid">
+          <div class="metric-item">
+            <span class="m-val">Stage 2 of 4</span>
+            <span class="m-lbl">Current Stage</span>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-item">
+            <span class="m-val">7 / 11 Done</span>
+            <span class="m-lbl">Milestones</span>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-item">
+            <span class="m-val">94 / 100</span>
+            <span class="m-lbl">Evaluator Score</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────────────────── 3. Cohort Benchmark Card ──────────────────────── -->
+    <section class="journey-card cohort-benchmark-card anim" aria-labelledby="benchmark-heading">
+      <div class="benchmark-header">
+        <div class="benchmark-title-wrap">
+          <div class="benchmark-eyebrow">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 20V10M12 20V4M6 20v-6"/>
+            </svg>
+            COHORT BENCHMARK &amp; VELOCITY
+          </div>
+          <h3 class="benchmark-title" id="benchmark-heading">Pacing: Top 15% Completion Velocity</h3>
+        </div>
+        <div class="rank-badge" title="Ranked #4 of 32 learners in cohort">
+          <span class="rank-trophy">⚡</span>
+          <span class="rank-num">#4 / 32</span>
+        </div>
+      </div>
+
+      <!-- Comparative Bar Visualizer -->
+      <div class="benchmark-viz-container">
+        <!-- User Progress Row -->
+        <div class="viz-row">
+          <div class="viz-meta">
+            <span class="viz-user-label">You (Alex)</span>
+            <span class="viz-user-stat"><strong>64%</strong> complete</span>
+          </div>
+          <div class="viz-bar-track">
+            <div class="viz-bar-fill user-fill" style="width: 64%">
+              <span class="viz-marker">Top 15% Velocity</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cohort Average Progress Row -->
+        <div class="viz-row">
+          <div class="viz-meta">
+            <span class="viz-cohort-label">Cohort Average</span>
+            <span class="viz-cohort-stat"><strong>48%</strong> complete</span>
+          </div>
+          <div class="viz-bar-track">
+            <div class="viz-bar-fill cohort-fill" style="width: 48%"></div>
+            <div class="viz-delta-indicator" style="left: 48%; width: 16%">
+              <span class="delta-label">+16% ahead</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="benchmark-insight-callout">
+        <span class="insight-icon" aria-hidden="true">🎯</span>
+        <div class="insight-copy">
+          <span class="insight-text">
+            Learner is in <strong>Top 15% of cohort completion velocity</strong> (Avg cohort completion: 48%). Completing 1.8 milestones/week versus cohort median of 1.2.
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────────────────── 4. Four Stages Breakdown ──────────────────────── -->
+    <section class="stages-breakdown-section anim" aria-labelledby="stages-timeline-heading">
+      <div class="section-title-row">
+        <div>
+          <h3 class="stages-section-title" id="stages-timeline-heading">Curriculum Stages (4)</h3>
+          <p class="stages-section-sub">Milestone roadmap, evaluation scores &amp; panel gates</p>
+        </div>
+        <button class="expand-all-btn" type="button" id="btn-toggle-all-stages" aria-label="Toggle all stages details">
+          Expand All
+        </button>
+      </div>
+
+      <!-- Vertical Stage Timeline -->
+      <div class="stages-timeline" role="list">
+
+        <!-- ══ STAGE 1: COMPLETED ══ -->
+        <div class="stage-node stage-completed" role="listitem" data-stage="1">
+          <div class="stage-rail">
+            <div class="stage-marker-circle" aria-label="Stage 1 Completed">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <div class="stage-rail-line"></div>
+          </div>
+
+          <div class="stage-card">
+            <header class="stage-card-header" tabindex="0" role="button" aria-expanded="false" aria-controls="stage-1-content">
+              <div class="stage-tag-row">
+                <span class="stage-step-chip">STAGE 1 OF 4</span>
+                <span class="badge-status-completed">✓ Completed Oct 28</span>
+              </div>
+              <h4 class="stage-card-title">Stage 1: Enterprise Microfrontends &amp; Native Foundations</h4>
+              <div class="stage-summary-pills">
+                <span class="summary-pill">
+                  <span class="pill-icon">📋</span> 4 milestones completed
+                </span>
+                <span class="summary-pill score-pill">
+                  <span class="pill-icon">⭐️</span> Evaluator score: <strong>94/100</strong>
+                </span>
+                <span class="summary-pill date-pill">
+                  <span class="pill-icon">🗓</span> Completed Oct 28
+                </span>
+              </div>
+              <span class="stage-chevron" aria-hidden="true">›</span>
+            </header>
+
+            <div class="stage-collapsible-content" id="stage-1-content">
+              <div class="evaluator-feedback-box">
+                <div class="feedback-author">
+                  <span class="evaluator-avatar">ER</span>
+                  <div class="author-details">
+                    <span class="author-name">Elena Rostova</span>
+                    <span class="author-title">Principal Architecture Reviewer · Oct 28</span>
+                  </div>
+                </div>
+                <blockquote class="feedback-quote">
+                  "Exemplary architectural isolation and benchmark performance. TurboModule boundary contracts and state hydration met high-volume enterprise criteria."
+                </blockquote>
+              </div>
+
+              <div class="milestones-checklist">
+                <div class="milestone-item is-done">
+                  <div class="ms-check-icon">✓</div>
+                  <div class="ms-info">
+                    <span class="ms-title">1.1 Module federation &amp; isolated runtime sandboxing</span>
+                    <span class="ms-meta">Evaluated: 95/100 · Completed Oct 12</span>
+                  </div>
+                </div>
+                <div class="milestone-item is-done">
+                  <div class="ms-check-icon">✓</div>
+                  <div class="ms-info">
+                    <span class="ms-title">1.2 Native bridge architectures (TurboModules &amp; Fabric)</span>
+                    <span class="ms-meta">Evaluated: 93/100 · Completed Oct 18</span>
+                  </div>
+                </div>
+                <div class="milestone-item is-done">
+                  <div class="ms-check-icon">✓</div>
+                  <div class="ms-info">
+                    <span class="ms-title">1.3 Cross-platform design token synchronization</span>
+                    <span class="ms-meta">Evaluated: 96/100 · Completed Oct 24</span>
+                  </div>
+                </div>
+                <div class="milestone-item is-done">
+                  <div class="ms-check-icon">✓</div>
+                  <div class="ms-info">
+                    <span class="ms-title">1.4 Microfrontend state orchestration &amp; telemetry</span>
+                    <span class="ms-meta">Evaluated: 92/100 · Completed Oct 28</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ STAGE 2: ACTIVE · CURRENT ══ -->
+        <div class="stage-node stage-active" role="listitem" data-stage="2">
+          <div class="stage-rail">
+            <div class="stage-marker-circle active-glow" aria-label="Stage 2 Active Current Stage">
+              <span class="active-pulse-ring"></span>
+              <span class="active-num">2</span>
+            </div>
+            <div class="stage-rail-line"></div>
+          </div>
+
+          <div class="stage-card active-card">
+            <header class="stage-card-header active-header">
+              <div class="stage-tag-row">
+                <span class="stage-step-chip active-chip">STAGE 2 OF 4</span>
+                <span class="badge-status-active">
+                  <span class="pulsing-live-dot"></span> Active · Current Stage
+                </span>
+              </div>
+              <h4 class="stage-card-title">Stage 2: Scalable Distributed Systems &amp; Caching</h4>
+              <p class="stage-lead-desc">Event-driven streaming pipelines, multi-region cache coherency, and network partition resiliency.</p>
+            </header>
+
+            <div class="stage-active-body">
+              <div class="milestones-timeline-inner">
+
+                <!-- Milestone 2.1: Kafka (Done) -->
+                <div class="milestone-card milestone-done">
+                  <div class="ms-status-badge badge-done">
+                    <span class="badge-icon">✓</span> Done
+                  </div>
+                  <div class="ms-body">
+                    <div class="ms-name-row">
+                      <h5 class="ms-heading">Milestone 2.1: Event-driven architecture with Kafka</h5>
+                    </div>
+                    <p class="ms-desc">Multi-partition broker configuration, consumer rebalancing listeners, and idempotent producer semantics.</p>
+                    <div class="ms-footer-meta">
+                      <span class="meta-tag">Deliverable verified · Evaluator Score: 96/100</span>
+                      <span class="meta-tag date">Nov 4</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Milestone 2.2: Redis (Done) -->
+                <div class="milestone-card milestone-done">
+                  <div class="ms-status-badge badge-done">
+                    <span class="badge-icon">✓</span> Done
+                  </div>
+                  <div class="ms-body">
+                    <div class="ms-name-row">
+                      <h5 class="ms-heading">Milestone 2.2: Distributed caching patterns with Redis</h5>
+                    </div>
+                    <p class="ms-desc">Cache-aside and write-through caching patterns, Redis Cluster failover, and dogpiling prevention locks.</p>
+                    <div class="ms-footer-meta">
+                      <span class="meta-tag">Deliverable verified · Evaluator Score: 92/100</span>
+                      <span class="meta-tag date">Nov 11</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Milestone 2.3: In Progress (CURRENT ACTION) -->
+                <div class="milestone-card milestone-in-progress" id="milestone-2-3-card">
+                  <div class="ms-status-badge badge-wip" id="badge-m23-status">
+                    <span class="spinner-dot"></span> In Progress · Due in 6 days
+                  </div>
+                  <div class="ms-body">
+                    <div class="ms-name-row">
+                      <h5 class="ms-heading highlight-heading">Milestone 2.3: Idempotent API design &amp; network resiliency</h5>
+                    </div>
+                    <p class="ms-desc">
+                      Implement idempotent request tokens with sliding window Redis TTL locks, exponential backoff retries with full jitter, and circuit breaker patterns.
+                    </p>
+
+                    <div class="ms-checklist-preview">
+                      <div class="chk-item met">
+                        <span class="chk-icon">✓</span>
+                        <span>Architecture RFC &amp; sequence diagram drafted</span>
+                      </div>
+                      <div class="chk-item pending" id="chk-item-submission">
+                        <span class="chk-icon">○</span>
+                        <span>Chaos engineering test suite &amp; repository PR</span>
+                      </div>
+                    </div>
+
+                    <div class="ms-deadline-warning">
+                      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                      </svg>
+                      <span>Deadline: <strong>Sunday, Nov 24 · Due in 6 days</strong></span>
+                    </div>
+
+                    <!-- Highlighted CTA Button -->
+                    <button class="btn-submit-deliverable btn btn-primary" type="button" id="btn-submit-m23" aria-label="Submit Milestone 2.3 Deliverable">
+                      <span id="btn-m23-text">Submit Milestone 2.3 Deliverable</span>
+                      <span class="btn-arrow" aria-hidden="true">→</span>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ STAGE 3: UPCOMING ══ -->
+        <div class="stage-node stage-upcoming" role="listitem" data-stage="3">
+          <div class="stage-rail">
+            <div class="stage-marker-circle upcoming-circle" aria-label="Stage 3 Upcoming">
+              <span class="stage-num-label">3</span>
+            </div>
+            <div class="stage-rail-line"></div>
+          </div>
+
+          <div class="stage-card upcoming-card">
+            <header class="stage-card-header">
+              <div class="stage-tag-row">
+                <span class="stage-step-chip">STAGE 3 OF 4</span>
+                <span class="badge-status-upcoming">Upcoming</span>
+              </div>
+              <h4 class="stage-card-title">Stage 3: Cloud Native Infrastructure &amp; High Availability</h4>
+              <p class="stage-lead-desc">K8s cluster automation, CI/CD pipeline security, service meshes, and multi-region failover.</p>
+            </header>
+
+            <div class="upcoming-preview-items">
+              <div class="upcoming-preview-row">
+                <span class="dot-preview"></span>
+                <span>K8s cluster automation, ingress controllers &amp; HPA scaling</span>
+              </div>
+              <div class="upcoming-preview-row">
+                <span class="dot-preview"></span>
+                <span>CI/CD pipeline security with supply-chain provenance (SLSA)</span>
+              </div>
+              <div class="upcoming-preview-row">
+                <span class="dot-preview"></span>
+                <span>Active-active multi-region failover &amp; chaos drill validation</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ STAGE 4: CAPSTONE DEFENSE (LOCKED) ══ -->
+        <div class="stage-node stage-locked" role="listitem" data-stage="4">
+          <div class="stage-rail">
+            <div class="stage-marker-circle locked-circle" aria-label="Stage 4 Locked Gate">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="stage-card locked-card">
+            <header class="stage-card-header">
+              <div class="stage-tag-row">
+                <span class="stage-step-chip">STAGE 4 OF 4 · CAPSTONE GATE</span>
+                <span class="badge-status-locked">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                  </svg>
+                  Locked
+                </span>
+              </div>
+              <h4 class="stage-card-title">Stage 4: Capstone Defense &amp; Panel Evaluation</h4>
+              <p class="stage-lead-desc">Live presentation before enterprise architecture review board with principal architects.</p>
+            </header>
+
+            <div class="locked-card-footer">
+              <span class="lock-shield-icon" aria-hidden="true">🛡</span>
+              <span class="lock-explainer">
+                Unlocks after completion of Stages 1–3. Requires defense of end-to-end production architecture specification.
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ──────────────────────── 5. Mobile Bottom Tab Bar ──────────────────────── -->
+    <nav class="journey-bottom-nav" aria-label="Main Navigation">
+      <div class="tab-bar-inner" role="tablist">
+        <!-- Tab 1: Dashboard -->
+        <button class="nav-tab" type="button" role="tab" aria-selected="false" data-goto="dashboard" aria-label="Learner Dashboard">
+          <div class="tab-icon-wrap">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <span class="tab-label">Dashboard</span>
+        </button>
+
+        <!-- Tab 2: Explore -->
+        <button class="nav-tab" type="button" role="tab" aria-selected="false" data-goto="explore" aria-label="Explore learning modules">
+          <div class="tab-icon-wrap">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+            </svg>
+          </div>
+          <span class="tab-label">Explore</span>
+        </button>
+
+        <!-- Tab 3: Learning -->
+        <button class="nav-tab" type="button" role="tab" aria-selected="false" data-goto="learning" aria-label="My Learning roadmaps">
+          <div class="tab-icon-wrap">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+          </div>
+          <span class="tab-label">Learning</span>
+        </button>
+
+        <!-- Tab 4: Journeys (Active) -->
+        <button class="nav-tab is-active" type="button" role="tab" aria-selected="true" data-goto="journeys" aria-label="Learning Journeys (active tab)">
+          <div class="tab-icon-wrap">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="2"/>
+              <path d="M12 2v8M12 14v8M4.93 4.93l5.66 5.66M13.41 13.41l5.66 5.66M2 12h8M14 12h8M4.93 19.07l5.66-5.66M13.41 10.59l5.66-5.66"/>
+            </svg>
+            <span class="tab-active-dot" aria-hidden="true"></span>
+          </div>
+          <span class="tab-label">Journeys</span>
+        </button>
+
+        <!-- Tab 5: Profile -->
+        <button class="nav-tab" type="button" role="tab" aria-selected="false" data-goto="profile" aria-label="Learner Profile and settings">
+          <div class="tab-icon-wrap">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <span class="tab-label">Profile</span>
+        </button>
+      </div>
+    </nav>
+
+  </div>
+
+  <!-- ──────────────────────── 6. Interactive Sheets & Modals ──────────────────────── -->
+  <!-- Deliverable Submission Sheet Modal -->
+  <div class="journey-sheet-backdrop" id="deliverable-sheet-backdrop" aria-hidden="true">
+    <div class="journey-sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+      <div class="sheet-grabber"></div>
+      <header class="sheet-header">
+        <div>
+          <span class="sheet-eyebrow">MILESTONE 2.3 DELIVERABLE</span>
+          <h3 class="sheet-title" id="sheet-title">Submit Deliverable</h3>
+        </div>
+        <button class="sheet-close-btn" type="button" id="btn-close-deliverable-sheet" aria-label="Close submission modal">✕</button>
+      </header>
+
+      <form class="sheet-form" id="deliverable-form" onsubmit="return false;">
+        <div class="sheet-field">
+          <label class="sheet-label" for="repo-url-input">GitHub Repository or Pull Request URL</label>
+          <input class="sheet-input" id="repo-url-input" type="url" placeholder="https://github.com/acme/distributed-resiliency/pull/82" value="https://github.com/acme/distributed-resiliency/pull/82" required />
+        </div>
+
+        <div class="sheet-field">
+          <label class="sheet-label" for="notes-input">Architecture Summary &amp; Chaos Test Notes</label>
+          <textarea class="sheet-textarea" id="notes-input" rows="3" placeholder="Summary of idempotent tokens, retry policies and Kafka partition consumer benchmarks...">Implemented idempotency keys in Redis Cluster with 48h sliding TTL. Tested 30% synthetic packet drops with zero duplicate orders recorded.</textarea>
+        </div>
+
+        <div class="sheet-checklist-verify">
+          <label class="chk-container">
+            <input type="checkbox" id="chk-chaos-included" checked />
+            <span class="checkmark"></span>
+            <span class="chk-label">Included automated chaos test suite and architectural RFC diagram</span>
+          </label>
+        </div>
+
+        <div class="sheet-actions">
+          <button class="btn btn-secondary sheet-cancel-btn" type="button" id="btn-cancel-deliverable">Cancel</button>
+          <button class="btn btn-primary sheet-submit-btn" type="button" id="btn-confirm-submission">
+            Confirm &amp; Send to Evaluator
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Cohort Discussion Sheet Modal -->
+  <div class="journey-sheet-backdrop" id="cohort-chat-backdrop" aria-hidden="true">
+    <div class="journey-sheet cohort-chat-sheet" role="dialog" aria-modal="true" aria-labelledby="chat-sheet-title">
+      <div class="sheet-grabber"></div>
+      <header class="sheet-header">
+        <div class="chat-header-details">
+          <span class="sheet-eyebrow">COHORT CHANNEL</span>
+          <h3 class="sheet-title" id="chat-sheet-title">#alpha-2026-architects</h3>
+          <span class="chat-members-count">32 learners · 4 mentors active</span>
+        </div>
+        <button class="sheet-close-btn" type="button" id="btn-close-chat-sheet" aria-label="Close cohort chat">✕</button>
+      </header>
+
+      <div class="chat-messages-container" id="chat-messages-stream">
+        <div class="chat-message-bubble other">
+          <span class="msg-sender">Elena Rostova · Evaluator</span>
+          <p class="msg-body">Heads up team: remember that Milestone 2.3 requires demonstrating circuit breaker recovery when the upstream Redis replica goes down.</p>
+          <span class="msg-time">10:45 AM</span>
+        </div>
+        <div class="chat-message-bubble user">
+          <span class="msg-sender">You</span>
+          <p class="msg-body">Thanks Elena! I just verified the backoff jitter tests with 10k concurrent simulated requests.</p>
+          <span class="msg-time">11:02 AM</span>
+        </div>
+        <div class="chat-message-bubble other">
+          <span class="msg-sender">Siddharth Rao · Learner</span>
+          <p class="msg-body">Anyone using the token bucket limiter pattern for Milestone 2.3? Happy to share benchmark scripts in repo.</p>
+          <span class="msg-time">11:15 AM</span>
+        </div>
+      </div>
+
+      <div class="chat-input-bar">
+        <input class="chat-input" id="chat-input-field" type="text" placeholder="Message Alpha 2026 cohort..." />
+        <button class="btn-chat-send" id="btn-send-chat" type="button" aria-label="Send message">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ──────────────────────── 7. Scoped Interactive Logic ──────────────────────── -->
+  <script>
+    (function () {
+      "use strict";
+
+      function showPrototypeToast(msg) {
+        var toast = document.getElementById("toast");
+        if (!toast) {
+          toast = document.createElement("div");
+          toast.id = "toast";
+          toast.className = "toast";
+          document.body.appendChild(toast);
+        }
+        toast.textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(function () {
+          toast.classList.remove("show");
+        }, 3400);
+      }
+
+      // Stage accordion expansion
+      var stage1Header = document.querySelector('[aria-controls="stage-1-content"]');
+      var stage1Content = document.getElementById("stage-1-content");
+      if (stage1Header && stage1Content) {
+        stage1Header.addEventListener("click", function () {
+          var isExpanded = stage1Header.getAttribute("aria-expanded") === "true";
+          stage1Header.setAttribute("aria-expanded", isExpanded ? "false" : "true");
+          stage1Content.classList.toggle("is-open", !isExpanded);
+        });
+        stage1Header.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            stage1Header.click();
+          }
+        });
+      }
+
+      // Expand / Collapse All stages
+      var toggleAllBtn = document.getElementById("btn-toggle-all-stages");
+      if (toggleAllBtn) {
+        toggleAllBtn.addEventListener("click", function () {
+          var isExpanded = stage1Header.getAttribute("aria-expanded") === "true";
+          stage1Header.setAttribute("aria-expanded", isExpanded ? "false" : "true");
+          stage1Content.classList.toggle("is-open", !isExpanded);
+          toggleAllBtn.textContent = isExpanded ? "Expand All" : "Collapse All";
+        });
+      }
+
+      // Deliverable submission sheet modal
+      var deliverableBackdrop = document.getElementById("deliverable-sheet-backdrop");
+      var btnSubmitM23 = document.getElementById("btn-submit-m23");
+      var btnCloseDeliverable = document.getElementById("btn-close-deliverable-sheet");
+      var btnCancelDeliverable = document.getElementById("btn-cancel-deliverable");
+      var btnConfirmSubmission = document.getElementById("btn-confirm-submission");
+
+      function openDeliverableSheet() {
+        if (deliverableBackdrop) {
+          deliverableBackdrop.classList.add("is-open");
+          deliverableBackdrop.setAttribute("aria-hidden", "false");
+        }
+      }
+
+      function closeDeliverableSheet() {
+        if (deliverableBackdrop) {
+          deliverableBackdrop.classList.remove("is-open");
+          deliverableBackdrop.setAttribute("aria-hidden", "true");
+        }
+      }
+
+      if (btnSubmitM23) btnSubmitM23.addEventListener("click", openDeliverableSheet);
+      if (btnCloseDeliverable) btnCloseDeliverable.addEventListener("click", closeDeliverableSheet);
+      if (btnCancelDeliverable) btnCancelDeliverable.addEventListener("click", closeDeliverableSheet);
+      if (deliverableBackdrop) {
+        deliverableBackdrop.addEventListener("click", function (e) {
+          if (e.target === deliverableBackdrop) closeDeliverableSheet();
+        });
+      }
+
+      if (btnConfirmSubmission) {
+        btnConfirmSubmission.addEventListener("click", function () {
+          closeDeliverableSheet();
+          // Update milestone 2.3 card to submitted state
+          var badge = document.getElementById("badge-m23-status");
+          if (badge) {
+            badge.className = "ms-status-badge badge-done";
+            badge.innerHTML = '<span class="badge-icon">✓</span> Submitted · Under Review';
+          }
+          var chk = document.getElementById("chk-item-submission");
+          if (chk) {
+            chk.className = "chk-item met";
+            chk.innerHTML = '<span class="chk-icon">✓</span> <span>Chaos test suite & PR submitted to Elena Rostova</span>';
+          }
+          var btnText = document.getElementById("btn-m23-text");
+          if (btnText) {
+            btnText.textContent = "Deliverable Submitted ✓";
+          }
+          if (btnSubmitM23) {
+            btnSubmitM23.style.background = "#15803d";
+            btnSubmitM23.style.pointerEvents = "none";
+          }
+          showPrototypeToast("🎉 Deliverable submitted! Sent to Elena Rostova for evaluation.");
+        });
+      }
+
+      // Cohort chat sheet modal
+      var chatBackdrop = document.getElementById("cohort-chat-backdrop");
+      var btnOpenChat = document.getElementById("btn-open-cohort-chat");
+      var btnCloseChat = document.getElementById("btn-close-chat-sheet");
+      var chatInput = document.getElementById("chat-input-field");
+      var btnSendChat = document.getElementById("btn-send-chat");
+      var chatStream = document.getElementById("chat-messages-stream");
+
+      function openChat() {
+        if (chatBackdrop) {
+          chatBackdrop.classList.add("is-open");
+          chatBackdrop.setAttribute("aria-hidden", "false");
+        }
+      }
+
+      function closeChat() {
+        if (chatBackdrop) {
+          chatBackdrop.classList.remove("is-open");
+          chatBackdrop.setAttribute("aria-hidden", "true");
+        }
+      }
+
+      if (btnOpenChat) btnOpenChat.addEventListener("click", openChat);
+      if (btnCloseChat) btnCloseChat.addEventListener("click", closeChat);
+      if (chatBackdrop) {
+        chatBackdrop.addEventListener("click", function (e) {
+          if (e.target === chatBackdrop) closeChat();
+        });
+      }
+
+      function sendMessage() {
+        if (!chatInput) return;
+        var text = chatInput.value.trim();
+        if (!text) return;
+        var bubble = document.createElement("div");
+        bubble.className = "chat-message-bubble user";
+        bubble.innerHTML = '<span class="msg-sender">You</span><p class="msg-body">' + escapeHtml(text) + '</p><span class="msg-time">Just now</span>';
+        if (chatStream) {
+          chatStream.appendChild(bubble);
+          chatStream.scrollTop = chatStream.scrollHeight;
+        }
+        chatInput.value = "";
+      }
+
+      function escapeHtml(str) {
+        var d = document.createElement("div");
+        d.textContent = str;
+        return d.innerHTML;
+      }
+
+      if (btnSendChat) btnSendChat.addEventListener("click", sendMessage);
+      if (chatInput) {
+        chatInput.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            sendMessage();
+          }
+        });
+      }
+
+      // Syllabus download button
+      var btnSyllabus = document.getElementById("btn-download-syllabus");
+      if (btnSyllabus) {
+        btnSyllabus.addEventListener("click", function () {
+          showPrototypeToast("📥 Alpha_2026_Architect_Syllabus.pdf (2.4 MB) downloaded!");
+        });
+      }
+
+    })();
+  </script>
+
+</section>
